@@ -263,7 +263,7 @@ if (
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="../report/family.php" class="nav-link <?php if ($_SERVER['REQUEST_URI'] === '/brgyv2/admin/report/family.php')
+                  <a href="../report/report_famplan.php" class="nav-link <?php if ($_SERVER['REQUEST_URI'] === '/brgyv2/admin/report/family.php')
                     echo 'active'; ?>">
                     <i class="fas fa-list fa-lg nav-icon"></i>
                     <p>Family Planning</p>
