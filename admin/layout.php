@@ -23,7 +23,8 @@
 
   <!-- DataTables JavaScript -->
   <script type="text/javascript" charset="utf8"
-    src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+    src="https://cdn.datatables.net/2.0.5/js/dataTables.min.js"></script>
+    
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <style>
