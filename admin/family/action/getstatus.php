@@ -1,8 +1,8 @@
 <?php
-require("../../../config.php");
+require ("../../../config.php");
 
 // Check if 'status' key exists in $_POST array
-if(isset($_POST['status'])) {
+if (isset($_POST['status'])) {
     // Retrieve the selected status
     $status = $_POST['status'];
 
@@ -20,7 +20,8 @@ if(isset($_POST['status'])) {
         JOIN patients ON fp_information.patient_id = patients.id
         JOIN fp_consultation ON fp_consultation.fp_information_id = fp_information.id
         JOIN fp_obstetrical_history ON fp_information.id =  fp_obstetrical_history.fp_information_id
-        JOIN nurses ON fp_information.nurse_id = nurses.id WHERE status = '$status'";
+        JOIN nurses ON fp_information.nurse_id = nurses.id WHERE status = '$status'
+        GROUP BY full_name";
     }
 
     // Execute the SQL query
@@ -42,8 +43,9 @@ if(isset($_POST['status'])) {
                 $tableRows .= '<td class="align-middle">' . $row['full_name'] . '</td>';
                 $tableRows .= '<td class="align-middle">' . $row['checkup_date'] . '</td>';
                 $tableRows .= '<td class="align-middle">' . $row['status'] . '</td>';
+                $tableRows .= '<td class="align-middle tago">' . $row['patient_id'] . '</td>';
                 $tableRows .= '<td class="align-middle">';
-                $tableRows .= '<a href="history_consultation.php?id=' . $row['id'] . '"><button type="button" class="btn btn-warning ml-1">View History</button></a>';
+                $tableRows .= '<a href="history_consultation.php?patient_id=' . $row['patient_id'] . '"><button type="button" class="btn btn-warning ml-1">View History</button></a>';
                 $tableRows .= '<button type="button" class="btn btn-info editbtn" data-row-id="' . $row['id'] . '"><i class="fas fa-eye"></i> View Record</button>';
                 $tableRows .= '<button type="button" class="btn btn-success editbtn2" data-row-id="' . $row['id'] . '"><i class="fas fa-edit"></i> Add Consultation</button>';
                 $tableRows .= '<button type="button" class="btn btn-danger deletebtn" data-id="' . $row['id'] . '"><i class="fas fa-trash"></i> Delete</button>';
