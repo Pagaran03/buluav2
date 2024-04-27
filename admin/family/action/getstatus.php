@@ -1,12 +1,10 @@
 <?php
 require ("../../../config.php");
 
-// Check if 'status' key exists in $_POST array
 if (isset($_POST['status'])) {
-    // Retrieve the selected status
+
     $status = $_POST['status'];
 
-    // Construct SQL query based on the selected status
     if ($status == 'All') {
         $sql = "SELECT *,fp_information.id as id,CONCAT(patients.last_name,' ',patients.first_name) as full_name,nurses.first_name as first_name2,nurses.last_name as last_name2, fp_obstetrical_history.fp_information_id as fp_information_id
         FROM fp_information
@@ -53,10 +51,9 @@ if (isset($_POST['status'])) {
                 $tableRows .= '</tr>';
             }
 
-            // Send the HTML table rows as response
             echo $tableRows;
         } else {
-            // No rows returned
+
             echo "<tr><td colspan='6'>No data found</td></tr>";
         }
     } else {

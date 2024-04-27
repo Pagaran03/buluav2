@@ -1,6 +1,6 @@
 <?php
 // Include your database configuration file
-include_once('../../config.php');
+include_once ('../../config.php');
 
 
 $sql = "SELECT * FROM patients WHERE is_active = 0 AND patients.is_deleted = 0 ORDER BY serial_no DESC";
@@ -249,6 +249,7 @@ if ($result2->num_rows > 0) {
                 <table id="patientTableBody" class="table table-head-fixed text-nowrap table-striped">
                     <thead class="thead-light">
                         <tr>
+                            <th style="display: none;">ID</th>
                             <th>Serial Number</th>
                             <th>First Name</th>
                             <th>Last Name</th>
@@ -263,6 +264,9 @@ if ($result2->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
                                 ?>
                                 <tr>
+                                    <td class="align-middle" style="display: none;">
+                                        <?php echo $row['id']; ?>
+                                    </td>
                                     <td class="align-middle">
                                         <?php echo $row['serial_no']; ?>
                                     </td>
@@ -279,7 +283,7 @@ if ($result2->num_rows > 0) {
                                         <?php echo $row['address']; ?>
                                     </td>
                                     <td class="align-middle">
-                                    <a href="history.php?id=<?php echo $row['id']; ?>"><button type="button"
+                                        <a href="history.php?id=<?php echo $row['id']; ?>"><button type="button"
                                                 class="btn btn-warning ml-1">View History</button></a>
                                         <button type="button" class="btn btn-success editbtn"
                                             data-patient-id="<?php echo $row['serial_no']; ?>">
@@ -516,13 +520,14 @@ if ($result2->num_rows > 0) {
         <?php if ($result->num_rows > 0): ?>
             var table = $('#patientTableBody').DataTable({
                 columnDefs: [
-                    { targets: 0, data: 'serial_no' },
-                    { targets: 1, data: 'first_name' },
-                    { targets: 2, data: 'last_name' },
-                    { targets: 3, data: 'birthdate' },
-                    { targets: 4, data: 'address' },
+                    { targets: 0, data: 'id' },
+                    { targets: 1, data: 'serial_no' },
+                    { targets: 2, data: 'first_name' },
+                    { targets: 3, data: 'last_name' },
+                    { targets: 4, data: 'birthdate' },
+                    { targets: 5, data: 'address' },
                     {
-                        targets: 5,
+                        targets: 6,
                         searchable: false,
                         data: null,
                         render: function (data, type, row) {
