@@ -1,6 +1,6 @@
 <?php
 // Include your database configuration file
-include_once('../../../config.php');
+include_once ('../../../config.php');
 
 $primary_id = $_POST['primary_id'];
 
@@ -10,6 +10,9 @@ $income = $_POST['income'];
 $plan_to_have_more_children = $_POST['plan_to_have_more_children'];
 $client_type = $_POST['client_type'];
 $reason_for_fp = $_POST['reason_for_fp'];
+
+//Variables for Updatig fp_consultation table
+$status = $_POST['status'];
 
 // Variables for updating fp_medical_history table
 
@@ -75,6 +78,11 @@ try {
     $updateObstetricalStmt = $conn->prepare($updateObstetricalSql);
     $updateObstetricalStmt->bind_param("sssssi", $no_of_pregnancies, $date_of_last_delivery, $last_period, $type_of_last_delivery, $mens_type, $primary_id);
 
+
+    // Update query for fp_consultation table
+    $updateConsultSql = "UPDATE fp_consultation SET status=? WHERE fp_information_id=?";
+    $updateConsultStmt = $conn->prepare($updateConsultSql);
+    $updateConsultStmt->bind_param("si", $status, $primary_id);
     // Update query for fp_risk_for_sexuality table
     // $updateRiskSql = "UPDATE fp_risk_for_sexuality SET abnormal_discharge=?, genital_sores_ulcers=?, genital_pain_burning_sensation=?, treatment_for_sti=?, hiv_aids_pid=? WHERE id=?";
     // $updateRiskStmt = $conn->prepare($updateRiskSql);
@@ -94,12 +102,13 @@ try {
     $updateInfoSuccess = $updateInfoStmt->execute();
     $updateHistorySuccess = $updateHistoryStmt->execute();
     $updateObstetricalSuccess = $updateObstetricalStmt->execute();
+    $updateConsultSuccess = $updateConsultStmt->execute();
     // $updateRiskSuccess = $updateRiskStmt->execute();
     // $updateViolenceSuccess = $updateViolenceStmt->execute();
     $updateExaminationSuccess = $updateExaminationStmt->execute();
 
     // if ($updateInfoSuccess && $updateHistorySuccess && $updateObstetricalSuccess && $updateRiskSuccess && $updateViolenceSuccess && $updateExaminationSuccess) {
-       if ($updateInfoSuccess && $updateHistorySuccess && $updateObstetricalSuccess  && $updateExaminationSuccess) {
+    if ($updateInfoSuccess && $updateHistorySuccess && $updateObstetricalSuccess && $updateConsultSuccess && $updateExaminationSuccess) {
         // Commit the transaction if all updates are successful
         $conn->commit();
         echo 'Success';

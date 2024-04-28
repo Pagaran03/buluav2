@@ -279,6 +279,11 @@ if ($result2->num_rows > 0) {
                                         <?php echo $row['address']; ?>
                                     </td>
                                     <td class="align-middle">
+                                        <button type="button" class="btn btn-info editbtns"
+                                            data-row-id="<?php echo $row['serial_no']; ?>">
+                                            <i class="fas fa-eye"></i> View Record
+                                        </button>
+
                                         <button type="button" class="btn btn-success editbtn"
                                             data-patient-id="<?php echo $row['serial_no']; ?>">
                                             <i class="fas fa-edit"></i> Update
@@ -524,9 +529,10 @@ if ($result2->num_rows > 0) {
                         searchable: false,
                         data: null,
                         render: function (data, type, row) {
+                            var viewRec = '<a href="history.php?id=' + row.id + '"><button type="button" class="btn btn-warning ml-1">View History</button></a>';
                             var editButton = '<button type="button" class="btn btn-success editbtn" data-patient-id="' + row.serial_no + '"><i class="fas fa-edit"></i> Update</button>';
                             var deleteButton = '<button type="button" class="btn btn-danger deletebtn" data-id="' + row.serial_no + '"><i class="fas fa-user-times"></i> Inactive</button>';
-                            return editButton + ' ' + deleteButton;
+                            return viewRec + '' + editButton + ' ' + deleteButton;
                         }
                     } // Action column
                 ],
@@ -564,9 +570,10 @@ if ($result2->num_rows > 0) {
                         searchable: false,
                         data: null,
                         render: function (data, type, row) {
+                            var viewRec = '<a href="history.php?id=' + row.id + '"><button type="button" class="btn btn-warning ml-1">View History</button></a>';
                             var editButton = '<button type="button" class="btn btn-success editbtn" data-patient-id="' + row.serial_no + '"><i class="fas fa-edit"></i> Update</button>';
                             var deleteButton = '<button type="button" class="btn btn-danger deletebtn" data-id="' + row.serial_no + '"><i class="fas fa-user-times"></i> Inactive</button>';
-                            return editButton + ' ' + deleteButton;
+                            return viewRec + '' + editButton + ' ' + deleteButton;
                         }
                     } // Action column
                 ],

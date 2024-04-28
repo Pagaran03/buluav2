@@ -1,21 +1,22 @@
 <?php
 // Include your database configuration file
-include_once('../../../config.php');
+include_once ('../../../config.php');
 
 $primary_id = $_POST['primary_id'];
 $method = $_POST['method'];
 $description = $_POST['description'];
 $diagnosis = $_POST['diagnosis'];
 $medicine = $_POST['medicine'];
+$status = $_POST['status'];
 
 try {
     // Start a transaction
     $conn->begin_transaction();
 
 
-    $consultationUpdateSql = "UPDATE fp_consultation SET method=?, description=?, diagnosis=?, medicine=? WHERE id=?";
+    $consultationUpdateSql = "UPDATE fp_consultation SET status=?,method=?, description=?, diagnosis=?, medicine=? WHERE id=?";
     $consultationStmt = $conn->prepare($consultationUpdateSql);
-    $consultationStmt->bind_param("ssssi", $method, $description, $diagnosis, $medicine, $primary_id);
+    $consultationStmt->bind_param("sssssi", $status, $method, $description, $diagnosis, $medicine, $primary_id);
 
 
     // Execute both update statements
