@@ -1,7 +1,11 @@
 <?php
-// Set content type headers
-header('Content-Type: text/plain');
-header('X-Content-Type-Options: nosniff');
+// Set appropriate response headers
+header("Content-Security-Policy: default-src 'self';"); // Set Content Security Policy header to restrict resource loading
+header('Content-Type: text/plain'); // Set the content type to plain text
+header('X-Content-Type-Options: nosniff'); // Prevent browsers from interpreting files as a different MIME type
+header('X-Frame-Options: DENY'); // Prevent clickjacking attacks
+header('Referrer-Policy: strict-origin-when-cross-origin'); // Control referrer information sent to other sites
+header('X-XSS-Protection: 1; mode=block'); // Enable XSS (Cross-Site Scripting) protection
 
 // Include your database configuration file
 include_once ('../../../config.php');
@@ -10,14 +14,25 @@ session_start();
 // Function to sanitize user input
 function sanitizeInput($input)
 {
-    // Remove only <h1> tags
-    $inputWithoutH1 = preg_replace('/<\/?h1>/', '', $input);
-
-    // Allow only specific HTML tags (in this case, <h1> is allowed)
-    $allowedTags = '<h1>';
-
-    // Strip tags except for allowed tags
-    return htmlspecialchars(strip_tags(trim($inputWithoutH1), $allowedTags), ENT_QUOTES, 'UTF-8');
+    // Remove all HTML tags using preg_replace
+    $input = preg_replace("/<[^>]*>/", "", trim($input));
+    // Use regular expression to remove potentially harmful characters
+    $input = preg_replace("/[^a-zA-Z0-9\s]/", "", $input);
+    // Remove SQL injection characters
+    $input = preg_replace("/[;#\*--]/", "", $input);
+    // Remove Javascript injection characters
+    $input = preg_replace("/[<>\"\']/", "", $input);
+    // Remove Shell injection characters
+    $input = preg_replace("/[|&\$\>\<'`\"]/", "", $input);
+    // Remove URL injection characters
+    $input = preg_replace("/[&\?=]/", "", $input);
+    // Remove File Path injection characters
+    $input = preg_replace("/[\/\\\\\.\.]/", "", $input);
+    // Remove control characters and whitespace
+    $input = preg_replace("/[\x00-\x1F\s]+/", "", $input);
+    // Remove script and content characters
+    $input = preg_replace("/<script[^>]*>(.*?)<\/script>/is", "", $input);
+    return $input;
 }
 
 
@@ -27,6 +42,7 @@ $subjective = sanitizeInput($_POST['subjective']);
 $objective = sanitizeInput($_POST['objective']);
 $assessment = sanitizeInput($_POST['assessment']);
 $plan = sanitizeInput($_POST['plan']);
+$status = sanitizeInput($_POST['status']);
 $date = date('Y-m-d');
 $doctor_id = sanitizeInput($_POST['doctor_id']);
 
@@ -64,9 +80,9 @@ if ($stmt_patient_id->execute()) {
         $stmt_patient_id->close();
 
         // Insert data into the consultations table
-        $sql_insert = "INSERT INTO consultations (patient_id, subjective, objective, assessment, plan, checkup_date, doctor_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $sql_insert = "INSERT INTO consultations (patient_id, subjective, objective, assessment, plan, checkup_date, status, doctor_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt_insert = $conn->prepare($sql_insert);
-        $stmt_insert->bind_param("sssssss", $patient_id, $subjective, $objective, $assessment, $plan, $date, $doctor_id);
+        $stmt_insert->bind_param("ssssssss", $patient_id, $subjective, $objective, $assessment, $plan, $date, $status, $doctor_id);
         if ($stmt_insert->execute()) {
             $last_inserted_id = $conn->insert_id;
             $sql2 = "INSERT INTO fp_medical_history (consultation_id, patient_id, severe_headaches, history_stroke_heart_attack_hypertension, hematoma_bruising_gum_bleeding, breast_cancer_breast_mass, severe_chest_pain, cough_more_than_14_days, vaginal_bleeding, vaginal_discharge, phenobarbital_rifampicin, smoker, with_disability, jaundice)

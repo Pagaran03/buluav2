@@ -1,13 +1,29 @@
 <?php
 // Include your database configuration file
-include_once('../../../config.php');
+include_once ('../../../config.php');
 
 // Function to sanitize user input
 function sanitizeInput($input)
 {
-    // Allow only specific HTML tags (in this case, <h1> is allowed)
-    $allowedTags = '<h1>';
-    return htmlspecialchars(strip_tags(trim($input), $allowedTags), ENT_QUOTES, 'UTF-8');
+    // Remove all HTML tags using preg_replace
+    $input = preg_replace("/<[^>]*>/", "", trim($input));
+    // Use regular expression to remove potentially harmful characters
+    $input = preg_replace("/[^a-zA-Z0-9\s]/", "", $input);
+    // Remove SQL injection characters
+    $input = preg_replace("/[;#\*--]/", "", $input);
+    // Remove Javascript injection characters
+    $input = preg_replace("/[<>\"\']/", "", $input);
+    // Remove Shell injection characters
+    $input = preg_replace("/[|&\$\>\<'`\"]/", "", $input);
+    // Remove URL injection characters
+    $input = preg_replace("/[&\?=]/", "", $input);
+    // Remove File Path injection characters
+    $input = preg_replace("/[\/\\\\\.\.]/", "", $input);
+    // Remove control characters and whitespace
+    $input = preg_replace("/[\x00-\x1F\s]+/", "", $input);
+    // Remove script and content characters
+    $input = preg_replace("/<script[^>]*>(.*?)<\/script>/is", "", $input);
+    return $input;
 }
 
 $primary_id = sanitizeInput($_POST['primary_id']);
@@ -17,6 +33,7 @@ $assessment = sanitizeInput($_POST['assessment']);
 $plan = sanitizeInput($_POST['plan']);
 $checkup_date = sanitizeInput($_POST['checkup_date']);
 $doctor_id = sanitizeInput($_POST['doctor_id']);
+$status = sanitizeInput($_POST['status']);
 
 $severe_headaches = sanitizeInput($_POST['severe_headaches']);
 $history_stroke_heart_attack_hypertension = sanitizeInput($_POST['history_stroke_heart_attack_hypertension']);
@@ -44,9 +61,9 @@ try {
     // Start a transaction
     $conn->begin_transaction();
 
-    $consultationUpdateSql = "UPDATE consultations SET  subjective=?, objective=?, assessment=?, plan=?, checkup_date=?, doctor_id=? WHERE id=?";
+    $consultationUpdateSql = "UPDATE consultations SET  subjective=?, objective=?, assessment=?, plan=?, checkup_date=?, status=?, doctor_id=? WHERE id=?";
     $consultationStmt = $conn->prepare($consultationUpdateSql);
-    $consultationStmt->bind_param("ssssssi", $subjective, $objective, $assessment, $plan, $checkup_date, $doctor_id, $primary_id);
+    $consultationStmt->bind_param("sssssssi", $subjective, $objective, $assessment, $plan, $checkup_date, $status, $doctor_id, $primary_id);
 
     $updateHistorySql = "UPDATE fp_medical_history SET severe_headaches=?, history_stroke_heart_attack_hypertension=?, hematoma_bruising_gum_bleeding=?, breast_cancer_breast_mass=?, severe_chest_pain=?, cough_more_than_14_days=?, vaginal_bleeding=?, vaginal_discharge=?, phenobarbital_rifampicin=?, smoker=?, with_disability=?, jaundice=? WHERE consultation_id=?";
     $updateHistoryStmt = $conn->prepare($updateHistorySql);
