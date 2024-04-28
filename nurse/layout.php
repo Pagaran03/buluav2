@@ -133,10 +133,17 @@
 
 
 
+            <li class="nav-item">
+              <a href="../family/family.php" class="nav-link">
+                <i class="fas fa-file-prescription fa-lg"></i>
+                <p>
+                  Family Planning
+                </p>
+              </a>
+            </li>
 
 
-
-            <li class="nav-item <?php
+            <!-- <li class="nav-item <?php
             if (
               strpos($_SERVER['REQUEST_URI'], '/brgyv2/admin/family/family.php') !== false ||
               strpos($_SERVER['REQUEST_URI'], '/brgyv2/admin/family/done_family.php') !== false
@@ -167,7 +174,7 @@
                   </a>
                 </li>
               </ul>
-            </li>
+            </li> -->
 
 
             <li class="nav-item <?php
