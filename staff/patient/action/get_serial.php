@@ -1,6 +1,5 @@
 <?php
-// Connect to your database (replace your_db_host, your_db_username, your_db_password, and your_db_name with your actual database details)
-$conn = new mysqli("localhost", "root", "", "brgy");
+include_once ('../../../config.php');
 
 // Check connection
 if ($conn->connect_error) {
