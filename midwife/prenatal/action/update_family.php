@@ -1,8 +1,9 @@
 <?php
 // Include your database configuration file
-include_once('../../../config.php');
+include_once ('../../../config.php');
 
 $primary_id = $_POST['primary_id'];
+$status = $_POST['status'];
 $nurse_id = $_POST['nurse_id'];
 $height = $_POST['height'];
 $weight = $_POST['weight'];
@@ -76,8 +77,9 @@ try {
 
 
     // Continue with your SQL update query
-$familyUpdateSql = "UPDATE prenatal_subjective SET 
-nurse_id=?, 
+    $familyUpdateSql = "UPDATE prenatal_subjective SET 
+nurse_id=?,
+status=?, 
 height=?, 
 weight=?, 
 temperature=?, 
@@ -111,43 +113,45 @@ heart_disease=?,
 obesity=?, 
 goiter=?
 WHERE id=?";
-$familyStmt = $conn->prepare($familyUpdateSql);
-$familyStmt->bind_param("sssssssssssssssssssssssssssssssssi",
-$nurse_id, 
-$height, 
-$weight, 
-$temperature, 
-$pr, 
-$rr, 
-$bp, 
-$menarche, 
-$lmp, 
-$gravida, 
-$para, 
-$fullterm, 
-$preterm, 
-$abortion, 
-$stillbirth, 
-$alive, 
-$hgb, 
-$ua, 
-$vdrl, 
-$forceps_delivery, 
-$smoking, 
-$allergy_alcohol_intake, 
-$previous_cs, 
-$consecutive_miscarriage, 
-$ectopic_pregnancy_h_mole, 
-$pp_bleeding, 
-$baby_weight_gt_4kgs, 
-$asthma, 
-$premature_contraction, 
-$dm, 
-$heart_disease, 
-$obesity, 
-$goiter, 
-$primary_id
-);
+    $familyStmt = $conn->prepare($familyUpdateSql);
+    $familyStmt->bind_param(
+        "ssssssssssssssssssssssssssssssssssi",
+        $nurse_id,
+        $status,
+        $height,
+        $weight,
+        $temperature,
+        $pr,
+        $rr,
+        $bp,
+        $menarche,
+        $lmp,
+        $gravida,
+        $para,
+        $fullterm,
+        $preterm,
+        $abortion,
+        $stillbirth,
+        $alive,
+        $hgb,
+        $ua,
+        $vdrl,
+        $forceps_delivery,
+        $smoking,
+        $allergy_alcohol_intake,
+        $previous_cs,
+        $consecutive_miscarriage,
+        $ectopic_pregnancy_h_mole,
+        $pp_bleeding,
+        $baby_weight_gt_4kgs,
+        $asthma,
+        $premature_contraction,
+        $dm,
+        $heart_disease,
+        $obesity,
+        $goiter,
+        $primary_id
+    );
 
     // Execute both update statements
     $familyUpdateSuccess = $familyStmt->execute();
@@ -155,16 +159,43 @@ $primary_id
 
     if ($familyUpdateSuccess) {
         // Commit the transaction if both updates are successful
-   
-    
+
+
         $familyUpdateSql2 = "UPDATE prenatal_diagnosis SET edc=?, aog=?, date_of_last_delivery=?, place_of_last_delivery=?, tt1=?, tt2=?, tt3=?, tt4=?, tt5=?, 
         multiple_sex_partners=?, unusual_discharges=?, itching_sores_around_vagina=?, tx_for_stis_in_the_past=?, pain_burning_sensation=?, ovarian_cyst=?, myoma_uteri=?, placenta_previa=?, still_birth=?, pre_eclampsia=?, eclampsia=?, premature_contraction=?, hpn=?, uterine_myomectomy=?, thyroid_disorder=?, epilepsy=?, height_less_than_145cm=?, family_history_gt_36cm=? WHERE prenatal_subjective_id=?";
         $familyStmt2 = $conn->prepare($familyUpdateSql2);
-        $familyStmt2->bind_param("sssssssssssssssssssssssssssi", $edc, $aog, $date_of_last_delivery, $place_of_last_delivery, $tt1, $tt2, $tt3, $tt4, $tt5, 
-        $multiple_sex_partners, $unusual_discharges, $itching_sores_around_vagina, $tx_for_stis_in_the_past, $pain_burning_sensation, 
-        $ovarian_cyst, $myoma_uteri, $placenta_previa, $still_birth, $pre_eclampsia, $eclampsia, $premature_contraction, $hpn, 
-        $uterine_myomectomy, $thyroid_disorder, $epilepsy, $height_less_than_145cm, $family_history_gt_36cm, $primary_id);
-        
+        $familyStmt2->bind_param(
+            "sssssssssssssssssssssssssssi",
+            $edc,
+            $aog,
+            $date_of_last_delivery,
+            $place_of_last_delivery,
+            $tt1,
+            $tt2,
+            $tt3,
+            $tt4,
+            $tt5,
+            $multiple_sex_partners,
+            $unusual_discharges,
+            $itching_sores_around_vagina,
+            $tx_for_stis_in_the_past,
+            $pain_burning_sensation,
+            $ovarian_cyst,
+            $myoma_uteri,
+            $placenta_previa,
+            $still_birth,
+            $pre_eclampsia,
+            $eclampsia,
+            $premature_contraction,
+            $hpn,
+            $uterine_myomectomy,
+            $thyroid_disorder,
+            $epilepsy,
+            $height_less_than_145cm,
+            $family_history_gt_36cm,
+            $primary_id
+        );
+
         // Execute the query
         $familyStmt2->execute();
         $conn->commit();

@@ -1,14 +1,15 @@
 <?php
 // Include your database configuration file
-include_once('../../../config.php');
+include_once ('../../../config.php');
 
 
 $dataId = $_POST['primary_id'];
 
 try {
- 
+
     $sql = "SELECT *,prenatal_consultation.id as id
     FROM prenatal_consultation
+    JOIN prenatal_subjective ON prenatal_consultation.prenatal_subjective_id = prenatal_subjective.id
     WHERE prenatal_consultation.prenatal_subjective_id = ?";
 
     $stmt = $conn->prepare($sql);
@@ -18,7 +19,7 @@ try {
         $result = $stmt->get_result();
         $myData = $result->fetch_assoc();
 
-  
+
         header('Content-Type: application/json');
         echo json_encode($myData);
     } else {

@@ -660,6 +660,7 @@ if ($result === false) {
                             <td>
                             <td class="align-middle"></td>
                             <td class="align-middle"></td>
+                            <td class="align-middle"></td>
 
                         </tr>
                         <?php
@@ -1349,6 +1350,7 @@ if ($result === false) {
             var method = $('#method').val();
 
             // Additional fields for prenatal_subjective
+            var status = $('#status').val();
             var height = $('#height').val();
             var weight = $('#weight').val();
             var temperature = $('#temperature').val();
@@ -1911,6 +1913,7 @@ if ($result === false) {
 
             var editId = $('#editdataId').val();
             console.log(editId);
+            var status = $('#editstatus').val();
             var description = $('#editDescription').val();
             var diagnosis = $('#editDiagnosis').val();
             var medicine = $('#editMedicine').val();
