@@ -85,7 +85,7 @@
             <img src="../../assets/images/profile.png" class="img-circle elevation-2" alt="User Image">
           </div>
           <?php
-          include_once('../../config.php');
+          include_once ('../../config.php');
 
           // Check if user is logged in
           if (isset($_SESSION['user_id'])) {
@@ -131,10 +131,18 @@
               </a>
             </li>
 
+            <li class="nav-item">
+              <a href="../prenatal/prenatal.php" class="nav-link">
+                <i class="fas fa-file-prescription fa-lg "></i>
+                <p>
+                  Prenatal
+                </p>
+              </a>
+            </li>
 
 
 
-
+            <!-- 
             <li class="nav-item <?php
             if (
               strpos($_SERVER['REQUEST_URI'], '/brgyv2/midwife/prenatal/prenatal.php') !== false ||
@@ -166,7 +174,7 @@
                   </a>
                 </li>
               </ul>
-            </li>
+            </li> -->
 
 
             <li class="nav-item">
