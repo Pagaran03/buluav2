@@ -2,10 +2,12 @@
 // Include your database configuration file
 include_once ('../../config.php');
 
+
 $sql = "SELECT *, fp_information.id as id, CONCAT(patients.last_name,',',patients.first_name) AS full_name, nurses.first_name as first_name2, nurses.last_name as last_name2, fp_obstetrical_history.fp_information_id as fp_information_id
 FROM fp_information
 JOIN patients ON fp_information.patient_id = patients.id
 JOIN fp_obstetrical_history ON fp_information.id = fp_obstetrical_history.fp_information_id
+JOIN fp_consultation ON fp_consultation.fp_information_id = fp_information.id
 JOIN nurses ON fp_information.nurse_id = nurses.id WHERE fp_information.is_deleted = 0";
 
 
@@ -833,6 +835,7 @@ if ($result === false) {
                             <th>Patient Name</th>
                             <th>Date Of Last Delivery</th>
                             <th>Check up Today</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -858,6 +861,9 @@ if ($result === false) {
                                         <?php echo $row['checkup_date']; ?>
                                     </td>
                                     <td class="align-middle">
+                                        <?php echo $row['status']; ?>
+                                    </td>
+                                    <td class="align-middle">
                                         <button type="button" class="btn btn-success editbtn"
                                             data-row-id="<?php echo $row['id']; ?>">
                                             <i class="fas fa-edit"></i> Update
@@ -875,6 +881,7 @@ if ($result === false) {
                                 <td class="align-middle">No Family Planning Found</td>
                                 <td class="align-middle">
                                 <td>
+                                <td class="align-middle"></td>
                                 <td class="align-middle"></td>
                                 <td class="align-middle"></td>
 
@@ -1560,8 +1567,9 @@ if ($result === false) {
                     { targets: 2, data: 'full_name' },
                     { targets: 3, data: 'date_of_last_delivery' },
                     { targets: 4, data: 'checkup_date' },
+                    { targets: 5, data: 'status' },
                     {
-                        targets: 5,
+                        targets: 6,
                         searchable: false,
                         data: null,
                         render: function (data, type, row) {
@@ -1584,6 +1592,7 @@ if ($result === false) {
                     { targets: 2, data: 'full_name' },
                     { targets: 3, data: 'date_of_last_delivery' },
                     { targets: 4, data: 'checkup_date' },
+                    { targets: 5, data: 'status' },
                 ],
                 // Set the default ordering to 'id' column in descending order
                 order: [[0, 'desc']]
@@ -1601,8 +1610,9 @@ if ($result === false) {
                     { targets: 2, data: 'full_name' },
                     { targets: 3, data: 'date_of_last_delivery' },
                     { targets: 4, data: 'checkup_date' },
+                    { targets: 5, data: 'status' },
                     {
-                        targets: 5,
+                        targets: 6,
                         searchable: false,
                         data: null,
                         render: function (data, type, row) {
@@ -2135,7 +2145,7 @@ if ($result === false) {
         });
 
         $('#updateButton').click(function () {
-            //jaba
+
 
             var editId = $('#editdataId').val();
 

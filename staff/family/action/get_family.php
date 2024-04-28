@@ -7,6 +7,7 @@ $sql = "SELECT *, fp_information.id as id, CONCAT(patients.last_name,',',patient
 FROM fp_information
 JOIN patients ON fp_information.patient_id = patients.id
 JOIN fp_obstetrical_history ON fp_information.id = fp_obstetrical_history.fp_information_id
+JOIN fp_consultation ON fp_consultation.fp_information_id = fp_information.id
 JOIN nurses ON fp_information.nurse_id = nurses.id WHERE fp_information.is_deleted = 0";
 
 $result = $conn->query($sql);

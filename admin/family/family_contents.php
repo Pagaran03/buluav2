@@ -132,6 +132,7 @@ if ($result === false) {
                                 <td>
                                 <td class="align-middle"></td>
                                 <td class="align-middle"></td>
+                                <td class="align-middle"></td>
 
                             </tr>
                             <?php
@@ -933,7 +934,7 @@ if ($result === false) {
                 },
                 {
                     targets: 5,
-                    data: 'patient_id'
+                    data: 'patient_id', visible: false
                 },
                 {
                     targets: 6,
@@ -949,7 +950,7 @@ if ($result === false) {
 
 
                     }
-                } 
+                }
                 ],
                 order: [
                     [0, 'desc']
@@ -978,6 +979,10 @@ if ($result === false) {
                 {
                     targets: 4,
                     data: 'status'
+                },
+                {
+                    targets: 5,
+                    data: 'patient_id', visible: false
                 },
                 ],
                 order: [
@@ -1014,7 +1019,7 @@ if ($result === false) {
                 },
                 {
                     targets: 5,
-                    data: 'patient_id'
+                    data: 'patient_id', visible: false
                 },
                 {
                     targets: 6,

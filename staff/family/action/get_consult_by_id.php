@@ -1,6 +1,6 @@
 <?php
 // Include your database configuration file
-include_once('../../../config.php');
+include_once ('../../../config.php');
 
 
 $dataId = $_POST['primary_id'];
