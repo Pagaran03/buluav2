@@ -532,6 +532,7 @@ if ($result === false) {
                                 <td class="align-middle"></td>
                                 <td class="align-middle"></td>
                                 <td class="align-middle"></td>
+                                <td class="align-middle"></td>
 
 
                             </tr>
