@@ -129,6 +129,19 @@ if ($result === false) {
                                 </div>
 
 
+
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="">Select Status</label>
+                                    <select class="form-control" name="status" id="status" required>
+                                        <option value="" disabled selected hidden>Select a Status</option>
+                                        <!-- <option value="Complete">Complete</option> -->
+                                        <option value="Pending">Pending</option>
+                                        <option value="Progress">Progress</option>
+                                    </select>
+                                    <!-- <div id="editStatus_error" class="error"></div> -->
+                                </div>
                             </div>
                         </div>
 
@@ -731,6 +744,7 @@ if ($result === false) {
                         <th>Serial No</th>
                         <th>Patient Name</th>
                         <th>Checkup Date</th>
+                        <th>Status</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -753,6 +767,9 @@ if ($result === false) {
                                     <?php echo $row['checkup_date']; ?>
                                 </td>
                                 <td class="align-middle">
+                                    <?php echo $row['status']; ?>
+                                </td>
+                                <td class="align-middle">
                                     <button type="button" class="btn btn-success editbtn"
                                         data-row-id="<?php echo $row['id']; ?>">
                                         <i class="fas fa-edit"></i> Update
@@ -770,6 +787,7 @@ if ($result === false) {
                             <td class="align-middle">No Prenatal Found</td>
                             <td class="align-middle">
                             <td>
+                            <td class="align-middle"></td>
                             <td class="align-middle"></td>
                         </tr>
                         <?php
@@ -833,6 +851,19 @@ if ($result === false) {
                             </div>
 
 
+
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="">Select Status</label>
+                                <select class="form-control" name="status2" id="status2" required>
+                                    <option value="" disabled selected hidden>Select a Status</option>
+                                    <!-- <option value="Complete">Complete</option> -->
+                                    <option value="Pending">Pending</option>
+                                    <option value="Progress">Progress</option>
+                                </select>
+                                <!-- <div id="editStatus_error" class="error"></div> -->
+                            </div>
                         </div>
                     </div>
 
@@ -1324,8 +1355,9 @@ if ($result === false) {
                     { targets: 1, data: 'serial_no' },
                     { targets: 2, data: 'last_name' },
                     { targets: 3, data: 'checkup_date' },
+                    { targets: 4, data: 'status' },
                     {
-                        targets: 4,
+                        targets: 5,
                         searchable: false,
                         data: null,
                         render: function (data, type, row) {
@@ -1347,6 +1379,7 @@ if ($result === false) {
                     { targets: 1, data: 'serial_no' },
                     { targets: 2, data: 'last_name' },
                     { targets: 3, data: 'checkup_date' },
+                    { targets: 4, data: 'status' },
                 ],
                 // Set the default ordering to 'id' column in descending order
                 order: [[0, 'desc']]
@@ -1363,8 +1396,9 @@ if ($result === false) {
                     { targets: 1, data: 'serial_no' },
                     { targets: 2, data: 'last_name' },
                     { targets: 3, data: 'checkup_date' },
+                    { targets: 4, data: 'status' },
                     {
-                        targets: 4,
+                        targets: 5,
                         searchable: false,
                         data: null,
                         render: function (data, type, row) {
@@ -1387,6 +1421,7 @@ if ($result === false) {
             var method = $('#method').val();
 
             // Additional fields for prenatal_subjective
+            var status = $('#status').val();
             var height = $('#height').val();
             var weight = $('#weight').val();
             var temperature = $('#temperature').val();
@@ -1463,6 +1498,7 @@ if ($result === false) {
                     method: method,
                     dm: dm,
                     // Include the additional fields for prenatal_subjective
+                    status: status,
                     height: height,
                     weight: weight,
                     temperature: temperature,
@@ -1534,6 +1570,7 @@ if ($result === false) {
                         $('#method').val('');
 
                         // Clear the additional fields
+                        $('#status').val('');
                         $('#height').val('');
                         $('#weight').val('');
                         $('#temperature').val('');
@@ -1674,7 +1711,7 @@ if ($result === false) {
                     console.log(editGetData);
                     $('#editModal #editdataId').val(editGetData.id);
                     $('#editModal #nurse_id2').val(editGetData.nurse_id);
-
+                    $('#editModal #status2').val(editGetData.status);
                     $('#editModal #height2').val(editGetData.height);
                     $('#editModal #weight2').val(editGetData.weight);
                     $('#editModal #temperature2').val(editGetData.temperature);
@@ -1921,6 +1958,7 @@ if ($result === false) {
 
             var editId = $('#editdataId').val();
             var nurse_id = $('#nurse_id2').val();
+            var status = $('#status2').val();
             var height = $('#height2').val();
             var weight = $('#weight2').val();
             var temperature = $('#temperature2').val();
@@ -1996,6 +2034,7 @@ if ($result === false) {
                 data: {
                     primary_id: editId,
                     nurse_id: nurse_id,
+                    status: status,
                     height: height,
                     weight: weight,
                     temperature: temperature,

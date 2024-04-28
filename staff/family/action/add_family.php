@@ -1,6 +1,15 @@
 <?php
 // Include your database configuration file
 include_once ('../../../config.php');
+
+// Set appropriate response headers
+header("Content-Security-Policy: default-src 'self';"); // Set Content Security Policy header to restrict resource loading
+header('Content-Type: text/plain'); // Set the content type to plain text
+header('X-Content-Type-Options: nosniff'); // Prevent browsers from interpreting files as a different MIME type
+header('X-Frame-Options: DENY'); // Prevent clickjacking attacks
+header('Referrer-Policy: strict-origin-when-cross-origin'); // Control referrer information sent to other sites
+header('X-XSS-Protection: 1; mode=block'); // Enable XSS (Cross-Site Scripting) protection
+
 session_start();
 
 // Sanitize and get data from the POST request

@@ -2,10 +2,36 @@
 // Include your database configuration file
 include_once ('../../../config.php');
 
+// Set appropriate response headers
+header("Content-Security-Policy: default-src 'self';"); // Set Content Security Policy header to restrict resource loading
+header('Content-Type: text/plain'); // Set the content type to plain text
+header('X-Content-Type-Options: nosniff'); // Prevent browsers from interpreting files as a different MIME type
+header('X-Frame-Options: DENY'); // Prevent clickjacking attacks
+header('Referrer-Policy: strict-origin-when-cross-origin'); // Control referrer information sent to other sites
+header('X-XSS-Protection: 1; mode=block'); // Enable XSS (Cross-Site Scripting) protection
+
 // Function to sanitize user input
 function sanitizeInput($input)
 {
-    return htmlspecialchars(strip_tags(trim($input)), ENT_QUOTES, 'UTF-8');
+    // Remove all HTML tags using preg_replace
+    $input = preg_replace("/<[^>]*>/", "", trim($input));
+    // Use regular expression to remove potentially harmful characters
+    $input = preg_replace("/[^a-zA-Z0-9\s]/", "", $input);
+    // Remove SQL injection characters
+    $input = preg_replace("/[;#\*--]/", "", $input);
+    // Remove Javascript injection characters
+    $input = preg_replace("/[<>\"\']/", "", $input);
+    // Remove Shell injection characters
+    $input = preg_replace("/[|&\$\>\<'`\"]/", "", $input);
+    // Remove URL injection characters
+    $input = preg_replace("/[&\?=]/", "", $input);
+    // Remove File Path injection characters
+    $input = preg_replace("/[\/\\\\\.\.]/", "", $input);
+    // Remove control characters and whitespace
+    $input = preg_replace("/[\x00-\x1F\s]+/", "", $input);
+    // Remove script and content characters
+    $input = preg_replace("/<script[^>]*>(.*?)<\/script>/is", "", $input);
+    return $input;
 }
 
 $primary_id = sanitizeInput($_POST['primary_id']);

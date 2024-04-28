@@ -1,7 +1,16 @@
 <?php
 // Include your database configuration file
-include_once('../../../config.php');
+include_once ('../../../config.php');
 session_start();
+
+// Set appropriate response headers
+header("Content-Security-Policy: default-src 'self';"); // Set Content Security Policy header to restrict resource loading
+header('Content-Type: text/plain'); // Set the content type to plain text
+header('X-Content-Type-Options: nosniff'); // Prevent browsers from interpreting files as a different MIME type
+header('X-Frame-Options: DENY'); // Prevent clickjacking attacks
+header('Referrer-Policy: strict-origin-when-cross-origin'); // Control referrer information sent to other sites
+header('X-XSS-Protection: 1; mode=block'); // Enable XSS (Cross-Site Scripting) protection
+
 // Function to sanitize input data
 function sanitize_input($input)
 {
@@ -10,6 +19,7 @@ function sanitize_input($input)
 
 // Get data from the POST request for prenatal_subjective
 $patient_id = sanitize_input($_POST['patient_id']);
+$status = sanitize_input($_POST['status']);
 $height = sanitize_input($_POST['height']);
 $weight = sanitize_input($_POST['weight']);
 $temperature = sanitize_input($_POST['temperature']);
@@ -66,13 +76,14 @@ if ($stmt_patient_id->execute()) {
 }
 
 // Prepare and execute the SQL statement to insert into prenatal_subjective
-$sql1 = "INSERT INTO prenatal_subjective (patient_id, height, weight, temperature, pr, rr, bp, menarche, lmp, gravida, para, fullterm, preterm, abortion, stillbirth, alive, hgb, ua, vdrl, forceps_delivery, smoking, allergy_alcohol_intake, previous_cs, consecutive_miscarriage, ectopic_pregnancy_h_mole, pp_bleeding, baby_weight_gt_4kgs, asthma, goiter, premature_contraction, obesity, heart_disease, checkup_date, doctor_id,nurse_id,dm) 
-VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)";
+$sql1 = "INSERT INTO prenatal_subjective (patient_id, status, height, weight, temperature, pr, rr, bp, menarche, lmp, gravida, para, fullterm, preterm, abortion, stillbirth, alive, hgb, ua, vdrl, forceps_delivery, smoking, allergy_alcohol_intake, previous_cs, consecutive_miscarriage, ectopic_pregnancy_h_mole, pp_bleeding, baby_weight_gt_4kgs, asthma, goiter, premature_contraction, obesity, heart_disease, checkup_date, doctor_id,nurse_id,dm) 
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)";
 
 $stmt1 = $conn->prepare($sql1);
 $stmt1->bind_param(
-    "ssssssssssssssssssssssssssssssssssss",
+    "sssssssssssssssssssssssssssssssssssss",
     $patient_id,
+    $status,
     $height,
     $weight,
     $temperature,
