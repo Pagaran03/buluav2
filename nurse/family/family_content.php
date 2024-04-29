@@ -3,12 +3,12 @@
 include_once ('../../config.php');
 
 
-$sql = "SELECT *,fp_information.id as id,patients.first_name as first_name,patients.last_name as last_name,nurses.first_name as first_name2,nurses.last_name as last_name2
+$sql = "SELECT *,fp_information.id as id,CONCAT(patients.last_name,',',patients.first_name) AS full_name,nurses.first_name as first_name2,nurses.last_name as last_name2
 FROM fp_information
 JOIN patients ON fp_information.patient_id = patients.id
 JOIN nurses ON fp_information.nurse_id = nurses.id
 JOIN fp_consultation ON fp_consultation.fp_information_id = fp_information.id
-WHERE  fp_information.is_deleted = 0";
+WHERE nurses.user_id = $user_id AND  fp_information.is_deleted = 0";
 ;
 
 
@@ -773,13 +773,19 @@ if ($result === false) {
             </div>
         </div>
     </div>
+    <style>
+        .tago {
+            display: none;
+        }
+    </style>
     <div class="row">
         <div class="col-12">
             <div class="card-body table-responsive p-0" style="z-index: -99999">
                 <table id="tablebod" class="table table-head-fixed text-nowrap table-striped">
                     <thead class="thead-light">
                         <tr>
-                            <th>ID</th>
+                            <th class="tago">ID</th>
+                            <th>Serial Number</th>
                             <th>Patient Name</th>
                             <th>Date</th>
                             <th>Status</th>
@@ -792,8 +798,9 @@ if ($result === false) {
                             while ($row = $result->fetch_assoc()) {
                                 ?>
                                 <tr>
-                                    <td class="align-middle"><?php echo $row['id']; ?></td>
-                                    <td class="align-middle"><?php echo $row['last_name']; ?></td>
+                                    <td class="align-middle class"><?php echo $row['id']; ?></td>
+                                    <td class="align-middle"><?php echo $row['serial_no']; ?></td>
+                                    <td class="align-middle"><?php echo $row['full_name']; ?></td>
                                     <td class="align-middle"><?php echo $row['checkup_date']; ?></td>
                                     <td class="align-middle"><?php echo $row['status']; ?></td>
                                     <td class="align-middle">
@@ -818,10 +825,11 @@ if ($result === false) {
                         } else {
                             ?>
                             <tr>
-                                <td class="align-middle">No Family Planning Found</td>
                                 <td class="align-middle"></td>
+                                <td class="align-middle">No Family Planning Found</td>
                                 <td class="align-middle">
                                 <td>
+                                <td class="align-middle"></td>
                                 <td class="align-middle"></td>
 
                             </tr>
@@ -1578,12 +1586,13 @@ if ($result === false) {
         <?php if ($result->num_rows > 0): ?>
             var table = $('#tablebod').DataTable({
                 columnDefs: [
-                    { targets: 0, data: 'id' },
-                    { targets: 1, data: 'last_name' },
-                    { targets: 2, data: 'checkup_date' },
-                    { targets: 3, data: 'status' },
+                    { targets: 0, data: 'id', visible: false },
+                    { targets: 1, data: 'serial_no' },
+                    { targets: 2, data: 'full_name' },
+                    { targets: 3, data: 'checkup_date' },
+                    { targets: 4, data: 'status' },
                     {
-                        targets: 4,
+                        targets: 5,
                         searchable: false,
                         data: null,
                         render: function (data, type, row) {
@@ -1605,10 +1614,11 @@ if ($result === false) {
             // Initialize DataTable without the "Action" column when no rows are found
             var table = $('#tablebod').DataTable({
                 columnDefs: [
-                    { targets: 0, data: 'id' },
-                    { targets: 1, data: 'last_name' },
-                    { targets: 2, data: 'checkup_date' },
-                    { targets: 3, data: 'status' },
+                    { targets: 0, data: 'id', visible: false },
+                    { targets: 1, data: 'serial_no' },
+                    { targets: 2, data: 'full_name' },
+                    { targets: 3, data: 'checkup_date' },
+                    { targets: 4, data: 'status' },
                 ],
                 // Set the default ordering to 'id' column in descending order
                 order: [[0, 'desc']]
@@ -1621,12 +1631,13 @@ if ($result === false) {
             table.destroy(); // Destroy the existing DataTable
             table = $('#tablebod').DataTable({
                 columnDefs: [
-                    { targets: 0, data: 'id' },
-                    { targets: 1, data: 'last_name' },
-                    { targets: 2, data: 'checkup_date' },
-                    { targets: 3, data: 'status' },
+                    { targets: 0, data: 'id', visible: false },
+                    { targets: 1, data: 'serial_no' },
+                    { targets: 2, data: 'full_name' },
+                    { targets: 3, data: 'checkup_date' },
+                    { targets: 4, data: 'status' },
                     {
-                        targets: 4,
+                        targets: 5,
                         searchable: false,
                         data: null,
                         render: function (data, type, row) {

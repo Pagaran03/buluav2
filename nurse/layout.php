@@ -176,8 +176,17 @@
               </ul>
             </li> -->
 
+            <li class="nav-item">
+              <a href="../immunization/immunization.php" class="nav-link">
+                <i class="fas fa-file-prescription fa-lg "></i>
+                <p>
+                  Immunization
+                </p>
+              </a>
+            </li>
 
-            <li class="nav-item <?php
+
+            <!-- <li class="nav-item <?php
             if (
               strpos($_SERVER['REQUEST_URI'], '/brgyv2/nurse/immunization/immunization.php') !== false ||
               strpos($_SERVER['REQUEST_URI'], '/brgyv2/nurse/immunization/done_immunization.php') !== false
@@ -208,7 +217,7 @@
                   </a>
                 </li>
               </ul>
-            </li>
+            </li> -->
 
 
             <li class="nav-item">

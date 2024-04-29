@@ -1,12 +1,12 @@
 <?php
 // Include your database configuration file
-include_once('../../../config.php');
+include_once ('../../../config.php');
 
 
 $dataId = $_POST['primary_id'];
 
 try {
- 
+
     $sql = "SELECT *,fp_information.id as id
     FROM fp_information
     JOIN fp_medical_history ON fp_medical_history.fp_information_id = fp_information.id
@@ -14,6 +14,7 @@ try {
     JOIN fp_risk_for_sexuality ON fp_risk_for_sexuality.fp_information_id = fp_information.id
     JOIN fp_risk_for_violence_against_women ON fp_risk_for_violence_against_women.fp_information_id = fp_information.id
     JOIN fp_physical_examination ON fp_physical_examination.fp_information_id = fp_information.id
+    JOIN fp_consultation ON fp_consultation.fp_information_id = fp_information.id
     WHERE fp_information.id = ?";
 
     $stmt = $conn->prepare($sql);
@@ -23,7 +24,7 @@ try {
         $result = $stmt->get_result();
         $myData = $result->fetch_assoc();
 
-  
+
         header('Content-Type: application/json');
         echo json_encode($myData);
     } else {

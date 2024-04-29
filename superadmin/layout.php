@@ -91,12 +91,12 @@
 
             if ($result) {
               ?>
-                                                                                                               <div class="info">
-                                                                                                                 <a href="#" class="d-block">
-                                                                                                                   <?php echo $result['first_name'] . ' ' . $result['last_name']; ?><br />Doctor
-                                                                                                                 </a>
-                                                                                                               </div>
-                                                                                                               <?php
+                                                  <div class="info">
+                                                                                                                                                                 <a href="#" class="d-block">
+                                                                                                                                                                   <?php echo $result['first_name'] . ' ' . $result['last_name']; ?><br />Doctor
+                                                                                                                                                                 </a>
+                                                                                                                                                               </div>
+                                                                                                                                                               <?php
             } else {
               echo "No users found";
             }
@@ -133,12 +133,21 @@
             </a>
           </li> -->
 
+                    
+          <li class="nav-item">
+            <a href="../consultation/consultation.php" class="nav-link">
+              <i class="fas fa-file-prescription fa-lg "></i>
+              <p>
+              Consultation
+              </p>
+            </a>
+          </li>
           <li class="nav-item " >
 
 
 
 
-
+<!-- 
 <li class="nav-item <?php
 if (
   strpos($_SERVER['REQUEST_URI'], '/brgyv2/admin/consultation/consultation.php') !== false ||
@@ -155,10 +164,10 @@ if (
     </p>
   </a>
   <ul class="nav nav-treeview">
-    <li class="nav-item">
+    <li class="nav-item"> -->
         <!--  -->
         
-            <li class="nav-item <?php
+            <!-- <li class="nav-item <?php
             if (
               strpos($_SERVER['REQUEST_URI'], '/brgyv2/admin/consultation/consultation.php') !== false ||
               strpos($_SERVER['REQUEST_URI'], '/brgyv2/admin/consultation/done_consultation.php') !== false
@@ -189,7 +198,7 @@ if (
                     </a>
                 </li>
               </ul>
-            </li>
+            </li> -->
         <!--  -->
         <!-- <li class="nav-item ml-1">
             <a href="../family/family.php" class="nav-link">
@@ -219,9 +228,9 @@ if (
               </p>
             </a>
           </li> -->
-    </li>
+    <!-- </li>
   </ul>
-</li>
+</li> -->
 
          
 

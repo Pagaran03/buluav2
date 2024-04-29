@@ -11,6 +11,7 @@ function sanitizeInput($input)
 }
 
 $primary_id = sanitizeInput($_POST['primary_id']);
+$status = sanitizeInput($_POST['status']);
 $subjective = sanitizeInput($_POST['subjective']);
 $objective = sanitizeInput($_POST['objective']);
 $assessment = sanitizeInput($_POST['assessment']);
@@ -44,9 +45,9 @@ try {
     // Start a transaction
     $conn->begin_transaction();
 
-    $consultationUpdateSql = "UPDATE consultations SET  subjective=?, objective=?, assessment=?, plan=?, checkup_date=?, doctor_id=? WHERE id=?";
+    $consultationUpdateSql = "UPDATE consultations SET status=?, subjective=?, objective=?, assessment=?, plan=?, checkup_date=?, doctor_id=? WHERE id=?";
     $consultationStmt = $conn->prepare($consultationUpdateSql);
-    $consultationStmt->bind_param("ssssssi", $subjective, $objective, $assessment, $plan, $checkup_date, $doctor_id, $primary_id);
+    $consultationStmt->bind_param("sssssssi", $status, $subjective, $objective, $assessment, $plan, $checkup_date, $doctor_id, $primary_id);
 
     $updateHistorySql = "UPDATE fp_medical_history SET severe_headaches=?, history_stroke_heart_attack_hypertension=?, hematoma_bruising_gum_bleeding=?, breast_cancer_breast_mass=?, severe_chest_pain=?, cough_more_than_14_days=?, vaginal_bleeding=?, vaginal_discharge=?, phenobarbital_rifampicin=?, smoker=?, with_disability=?, jaundice=? WHERE consultation_id=?";
     $updateHistoryStmt = $conn->prepare($updateHistorySql);

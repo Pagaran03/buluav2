@@ -1,8 +1,9 @@
 <?php
 // Include your database configuration file
-include_once('../../../config.php');
+include_once ('../../../config.php');
 
 $primary_id = $_POST['primary_id'];
+$status = $_POST['status'];
 $bgc_date = $_POST['bgc_date'];
 $bgc_remarks = $_POST['bgc_remarks'];
 $hepa_date = $_POST['hepa_date'];
@@ -30,9 +31,9 @@ try {
     // Start a transaction
     $conn->begin_transaction();
 
-    $immunizationUpdateSql = "UPDATE immunization SET  bgc_date=?, bgc_remarks=?, hepa_date=?, hepa_remarks=?, pentavalent_date1=?, pentavalent_date2=?, pentavalent_date3=?, pentavalent_remarks=?, oral_date1=?, oral_date2=?, oral_date3=?, oral_remarks=?, ipv_date1=?, ipv_date2=?, ipv_remarks=?, pcv_date1=?, pcv_date2=?, pcv_date3=?, pcv_remarks=?, mmr_date1=?, mmr_date2=?, mmr_remarks=? WHERE id=?";
+    $immunizationUpdateSql = "UPDATE immunization SET status=?, bgc_date=?, bgc_remarks=?, hepa_date=?, hepa_remarks=?, pentavalent_date1=?, pentavalent_date2=?, pentavalent_date3=?, pentavalent_remarks=?, oral_date1=?, oral_date2=?, oral_date3=?, oral_remarks=?, ipv_date1=?, ipv_date2=?, ipv_remarks=?, pcv_date1=?, pcv_date2=?, pcv_date3=?, pcv_remarks=?, mmr_date1=?, mmr_date2=?, mmr_remarks=? WHERE id=?";
     $immunizationStmt = $conn->prepare($immunizationUpdateSql);
-    $immunizationStmt->bind_param("ssssssssssssssssssssssi",  $bgc_date, $bgc_remarks, $hepa_date, $hepa_remarks, $pentavalent_date1, $pentavalent_date2, $pentavalent_date3, $pentavalent_remarks, $oral_date1, $oral_date2, $oral_date3, $oral_remarks, $ipv_date1, $ipv_date2, $ipv_remarks, $pcv_date1, $pcv_date2, $pcv_date3, $pcv_remarks, $mmr_date1, $mmr_date2, $mmr_remarks, $primary_id);
+    $immunizationStmt->bind_param("sssssssssssssssssssssssi", $status, $bgc_date, $bgc_remarks, $hepa_date, $hepa_remarks, $pentavalent_date1, $pentavalent_date2, $pentavalent_date3, $pentavalent_remarks, $oral_date1, $oral_date2, $oral_date3, $oral_remarks, $ipv_date1, $ipv_date2, $ipv_remarks, $pcv_date1, $pcv_date2, $pcv_date3, $pcv_remarks, $mmr_date1, $mmr_date2, $mmr_remarks, $primary_id);
 
     // Execute the update statement
     $immunizationUpdateSuccess = $immunizationStmt->execute();

@@ -1,14 +1,14 @@
 <?php
 // Include your database configuration file
-include_once('../../../config.php');
+include_once ('../../../config.php');
 
 
-$sql = "SELECT *,fp_information.id as id,patients.first_name as first_name,patients.last_name as last_name,nurses.first_name as first_name2,nurses.last_name as last_name2
+$sql = "SELECT *,fp_information.id as id,CONCAT(patients.last_name,',',patients.first_name) AS full_name,nurses.first_name as first_name2,nurses.last_name as last_name2
 FROM fp_information
 JOIN patients ON fp_information.patient_id = patients.id
 JOIN nurses ON fp_information.nurse_id = nurses.id
 JOIN fp_consultation ON fp_consultation.fp_information_id = fp_information.id
-WHERE  fp_information.is_deleted = 0";
+WHERE nurses.user_id = $user_id AND  fp_information.is_deleted = 0";
 ;
 
 $result = $conn->query($sql);

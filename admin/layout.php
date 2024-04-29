@@ -22,9 +22,8 @@
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
 
   <!-- DataTables JavaScript -->
-  <script type="text/javascript" charset="utf8"
-    src="https://cdn.datatables.net/2.0.5/js/dataTables.min.js"></script>
-    
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/2.0.5/js/dataTables.min.js"></script>
+
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <style>
@@ -180,7 +179,17 @@
             </li> -->
 
 
-            <li class="nav-item <?php
+            <li class="nav-item">
+              <a href="../immunization/immunization.php" class="nav-link">
+                <i class="fas fa-file-prescription fa-lg"></i>
+                <p>
+                  Immunization
+                </p>
+              </a>
+            </li>
+
+
+            <!-- <li class="nav-item <?php
             if (
               strpos($_SERVER['REQUEST_URI'], '/brgyv2/admin/immunization/immunization.php') !== false ||
               strpos($_SERVER['REQUEST_URI'], '/brgyv2/admin/immunization/done_immunization.php') !== false
@@ -211,7 +220,7 @@
                   </a>
                 </li>
               </ul>
-            </li>
+            </li> -->
 
 
 

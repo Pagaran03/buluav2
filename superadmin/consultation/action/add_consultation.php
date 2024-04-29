@@ -9,15 +9,16 @@ $subjective = $_POST['subjective'];
 $objective = $_POST['objective'];
 $assessment = $_POST['assessment'];
 $plan = $_POST['plan'];
+$status = $_POST['status'];
 $diagnosis = $_POST['diagnosis'];
 $medicine = $_POST['medicine'];
 $date = date('Y-m-d');
 $doctor_id = $_POST['doctor_id'];
 
 
-$sql = "INSERT INTO consultations (patient_id, subjective, objective, assessment, plan, diagnosis, medicine,checkup_date,doctor_id) VALUES (?, ?, ?, ?, ?, ?,?,?,?)";
+$sql = "INSERT INTO consultations (patient_id, status, subjective, objective, assessment, plan, diagnosis, medicine,checkup_date,doctor_id) VALUES (?,?, ?, ?, ?, ?, ?,?,?,?)";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("sssssssss", $patient_id, $subjective, $objective, $assessment, $plan, $diagnosis, $medicine, $date, $doctor_id);
+$stmt->bind_param("ssssssssss", $patient_id, $status, $subjective, $objective, $assessment, $plan, $diagnosis, $medicine, $date, $doctor_id);
 
 if ($stmt->execute()) {
     // Successful insertion

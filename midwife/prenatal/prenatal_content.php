@@ -3,13 +3,12 @@
 include_once ('../../config.php');
 
 
-$sql = "SELECT *,prenatal_subjective.id as id,patients.first_name as first_name,patients.last_name  as last_name
+$sql = "SELECT *,prenatal_subjective.id as id,CONCAT(patients.last_name,',',patients.first_name) AS full_name
 FROM prenatal_subjective
 JOIN prenatal_consultation ON prenatal_consultation.prenatal_subjective_id = prenatal_subjective.id
 JOIN patients ON prenatal_subjective.patient_id = patients.id
 JOIN midwife ON midwife.id = prenatal_subjective.nurse_id
-JOIN users ON users.id = midwife.user_id
-WHERE  prenatal_subjective.is_deleted = 0";
+WHERE midwife.user_id = $user_id AND prenatal_subjective.is_deleted = 0";
 
 //  AND 
 
@@ -630,7 +629,7 @@ if ($result === false) {
                             <tr>
                                 <td class="align-middle tago"><?php echo $row['id']; ?></td>
                                 <td class="align-middle"><?php echo $row['serial_no']; ?></td>
-                                <td class="align-middle"><?php echo $row['last_name']; ?></td>
+                                <td class="align-middle"><?php echo $row['full_name']; ?></td>
                                 <td class="align-middle"><?php echo $row['checkup_date']; ?></td>
                                 <td class="align-middle"><?php echo $row['status']; ?></td>
                                 <td class="align-middle">
@@ -1277,7 +1276,7 @@ if ($result === false) {
                 columnDefs: [
                     { targets: 0, data: 'id', visible: false },
                     { targets: 1, data: 'serial_no' },
-                    { targets: 2, data: 'last_name' },
+                    { targets: 2, data: 'full_name' },
                     { targets: 3, data: 'checkup_date' },
                     { targets: 4, data: 'status' },
                     {
@@ -1304,7 +1303,7 @@ if ($result === false) {
                 columnDefs: [
                     { targets: 0, data: 'id', visible: false },
                     { targets: 1, data: 'serial_no' },
-                    { targets: 2, data: 'last_name' },
+                    { targets: 2, data: 'full_name' },
                     { targets: 3, data: 'checkup_date' },
                     { targets: 4, data: 'status' },
                 ],
@@ -1321,7 +1320,7 @@ if ($result === false) {
                 columnDefs: [
                     { targets: 0, data: 'id', visible: false },
                     { targets: 1, data: 'serial_no' },
-                    { targets: 2, data: 'last_name' },
+                    { targets: 2, data: 'full_name' },
                     { targets: 3, data: 'checkup_date' },
                     { targets: 4, data: 'status' },
                     {

@@ -1,13 +1,13 @@
 <?php
 // Include your database configuration file
-include_once('../../../config.php');
+include_once ('../../../config.php');
 
 
-$sql = "SELECT *,immunization.id as id,patients.first_name as first_name,patients.last_name as last_name
+$sql = "SELECT *,immunization.id as id,CONCAT(patients.last_name,',',patients.first_name) AS full_name
 FROM immunization
 JOIN patients ON immunization.patient_id = patients.id
 JOIN nurses ON nurses.id = immunization.nurse_id
-WHERE immunization.mmr_remarks IS NULL AND immunization.is_deleted = 0";
+WHERE nurses.user_id = $user_id AND immunization.is_deleted = 0";
 
 
 $result = $conn->query($sql);
