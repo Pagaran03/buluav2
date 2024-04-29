@@ -301,10 +301,11 @@ if ($result2->num_rows > 0) {
                         } else {
                             ?>
                             <tr>
-                                <td class="align-middle">No Patient Found</td>
                                 <td class="align-middle"></td>
+                                <td class="align-middle">No Patient Found</td>
                                 <td class="align-middle">
                                 <td>
+                                <td class="align-middle"></td>
                                 <td class="align-middle"></td>
                                 <td class="align-middle"></td>
 
@@ -523,7 +524,7 @@ if ($result2->num_rows > 0) {
         <?php if ($result->num_rows > 0): ?>
             var table = $('#patientTableBody').DataTable({
                 columnDefs: [
-                    { targets: 0, data: 'id' },
+                    { targets: 0, data: 'id', visible : false },
                     { targets: 1, data: 'serial_no' },
                     { targets: 2, data: 'first_name' },
                     { targets: 3, data: 'last_name' },
@@ -548,7 +549,7 @@ if ($result2->num_rows > 0) {
             // Initialize DataTable without the "Action" column when no rows are found
             var table = $('#patientTableBody').DataTable({
                 columnDefs: [
-                    { targets: 0, data: 'id' },
+                    { targets: 0, data: 'id', visible : false },
                     { targets: 1, data: 'serial_no' },
                     { targets: 2, data: 'first_name' },
                     { targets: 3, data: 'last_name' },
@@ -559,34 +560,10 @@ if ($result2->num_rows > 0) {
                 order: [[0, 'desc']]
             });
         <?php endif; ?>
-        // Add Patient Button Click
+       
         $('#addPatientButton').click(function () {
 
-            //re declare
-            table.destroy(); // Destroy the existing DataTable
-            table = $('#patientTableBody').DataTable({
-                columnDefs: [
-                    { targets: 0, data: 'id' },
-                    { targets: 1, data: 'serial_no' },
-                    { targets: 2, data: 'first_name' },
-                    { targets: 3, data: 'last_name' },
-                    { targets: 4, data: 'birthdate' },
-                    { targets: 5, data: 'address' },
-                    {
-                        targets: 6,
-                        searchable: false,
-                        data: null,
-                        render: function (data, type, row) {
-                            var viewRec = '<a href="history.php?id=' + row.id + '"><button type="button" class="btn btn-warning ml-1">View History</button></a>';
-                            var editButton = '<button type="button" class="btn btn-success editbtn" data-patient-id="' + row.serial_no + '"><i class="fas fa-edit"></i> Update</button>';
-                            var deleteButton = '<button type="button" class="btn btn-danger deletebtn" data-id="' + row.serial_no + '"><i class="fas fa-user-times"></i> Inactive</button>';
-                            return viewRec + ' ' + editButton + ' ' + deleteButton;
-                        }
-                    } // Action column
-                ],
-                // Set the default ordering to 'id' column in descending order
-                order: [[0, 'desc']]
-            });
+            
             // Get data from the form
 
             $('.error').text('');
@@ -615,30 +592,58 @@ if ($result2->num_rows > 0) {
 
 
             // Validate input fields
-            var isValid = true;
+            var isValid = false;
 
-            if (first_name.trim() === '') {
+            if (first_name.trim() === '' || last_name.trim() === '' || birthdate.trim() === '' || address.trim() === '') {
+                isValid = false;
                 $('#first_name_error').text('Field is required');
-                isValid = false;
+            }
+            else{
+                isValid = true;
+                table.destroy(); // Destroy the existing DataTable
+            table = $('#patientTableBody').DataTable({
+                columnDefs: [
+                    { targets: 0, data: 'id', visible : false },
+                    { targets: 1, data: 'serial_no' },
+                    { targets: 2, data: 'first_name' },
+                    { targets: 3, data: 'last_name' },
+                    { targets: 4, data: 'birthdate' },
+                    { targets: 5, data: 'address' },
+                    {
+                        targets: 6,
+                        searchable: false,
+                        data: null,
+                        render: function (data, type, row) {
+                            var viewRec = '<a href="history.php?id=' + row.id + '"><button type="button" class="btn btn-warning ml-1">View History</button></a>';
+                            var editButton = '<button type="button" class="btn btn-success editbtn" data-patient-id="' + row.serial_no + '"><i class="fas fa-edit"></i> Update</button>';
+                            var deleteButton = '<button type="button" class="btn btn-danger deletebtn" data-id="' + row.serial_no + '"><i class="fas fa-user-times"></i> Inactive</button>';
+                            return viewRec + ' ' + editButton + ' ' + deleteButton;
+                        }
+                    } // Action column
+                ],
+                // Set the default ordering to 'id' column in descending order
+                order: [[0, 'desc']]
+            });
             }
 
-            if (last_name.trim() === '') {
-                $('#last_name_error').text('Field is required');
-                isValid = false;
-            }
+            // if (last_name.trim() === '') {
+            //     $('#last_name_error').text('Field is required');
+            //     isValid = false;
+            // }
 
-            if (birthdate.trim() === '') {
-                $('#birthdate_error').text('Field is required');
-                isValid = false;
-            }
+            // if (birthdate.trim() === '') {
+            //     $('#birthdate_error').text('Field is required');
+            //     isValid = false;
+            // }
 
-            if (address.trim() === '') {
-                $('#address_error').text('Field is required');
-                isValid = false;
-            }
+            // if (address.trim() === '') {
+            //     $('#address_error').text('Field is required');
+            //     isValid = false;
+            // }
 
+        
 
-            if (isValid) {
+            if (isValid == true) {
                 // AJAX request to send data to the server
                 $.ajax({
                     url: 'action/add_patient.php',
