@@ -249,6 +249,7 @@ if ($result2->num_rows > 0) {
                 <table id="patientTableBody" class="table table-head-fixed text-nowrap table-striped">
                     <thead class="thead-light">
                         <tr>
+                            <th style="display:none;">ID</th>
                             <th>Serial Number</th>
                             <th>First Name</th>
                             <th>Last Name</th>
@@ -263,6 +264,9 @@ if ($result2->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
                                 ?>
                                 <tr>
+                                <td class="align-middle" style="display: none;">
+                                        <?php echo $row['id']; ?>
+                                    </td>
                                     <td class="align-middle">
                                         <?php echo $row['serial_no']; ?>
                                     </td>
@@ -519,20 +523,21 @@ if ($result2->num_rows > 0) {
         <?php if ($result->num_rows > 0): ?>
             var table = $('#patientTableBody').DataTable({
                 columnDefs: [
-                    { targets: 0, data: 'serial_no' },
-                    { targets: 1, data: 'first_name' },
-                    { targets: 2, data: 'last_name' },
-                    { targets: 3, data: 'birthdate' },
-                    { targets: 4, data: 'address' },
+                    { targets: 0, data: 'id' },
+                    { targets: 1, data: 'serial_no' },
+                    { targets: 2, data: 'first_name' },
+                    { targets: 3, data: 'last_name' },
+                    { targets: 4, data: 'birthdate' },
+                    { targets: 5, data: 'address' },
                     {
-                        targets: 5,
+                        targets: 6,
                         searchable: false,
                         data: null,
                         render: function (data, type, row) {
                             var viewRec = '<a href="history.php?id=' + row.id + '"><button type="button" class="btn btn-warning ml-1">View History</button></a>';
                             var editButton = '<button type="button" class="btn btn-success editbtn" data-patient-id="' + row.serial_no + '"><i class="fas fa-edit"></i> Update</button>';
                             var deleteButton = '<button type="button" class="btn btn-danger deletebtn" data-id="' + row.serial_no + '"><i class="fas fa-user-times"></i> Inactive</button>';
-                            return viewRec + '' + editButton + ' ' + deleteButton;
+                            return viewRec + ' ' + editButton + ' ' + deleteButton;
                         }
                     } // Action column
                 ],
@@ -543,11 +548,12 @@ if ($result2->num_rows > 0) {
             // Initialize DataTable without the "Action" column when no rows are found
             var table = $('#patientTableBody').DataTable({
                 columnDefs: [
-                    { targets: 0, data: 'serial_no' },
-                    { targets: 1, data: 'first_name' },
-                    { targets: 2, data: 'last_name' },
-                    { targets: 3, data: 'birthdate' },
-                    { targets: 4, data: 'address' }
+                    { targets: 0, data: 'id' },
+                    { targets: 1, data: 'serial_no' },
+                    { targets: 2, data: 'first_name' },
+                    { targets: 3, data: 'last_name' },
+                    { targets: 4, data: 'birthdate' },
+                    { targets: 5, data: 'address' }
                 ],
                 // Set the default ordering to 'id' column in descending order
                 order: [[0, 'desc']]
@@ -560,20 +566,21 @@ if ($result2->num_rows > 0) {
             table.destroy(); // Destroy the existing DataTable
             table = $('#patientTableBody').DataTable({
                 columnDefs: [
-                    { targets: 0, data: 'serial_no' },
-                    { targets: 1, data: 'first_name' },
-                    { targets: 2, data: 'last_name' },
-                    { targets: 3, data: 'birthdate' },
-                    { targets: 4, data: 'address' },
+                    { targets: 0, data: 'id' },
+                    { targets: 1, data: 'serial_no' },
+                    { targets: 2, data: 'first_name' },
+                    { targets: 3, data: 'last_name' },
+                    { targets: 4, data: 'birthdate' },
+                    { targets: 5, data: 'address' },
                     {
-                        targets: 5,
+                        targets: 6,
                         searchable: false,
                         data: null,
                         render: function (data, type, row) {
                             var viewRec = '<a href="history.php?id=' + row.id + '"><button type="button" class="btn btn-warning ml-1">View History</button></a>';
                             var editButton = '<button type="button" class="btn btn-success editbtn" data-patient-id="' + row.serial_no + '"><i class="fas fa-edit"></i> Update</button>';
                             var deleteButton = '<button type="button" class="btn btn-danger deletebtn" data-id="' + row.serial_no + '"><i class="fas fa-user-times"></i> Inactive</button>';
-                            return viewRec + '' + editButton + ' ' + deleteButton;
+                            return viewRec + ' ' + editButton + ' ' + deleteButton;
                         }
                     } // Action column
                 ],
