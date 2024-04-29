@@ -19,65 +19,90 @@
 </style>
 
 <body>
-  <div class="container">
-    <div class="myform">
-      <h1>Login</h1>
-      <br><br>
-      <?php
-      session_start();
+<div class="container">
+  <div class="myform">
+    <h1>Login</h1>
+    <br><br>
+    <?php
+    session_start();
 
-      if (isset($_SESSION['login_error'])) {
-        echo '<p style="color: red;">' . $_SESSION['login_error'] . '</p>';
+    if (isset($_SESSION['login_error'])) {
+      echo '<p style="color: red;">' . $_SESSION['login_error'] . '</p>';
 
-        // Display the countdown timer if applicable
-        if (isset($_SESSION['ban_timestamp'])) {
-          $remainingTime = max(0, 20 - (time() - $_SESSION['ban_timestamp']));
-          echo '<p id="countdown" style="color: red;">Please try again in ' . $remainingTime . ' seconds.</p>';
+      // Display the countdown timer if applicable
+      if (isset($_SESSION['ban_timestamp'])) {
+        $remainingTime = max(0, 20 - (time() - $_SESSION['ban_timestamp']));
+        echo '<p id="countdown" style="color: red;">Please try again in ' . $remainingTime . ' seconds.</p>';
 
-          // Display the live countdown using JavaScript
-          echo '<script>
-                var countdown = ' . $remainingTime . ';
-                function updateCountdown() {
-                    document.getElementById("countdown").innerText = "Please try again in " + countdown + " seconds.";
-                    countdown--;
-    
-                    if (countdown < 0) {
-                        clearInterval(timer);
-                        document.getElementById("countdown").style.display = "none";
-                    }
-                }
-    
-                var timer = setInterval(updateCountdown, 1000);
-            </script>';
-        }
+        // Display the live countdown using JavaScript
+        echo '<script>
+              var countdown = ' . $remainingTime . ';
+              function updateCountdown() {
+                  document.getElementById("countdown").innerText = "Please try again in " + countdown + " seconds.";
+                  countdown--;
 
-        unset($_SESSION['login_error']);
+                  if (countdown < 0) {
+                      clearInterval(timer);
+                      document.getElementById("countdown").style.display = "none";
+                  }
+              }
+
+              var timer = setInterval(updateCountdown, 1000);
+          </script>';
       }
 
-      ?>
-      <form action="action/login_process.php" method="POST">
-        <input type="text" id="username" name="username" placeholder="Username" required><br>
-        <input type="password" id="password" name="password" placeholder="Password" required><br>
-        <button type="submit" name="submit">LOGIN</button><br><br>
-        <b>Forgot your Password?</b>
-        <span style="margin-left: 10px;"></span>
+      unset($_SESSION['login_error']);
+    }
 
-        <a href="forgot_password.php" onmousedown="return false;" onselectstart="return false;">
-          <button type="button" id="openModalButton" class="btn btn-danger">
-            Click Here
-          </button>
-        </a>
+    ?>
+    <form action="action/login_process.php" method="POST">
+      <input type="text" id="username" name="username" placeholder="Username" required><br>
+      <div class="row align-items-center">
+        <div class="col">
+          <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+        </div>
+        <div class="col-auto">
+          <div class="input-group-append">
+            <span class="input-group-text">
+              <i class="fas fa-eye-slash toggle-password" id="togglePassword"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+      <button type="submit" name="submit">LOGIN</button><br><br>
+      <b>Forgot your Password?</b>
+      <span style="margin-left: 10px;"></span>
 
-        <!-- <button onclick="window.location.href='forgot_password.php'" class="forgot-password-button">Click Here</button> -->
-
-      </form>
-
-    </div>
-    <div class="image">
-      <img src="./assets\images\buluaLogo.png" onmousedown="return false;" onselectstart="return false;">
-    </div>
+      <a href="forgot_password.php" onmousedown="return false;" onselectstart="return false;">
+        <button type="button" id="openModalButton" class="btn btn-danger">
+          Click Here
+        </button>
+      </a>
+    </form>
   </div>
+  <div class="image">
+    <img src="./assets\images\buluaLogo.png" onmousedown="return false;" onselectstart="return false;">
+  </div>
+</div>
+
 </body>
+<script>
+  document.getElementById('togglePassword').addEventListener('click', function() {
+    const passwordField = document.getElementById('password');
+    const fieldType = passwordField.getAttribute('type');
+
+    if (fieldType === 'password') {
+      passwordField.setAttribute('type', 'text');
+      this.classList.remove('fa-eye-slash');
+      this.classList.add('fa-eye');
+    } else {
+      passwordField.setAttribute('type', 'password');
+      this.classList.remove('fa-eye');
+      this.classList.add('fa-eye-slash');
+    }
+  });
+</script>
+
 <script type="text/javascript">
 
   document.addEventListener('contextmenu', function (e) {

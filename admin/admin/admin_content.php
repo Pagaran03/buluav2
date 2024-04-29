@@ -67,9 +67,45 @@ if ($result === false) {
 
                         <div class="form-group">
                             <label for="password">Password</label>
-                            <input type="password" class="form-control" id="password" name="password" required>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="password" name="password" required>
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="button" id="togglePasswords"
+                                        style="display: none;">
+                                        <i class="bi bi-eye-slash" id="toggleIcon"></i>
+                                    </button>
+                                </div>
+                            </div>
                             <div id="password_error" class="error"></div>
                         </div>
+                        <script>
+                            $(document).ready(function () {
+                                $("#password").on('input', function () {
+                                    var passwordField = $(this);
+                                    var toggleButton = $("#togglePasswords");
+
+                                    if (passwordField.val().length > 0) {
+                                        toggleButton.show();
+                                    } else {
+                                        toggleButton.hide();
+                                    }
+                                });
+
+                                $("#togglePasswords").click(function () {
+                                    var passwordField = $("#password");
+                                    var toggleIcon = $("#toggleIcon");
+
+                                    if (passwordField.attr("type") == "password") {
+                                        passwordField.attr("type", "text");
+                                        toggleIcon.removeClass("bi-eye").addClass("bi-eye-slash");
+                                        
+                                    } else {
+                                        passwordField.attr("type", "password");
+                                        toggleIcon.removeClass("bi-eye-slash").addClass("bi-eye");
+                                    }
+                                });
+                            });
+                        </script>
                     </form>
 
                 </div>
@@ -199,7 +235,7 @@ if ($result === false) {
                                 <div class="input-group-append">
                                     <button class="btn btn-outline-secondary" type="button" id="togglePassword"
                                         style="display: none;">
-                                        <i class="bi bi-eye-slash" id="toggleIcon"></i>
+                                        <i class="bi bi-eye-slash" id="toggleIcons"></i>
                                     </button>
                                 </div>
                             </div>
@@ -222,14 +258,15 @@ if ($result === false) {
 
                                 $("#togglePassword").click(function () {
                                     var passwordField = $("#editPassword");
-                                    var toggleIcon = $("#toggleIcon");
+                                    var toggleIcon = $("#toggleIcons");
 
                                     if (passwordField.attr("type") == "password") {
                                         passwordField.attr("type", "text");
-                                        toggleIcon.removeClass("bi-eye-slash").addClass("bi-eye");
+                                        toggleIcon.removeClass("bi-eye").addClass("bi-eye-slash");
+                                        
                                     } else {
                                         passwordField.attr("type", "password");
-                                        toggleIcon.removeClass("bi-eye").addClass("bi-eye-slash");
+                                        toggleIcon.removeClass("bi-eye-slash").addClass("bi-eye");
                                     }
                                 });
                             });

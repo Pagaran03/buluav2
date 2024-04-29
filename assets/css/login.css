@@ -101,11 +101,11 @@ div.container div.myform button {
 }
 
 div.container div.image {
-  margin-left: 30px;
+  margin-left: 150px;
 }
 
 div.container div.image img {
-  width: auto;
+  
   max-width: 100%;
   transform: scale(1.5); /* Adjust the scale as needed for desktop */
 }
