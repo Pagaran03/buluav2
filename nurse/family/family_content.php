@@ -789,6 +789,7 @@ if ($result === false) {
                             <th>Patient Name</th>
                             <th>Date</th>
                             <th>Status</th>
+                            <th class="tago">ID</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -803,6 +804,7 @@ if ($result === false) {
                                     <td class="align-middle"><?php echo $row['full_name']; ?></td>
                                     <td class="align-middle"><?php echo $row['checkup_date']; ?></td>
                                     <td class="align-middle"><?php echo $row['status']; ?></td>
+                                    <td class="align-middle class"><?php echo $row['patient_id']; ?></td>
                                     <td class="align-middle">
                                         <a href="history_consultation.php?id=<?php echo $row['id']; ?>"><button type="button"
                                                 class="btn btn-warning ml-1">View History</button></a>
@@ -1592,11 +1594,15 @@ if ($result === false) {
                     { targets: 3, data: 'checkup_date' },
                     { targets: 4, data: 'status' },
                     {
-                        targets: 5,
+                    targets: 5,
+                    data: 'patient_id', visible: false
+                },
+                    {
+                        targets: 6,
                         searchable: false,
                         data: null,
                         render: function (data, type, row) {
-                            var viewRec = '<a href="history_consultation.php?id=' + row.id + '"><button type="button" class="btn btn-warning ml-1">View History</button></a>';
+                            var viewRec = '<a href="history_consultation.php?patient_id=' + row.patient_id + '"><button type="button" class="btn btn-warning ml-1">View History</button></a>';
                             var editButton = '<button type="button" class="btn btn-info editbtn" data-row-id="' + row.id + '"><i class="fas fa-eye"></i> View Record</button>';
                             var addButton = '<button type="button" class="btn btn-success editbtn2" data-row-id="' + row.id + '"><i class="fas fa-edit"></i> Add Consultation </button>';
                             var deleteButton = '<button type="button" class="btn btn-danger deletebtn" data-id="' + row.id + '"><i class="fas fa-trash"></i> Delete</button>';
@@ -1619,6 +1625,10 @@ if ($result === false) {
                     { targets: 2, data: 'full_name' },
                     { targets: 3, data: 'checkup_date' },
                     { targets: 4, data: 'status' },
+                    {
+                    targets: 5,
+                    data: 'patient_id', visible: false
+                },
                 ],
                 // Set the default ordering to 'id' column in descending order
                 order: [[0, 'desc']]
