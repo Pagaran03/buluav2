@@ -60,7 +60,7 @@ if ($result === false) {
                                     <datalist id="patients">
                                         <?php
                                         // Query to fetch patients from the database
-                                        $sql2 = "SELECT serial_no, first_name, last_name FROM patients ORDER BY id DESC";
+                                        $sql2 = "SELECT serial_no, first_name, last_name FROM patients WHERE gender = 'Female' ORDER BY id DESC";
                                         $result2 = $conn->query($sql2);
 
                                         if ($result2->num_rows > 0) {
