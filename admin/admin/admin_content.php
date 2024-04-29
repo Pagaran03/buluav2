@@ -194,9 +194,47 @@ if ($result === false) {
                         </div>
                         <div class="form-group">
                             <label for="editPassword">Password</label>
-                            <input type="text" class="form-control" id="editPassword" name="password" required>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="editPassword" name="password" required>
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="button" id="togglePassword"
+                                        style="display: none;">
+                                        <i class="bi bi-eye-slash" id="toggleIcon"></i>
+                                    </button>
+                                </div>
+                            </div>
                             <div id="editPassword_error" class="error"></div>
                         </div>
+
+                        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                        <script>
+                            $(document).ready(function () {
+                                $("#editPassword").on('input', function () {
+                                    var passwordField = $(this);
+                                    var toggleButton = $("#togglePassword");
+
+                                    if (passwordField.val().length > 0) {
+                                        toggleButton.show();
+                                    } else {
+                                        toggleButton.hide();
+                                    }
+                                });
+
+                                $("#togglePassword").click(function () {
+                                    var passwordField = $("#editPassword");
+                                    var toggleIcon = $("#toggleIcon");
+
+                                    if (passwordField.attr("type") == "password") {
+                                        passwordField.attr("type", "text");
+                                        toggleIcon.removeClass("bi-eye-slash").addClass("bi-eye");
+                                    } else {
+                                        passwordField.attr("type", "password");
+                                        toggleIcon.removeClass("bi-eye").addClass("bi-eye-slash");
+                                    }
+                                });
+                            });
+                        </script>
+
                     </form>
                 </div>
                 <div class="modal-footer">

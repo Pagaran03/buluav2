@@ -3,16 +3,17 @@
 include_once ('../../../config.php');
 
 $primary_id = $_POST['primary_id'];
+$status = $_POST['status'];
 $diagnosis = $_POST['diagnosis'];
 $medicine = $_POST['medicine'];
-$status = $_POST['status'];
+
 
 try {
     // Start a transaction
     $conn->begin_transaction();
 
 
-    $consultationUpdateSql = "UPDATE consultations SET  status=?,diagnosis=?, medicine=? WHERE id=?";
+    $consultationUpdateSql = "UPDATE consultations SET  status=?, diagnosis=?, medicine=? WHERE id=?";
     $consultationStmt = $conn->prepare($consultationUpdateSql);
     $consultationStmt->bind_param("sssi", $status, $diagnosis, $medicine, $primary_id);
 

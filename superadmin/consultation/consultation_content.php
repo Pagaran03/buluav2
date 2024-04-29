@@ -225,7 +225,7 @@ if ($result === false) {
 
                         <div class="form-group">
                             <label for="">Select Status</label>
-                            <select class="form-control" name="status2" id="editstatus" required>
+                            <select class="form-control" name="status" id="editstatus" required>
                                 <option value="" disabled selected hidden>Select a Status</option>
                                 <option value="Complete">Complete</option>
                                 <option value="Pending">Pending</option>
@@ -716,8 +716,8 @@ if ($result === false) {
 
             var patient_id = $('#patient_id').val();
             var status = $('#editstatus').val();
-            var diagnosis = $('#diagnosis').val();
-            var medicine = $('#medicine').val();
+            var diagnosis = $('#editDiagnosis').val();
+            var medicine = $('#editMedicine').val();
 
             // AJAX request to send data to the server
             $.ajax({
@@ -737,8 +737,8 @@ if ($result === false) {
                         // Clear the form fields
                         $('#patient_id').val('');
                         $('#editstatus').val('');
-                        $('#diagnosis').val('');
-                        $('#medicine').val('');
+                        $('#editDiagnosis').val('');
+                        $('#editMedicine').val('');
 
                         updateData();
                         $('#addModal').modal('hide');
@@ -1010,7 +1010,8 @@ if ($result === false) {
         $('#updateButton').click(function () {
 
 
-            var editId = $('#editdataId').val();;
+            var editId = $('#editdataId').val();
+            var status = $('#editstatus').val();
             var diagnosis = $('#editDiagnosis').val();
             var medicine = $('#editMedicine').val();
 
@@ -1019,6 +1020,7 @@ if ($result === false) {
                 method: 'POST',
                 data: {
                     primary_id: editId,
+                    status: status,
                     diagnosis: diagnosis,
                     medicine: medicine,
                 },
