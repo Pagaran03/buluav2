@@ -2,11 +2,12 @@
 // Include your database configuration file
 include_once ('../../config.php');
 
+$date = date('Y-m-d');
 
 $sql = "SELECT *,consultations.id as id,CONCAT(patients.last_name,',',patients.first_name) AS full_name
 FROM consultations
 JOIN patients ON consultations.patient_id = patients.id
-WHERE consultations.is_active = 0 AND  consultations.is_deleted=0";
+WHERE consultations.is_active = 0 AND consultations.is_deleted=0 AND checkup_date = $date";
 
 
 
@@ -25,17 +26,23 @@ if ($result === false) {
         </button>
     </div>
 
-    <a href="archive_consultation.php">
-        <button type="button" id="openModalButton" class="btn btn-danger ml-1">
-            View Archive
-        </button>
-    </a>
-
-    <a href="history_consultation.php">
+    <div style="text-align: left; float: left;">
+        <a href="archive_consultation.php">
+            <button type="button" id="openModalButton" class="btn btn-danger ml-1">
+                View Archive
+            </button>
+        </a>
+    </div>
+    <!-- <a href="history_consultation.php">
         <button type="button" id="openModalButton" class="btn btn-warning ml-1">
             View History
         </button>
-    </a>
+    </a> -->
+    <div style="text-align: left; float: left; margin-left: 10px;">
+        <input type="text" class="form-control" id="datepicker" placeholder="Select Date">
+    </div>
+
+
     <br><br>
 
 
@@ -928,7 +935,7 @@ if ($result === false) {
 
     <script>
         $(document).ready(function () {
-
+            $('#datepicker').datepicker();
             document.getElementById('openModalButton').addEventListener('click', function () {
                 $('#addModal').modal('show'); // Show the modal
             });
@@ -1183,8 +1190,6 @@ if ($result === false) {
                     }
                 });
             });
-
-
 
             // Edit button click event
             $('#tablebod').on('click', '.editbtn', function () {
