@@ -127,6 +127,7 @@ if ($result === false) {
                             <th>Description</th>
                             <th>Date</th>
                             <th>Status</th>
+                            <th>Process</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -154,6 +155,9 @@ if ($result === false) {
                                     </td>
                                     <td class="align-middle">
                                         <?php echo $row['status']; ?>
+                                    </td>
+                                    <td class="align-middle">
+                                        <?php echo $row['step']; ?>
                                     </td>
                                     <td class="align-middle">
                                         <a href="history_consultation.php?id=<?php echo $row['id']; ?>"><button type="button"
@@ -185,6 +189,7 @@ if ($result === false) {
                                 <td class="align-middle"></td>
                                 <td class="align-middle">
                                 <td>
+                                <td class="align-middle"></td>
                                 <td class="align-middle"></td>
                                 <td class="align-middle"></td>
 
@@ -233,6 +238,22 @@ if ($result === false) {
                             </select>
                             <!-- <div id="editStatus_error" class="error"></div> -->
                         </div>
+                        <style>
+                            .puto {
+                                display: none;
+                            }
+                        </style>
+                        <div class="form-group ">
+                            <label for="">Select Step</label>
+                            <select class="form-control" name="step" id="editstep" required class="" disabled>
+                                <option value="" disabled selected hidden>Select a Step</option>
+                                <option value="Step 1 Interview Staff">Step 1 Interview Staff</option>
+                                <option value="Step 2 Consultation">Step 2 Consultation</option>
+                                <option value="Step 3 Doctor">Step 3 Doctor</option>
+                                <option value="Step 4 Prescription">Step 4 Prescription</option>
+                            </select>
+                            <!-- <div id="editStatus_error" class="error"></div> -->
+                        </div>
 
                         <div class="form-group">
                             <label for="">Diagnosis</label>
@@ -251,6 +272,25 @@ if ($result === false) {
                     <button type="button" class="btn btn-primary" id="updateButton">Update</button>
                 </div>
             </div>
+            <script>
+                // Add an event listener to the Save button
+                document.getElementById('updateButton').addEventListener('click', function () {
+                    // Assuming you have a variable `completedStep` that holds the completed step value, e.g., "Step1", "Step2", etc.
+                    var completedStep = "Step 4 Prescription"; // Example completed step
+
+                    // Get the select element
+                    var selectStep = document.getElementById('editstep');
+
+                    // Loop through options and set selected attribute if value matches completedStep
+                    for (var i = 0; i < selectStep.options.length; i++) {
+                        if (selectStep.options[i].value === completedStep) {
+                            selectStep.options[i].setAttribute('selected', 'selected');
+                            break; // Exit loop once selected option is found
+                        }
+                    }
+                });
+
+            </script>
         </div>
     </div>
 
@@ -321,6 +361,17 @@ if ($result === false) {
                                     </select>
                                     <!-- <div id="editStatus_error" class="error"></div> -->
                                 </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Select Step</label>
+                                <select class="form-control" name="step" id="step" required>
+                                    <option value="" disabled selected hidden>Select a Step</option>
+                                    <option value="Step 1 Interview Staff">Step 1 Interview Staff</option>
+                                    <option value="Step 2 Consultation">Step 2 Consultation</option>
+                                    <option value="Step 3 Doctor">Step 3 Doctor</option>
+                                    <option value="Step 4 Prescription">Step 4 Prescription</option>
+                                </select>
+                                <!-- <div id="editStatus_error" class="error"></div> -->
                             </div>
                         </div>
                         <div class="row">
@@ -650,8 +701,9 @@ if ($result === false) {
                     { targets: 3, data: 'subjective' },
                     { targets: 4, data: 'checkup_date' },
                     { targets: 5, data: 'status' },
+                    { targets: 6, data: 'step' },
                     {
-                        targets: 6,
+                        targets: 7,
                         searchable: false,
                         data: null,
                         render: function (data, type, row) {
@@ -677,6 +729,7 @@ if ($result === false) {
                     { targets: 3, data: 'subjective' },
                     { targets: 4, data: 'checkup_date' },
                     { targets: 5, data: 'status' },
+                    { targets: 6, data: 'step' },
                 ],
                 // Set the default ordering to 'id' column in descending order
                 order: [[0, 'desc']]
@@ -694,8 +747,9 @@ if ($result === false) {
                     { targets: 3, data: 'subjective' },
                     { targets: 4, data: 'checkup_date' },
                     { targets: 5, data: 'status' },
+                    { targets: 6, data: 'step' },
                     {
-                        targets: 6,
+                        targets: 7,
                         searchable: false,
                         data: null,
                         render: function (data, type, row) {
@@ -716,6 +770,7 @@ if ($result === false) {
 
             var patient_id = $('#patient_id').val();
             var status = $('#editstatus').val();
+            var step = $('#editstep').val();
             var diagnosis = $('#editDiagnosis').val();
             var medicine = $('#editMedicine').val();
 
@@ -726,6 +781,7 @@ if ($result === false) {
                 data: {
                     patient_id: patient_id,
                     status: status,
+                    step: step,
                     diagnosis: diagnosis,
                     medicine: medicine,
                 },
@@ -737,6 +793,7 @@ if ($result === false) {
                         // Clear the form fields
                         $('#patient_id').val('');
                         $('#editstatus').val('');
+                        $('#editstep').val('');
                         $('#editDiagnosis').val('');
                         $('#editMedicine').val('');
 
@@ -854,6 +911,7 @@ if ($result === false) {
                     $('#editModal #editdataId').val(editGetData.id);
                     $('#editModal #editPatient_id').val(editGetData.patient_id);
                     $('#editModal #editstatus').val(editGetData.status);
+                    $('#editModal #editstep').val(editGetData.step);
                     $('#editModal #editDiagnosis').val(editGetData.diagnosis);
                     $('#editModal #editMedicine').val(editGetData.medicine);
 
@@ -880,6 +938,7 @@ if ($result === false) {
                     $('#editModal2 #editdataId').val(editGetData.id);
                     $('#editModal2 #doctor_id2').val(editGetData.doctor_id);
                     $('#editModal2 #status').val(editGetData.status);
+                    $('#editModal2 #step').val(editGetData.step);
                     $('#editModal2 #checkup_date2').val(editGetData.checkup_date);
                     $('#editModal2 #subjective2').val(editGetData.subjective);
                     $('#editModal2 #objective2').val(editGetData.objective);
@@ -1012,6 +1071,7 @@ if ($result === false) {
 
             var editId = $('#editdataId').val();
             var status = $('#editstatus').val();
+            var step = $('#editstep').val();
             var diagnosis = $('#editDiagnosis').val();
             var medicine = $('#editMedicine').val();
 
@@ -1021,6 +1081,7 @@ if ($result === false) {
                 data: {
                     primary_id: editId,
                     status: status,
+                    step: step,
                     diagnosis: diagnosis,
                     medicine: medicine,
                 },
@@ -1063,6 +1124,7 @@ if ($result === false) {
 
             var editId = $('#editdataId').val();
             var status = $('#status').val();
+            var step = $('#step').val();
             var subjective = $('#subjective2').val();
             var objective = $('#objective2').val();
             var assessment = $('#assessment2').val();
@@ -1102,6 +1164,7 @@ if ($result === false) {
                 data: {
                     primary_id: editId,
                     status: status,
+                    step: step,
                     subjective: subjective,
                     objective: objective,
                     assessment: assessment,
