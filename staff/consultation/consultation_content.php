@@ -939,7 +939,22 @@ if ($result === false) {
 
     <script>
         $(document).ready(function () {
-            $('#datepicker').datepicker();
+            function getCurrentDate() {
+                var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                var today = new Date();
+                var dd = String(today.getDate()).padStart(2, '0');
+                var mm = months[today.getMonth()]; 
+                var yyyy = today.getFullYear();
+                return dd + ' ' + mm + ', ' + yyyy;
+            }
+
+            // Set default date to today
+            $('#datepicker').val(getCurrentDate());
+
+            // Initialize datepicker
+            $('#datepicker').datepicker({
+                dateFormat: 'yy-mm-dd', 
+            });
             document.getElementById('openModalButton').addEventListener('click', function () {
                 $('#addModal').modal('show'); // Show the modal
             });
