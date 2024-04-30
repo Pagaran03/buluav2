@@ -140,7 +140,7 @@
               <a href="../patient/patient.php" class="nav-link">
                 <i class="fa fa-users fa-lg" aria-hidden="true"></i>
                 <p>
-                  Add Patient
+                 Patient List
                 </p>
               </a>
             </li>

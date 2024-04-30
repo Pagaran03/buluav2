@@ -266,6 +266,34 @@ if ($result2->num_rows > 0) {
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="birth_weight">Birth Weight</label>
+                        <input type="text" class="form-control" id="birth_weight" name="birth_weight" required>
+                        <div class="error"></div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="birth_height">Birth Height</label>
+                        <input type="text" class="form-control" id="birth_height" name="birth_height" required>
+                        <div class="error"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="place_of_birth">Place of Birth</label>
+                        <textarea class="form-control" id="place_of_birth" name="place_of_birth" rows="3" required></textarea>
+                        <div id="place_of_birth_error" class="error"></div>
+                    </div>
+                </div>
+            </div>
+
+
         `;
         
         // Append the child information fields to the placeholder
