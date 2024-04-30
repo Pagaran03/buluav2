@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 30, 2024 at 01:48 PM
+-- Generation Time: Apr 30, 2024 at 10:03 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -61,26 +61,6 @@ CREATE TABLE `announcements` (
   `title` varchar(255) DEFAULT NULL,
   `date` date DEFAULT current_timestamp(),
   `time` time DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `children`
---
-
-CREATE TABLE `children` (
-  `id` int(11) NOT NULL,
-  `first_name_child` varchar(255) NOT NULL,
-  `last_name_child` varchar(255) NOT NULL,
-  `middle_name_child` varchar(255) NOT NULL,
-  `suffix_child` varchar(10) NOT NULL,
-  `gender_child` enum('Male','Female') NOT NULL,
-  `birthdate_child` date NOT NULL,
-  `birth_weight_child` decimal(5,2) NOT NULL,
-  `birth_height_child` decimal(5,2) NOT NULL,
-  `place_of_birth_child` text NOT NULL,
-  `children_id` int(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -570,16 +550,7 @@ INSERT INTO `logs` (`id`, `type`, `date`, `time`, `user_id`) VALUES
 (239, 'logout', '2024-04-30', '03:30:37', 1),
 (240, 'login', '2024-04-30', '03:32:34', 1),
 (241, 'logout', '2024-04-30', '03:33:09', 1),
-(242, 'login', '2024-04-30', '03:37:39', 3),
-(243, 'logout', '2024-04-30', '04:07:14', 3),
-(244, 'login', '2024-04-30', '06:09:27', 2),
-(245, 'logout', '2024-04-30', '06:27:32', 2),
-(246, 'login', '2024-04-30', '06:45:27', 2),
-(247, 'logout', '2024-04-30', '07:02:02', 2),
-(248, 'login', '2024-04-30', '07:19:31', 2),
-(249, 'logout', '2024-04-30', '07:34:54', 2),
-(250, 'login', '2024-04-30', '07:43:56', 2),
-(251, 'logout', '2024-04-30', '07:47:21', 2);
+(242, 'login', '2024-04-30', '03:37:39', 3);
 
 -- --------------------------------------------------------
 
@@ -653,16 +624,8 @@ CREATE TABLE `patients` (
   `civil_status` varchar(255) DEFAULT NULL,
   `religion` varchar(255) DEFAULT NULL,
   `is_deleted` int(11) NOT NULL DEFAULT 0,
-  `serial_no` varchar(255) NOT NULL,
-  `children_id` int(255) NOT NULL
+  `serial_no` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `patients`
---
-
-INSERT INTO `patients` (`id`, `first_name`, `last_name`, `birthdate`, `address`, `is_active`, `middle_name`, `suffix`, `gender`, `age`, `contact_no`, `civil_status`, `religion`, `is_deleted`, `serial_no`, `children_id`) VALUES
-(1, 'asd', 'asd', '2021-04-03', 'asd', 0, 'asd', 'a', 'Male', '3', '123', 'Married', 'Roman Catholic', 0, '240001', 0);
 
 -- --------------------------------------------------------
 
@@ -912,12 +875,6 @@ ALTER TABLE `announcements`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `children`
---
-ALTER TABLE `children`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `consultations`
 --
 ALTER TABLE `consultations`
@@ -1060,12 +1017,6 @@ ALTER TABLE `announcements`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `children`
---
-ALTER TABLE `children`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `consultations`
 --
 ALTER TABLE `consultations`
@@ -1129,7 +1080,7 @@ ALTER TABLE `immunization`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=252;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=243;
 
 --
 -- AUTO_INCREMENT for table `midwife`
@@ -1147,7 +1098,7 @@ ALTER TABLE `nurses`
 -- AUTO_INCREMENT for table `patients`
 --
 ALTER TABLE `patients`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `prenatal`
