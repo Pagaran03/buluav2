@@ -4,6 +4,10 @@ if (isset($_SESSION['role']) && $_SESSION['role'] !== "nurse") {
   header("Location: ../../{$_SESSION['role']}/dashboard/dashboard.php");
   exit;
 }
+
+if(!isset($_SESSION['role'])){
+  header("location: ../../index.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
