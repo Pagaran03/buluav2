@@ -1,10 +1,11 @@
 <?php
 // Include your database configuration file
-include_once('../../../config.php');
+include_once ('../../../config.php');
 
 try {
     // Sanitize user input from the POST request
     $patientId = htmlspecialchars($_POST['patient_id']);
+    $step = htmlspecialchars($_POST['step']);
     $firstName = htmlspecialchars($_POST['first_name']);
     $lastName = htmlspecialchars($_POST['last_name']);
     $birthdate = htmlspecialchars($_POST['birthdate']);
@@ -19,9 +20,9 @@ try {
     $Religion = htmlspecialchars($_POST['religion']);
 
     // Update patient data in the database
-    $sql = "UPDATE patients SET first_name=?, last_name=?, birthdate=?, address=?, middle_name=?, suffix=?, gender=?, contact_no=?, civil_status=?, age=?, religion=?  WHERE id=?";
+    $sql = "UPDATE patients SET step=?, first_name=?, last_name=?, birthdate=?, address=?, middle_name=?, suffix=?, gender=?, contact_no=?, civil_status=?, age=?, religion=?  WHERE id=?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssssssssssi", $firstName, $lastName, $birthdate, $address, $middleName, $Suffix, $Gender, $Contactno, $Civilstatus, $Age, $Religion, $patientId);
+    $stmt->bind_param("ssssssssssssi", $step, $firstName, $lastName, $birthdate, $address, $middleName, $Suffix, $Gender, $Contactno, $Civilstatus, $Age, $Religion, $patientId);
 
     if ($stmt->execute()) {
         // Successful update
