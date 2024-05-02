@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (isset($_SESSION['role']) && $_SESSION['role'] !== "superadmin") {
+  header("Location: ../../{$_SESSION['role']}/dashboard/dashboard.php");
+  exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
