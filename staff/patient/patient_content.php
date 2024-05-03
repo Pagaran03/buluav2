@@ -68,6 +68,29 @@ if ($result2->num_rows > 0) {
                 </div>
                 <div class="modal-body">
                     <form id="addPatientForm">
+                        <style>
+                            .otag {
+                                display: none;
+                            }
+                        </style>
+                        <div class="form-group otag">
+                            <label for="">Select Step</label>
+                            <select class="form-control" name="step" id="step" required class="">
+                                <option value="" disabled selected hidden>Select a Step</option>
+                                <option value="Interview Staff">Interview Staff</option>
+                                <option value="Consultation">Consultation</option>
+                                <option value="Immunization">Immunization</option>
+                                <option value="Prenatal">Prenatal</option>
+                                <option value="Family Planning">Family Planning</option>
+                                <option value="Doctor">Doctor</option>
+                                <option value="Nurse">Nurse</option>
+                                <option value="Midwife">Midwife</option>
+                                <option value="Head Nurse">Head Nurse</option>
+                                <option value="Prescription">Prescription</option>
+                            </select>
+                            <!-- <div id="editStatus_error" class="error"></div> -->
+                        </div>
+
                         <div class="row">
                             <div class="col-md-6">
                                 <!-- Adjusted column size for small screens -->
@@ -203,16 +226,16 @@ if ($result2->num_rows > 0) {
                             </div>
                         </div>
                         <!-- Add more fields here if needed -->
-                       <!-- Add a button to trigger the addition of child information -->
-<button id="addChildButton" class="btn btn-primary">Add Child Information</button>
+                        <!-- Add a button to trigger the addition of child information -->
+                        <button id="addChildButton" class="btn btn-primary">Add Child Information</button>
 
-<!-- Placeholder for child information -->
-<div id="childInformationPlaceholder"></div>
+                        <!-- Placeholder for child information -->
+                        <div id="childInformationPlaceholder"></div>
 
-<script>
-    // Function to add a new set of child information fields
-    function addChildInformation() {
-        var childInfoHTML = `
+                        <script>
+                            // Function to add a new set of child information fields
+                            function addChildInformation() {
+                                var childInfoHTML = `
             <h5>Child Information</h5>
             <div class="row">
                 <div class="col-md-6">
@@ -295,16 +318,16 @@ if ($result2->num_rows > 0) {
 
 
         `;
-        
-        // Append the child information fields to the placeholder
-        document.getElementById('childInformationPlaceholder').innerHTML += childInfoHTML;
-    }
 
-    // Add an event listener to the button to trigger the addition of child information
-    document.getElementById('addChildButton').addEventListener('click', addChildInformation);
-</script>
+                                // Append the child information fields to the placeholder
+                                document.getElementById('childInformationPlaceholder').innerHTML += childInfoHTML;
+                            }
 
-                        
+                            // Add an event listener to the button to trigger the addition of child information
+                            document.getElementById('addChildButton').addEventListener('click', addChildInformation);
+                        </script>
+
+
 
                     </form>
                 </div>
@@ -316,6 +339,25 @@ if ($result2->num_rows > 0) {
             </div>
         </div>
     </div>
+    <script>
+        // Add an event listener to the Save button
+        document.getElementById('addPatientButton').addEventListener('click', function () {
+            // Assuming you have a variable `completedStep` that holds the completed step value, e.g., "Step1", "Step2", etc.
+            var completedStep = "Interview Staff"; // Example completed step
+
+            // Get the select element
+            var selectStep = document.getElementById('step');
+
+            // Loop through options and set selected attribute if value matches completedStep
+            for (var i = 0; i < selectStep.options.length; i++) {
+                if (selectStep.options[i].value === completedStep) {
+                    selectStep.options[i].setAttribute('selected', 'selected');
+                    break; // Exit loop once selected option is found
+                }
+            }
+        });
+
+    </script>
     <script>
         function calculateAge() {
             const birthdate = new Date(document.getElementById("birthdate").value);
@@ -358,6 +400,7 @@ if ($result2->num_rows > 0) {
                             <th>Last Name</th>
                             <th>Birthdate</th>
                             <th>Address</th>
+                            <th>Process</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -367,7 +410,7 @@ if ($result2->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
                                 ?>
                                 <tr>
-                                <td class="align-middle" style="display: none;">
+                                    <td class="align-middle" style="display: none;">
                                         <?php echo $row['id']; ?>
                                     </td>
                                     <td class="align-middle">
@@ -386,7 +429,10 @@ if ($result2->num_rows > 0) {
                                         <?php echo $row['address']; ?>
                                     </td>
                                     <td class="align-middle">
-                                        <button type="button" class="btn btn-info editbtns"
+                                        <?php echo $row['step']; ?>
+                                    </td>
+                                    <td class="align-middle">
+                                        <button type="button" class="btn btn-warning editbtns"
                                             data-row-id="<?php echo $row['serial_no']; ?>">
                                             <i class="fas fa-eye"></i> View Record
                                         </button>
@@ -435,6 +481,24 @@ if ($result2->num_rows > 0) {
                     </button>
                 </div>
                 <div class="modal-body">
+                    <div class="form-group ">
+                        <label for="">Select Step</label>
+                        <select class="form-control" name="step" id="editstep" required class="">
+                            <option value="" disabled selected hidden>Select a Step</option>
+                            <option value="Interview Staff">Interview Staff</option>
+                            <option value="Consultation">Consultation</option>
+                            <option value="Immunization">Immunization</option>
+                            <option value="Prenatal">Prenatal</option>
+                            <option value="Family Planning">Family Planning</option>
+                            <option value="Doctor">Doctor</option>
+                            <option value="Nurse">Nurse</option>
+                            <option value="Midwife">Midwife</option>
+                            <option value="Head Nurse">Head Nurse</option>
+                            <option value="Prescription">Prescription</option>
+                        </select>
+                        <!-- <div id="editStatus_error" class="error"></div> -->
+                    </div>
+
                     <form id="editPatientForm">
                         <!-- Form fields for editing patient details -->
                         <input type="hidden" id="editPatientId" name="patient_id">
@@ -627,18 +691,19 @@ if ($result2->num_rows > 0) {
         <?php if ($result->num_rows > 0): ?>
             var table = $('#patientTableBody').DataTable({
                 columnDefs: [
-                    { targets: 0, data: 'id', visible : false },
+                    { targets: 0, data: 'id', visible: false },
                     { targets: 1, data: 'serial_no' },
                     { targets: 2, data: 'first_name' },
                     { targets: 3, data: 'last_name' },
                     { targets: 4, data: 'birthdate' },
                     { targets: 5, data: 'address' },
+                    { targets: 6, data: 'step' },
                     {
-                        targets: 6,
+                        targets: 7,
                         searchable: false,
                         data: null,
                         render: function (data, type, row) {
-                            var viewRec = '<a href="history.php?id=' + row.id + '"><button type="button" class="btn btn-warning ml-1">View History</button></a>';
+                            var viewRec = '<a href="history.php?id=' + row.id + '"><button type="button" class="btn btn-warning ml-1">  <i class="fas fa-eye"></i> View History</button></a>';
                             var editButton = '<button type="button" class="btn btn-success editbtn" data-patient-id="' + row.serial_no + '"><i class="fas fa-edit"></i> Update</button>';
                             var deleteButton = '<button type="button" class="btn btn-danger deletebtn" data-id="' + row.serial_no + '"><i class="fas fa-user-times"></i> Inactive</button>';
                             return viewRec + ' ' + editButton + ' ' + deleteButton;
@@ -652,26 +717,28 @@ if ($result2->num_rows > 0) {
             // Initialize DataTable without the "Action" column when no rows are found
             var table = $('#patientTableBody').DataTable({
                 columnDefs: [
-                    { targets: 0, data: 'id', visible : false },
+                    { targets: 0, data: 'id', visible: false },
                     { targets: 1, data: 'serial_no' },
                     { targets: 2, data: 'first_name' },
                     { targets: 3, data: 'last_name' },
                     { targets: 4, data: 'birthdate' },
-                    { targets: 5, data: 'address' }
+                    { targets: 5, data: 'address' },
+                    { targets: 6, data: 'step' }
                 ],
                 // Set the default ordering to 'id' column in descending order
                 order: [[0, 'desc']]
             });
         <?php endif; ?>
-       
+
         $('#addPatientButton').click(function () {
 
-            
+
             // Get data from the form
 
             $('.error').text('');
 
             // Get data from the form
+            var step = $('#step').val();
             var first_name = $('#first_name').val();
             var last_name = $('#last_name').val();
             var birthdate = $('#birthdate').val();
@@ -701,32 +768,33 @@ if ($result2->num_rows > 0) {
                 isValid = false;
                 $('#first_name_error').text('Field is required');
             }
-            else{
+            else {
                 isValid = true;
                 table.destroy(); // Destroy the existing DataTable
-            table = $('#patientTableBody').DataTable({
-                columnDefs: [
-                    { targets: 0, data: 'id', visible : false },
-                    { targets: 1, data: 'serial_no' },
-                    { targets: 2, data: 'first_name' },
-                    { targets: 3, data: 'last_name' },
-                    { targets: 4, data: 'birthdate' },
-                    { targets: 5, data: 'address' },
-                    {
-                        targets: 6,
-                        searchable: false,
-                        data: null,
-                        render: function (data, type, row) {
-                            var viewRec = '<a href="history.php?id=' + row.id + '"><button type="button" class="btn btn-warning ml-1">View History</button></a>';
-                            var editButton = '<button type="button" class="btn btn-success editbtn" data-patient-id="' + row.serial_no + '"><i class="fas fa-edit"></i> Update</button>';
-                            var deleteButton = '<button type="button" class="btn btn-danger deletebtn" data-id="' + row.serial_no + '"><i class="fas fa-user-times"></i> Inactive</button>';
-                            return viewRec + ' ' + editButton + ' ' + deleteButton;
-                        }
-                    } // Action column
-                ],
-                // Set the default ordering to 'id' column in descending order
-                order: [[0, 'desc']]
-            });
+                table = $('#patientTableBody').DataTable({
+                    columnDefs: [
+                        { targets: 0, data: 'id', visible: false },
+                        { targets: 1, data: 'serial_no' },
+                        { targets: 2, data: 'first_name' },
+                        { targets: 3, data: 'last_name' },
+                        { targets: 4, data: 'birthdate' },
+                        { targets: 5, data: 'address' },
+                        { targets: 6, data: 'step' },
+                        {
+                            targets: 7,
+                            searchable: false,
+                            data: null,
+                            render: function (data, type, row) {
+                                var viewRec = '<a href="history.php?id=' + row.id + '"><button type="button" class="btn btn-warning ml-1">  <i class="fas fa-eye"></i> View History</button></a>';
+                                var editButton = '<button type="button" class="btn btn-success editbtn" data-patient-id="' + row.serial_no + '"><i class="fas fa-edit"></i> Update</button>';
+                                var deleteButton = '<button type="button" class="btn btn-danger deletebtn" data-id="' + row.serial_no + '"><i class="fas fa-user-times"></i> Inactive</button>';
+                                return viewRec + ' ' + editButton + ' ' + deleteButton;
+                            }
+                        } // Action column
+                    ],
+                    // Set the default ordering to 'id' column in descending order
+                    order: [[0, 'desc']]
+                });
             }
 
             // if (last_name.trim() === '') {
@@ -744,7 +812,7 @@ if ($result2->num_rows > 0) {
             //     isValid = false;
             // }
 
-        
+
 
             if (isValid == true) {
                 // AJAX request to send data to the server
@@ -752,6 +820,7 @@ if ($result2->num_rows > 0) {
                     url: 'action/add_patient.php',
                     method: 'POST',
                     data: {
+                        step: step,
                         first_name: first_name,
                         last_name: last_name,
                         birthdate: birthdate,
@@ -883,6 +952,7 @@ if ($result2->num_rows > 0) {
 
                     // Populate the Edit Patient Modal with patient details
                     $('#editPatientModal #editPatientId').val(patientData.id);
+                    $('#editPatientModal #editstep').val(patientData.step);
                     $('#editPatientModal #editFirstname').val(patientData.first_name);
                     $('#editPatientModal #editLastname').val(patientData.last_name);
                     $('#editPatientModal #editBirthdate').val(patientData.birthdate);
@@ -912,6 +982,7 @@ if ($result2->num_rows > 0) {
             $('.error').text('');
             // Get the updated patient data from the form
             var patientId = $('#editPatientId').val();
+            var step = $('#editstep').val();
             var firstName = $('#editFirstname').val();
             var lastName = $('#editLastname').val();
             var birthdate = $('#editBirthdate').val();
@@ -996,6 +1067,7 @@ if ($result2->num_rows > 0) {
                     method: 'POST',
                     data: {
                         patient_id: patientId,
+                        step: step,
                         first_name: firstName,
                         last_name: lastName,
                         birthdate: birthdate,

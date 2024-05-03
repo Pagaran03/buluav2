@@ -1,6 +1,6 @@
 <?php
 // Include your database configuration file
-include_once('../../../config.php');
+include_once ('../../../config.php');
 
 // Set appropriate response headers
 header('Content-Type: text/plain'); // Set the content type to plain text
@@ -22,6 +22,7 @@ function validateAndSanitizeInput($input)
 }
 
 // Get data from the POST request and sanitize it
+$step = validateAndSanitizeInput($_POST['step']);
 $first_name = validateAndSanitizeInput($_POST['first_name']);
 $last_name = validateAndSanitizeInput($_POST['last_name']);
 
@@ -64,9 +65,9 @@ if ($count > 0) {
     echo 'Error: Patient with the same name exists';
 } else {
     // No duplicate found, proceed with the insertion
-    $sql = "INSERT INTO patients (first_name, last_name, birthdate, address, middle_name, suffix, gender, age, contact_no, civil_status, religion, serial_no) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO patients (first_name, last_name, birthdate, address, middle_name, suffix, gender, age, contact_no, civil_status, religion, step, serial_no) VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssssssssssss", $first_name, $last_name, $birthdate, $address, $middle_name, $suffix, $gender, $age, $contact_no, $civil_status, $religion, $serial_no);
+    $stmt->bind_param("sssssssssssss", $first_name, $last_name, $birthdate, $address, $middle_name, $suffix, $gender, $age, $contact_no, $civil_status, $religion, $step, $serial_no);
 
     if ($stmt->execute()) {
         // Successful insertion
