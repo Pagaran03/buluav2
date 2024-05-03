@@ -6,7 +6,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] !== "superadmin") {
 }
 
 
-if(!isset($_SESSION['role'])){
+if (!isset($_SESSION['role'])) {
   header("location: ../../index.php");
 }
 ?>
@@ -103,12 +103,12 @@ if(!isset($_SESSION['role'])){
 
             if ($result) {
               ?>
-                                                  <div class="info">
-                                                                                                                                                                 <a href="#" class="d-block">
-                                                                                                                                                                   <?php echo $result['first_name'] . ' ' . $result['last_name']; ?><br />Doctor
-                                                                                                                                                                 </a>
-                                                                                                                                                               </div>
-                                                                                                                                                               <?php
+                                                                    <div class="info">
+                                                                                                                                                                                   <a href="#" class="d-block">
+                                                                                                                                                                                     <?php echo $result['first_name'] . ' ' . $result['last_name']; ?><br />Doctor
+                                                                                                                                                                                   </a>
+                                                                                                                                                                                 </div>
+                                                                                                                                                                                 <?php
             } else {
               echo "No users found";
             }
@@ -260,7 +260,7 @@ if (
           <li class="nav-item <?php
           if (
             strpos($_SERVER['REQUEST_URI'], '/brgyv2/admin/report/immunization.php') !== false ||
-            strpos($_SERVER['REQUEST_URI'], '/brgyv2/admin/report/family.php') !== false ||
+            strpos($_SERVER['REQUEST_URI'], '/brgyv2/admin/report/report_fam.php') !== false ||
             strpos($_SERVER['REQUEST_URI'], '/brgyv2/admin/report/consultation.php') !== false ||
             strpos($_SERVER['REQUEST_URI'], '/brgyv2/admin/report/prenatal.php') !== false
 
@@ -284,7 +284,7 @@ if (
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="../report/report_famplan.php" class="nav-link <?php if ($_SERVER['REQUEST_URI'] === '/brgyv2/admin/report/family.php')
+                  <a href="../report/report_fam.php" class="nav-link <?php if ($_SERVER['REQUEST_URI'] === '/brgyv2/admin/report/report_fam.php')
                     echo 'active'; ?>">
                     <i class="fas fa-list fa-lg nav-icon"></i>
                     <p>Family Planning</p>

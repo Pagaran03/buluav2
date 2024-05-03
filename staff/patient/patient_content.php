@@ -457,6 +457,8 @@ if ($result2->num_rows > 0) {
                                 <td class="align-middle"></td>
                                 <td class="align-middle"></td>
                                 <td class="align-middle"></td>
+                                <td class="align-middle"></td>
+
 
                             </tr>
                             <?php
@@ -482,9 +484,9 @@ if ($result2->num_rows > 0) {
                 </div>
                 <div class="modal-body">
                     <div class="form-group ">
-                        <label for="">Select Step</label>
+                        <label for="">Select Process</label>
                         <select class="form-control" name="step" id="editstep" required class="">
-                            <option value="" disabled selected hidden>Select a Step</option>
+                            <option value="" disabled selected hidden>Select a Process</option>
                             <option value="Interview Staff">Interview Staff</option>
                             <option value="Consultation">Consultation</option>
                             <option value="Immunization">Immunization</option>

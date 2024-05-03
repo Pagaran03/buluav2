@@ -139,7 +139,7 @@ if ($result === false) {
 
 
                             </div>
-                            <div class="col-4">
+                            <div class="col-4 tago">
                                 <div class="form-group">
                                     <label for="">Select Status</label>
                                     <select class="form-control" name="status" id="status" required>
@@ -819,6 +819,25 @@ if ($result === false) {
             </div>
         </div>
     </div>
+    <script>
+        // Add an event listener to the Save button
+        document.getElementById('addButton').addEventListener('click', function () {
+            // Assuming you have a variable `completedStep` that holds the completed step value, e.g., "Step1", "Step2", etc.
+            var completedStep = "Pending"; // Example completed step
+
+            // Get the select element
+            var selectStep = document.getElementById('status');
+
+            // Loop through options and set selected attribute if value matches completedStep
+            for (var i = 0; i < selectStep.options.length; i++) {
+                if (selectStep.options[i].value === completedStep) {
+                    selectStep.options[i].setAttribute('selected', 'selected');
+                    break; // Exit loop once selected option is found
+                }
+            }
+        });
+
+    </script>
     <style>
         .tago {
             display: none;
