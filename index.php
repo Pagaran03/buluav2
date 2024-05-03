@@ -1,7 +1,8 @@
 <?php
- session_start();
- include ("action/redirect.php");
+session_start();
+include("action/redirect.php");
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 

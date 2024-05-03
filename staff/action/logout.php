@@ -2,15 +2,12 @@
 // Start the session
 session_start();
 include_once('../../config.php');
-// Assuming you have a database connection named $conn
 
-// Get the user_id from the session if available
 $user_id = isset($_SESSION["user_id"]) ? $_SESSION["user_id"] : null;
 
-// Log logout information to the logs table
 if ($user_id) {
     date_default_timezone_set('Asia/Manila');
-   $logout_time = date("Y-m-d h:i:s a");
+    $logout_time = date("Y-m-d h:i:s a");
     $logout_date = date("Y-m-d");
     $logout_type = "logout";
 
@@ -21,7 +18,6 @@ if ($user_id) {
         $stmt->bind_param("isss", $user_id, $logout_time, $logout_date, $logout_type);
 
         if ($stmt->execute()) {
-            // Successful insertion
             echo 'Logout Success';
         } else {
             // Error handling for execute
@@ -35,7 +31,7 @@ if ($user_id) {
     }
 }
 
-// Destroy all session data
+// Destroy all sessions
 session_destroy();
 
 // Redirect to the login page after logout
