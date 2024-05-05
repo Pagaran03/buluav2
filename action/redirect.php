@@ -1,5 +1,4 @@
 <?php
-
 define('ADMIN_DASHBOARD', './admin/dashboard/dashboard.php');
 define('SUPERADMIN_DASHBOARD', './superadmin/dashboard/dashboard.php');
 define('NURSE_DASHBOARD', './nurse/dashboard/dashboard.php');
