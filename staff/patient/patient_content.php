@@ -248,7 +248,7 @@ if ($result2->num_rows > 0) {
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="last_name_child">Last Name</label>
-                        <input type="text" class="form-control" name="last_name_child" required>
+                        <input type="text" class="form-control" name="last_name_child" id="last_name_child" required>
                         <div class="error"></div>
                     </div>
                 </div>
@@ -257,14 +257,14 @@ if ($result2->num_rows > 0) {
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="middle_name_child">Middle Name</label>
-                        <input type="text" class="form-control" name="middle_name_child" required>
+                        <input type="text" class="form-control" name="middle_name_child" id="middle_name_child" required>
                         <div class="error"></div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="suffix_child">Suffix</label>
-                        <input type="text" class="form-control" name="suffix_child" required>
+                        <input type="text" class="form-control" name="suffix_child" id="suffix_child" required>
                         <div class="error"></div>
                     </div>
                 </div>
@@ -273,7 +273,7 @@ if ($result2->num_rows > 0) {
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="gender_child">Select Gender</label>
-                        <select class="form-control" name="gender_child" required>
+                        <select class="form-control" name="gender_child" id="gender_child" required>
                             <option value="" disabled selected hidden>Select Gender</option>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
@@ -284,7 +284,7 @@ if ($result2->num_rows > 0) {
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="birthdate_child">Birthdate</label>
-                        <input type="date" class="form-control" name="birthdate_child" required>
+                        <input type="date" class="form-control" name="birthdate_child" id="birthdate_child" required>
                         <div class="error"></div>
                     </div>
                 </div>
@@ -616,7 +616,7 @@ if ($result2->num_rows > 0) {
                         </div>
 
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="religion">Religion</label>
                                     <select class="form-control" name="religion" id="editReligion" required>
@@ -643,6 +643,106 @@ if ($result2->num_rows > 0) {
                             </div>
                         </div>
                         <!-- Add more fields here if needed -->
+                        <!-- Add a button to trigger the addition of child information -->
+                        <button id="UpdateChildButton" class="btn btn-primary">Add Child Information</button>
+
+                        <!-- Placeholder for child information -->
+                        <div id="childInformationPlaceholders"></div>
+
+                        <script>
+                            // Function to add a new set of child information fields
+                            function addChildInformations() {
+                                var childsInfoHTML = `
+            <h5>Child Information</h5>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="first_name_child">First Name</label>
+                        <input type="text" class="form-control" name="first_name_child" id="first_name_child2" required>
+                        <div class="error"></div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="last_name_child">Last Name</label>
+                        <input type="text" class="form-control" name="last_name_child" id="last_name_child2" required>
+                        <div class="error"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="middle_name_child">Middle Name</label>
+                        <input type="text" class="form-control" name="middle_name_child" id="middle_name_child2" required>
+                        <div class="error"></div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="suffix_child">Suffix</label>
+                        <input type="text" class="form-control" name="suffix_child" id="suffix_child2" required>
+                        <div class="error"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="gender_child">Select Gender</label>
+                        <select class="form-control" name="gender_child" id="gender_child2" required>
+                            <option value="" disabled selected hidden>Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                        <div class="error"></div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="birthdate_child">Birthdate</label>
+                        <input type="date" class="form-control" name="birthdate_child" id="birthdate_child2" required>
+                        <div class="error"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="birth_weight">Birth Weight</label>
+                        <input type="text" class="form-control" id="birth_weight2" name="birth_weight" required>
+                        <div class="error"></div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="birth_height">Birth Height</label>
+                        <input type="text" class="form-control" id="birth_height2" name="birth_height" required>
+                        <div class="error"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="place_of_birth">Place of Birth</label>
+                        <textarea class="form-control" id="place_of_birth2" name="place_of_birth" rows="3" required></textarea>
+                        <div id="place_of_birth_error" class="error"></div>
+                    </div>
+                </div>
+            </div>
+
+
+        `;
+
+                                // Append the child information fields to the placeholder
+                                document.getElementById('childInformationPlaceholders').innerHTML += childsInfoHTML;
+                            }
+
+                            // Add an event listener to the button to trigger the addition of child information
+                            document.getElementById('UpdateChildButton').addEventListener('click', addChildInformations);
+                        </script>
                     </form>
                 </div>
                 <div class="modal-footer">
