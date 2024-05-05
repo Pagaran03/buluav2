@@ -240,8 +240,8 @@ if ($result2->num_rows > 0) {
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="childName">First Name</label>
-                        <input type="text" class="form-control" name="childName" id="childName" onclick="sys()" required>
+                        <label for="first_name_child">First Name</label>
+                        <input type="text" class="form-control" name="first_name_child" id="first_name_child" required>
                         <div class="error"></div>
                     </div>
                 </div>
@@ -835,7 +835,7 @@ if ($result2->num_rows > 0) {
             });
         <?php endif; ?>
 
-        
+
 
         $('#addPatientButton').click(function () {
 
@@ -920,6 +920,11 @@ if ($result2->num_rows > 0) {
                         religion: religion
                     },
                     success: function (response) {
+
+                        if (document.getElementById("first_name_child").value != "") {
+                            addChild();
+                        }
+
                         // Handle the response
                         if (response === 'Success') {
                             // Clear the form fields
@@ -1202,9 +1207,71 @@ if ($result2->num_rows > 0) {
 
     });
 
-function sys(){
- 
-}
+    function addChild() {
+        var first_name_child = $('#first_name_child').val();
+        var last_name_child = $('#last_name_child').val();
+        var middle_name_child = $('#middle_name_child').val();
+        var suffix_child = $('#suffix_child').val();
+        var gender_child = $('#gender_child').val();
+        var birthdate_child = $('#birthdate_child').val();
+        var birth_weight = $('#birth_weight').val();
+        var birth_height = $('#birth_height').val();
+        var place_of_birth = $('#place_of_birth').val();
+
+        $.ajax({
+            url: 'action/add_child.php',
+            method: 'POST',
+            data: {
+                first_name_child: first_name_child,
+                last_name_child: last_name_child,
+                middle_name_child: middle_name_child,
+                suffix_child: suffix_child,
+                gender_child: gender_child,
+                birthdate_child: birthdate_child,
+                birth_weight: birth_weight,
+                birth_height: birth_height,
+                place_of_birth: place_of_birth
+            },
+            success: function (response) {
+                // Handle the response
+                if (response === 'Success') {
+
+                    $('#first_name_child').val('');
+                    $('#last_name_child').val('');
+                    $('#middle_name_child').val('');
+                    $('#suffix_child').val('');
+                    $('#gender_child').val('');
+                    $('#birthdate_child').val('');
+                    $('#birth_weight').val('');
+                    $('#birth_height').val('');
+                    $('#place_of_birth').val('');
+
+                    // Optionally, trigger additional actions or show a success message
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Child added successfully',
+                    });
+                } else {
+                    // Show an error message
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Error adding child: ' + response,
+                    });
+                }
+            },
+            error: function (error) {
+                // Handle errors
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Error adding child: ' + error,
+                });
+            },
+        });
+    }
+
 </script>
 
 <script>

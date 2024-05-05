@@ -37,7 +37,7 @@ if (empty($first_name_child) || empty($last_name_child) || empty($middle_name_ch
     echo 'Error: All fields are required';
 } else {
     // Insert the child information into the database
-    $sql = "INSERT INTO children (first_name, last_name, middle_name, suffix, gender, birthdate, birth_weight, birth_height, place_of_birth) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO children (first_name_child, last_name_child, middle_name_child, suffix_child, gender_child, birthdate_child, birth_weight_child, birth_height_child, place_of_birth_child) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("sssssssss", $first_name_child, $last_name_child, $middle_name_child, $suffix_child, $gender_child, $birthdate_child, $birth_weight, $birth_height, $place_of_birth);
 
