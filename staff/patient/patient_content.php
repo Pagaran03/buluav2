@@ -240,8 +240,8 @@ if ($result2->num_rows > 0) {
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="first_name_child">First Name</label>
-                        <input type="text" class="form-control" name="first_name_child" required>
+                        <label for="childName">First Name</label>
+                        <input type="text" class="form-control" name="childName" id="childName" onclick="sys()" required>
                         <div class="error"></div>
                     </div>
                 </div>
@@ -339,6 +339,8 @@ if ($result2->num_rows > 0) {
             </div>
         </div>
     </div>
+
+
     <script>
         // Add an event listener to the Save button
         document.getElementById('addPatientButton').addEventListener('click', function () {
@@ -358,6 +360,7 @@ if ($result2->num_rows > 0) {
         });
 
     </script>
+
     <script>
         function calculateAge() {
             const birthdate = new Date(document.getElementById("birthdate").value);
@@ -732,10 +735,9 @@ if ($result2->num_rows > 0) {
             });
         <?php endif; ?>
 
+        
+
         $('#addPatientButton').click(function () {
-
-
-            // Get data from the form
 
             $('.error').text('');
 
@@ -757,10 +759,6 @@ if ($result2->num_rows > 0) {
             var serial_no = $('#serial_no').val();
 
             var religion = $('#religion').val();
-
-
-
-
 
 
             // Validate input fields
@@ -798,22 +796,6 @@ if ($result2->num_rows > 0) {
                     order: [[0, 'desc']]
                 });
             }
-
-            // if (last_name.trim() === '') {
-            //     $('#last_name_error').text('Field is required');
-            //     isValid = false;
-            // }
-
-            // if (birthdate.trim() === '') {
-            //     $('#birthdate_error').text('Field is required');
-            //     isValid = false;
-            // }
-
-            // if (address.trim() === '') {
-            //     $('#address_error').text('Field is required');
-            //     isValid = false;
-            // }
-
 
 
             if (isValid == true) {
@@ -1118,11 +1100,11 @@ if ($result2->num_rows > 0) {
             }
         });
 
-
-
     });
 
-
+function sys(){
+ 
+}
 </script>
 
 <script>
