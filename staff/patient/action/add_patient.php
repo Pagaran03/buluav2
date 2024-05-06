@@ -61,7 +61,6 @@ $checkStmt->fetch();
 $checkStmt->close();
 
 if ($count > 0) {
-    // A patient with the same first_name, last_name, and middle_name already exists
     echo 'Error: Patient with the same name exists';
 } else {
     // No duplicate found, proceed with the insertion
