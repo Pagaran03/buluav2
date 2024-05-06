@@ -108,22 +108,3 @@ div.container div.image img {
   max-width: 100%;
   transform: scale(1.5); /* Adjust the scale as needed for desktop */
 }
-
-div.container div.myform input[type="checkbox"] {
-  margin-left: 5px;
-  font-size: 12px;
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  transform: translateY(-50%);
-}
-
-/* Style the checkbox label */
-div.container div.myform label {
-  font-size: 12px;
-  cursor: pointer;
-  position: absolute;
-  top: 50%;
-  right: 30px;
-  transform: translateY(-50%);
-}

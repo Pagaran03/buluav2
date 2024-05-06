@@ -5,7 +5,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] !== "staff") {
   exit;
 }
 
-if(!isset($_SESSION['role'])){
+if (!isset($_SESSION['role'])) {
   header("location: ../../index.php");
 }
 ?>
@@ -151,7 +151,7 @@ if(!isset($_SESSION['role'])){
               <a href="../patient/patient.php" class="nav-link">
                 <i class="fa fa-users fa-lg" aria-hidden="true"></i>
                 <p>
-                 Patient List
+                  Patient List
                 </p>
               </a>
             </li>
@@ -216,10 +216,10 @@ if(!isset($_SESSION['role'])){
 
             <li class="nav-item <?php
             if (
-              strpos($_SERVER['REQUEST_URI'], '/brgyv2/admin/report/immunization.php') !== false ||
-              strpos($_SERVER['REQUEST_URI'], '/brgyv2/admin/report/family.php') !== false ||
-              strpos($_SERVER['REQUEST_URI'], '/brgyv2/admin/report/consultation.php') !== false ||
-              strpos($_SERVER['REQUEST_URI'], '/brgyv2/admin/report/prenatal.php') !== false
+              strpos($_SERVER['REQUEST_URI'], '/buluav2/staff/report/immune.php') !== false ||
+              strpos($_SERVER['REQUEST_URI'], '/buluav2/staff/report/famplan.php') !== false ||
+              strpos($_SERVER['REQUEST_URI'], '/buluav2/staff/report/consult.php') !== false ||
+              strpos($_SERVER['REQUEST_URI'], '/buluav2/staff/report/prenatal.php') !== false
 
             ) {
               echo 'menu-open';
@@ -234,28 +234,28 @@ if(!isset($_SESSION['role'])){
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="../report/immunization.php" class="nav-link <?php if ($_SERVER['REQUEST_URI'] === '/brgyv2/admin/report/immunization.php')
+                  <a href="../report/immune.php" class="nav-link <?php if ($_SERVER['REQUEST_URI'] === '/buluav2/staff/report/immune.php')
                     echo 'active'; ?>">
                     <i class="fas fa-list fa-lg nav-icon"></i>
                     <p>Immunization</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="../report/family.php" class="nav-link <?php if ($_SERVER['REQUEST_URI'] === '/brgyv2/admin/report/family.php')
+                  <a href="../report/famplan.php" class="nav-link <?php if ($_SERVER['REQUEST_URI'] === '/buluav2/staff/report/famplan.php')
                     echo 'active'; ?>">
                     <i class="fas fa-list fa-lg nav-icon"></i>
                     <p>Family Planning</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="../report/consultation.php" class="nav-link <?php if ($_SERVER['REQUEST_URI'] === '/brgyv2/admin/report/consultation.php')
+                  <a href="../report/consult.php" class="nav-link <?php if ($_SERVER['REQUEST_URI'] === '/buluav2/staff/report/consult.php')
                     echo 'active'; ?>">
                     <i class="fas fa-list fa-lg nav-icon"></i>
                     <p>Consultation</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="../report/prenatal.php" class="nav-link <?php if ($_SERVER['REQUEST_URI'] === '/brgyv2/admin/report/prenatal.php')
+                  <a href="../report/prenatal.php" class="nav-link <?php if ($_SERVER['REQUEST_URI'] === '/buluav2/staff/report/prenatal.php')
                     echo 'active'; ?>">
                     <i class="fas fa-list fa-lg nav-icon"></i>
                     <p>Prenatal</p>
