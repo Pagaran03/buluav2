@@ -214,61 +214,13 @@ if (!isset($_SESSION['role'])) {
 
 
 
-            <li class="nav-item <?php
-            if (
-              strpos($_SERVER['REQUEST_URI'], '/buluav2/staff/report/immune.php') !== false ||
-              strpos($_SERVER['REQUEST_URI'], '/buluav2/staff/report/famplan.php') !== false ||
-              strpos($_SERVER['REQUEST_URI'], '/buluav2/staff/report/consult.php') !== false ||
-              strpos($_SERVER['REQUEST_URI'], '/buluav2/staff/report/prenatal.php') !== false
-
-            ) {
-              echo 'menu-open';
-            }
-            ?>">
-              <a href="" class=" nav-link">
+            <li class=" nav-item" data-toggle="modal" data-target="#reportsModal">
+              <a href="#" class=" nav-link">
                 <i class="fa fa-book fa-lg" aria-hidden="true"></i>
                 <p>
-                  Report
-                  <i class="fas fa-angle-left right"></i>
+                  Generate Report
                 </p>
               </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="../report/immune.php" class="nav-link <?php if ($_SERVER['REQUEST_URI'] === '/buluav2/staff/report/immune.php')
-                    echo 'active'; ?>">
-                    <i class="fas fa-list fa-lg nav-icon"></i>
-                    <p>Immunization</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="../report/famplan.php" class="nav-link <?php if ($_SERVER['REQUEST_URI'] === '/buluav2/staff/report/famplan.php')
-                    echo 'active'; ?>">
-                    <i class="fas fa-list fa-lg nav-icon"></i>
-                    <p>Family Planning</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="../report/consult.php" class="nav-link <?php if ($_SERVER['REQUEST_URI'] === '/buluav2/staff/report/consult.php')
-                    echo 'active'; ?>">
-                    <i class="fas fa-list fa-lg nav-icon"></i>
-                    <p>Consultation</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="../report/prenatal.php" class="nav-link <?php if ($_SERVER['REQUEST_URI'] === '/buluav2/staff/report/prenatal.php')
-                    echo 'active'; ?>">
-                    <i class="fas fa-list fa-lg nav-icon"></i>
-                    <p>Prenatal</p>
-                  </a>
-                </li>
-                <!-- <li class="nav-item">
-                  <a href="../midwife/midwife.php" class="nav-link <?php if ($_SERVER['REQUEST_URI'] === '/brgyv2/admin/midwife/midwife.php')
-                    echo 'active'; ?>">
-                    <i class="fas fa-user-edit fa-lg nav-icon"></i>
-                    <p>Midwife</p>
-                  </a>
-                </li> -->
-              </ul>
             </li>
 
 
@@ -314,6 +266,73 @@ if (!isset($_SESSION['role'])) {
     <!-- /.control-sidebar -->
   </div>
   <!-- ./wrapper -->
+  <!-- GENERATE REPORTS Modal -->
+  <div class="modal fade" id="reportsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    style="z-index: 1050;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">GENERATE REPORTS</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="fromDate">From Date:</label>
+            <input type="date" class="form-control" id="fromDate" placeholder="Select From Date">
+          </div>
+          <div class="form-group">
+            <label for="toDate">To Date:</label>
+            <input type="date" class="form-control" id="toDate" placeholder="Select To Date">
+          </div>
+          <div class="form-group">
+            <label for="reportType">Report Type:</label>
+            <select class="form-control" id="reportType">
+              <option value="none" selected disabled>-Select Report Type-</option>
+              <option value="Patients">Patient List</option>
+              <option value="Immunization">Immunization</option>
+              <option value="FamPlan">Family Planning</option>
+              <option value="Prenatal">Prenatal</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" onclick="generateReport()">Generate Report</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPT FOR GENERATING REPORTS -->
+  <script>
+    function generateReport() {
+      var fromDate = document.getElementById("fromDate").value;
+      var toDate = document.getElementById("toDate").value;
+      var reportType = document.getElementById("reportType").value;
+
+      switch (reportType) {
+        case "Patients":
+          var url = "../report/generate-patient.php?fromDate=" + fromDate + "&toDate=" + toDate;
+          window.open(url, '_blank');
+          break;
+        case "Immunization":
+          var url = "../report/generate-immunization.php?fromDate=" + fromDate + "&toDate=" + toDate;
+          window.open(url, '_blank');
+          break;
+        case "FamPlan":
+          var url = "../report/generate_famplan.php?fromDate=" + fromDate + "&toDate=" + toDate;
+          window.open(url, '_blank');
+          break;
+
+        // case "Consultation": window.location.href = "../report/consultation.php?fromDate=" + fromDate + "&toDate=" + toDate;
+        //   break;
+      }
+
+    }
+  </script>
+
 
   <!-- jQuery -->
   <script src="../../assets/plugins/jquery/jquery.min.js"></script>

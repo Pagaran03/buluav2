@@ -2,7 +2,7 @@
 require '../../vendor/autoload.php'; // Include Dompdf's autoloader
 include_once('../../config.php');
 
-$sql = "SELECT * FROM patients"; // Update this query to match your database structure
+$sql = "SELECT * FROM patients";
 
 use Dompdf\Dompdf;
 use Dompdf\Options;

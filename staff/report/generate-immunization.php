@@ -1,72 +1,290 @@
 <?php
-require '../../vendor/autoload.php'; // Include Dompdf's autoloader
-include_once('../../config.php');
+require '../../vendor/autoload.php'; 
+include_once ('../../config.php');
 
-$sql = "SELECT * FROM patients"; // Update this query to match your database structure
+$sql = "SELECT * FROM patients"; 
 
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
-// Create a new Dompdf instance
 $pdf = new Dompdf();
 
-// (Optional) Set PDF options, like paper size and orientation
-$pdf->setPaper('A4', 'portrait');
+$pdf->setPaper('A4', 'landscape');
 
-// Fetch patient data using MySQLi (assuming you have a $conn object)
 $result = $conn->query($sql);
 
-// Initialize a variable to keep track of row colors
+
 $evenRow = false;
-$rowNumber = 1; // Initialize row number
+$rowNumber = 1;
 
-// Generate the HTML content for the PDF
-$htmlContent = '<html>
+
+$htmlContent = '<html lang="en">
+
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Immunization Report</title>
     <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        table, th, td {
-            border: 1px solid black;
-        }
-        th, td {
-            padding: 8px;
-        }
-        tr:nth-child(even) {
-            background-color: #f2f2f2; /* Alternate row background color */
-        }
-    </style>
-</head>
-<body>
-    <h1>List of Immunization</h1>
-    <table>
-        <tr>
-            <th>No.</th> <!-- Add the new "Number" column -->
-            <th>First Name</th>
-            <th>Last Name</th>
-            <!-- Add more table headers for other patient data if needed -->
-        </tr>';
-while ($row = $result->fetch_assoc()) {
-    $evenRow = !$evenRow; // Toggle the row color for alternation
-    $rowColorClass = $evenRow ? 'even' : 'odd';
-    
-    $htmlContent .= '<tr class="' . $rowColorClass . '">
-        <td>' . $rowNumber++ . '</td> <!-- Increment and display the row number -->
-        <td>' . $row['first_name'] . '</td>
-        <td>' . $row['last_name'] . '</td>
-        <!-- Add more table data for other patient data if needed -->
-    </tr>';
-}
-$htmlContent .= '</table></body></html>';
+    /* Add CSS styles for the table */
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        border: 1px solid #000;
+    }
 
-// Load HTML content into Dompdf
+    td,
+    th {
+        border: 1px solid #000;
+        /* Border for table cells */
+        padding: 8px;
+        text-align: center;
+    }
+</style>
+    
+</head>
+
+<body>
+<table style="width: 100%; margin-left: auto; margin-right: auto;" border="1" cellspacing="5">
+    <tbody>
+        <tr>
+            <td style="width: 25%;">Indicators</td>
+            <td style="width: 10%;">Eligible Population</td>
+            <td style="width: 10%;">Male</td>
+            <td style="width: 10%;">Female</td>
+            <td style="width: 10%;">Total</td>
+            <td style="width: 10%;">Counts</td>
+            <td style="width: 10%;">% (Col.5E.Pop * 100)</td>
+            <td style="width: 15%;">Interpretation</td>
+            <td style="width: 15%;">Recommendation Action to be taken</td>
+        </tr>
+        <tr>
+            <td>C1 . Immunization Services for Newborns, Infants and School-Aged Children/Adolescents</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>1.CPAB - Total</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>2. BGC - Total</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>3.HepB, within 24 Hours - Total</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>4. DPT HiB-HebB 1 - Total</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>5. DPT HiB-HebB 2 - Total</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>6. DPT HiB-HebB 3 - Total</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>7. OPV 1 - Total</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>8. OPV 2 - Total</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>9. OPV 3 - Total</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>10. IPV - Total</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>11. PCV1 - Total</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>12. PCV2 - Total</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>13. PCV3 - Total</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>14. MCV 1 - Total</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>15. MCV 2 - Total</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>16. FIC - Total</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>17. CIC - Total</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+
+</body>
+
+</html>';
+
+
 $pdf->loadHtml($htmlContent);
 
 // Render the HTML to PDF
 $pdf->render();
 
-// Output the PDF to the browser
-$pdf->stream();
+// Get the PDF content
+$pdfContent = $pdf->output();
+
+// Send the appropriate headers for a PDF file
+header('Content-Type: application/pdf');
+header('Content-Disposition: inline; filename="patients_report.pdf"');
+
+// Output the PDF content
+echo $pdfContent;
+
+// Close the connection
+$conn->close();
+
+// Script to open PDF in a new tab
+echo '<script>
+    var blob = new Blob([' . json_encode($pdfContent) . '], {type: "application/pdf"});
+    var url = URL.createObjectURL(blob);
+    window.open(url, "_blank");
+</script>';
 ?>
