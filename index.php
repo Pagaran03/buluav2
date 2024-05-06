@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("action/redirect.php");
+include ("action/redirect.php");
 ?>
 
 <!DOCTYPE html>
@@ -60,18 +60,15 @@ include("action/redirect.php");
       ?>
       <form action="action/login_process.php" method="POST">
         <input type="text" id="username" name="username" placeholder="Username" required><br>
-        <div class="row align-items-center">
-          <div class="col">
-            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
-          </div>
-          <div class="col-auto">
-            <div class="input-group-append">
-              <span class="input-group-text">
-                <i class="fas fa-eye-slash toggle-password" id="togglePassword"></i>
-              </span>
-            </div>
-          </div>
+        <input type="text" id="password" name="password" placeholder="Password" required>
+        <div style="position: relative;">
+          <input type="checkbox" id="showPassword"
+            style="position: absolute; top: 50%; right: 5px; transform: translateY(-50%);">
+          <label for="showPassword"
+            style="position: absolute; top: 50%; right: 90px; transform: translateY(-50%); font-size: 12px; cursor: pointer;">Show
+            Password</label>
         </div>
+
         <button type="submit" name="submit">LOGIN</button><br><br>
         <b>Forgot your Password?</b>
         <span style="margin-left: 10px;"></span>
@@ -90,19 +87,17 @@ include("action/redirect.php");
 
 </body>
 <script>
-  document.getElementById('togglePassword').addEventListener('click', function () {
-    const passwordField = document.getElementById('password');
-    const fieldType = passwordField.getAttribute('type');
+  document.addEventListener("DOMContentLoaded", function () {
+    const passwordInput = document.getElementById("password");
+    const showPasswordCheckbox = document.getElementById("showPassword");
 
-    if (fieldType === 'password') {
-      passwordField.setAttribute('type', 'text');
-      this.classList.remove('fa-eye-slash');
-      this.classList.add('fa-eye');
-    } else {
-      passwordField.setAttribute('type', 'password');
-      this.classList.remove('fa-eye');
-      this.classList.add('fa-eye-slash');
-    }
+    showPasswordCheckbox.addEventListener("change", function () {
+      if (showPasswordCheckbox.checked) {
+        passwordInput.type = "text";
+      } else {
+        passwordInput.type = "password";
+      }
+    });
   });
 </script>
 
