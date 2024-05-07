@@ -156,22 +156,26 @@ if ($result === false) {
                                 </div>
                             </div>
 
-                            <!-- <div class="col-sm">
+                            <div class="col-sm">
                                 <div class="form-group">
                                     <label for="">Checkup Date</label>
                                     <input type="date" class="form-control" id="checkup_date" name="checkup_date"
                                         required>
                                 </div>
                             </div>
-                             <script>
-                            var today = new Date();
-                            var dd = String(today.getDate()).padStart(2, '0');
-                            var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
-                            var yyyy = today.getFullYear();
+                            <script>
+                                // Get the current date
+                                var today = new Date();
 
-                            today = yyyy + '-' + mm + '-' + dd;
-                            document.getElementById('checkup_date').min = today;
-                        </script> -->
+                                // Calculate the date for tomorrow
+                                today.setDate(today.getDate() + 1);
+
+                                // Format the date to match the input type="date" format (YYYY-MM-DD)
+                                var tomorrow = today.toISOString().split('T')[0];
+
+                                // Set the minimum date for the input element
+                                document.getElementById('checkup_date').min = tomorrow;
+                            </script>
                         </div>
 
 
@@ -942,7 +946,7 @@ if ($result === false) {
                             var tomorrow = today.toISOString().split('T')[0];
 
                             // Set the minimum date for the input element
-                            document.getElementById('checkup_date').min = tomorrow;
+                            document.getElementById('checkup_date2').min = tomorrow;
                         </script>
 
 
@@ -1068,7 +1072,7 @@ if ($result === false) {
                 var objective = $('#objective').val();
                 var assessment = $('#assessment').val();
                 var plan = $('#plan').val();
-                // var checkup_date = $('#checkup_date').val();
+                var checkup_date = $('#checkup_date').val();
                 var doctor_id = $('#doctor_id').val();
                 var status = $('#status').val();
                 // 
@@ -1109,7 +1113,7 @@ if ($result === false) {
                         plan: plan,
                         doctor_id: doctor_id,
                         status: status,
-                        // checkup_date: checkup_date,
+                        checkup_date: checkup_date,
                         weight: weight,
                         bp: bp,
                         height: height,
@@ -1144,7 +1148,7 @@ if ($result === false) {
                             $('#plan').val('');
                             $('#doctor_id').val('');
                             $('#status').val('');
-                            // $('#checkup_date').val('');
+                            $('#checkup_date').val('');
 
                             updateData();
                             $('#addModal').modal('hide');

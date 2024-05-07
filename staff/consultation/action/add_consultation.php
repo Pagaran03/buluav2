@@ -43,7 +43,7 @@ $objective = sanitizeInput($_POST['objective']);
 $assessment = sanitizeInput($_POST['assessment']);
 $plan = sanitizeInput($_POST['plan']);
 $status = sanitizeInput($_POST['status']);
-$date = date('Y-m-d');
+$date = date('m-d-y');
 $doctor_id = sanitizeInput($_POST['doctor_id']);
 
 $severe_headaches = sanitizeInput($_POST['severe_headaches']);
