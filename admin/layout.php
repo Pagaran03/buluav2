@@ -1,14 +1,17 @@
 <?php
 session_start();
+
 if (isset($_SESSION['role']) && $_SESSION['role'] !== "admin") {
   header("Location: ../../{$_SESSION['role']}/dashboard/dashboard.php");
   exit;
 }
 
-
 if(!isset($_SESSION['role'])){
   header("location: ../../index.php");
 }
+
+echo "<script>console.log('{$_SESSION['user_id']}')</script>";
+
 ?>
 
 <!DOCTYPE html>
