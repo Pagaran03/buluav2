@@ -51,7 +51,7 @@
     </div>
 
 
-    <table>
+    <table border="10">
         <tr>
             <td colspan="35">
                 <center>
@@ -592,7 +592,7 @@
             <td></td>
             <td></td>
             <td></td>
-            >
+
         </tr>
 
         <tr>

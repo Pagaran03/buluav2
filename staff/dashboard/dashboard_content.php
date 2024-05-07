@@ -92,7 +92,7 @@ foreach ($tables as $table) {
     <div class="col-sm-5">
       <div class="bg-gradient-blue" style="text-align: left; padding:20px;border-radius:10px;">
         <div
-          style="max-width: 600px; margin: 0 auto; background-color: #f8f8f8; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); max-height: 400px; overflow-y: auto;">
+          style="max-width: 600px; margin: 0 auto; background-color: #f8f8f8; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); max-height: 520px; overflow-y: auto;">
           <h2 style="text-align: center; color: #333;">Announcements</h2>
           <?php
           $sql = "SELECT * FROM announcements ";
@@ -230,7 +230,7 @@ foreach ($tables as $table) {
               class="fas fa-arrow-circle-right"></i></a>
         </div>
       </div>
-      <div class="col-lg-4 ">
+      <div class="col-lg-4 col-md-6">
         <!-- small box -->
         <div class="small-box bg-primary">
           <div class="inner">
@@ -257,91 +257,105 @@ foreach ($tables as $table) {
               class="fas fa-arrow-circle-right"></i></a>
         </div>
       </div>
-    </div>
-  </div>
-</div>
-
-
-<div class="container-fluid">
-
-  <div class="row">
-    <!--  -->
-
-    <!--  -->
-
-
-    <!--  -->
-
-
-    <!--  -->
-
-
-    <div class="row">
-      <div class="col-md-7">
-        <h1>Patients Per Day</h1>
-        <canvas id="patientChart" width="400" height="300"></canvas>
-      </div>
-      <div class="col-md-5">
+      <div class="col-md-5" style="text-align: left; padding:20px;">
         <h1>Checkup Category</h1>
         <canvas id="kindOfCheckups" width="300" height="200"></canvas>
       </div>
-    </div>
+      <script>
+        var tableNames = <?php echo json_encode($tables); ?>;
+        var data = <?php echo json_encode($counts); ?>;
+        var ctx = document.getElementById('kindOfCheckups').getContext('2d');
 
-    <script>
-      var tableNames = <?php echo json_encode($tables); ?>;
-      var data = <?php echo json_encode($counts); ?>;
-      var ctx = document.getElementById('kindOfCheckups').getContext('2d');
-
-      var chart = new Chart(ctx, {
-        type: 'pie',
-        data: {
-          labels: tableNames,
-          datasets: [{
-            data: data,
-            backgroundColor: [
-              'rgba(255, 99, 132, 0.6)',
-              'rgba(54, 162, 235, 0.6)',
-              'rgba(255, 206, 86, 0.6)',
-              'rgba(75, 192, 192, 0.6)',
-            ],
-          }],
-        },
-      });
-    </script>
-
-    <script>
-      var data = <?php echo json_encode($chart_data); ?>;
-      var dates = data.map(item => item.date);
-      var counts = data.map(item => item.count);
-
-      var ctx = document.getElementById('patientChart').getContext('2d');
-      var chart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: dates,
-          datasets: [{
-            label: 'Patients per Day',
-            data: counts,
-            borderColor: 'blue',
-            fill: false,
-          }],
-        },
-        options: {
-          scales: {
-            x: [{
-              ticks: {
-                maxTicksLimit: 10,
-              },
+        var chart = new Chart(ctx, {
+          type: 'pie',
+          data: {
+            labels: tableNames,
+            datasets: [{
+              data: data,
+              backgroundColor: [
+                'rgba(255, 99, 132, 0.6)',
+                'rgba(54, 162, 235, 0.6)',
+                'rgba(255, 206, 86, 0.6)',
+                'rgba(75, 192, 192, 0.6)',
+              ],
             }],
           },
-        },
-      });
-    </script>
+        });
+      </script>
+    </div>
   </div>
 </div>
 
 
-</div>
+<!-- <div class="container-fluid">
+
+      <div class="row">
+        <div class="row">
+          <div class="col-md-7">
+            <h1>Patients Per Day</h1>
+            <canvas id="patientChart" width="400" height="300"></canvas>
+          </div>
+          <div class="col-md-5">
+            <h1>Checkup Category</h1>
+            <canvas id="kindOfCheckups" width="300" height="200"></canvas>
+          </div>
+        </div>
+
+        <script>
+          var tableNames = <?php echo json_encode($tables); ?>;
+          var data = <?php echo json_encode($counts); ?>;
+          var ctx = document.getElementById('kindOfCheckups').getContext('2d');
+
+          var chart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+              labels: tableNames,
+              datasets: [{
+                data: data,
+                backgroundColor: [
+                  'rgba(255, 99, 132, 0.6)',
+                  'rgba(54, 162, 235, 0.6)',
+                  'rgba(255, 206, 86, 0.6)',
+                  'rgba(75, 192, 192, 0.6)',
+                ],
+              }],
+            },
+          });
+        </script>
+
+        <script>
+          var data = <?php echo json_encode($chart_data); ?>;
+          var dates = data.map(item => item.date);
+          var counts = data.map(item => item.count);
+
+          var ctx = document.getElementById('patientChart').getContext('2d');
+          var chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: dates,
+              datasets: [{
+                label: 'Patients per Day',
+                data: counts,
+                borderColor: 'blue',
+                fill: false,
+              }],
+            },
+            options: {
+              scales: {
+                x: [{
+                  ticks: {
+                    maxTicksLimit: 10,
+                  },
+                }],
+              },
+            },
+          });
+        </script>
+      </div>
+    </div> -->
+
+
+
 
 
 
