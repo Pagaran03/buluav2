@@ -328,12 +328,26 @@ if ($result2->num_rows > 0) {
                             // Add an event listener to the button to trigger the addition of child information
                             document.getElementById('addChildButton').addEventListener('click', addChildInformation);
                         </script>
+                        <script>
+                            // Function to set "None" value for all child information fields
+                            function setNoneForChild() {
+                                // Get all input and textarea elements within the child information section
+                                var childInputs = document.querySelectorAll('#childInformationPlaceholder input, #childInformationPlaceholder textarea');
+
+                                // Loop through each input and set its value to "None"
+                                childInputs.forEach(function (input) {
+                                    input.value = 'None';
+                                });
+                            }
+                        </script>
 
 
 
                     </form>
                 </div>
                 <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" id="NoneChildButton"
+                        onclick="setNoneForChild()">Doesn't Have a Child</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal"
                         id="closeModalButton">Close</button>
                     <button type="button" class="btn btn-primary" id="addPatientButton">Save</button>
@@ -448,6 +462,12 @@ if ($result2->num_rows > 0) {
                                         </button>
                                         <button type="button" class="btn btn-danger deletebtn"
                                             data-id="' + row.serial_no + '"><i class="fas fa-user-times"></i> Inactive</button>
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-primary childbtn" data-toggle="modal"
+                                            data-target="#childModal_<?php echo $row['serial_no']; ?>">
+                                            Child Details
+                                        </button>
+
                                     </td>
                                 </tr>
                                 <?php
@@ -474,6 +494,31 @@ if ($result2->num_rows > 0) {
             </div>
         </div>
     </div>
+    <!-- Child Modal -->
+    <div class="modal fade" id="childModal" tabindex="-1" role="dialog" aria-labelledby="childModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="childModalLabel">Child Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Child details go here -->
+                    <p id="childName"></p>
+                    <p id="childBirthdate"></p>
+                    <p id="childAddress"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
     <!-- modal edit -->
     <!-- Edit Patient Modal -->
@@ -789,7 +834,22 @@ if ($result2->num_rows > 0) {
         // Optionally, update the serial number periodically
         setInterval(updateSerialNumber, 5000); // Update every 5 seconds (adjust as needed)
 
+        // Event listener for displaying child details modal
+        $('#patientTableBody').on('click', '.childbtn', function () {
+            var childName = $(this).data('name');
+            var childBirthdate = $(this).data('birthdate');
+            var childAddress = $(this).data('address');
 
+            // Set modal content
+            $('#childName').text('Child Name: ' + childName);
+            $('#childBirthdate').text('Birthdate: ' + childBirthdate);
+            $('#childAddress').text('Address: ' + childAddress);
+
+            // Show the modal
+            $('#childModal').modal('show');
+        });
+
+        //Modal add Patient
         document.getElementById('openModalButton').addEventListener('click', function () {
             $('#addPatientModal').modal('show'); // Show the modal
         });
@@ -813,13 +873,15 @@ if ($result2->num_rows > 0) {
                             var viewRec = '<a href="history.php?id=' + row.id + '"><button type="button" class="btn btn-warning ml-1">  <i class="fas fa-eye"></i> View History</button></a>';
                             var editButton = '<button type="button" class="btn btn-success editbtn" data-patient-id="' + row.serial_no + '"><i class="fas fa-edit"></i> Update</button>';
                             var deleteButton = '<button type="button" class="btn btn-danger deletebtn" data-id="' + row.serial_no + '"><i class="fas fa-user-times"></i> Inactive</button>';
-                            return viewRec + ' ' + editButton + ' ' + deleteButton;
+                            var childButton = '<button type="button" class="btn btn-primary childbtn" data-name="' + row.Child + '" data-birthdate="' + row.birthdate + '" data-address="' + row.address + '"><i class="fas fa-user"></i> View Child</button>';
+                            return viewRec + ' ' + editButton + ' ' + deleteButton + ' ' + childButton;
                         }
                     } // Action column
                 ],
                 // Set the default ordering to 'id' column in descending order
                 order: [[0, 'desc']]
             });
+
         <?php else: ?>
             // Initialize DataTable without the "Action" column when no rows are found
             var table = $('#patientTableBody').DataTable({
@@ -889,7 +951,8 @@ if ($result2->num_rows > 0) {
                                 var viewRec = '<a href="history.php?id=' + row.id + '"><button type="button" class="btn btn-warning ml-1">  <i class="fas fa-eye"></i> View History</button></a>';
                                 var editButton = '<button type="button" class="btn btn-success editbtn" data-patient-id="' + row.serial_no + '"><i class="fas fa-edit"></i> Update</button>';
                                 var deleteButton = '<button type="button" class="btn btn-danger deletebtn" data-id="' + row.serial_no + '"><i class="fas fa-user-times"></i> Inactive</button>';
-                                return viewRec + ' ' + editButton + ' ' + deleteButton;
+                                var childButton = '<button type="button" class="btn btn-primary childbtn" data-name="' + row.Child + '" data-birthdate="' + row.birthdate + '" data-address="' + row.address + '"><i class="fas fa-user"></i> View Child</button>';
+                                return viewRec + ' ' + editButton + ' ' + deleteButton + ' ' + childButton;
                             }
                         } // Action column
                     ],
