@@ -230,7 +230,7 @@ foreach ($tables as $table) {
               class="fas fa-arrow-circle-right"></i></a>
         </div>
       </div>
-      <div class="col-lg-4 col-md-6">
+      <div class="col-lg-4 col-md-7">
         <!-- small box -->
         <div class="small-box bg-primary">
           <div class="inner">
@@ -257,7 +257,7 @@ foreach ($tables as $table) {
               class="fas fa-arrow-circle-right"></i></a>
         </div>
       </div>
-      <div class="col-md-5" style="text-align: left; padding:20px;">
+      <div class="col-md-9" style="text-align: left; padding:20px;">
         <h1>Checkup Category</h1>
         <canvas id="kindOfCheckups" width="300" height="200"></canvas>
       </div>

@@ -3,8 +3,10 @@
 include_once ('../../config.php');
 
 
-$sql = "SELECT * FROM patients WHERE is_active = 0 AND patients.is_deleted = 0 ORDER BY serial_no DESC";
-
+$sql = "SELECT *,CONCAT(patients.last_name, ', ', patients.first_name) AS full_name,CONCAT(children.last_name_child, ', ', children.first_name_child) AS Child
+FROM patients 
+JOIN children ON patients.id = children.id
+WHERE is_active = 0 AND patients.is_deleted = 0 ORDER BY serial_no DESC";
 
 $result = $conn->query($sql);
 
@@ -399,8 +401,8 @@ if ($result2->num_rows > 0) {
                         <tr>
                             <th style="display:none;">ID</th>
                             <th>Serial Number</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
+                            <th>Full Name</th>
+                            <th>Child Name</th>
                             <th>Birthdate</th>
                             <th>Address</th>
                             <th>Process</th>
@@ -420,10 +422,10 @@ if ($result2->num_rows > 0) {
                                         <?php echo $row['serial_no']; ?>
                                     </td>
                                     <td class="align-middle">
-                                        <?php echo $row['first_name']; ?>
+                                        <?php echo $row['full_name']; ?>
                                     </td>
                                     <td class="align-middle">
-                                        <?php echo $row['last_name']; ?>
+                                        <?php echo $row['Child']; ?>
                                     </td>
                                     <td class="align-middle">
                                         <?php echo $row['birthdate']; ?>
@@ -798,8 +800,8 @@ if ($result2->num_rows > 0) {
                 columnDefs: [
                     { targets: 0, data: 'id', visible: false },
                     { targets: 1, data: 'serial_no' },
-                    { targets: 2, data: 'first_name' },
-                    { targets: 3, data: 'last_name' },
+                    { targets: 2, data: 'full_name' },
+                    { targets: 3, data: 'Child' },
                     { targets: 4, data: 'birthdate' },
                     { targets: 5, data: 'address' },
                     { targets: 6, data: 'step' },
@@ -824,8 +826,8 @@ if ($result2->num_rows > 0) {
                 columnDefs: [
                     { targets: 0, data: 'id', visible: false },
                     { targets: 1, data: 'serial_no' },
-                    { targets: 2, data: 'first_name' },
-                    { targets: 3, data: 'last_name' },
+                    { targets: 2, data: 'full_name' },
+                    { targets: 3, data: 'Child' },
                     { targets: 4, data: 'birthdate' },
                     { targets: 5, data: 'address' },
                     { targets: 6, data: 'step' }
@@ -858,7 +860,6 @@ if ($result2->num_rows > 0) {
             var religion = $('#religion').val();
             var serial_no = $('#serial_no').val();
 
-            var religion = $('#religion').val();
 
 
             // Validate input fields
@@ -875,8 +876,8 @@ if ($result2->num_rows > 0) {
                     columnDefs: [
                         { targets: 0, data: 'id', visible: false },
                         { targets: 1, data: 'serial_no' },
-                        { targets: 2, data: 'first_name' },
-                        { targets: 3, data: 'last_name' },
+                        { targets: 2, data: 'full_name' },
+                        { targets: 3, data: 'Child' },
                         { targets: 4, data: 'birthdate' },
                         { targets: 5, data: 'address' },
                         { targets: 6, data: 'step' },
@@ -917,7 +918,7 @@ if ($result2->num_rows > 0) {
                         civil_status: civil_status,
                         religion: religion,
                         serial_no: serial_no,
-                        religion: religion
+
                     },
                     success: function (response) {
 
