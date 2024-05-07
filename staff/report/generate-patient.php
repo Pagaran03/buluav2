@@ -1,11 +1,19 @@
 <?php
-require '../../vendor/autoload.php'; // Include Dompdf's autoloader
-include_once('../../config.php');
-
-$sql = "SELECT * FROM patients"; // Update this query to match your database structure
+require '../../vendor/autoload.php';
+include_once ('../../config.php');
 
 use Dompdf\Dompdf;
 use Dompdf\Options;
+
+$fromDate = $_GET['fromDate'];
+$toDate = $_GET['toDate'];
+
+$fromDate = mysqli_real_escape_string($conn, $fromDate);
+$toDate = mysqli_real_escape_string($conn, $toDate);
+
+// Build the SQL query using the passed dates
+$sql = "SELECT * FROM patients
+        WHERE date_added BETWEEN '$fromDate' AND '$toDate'";
 
 // Create a new Dompdf instance
 $pdf = new Dompdf();
@@ -20,7 +28,7 @@ $result = $conn->query($sql);
 $evenRow = false;
 $rowNumber = 1; // Initialize row number
 
-// Generate the HTML content for the PDF
+
 $htmlContent = '<html>
 <head>
     <style>
@@ -51,7 +59,7 @@ $htmlContent = '<html>
 while ($row = $result->fetch_assoc()) {
     $evenRow = !$evenRow; // Toggle the row color for alternation
     $rowColorClass = $evenRow ? 'even' : 'odd';
-    
+
     $htmlContent .= '<tr class="' . $rowColorClass . '">
         <td>' . $rowNumber++ . '</td> <!-- Increment and display the row number -->
         <td>' . $row['first_name'] . '</td>
@@ -67,6 +75,23 @@ $pdf->loadHtml($htmlContent);
 // Render the HTML to PDF
 $pdf->render();
 
-// Output the PDF to the browser
-$pdf->stream();
+// Get the PDF content
+$pdfContent = $pdf->output();
+
+// Send the appropriate headers for a PDF file
+header('Content-Type: application/pdf');
+header('Content-Disposition: inline; filename="patients_report.pdf"');
+
+// Output the PDF content
+echo $pdfContent;
+
+// Close the connection
+$conn->close();
+
+// Script to open PDF in a new tab
+echo '<script>
+    var blob = new Blob([' . json_encode($pdfContent) . '], {type: "application/pdf"});
+    var url = URL.createObjectURL(blob);
+    window.open(url, "_blank");
+</script>';
 ?>
