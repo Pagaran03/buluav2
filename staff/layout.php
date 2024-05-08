@@ -291,6 +291,7 @@ if (!isset($_SESSION['role'])) {
             <select class="form-control" id="reportType">
               <option value="none" selected disabled>-Select Report Type-</option>
               <option value="Patients">Patient List</option>
+              <option value="Consultation">Consultations</option>
               <option value="Immunization">Immunization</option>
               <option value="FamPlan">Family Planning</option>
               <option value="Prenatal">Prenatal</option>
@@ -315,6 +316,10 @@ if (!isset($_SESSION['role'])) {
       switch (reportType) {
         case "Patients":
           var url = "../report/generate-patient.php?fromDate=" + fromDate + "&toDate=" + toDate;
+          window.open(url, '_blank');
+          break;
+          case "Consultation":
+          var url = "../report/generate-consultation.php?fromDate=" + fromDate + "&toDate=" + toDate;
           window.open(url, '_blank');
           break;
         case "Immunization":

@@ -67,6 +67,23 @@ $pdf->loadHtml($htmlContent);
 // Render the HTML to PDF
 $pdf->render();
 
-// Output the PDF to the browser
-$pdf->stream();
+// Get the PDF content
+$pdfContent = $pdf->output();
+
+// Send the appropriate headers for a PDF file
+header('Content-Type: application/pdf');
+header('Content-Disposition: inline; filename="patients_report.pdf"');
+
+// Output the PDF content
+echo $pdfContent;
+
+// Close the connection
+$conn->close();
+
+// Script to open PDF in a new tab
+echo '<script>
+    var blob = new Blob([' . json_encode($pdfContent) . '], {type: "application/pdf"});
+    var url = URL.createObjectURL(blob);
+    window.open(url, "_blank");
+</script>';
 ?>
