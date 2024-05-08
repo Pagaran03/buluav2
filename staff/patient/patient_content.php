@@ -229,7 +229,7 @@ if ($result2->num_rows > 0) {
                         </div>
                         <!-- Add more fields here if needed -->
                         <!-- Add a button to trigger the addition of child information -->
-                        <button id="addChildButton" class="btn btn-primary">Add Child Information</button>
+                        <!-- <button id="addChildButton" class="btn btn-primary">Add Child Information</button> -->
 
                         <!-- Placeholder for child information -->
                         <div id="childInformationPlaceholder"></div>
@@ -346,8 +346,8 @@ if ($result2->num_rows > 0) {
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-warning" id="NoneChildButton"
-                        onclick="setNoneForChild()">Doesn't Have a Child</button>
+                    <!-- <button type="button" class="btn btn-warning" id="NoneChildButton"
+                        onclick="setNoneForChild()">Doesn't Have a Child</button> -->
                     <button type="button" class="btn btn-secondary" data-dismiss="modal"
                         id="closeModalButton">Close</button>
                     <button type="button" class="btn btn-primary" id="addPatientButton">Save</button>
