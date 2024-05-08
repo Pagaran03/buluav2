@@ -330,6 +330,10 @@ if (!isset($_SESSION['role'])) {
           var url = "../report/generate_famplan.php?fromDate=" + fromDate + "&toDate=" + toDate;
           window.open(url, '_blank');
           break;
+          case "Prenatal":
+          var url = "../report/generate-prenatal.php?fromDate=" + fromDate + "&toDate=" + toDate;
+          window.open(url, '_blank');
+          break;
 
         // case "Consultation": window.location.href = "../report/consultation.php?fromDate=" + fromDate + "&toDate=" + toDate;
         //   break;
