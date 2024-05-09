@@ -4,7 +4,7 @@ include_once ('../../../config.php');
 
 $primary_id = $_POST['primary_id'];
 $status = $_POST['status'];
-$step = $_POST['step'];
+$steps = $_POST['steps'];
 $diagnosis = $_POST['diagnosis'];
 $medicine = $_POST['medicine'];
 
@@ -14,9 +14,9 @@ try {
     $conn->begin_transaction();
 
 
-    $consultationUpdateSql = "UPDATE consultations SET step=?, status=?, diagnosis=?, medicine=? WHERE id=?";
+    $consultationUpdateSql = "UPDATE consultations SET steps=?, status=?, diagnosis=?, medicine=? WHERE id=?";
     $consultationStmt = $conn->prepare($consultationUpdateSql);
-    $consultationStmt->bind_param("ssssi", $step, $status, $diagnosis, $medicine, $primary_id);
+    $consultationStmt->bind_param("ssssi", $steps, $status, $diagnosis, $medicine, $primary_id);
 
 
     // Execute both update statements

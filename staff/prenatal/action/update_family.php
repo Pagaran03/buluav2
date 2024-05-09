@@ -36,6 +36,7 @@ function sanitizeInput($input)
 $primary_id = sanitizeInput($_POST['primary_id']);
 $nurse_id = sanitizeInput($_POST['nurse_id']);
 $status = sanitizeInput($_POST['status']);
+$steps = sanitizeInput($_POST['steps']);
 $height = sanitizeInput($_POST['height']);
 $weight = sanitizeInput($_POST['weight']);
 $temperature = sanitizeInput($_POST['temperature']);
@@ -106,6 +107,7 @@ try {
     $familyUpdateSql = "UPDATE prenatal_subjective SET 
     nurse_id=?, 
     status=?,
+    steps=?,
     height=?, 
     weight=?, 
     temperature=?, 
@@ -141,9 +143,10 @@ try {
     WHERE id=?";
     $familyStmt = $conn->prepare($familyUpdateSql);
     $familyStmt->bind_param(
-        "ssssssssssssssssssssssssssssssssssi",
+        "sssssssssssssssssssssssssssssssssssi",
         $nurse_id,
         $status,
+        $steps,
         $height,
         $weight,
         $temperature,

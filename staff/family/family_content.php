@@ -138,6 +138,7 @@ if ($result === false) {
                                 </div>
 
 
+
                             </div>
                             <div class="col-4 tago">
                                 <div class="form-group">
@@ -150,6 +151,23 @@ if ($result === false) {
                                     </select>
                                     <!-- <div id="editStatus_error" class="error"></div> -->
                                 </div>
+                            </div>
+                            <div class="form-group tago">
+                                <label for="">Select Step</label>
+                                <select class="form-control" name="step" id="step" required class="">
+                                    <option value="" disabled selected hidden>Select a Step</option>
+                                    <option value="Interview Staff">Interview Staff</option>
+                                    <option value="Consultation">Consultation</option>
+                                    <option value="Immunization">Immunization</option>
+                                    <option value="Prenatal">Prenatal</option>
+                                    <option value="Family Planning">Family Planning</option>
+                                    <option value="Doctor">Doctor</option>
+                                    <option value="Nurse">Nurse</option>
+                                    <option value="Midwife">Midwife</option>
+                                    <option value="Head Nurse">Head Nurse</option>
+                                    <option value="Prescription">Prescription</option>
+                                </select>
+                                <!-- <div id="editStatus_error" class="error"></div> -->
                             </div>
 
                         </div>
@@ -819,6 +837,26 @@ if ($result === false) {
             </div>
         </div>
     </div>
+
+    <script>
+        // Add an event listener to the Save button
+        document.getElementById('addButton').addEventListener('click', function () {
+            // Assuming you have a variable `completedStep` that holds the completed step value, e.g., "Step1", "Step2", etc.
+            var completedStep = "Family Planning"; // Example completed step
+
+            // Get the select element
+            var selectStep = document.getElementById('step');
+
+            // Loop through options and set selected attribute if value matches completedStep
+            for (var i = 0; i < selectStep.options.length; i++) {
+                if (selectStep.options[i].value === completedStep) {
+                    selectStep.options[i].setAttribute('selected', 'selected');
+                    break; // Exit loop once selected option is found
+                }
+            }
+        });
+
+    </script>
     <script>
         // Add an event listener to the Save button
         document.getElementById('addButton').addEventListener('click', function () {
@@ -855,6 +893,7 @@ if ($result === false) {
                             <th>Date Of Last Delivery</th>
                             <th>Check up Today</th>
                             <th>Status</th>
+                            <th>Process</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -883,6 +922,9 @@ if ($result === false) {
                                         <?php echo $row['status']; ?>
                                     </td>
                                     <td class="align-middle">
+                                        <?php echo $row['steps']; ?>
+                                    </td>
+                                    <td class="align-middle">
                                         <button type="button" class="btn btn-success editbtn"
                                             data-row-id="<?php echo $row['id']; ?>">
                                             <i class="fas fa-edit"></i> Update
@@ -900,6 +942,7 @@ if ($result === false) {
                                 <td class="align-middle">No Family Planning Found</td>
                                 <td class="align-middle">
                                 <td>
+                                <td class="align-middle"></td>
                                 <td class="align-middle"></td>
                                 <td class="align-middle"></td>
                                 <td class="align-middle"></td>
@@ -980,6 +1023,25 @@ if ($result === false) {
                                         <option value="Complete">Complete</option>
                                         <option value="Pending">Pending</option>
                                         <option value="Progress">Progress</option>
+                                    </select>
+                                    <!-- <div id="editStatus_error" class="error"></div> -->
+                                </div>
+                            </div>
+                            <div class="col-sm">
+                                <div class="form-group">
+                                    <label for="">Select Step</label>
+                                    <select class="form-control" name="step2" id="step2" required class="">
+                                        <option value="" disabled selected hidden>Select a Step</option>
+                                        <option value="Interview Staff">Interview Staff</option>
+                                        <option value="Consultation">Consultation</option>
+                                        <option value="Immunization">Immunization</option>
+                                        <option value="Prenatal">Prenatal</option>
+                                        <option value="Family Planning">Family Planning</option>
+                                        <option value="Doctor">Doctor</option>
+                                        <option value="Nurse">Nurse</option>
+                                        <option value="Midwife">Midwife</option>
+                                        <option value="Head Nurse">Head Nurse</option>
+                                        <option value="Prescription">Prescription</option>
                                     </select>
                                     <!-- <div id="editStatus_error" class="error"></div> -->
                                 </div>
@@ -1587,8 +1649,9 @@ if ($result === false) {
                     { targets: 3, data: 'date_of_last_delivery' },
                     { targets: 4, data: 'checkup_date' },
                     { targets: 5, data: 'status' },
+                    { targets: 6, data: 'steps' },
                     {
-                        targets: 6,
+                        targets: 7,
                         searchable: false,
                         data: null,
                         render: function (data, type, row) {
@@ -1612,6 +1675,7 @@ if ($result === false) {
                     { targets: 3, data: 'date_of_last_delivery' },
                     { targets: 4, data: 'checkup_date' },
                     { targets: 5, data: 'status' },
+                    { targets: 6, data: 'steps' },
                 ],
                 // Set the default ordering to 'id' column in descending order
                 order: [[0, 'desc']]
@@ -1630,8 +1694,9 @@ if ($result === false) {
                     { targets: 3, data: 'date_of_last_delivery' },
                     { targets: 4, data: 'checkup_date' },
                     { targets: 5, data: 'status' },
+                    { targets: 6, data: 'steps' },
                     {
-                        targets: 6,
+                        targets: 7,
                         searchable: false,
                         data: null,
                         render: function (data, type, row) {
@@ -1653,6 +1718,7 @@ if ($result === false) {
             var nurse_id = $('#nurse_id').val();
             var serial = $('#serial').val();
             var status = $('#status').val();
+            var steps = $('#step').val();
             var method = $('#method').val();
             var no_of_children = $('#no_of_children').val();
             var income = $('#income').val();
@@ -1730,6 +1796,7 @@ if ($result === false) {
                     serial: serial,
                     method: method,
                     status: status,
+                    steps: steps,
                     no_of_children: no_of_children,
                     income: income,
                     plan_to_have_more_children: plan_to_have_more_children,
@@ -1771,6 +1838,7 @@ if ($result === false) {
                         $('#serial').val('');
                         $('#method').val('');
                         $('#status').val('');
+                        $('#step').val('');
                         $('#no_of_children').val('');
                         $('#income').val('');
                         $('#plan_to_have_more_children').val('');
@@ -1900,6 +1968,7 @@ if ($result === false) {
                     console.log(editGetData);
                     $('#editModal #editdataId').val(editGetData.id);
                     $('#editModal #editstatus').val(editGetData.status);
+                    $('#editModal #step2').val(editGetData.steps);
                     $('#editModal #no_of_children2').val(editGetData.no_of_children);
                     $('#editModal #income2').val(editGetData.income);
                     $('#editModal #nurse_id2').val(editGetData.nurse_id);
@@ -2174,6 +2243,7 @@ if ($result === false) {
             var serial = $('#serial2').val();
             var method = $('#method2').val();
             var status = $('#editstatus').val();
+            var steps = $('#step2').val();
             var no_of_children = $('#no_of_children2').val();
             var income = $('#income2').val();
 
@@ -2231,6 +2301,7 @@ if ($result === false) {
                     serial: serial,
                     method: method,
                     status: status,
+                    steps: steps,
                     no_of_children: no_of_children,
                     income: income,
                     plan_to_have_more_children: plan_to_have_more_children,

@@ -38,6 +38,7 @@ $primary_id = sanitizeInput($_POST['primary_id']);
 
 // Variables for updating fp_information table
 $status = sanitizeInput($_POST['status']);
+$steps = sanitizeInput($_POST['steps']);
 $no_of_children = sanitizeInput($_POST['no_of_children']);
 $income = sanitizeInput($_POST['income']);
 $plan_to_have_more_children = sanitizeInput($_POST['plan_to_have_more_children']);
@@ -104,9 +105,9 @@ try {
     $updateHistoryStmt->bind_param("ssssssssssssi", $severe_headaches, $history_stroke_heart_attack_hypertension, $hematoma_bruising_gum_bleeding, $breast_cancer_breast_mass, $severe_chest_pain, $cough_more_than_14_days, $vaginal_bleeding, $vaginal_discharge, $phenobarbital_rifampicin, $smoker, $with_disability, $jaundice, $primary_id);
 
     // Update Query For fp_consultation
-    $updateConsultSql = "UPDATE fp_consultation SET  status=? WHERE fp_information_id=?";
+    $updateConsultSql = "UPDATE fp_consultation SET steps=?, status=? WHERE fp_information_id=?";
     $updateConsultStmt = $conn->prepare($updateConsultSql);
-    $updateConsultStmt->bind_param("si", $status, $primary_id);
+    $updateConsultStmt->bind_param("ssi", $steps, $status, $primary_id);
 
     // Update query for fp_obstetrical_history table
     $updateObstetricalSql = "UPDATE fp_obstetrical_history SET no_of_pregnancies=?, date_of_last_delivery=?, last_period=?, type_of_last_delivery=?, mens_type=? WHERE fp_information_id=?";

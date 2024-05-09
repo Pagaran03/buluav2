@@ -63,6 +63,28 @@ if ($result === false) {
                 <div class="modal-body">
                     <form id="addForm">
                         <!-- Form fields go here -->
+                        <style>
+                            .otag {
+                                display: none;
+                            }
+                        </style>
+                        <div class="form-group otag">
+                            <label for="">Select Step</label>
+                            <select class="form-control" name="step" id="step" required class="">
+                                <option value="" disabled selected hidden>Select a Step</option>
+                                <option value="Interview Staff">Interview Staff</option>
+                                <option value="Consultation">Consultation</option>
+                                <option value="Immunization">Immunization</option>
+                                <option value="Prenatal">Prenatal</option>
+                                <option value="Family Planning">Family Planning</option>
+                                <option value="Doctor">Doctor</option>
+                                <option value="Nurse">Nurse</option>
+                                <option value="Midwife">Midwife</option>
+                                <option value="Head Nurse">Head Nurse</option>
+                                <option value="Prescription">Prescription</option>
+                            </select>
+                            <!-- <div id="editStatus_error" class="error"></div> -->
+                        </div>
                         <div class="row">
                             <div class="col-sm">
                                 <div class="form-group">
@@ -472,6 +494,26 @@ if ($result === false) {
             </div>
         </div>
     </div>
+
+    <script>
+        // Add an event listener to the Save button
+        document.getElementById('addButton').addEventListener('click', function () {
+            // Assuming you have a variable `completedStep` that holds the completed step value, e.g., "Step1", "Step2", etc.
+            var completedStep = "Consultation"; // Example completed step
+
+            // Get the select element
+            var selectStep = document.getElementById('step');
+
+            // Loop through options and set selected attribute if value matches completedStep
+            for (var i = 0; i < selectStep.options.length; i++) {
+                if (selectStep.options[i].value === completedStep) {
+                    selectStep.options[i].setAttribute('selected', 'selected');
+                    break; // Exit loop once selected option is found
+                }
+            }
+        });
+
+    </script>
     <script>
         // Add an event listener to the Save button
         document.getElementById('addButton').addEventListener('click', function () {
@@ -511,6 +553,7 @@ if ($result === false) {
                             <th>Plan</th>
                             <th>Date</th>
                             <th>Status</th>
+                            <th>Process</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -549,6 +592,9 @@ if ($result === false) {
                                         <?php echo $row['status']; ?>
                                     </td>
                                     <td class="align-middle">
+                                        <?php echo $row['steps']; ?>
+                                    </td>
+                                    <td class="align-middle">
                                         <button type="button" class="btn btn-success editbtn"
                                             data-row-id="<?php echo $row['id']; ?>">
                                             <i class="fas fa-edit"></i> Update
@@ -567,6 +613,7 @@ if ($result === false) {
                                 <td class="align-middle">No Consultation Found</td>
                                 <td class="align-middle">
                                 <td>
+                                <td class="align-middle"></td>
                                 <td class="align-middle"></td>
                                 <td class="align-middle"></td>
                                 <td class="align-middle"></td>
@@ -637,12 +684,12 @@ if ($result === false) {
                                 </div>
 
                             </div>
-                            <div class="col-4">
+                            <div class="col-sm">
                                 <div class="form-group">
                                     <label for="">Select Status</label>
                                     <select class="form-control" name="status2" id="status2" required>
                                         <option value="" disabled selected hidden>Select a Status</option>
-                                        <!-- <option value="Complete">Complete</option> -->
+                                        <option value="Complete">Complete</option>
                                         <option value="Pending">Pending</option>
                                         <option value="Progress">Progress</option>
                                     </select>
@@ -654,6 +701,25 @@ if ($result === false) {
                                     <label for="">Checkup Date</label>
                                     <input type="date" class="form-control" id="checkup_date2" name="checkup_date2"
                                         required>
+                                </div>
+                            </div>
+                            <div class="col-sm">
+                                <div class="form-group">
+                                    <label for="">Select Step</label>
+                                    <select class="form-control" name="steps2" id="steps2" required class="">
+                                        <option value="" disabled selected hidden>Select a Step</option>
+                                        <option value="Interview Staff">Interview Staff</option>
+                                        <option value="Consultation">Consultation</option>
+                                        <option value="Immunization">Immunization</option>
+                                        <option value="Prenatal">Prenatal</option>
+                                        <option value="Family Planning">Family Planning</option>
+                                        <option value="Doctor">Doctor</option>
+                                        <option value="Nurse">Nurse</option>
+                                        <option value="Midwife">Midwife</option>
+                                        <option value="Head Nurse">Head Nurse</option>
+                                        <option value="Prescription">Prescription</option>
+                                    </select>
+                                    <!-- <div id="editStatus_error" class="error"></div> -->
                                 </div>
                             </div>
                         </div>
@@ -1001,8 +1067,9 @@ if ($result === false) {
                         { targets: 6, data: 'plan' },
                         { targets: 7, data: 'checkup_date' },
                         { targets: 8, data: 'status' },
+                        { targets: 9, data: 'steps' },
                         {
-                            targets: 9,
+                            targets: 10,
                             searchable: false,
                             data: null,
                             render: function (data, type, row) {
@@ -1029,6 +1096,7 @@ if ($result === false) {
                         { targets: 6, data: 'plan' },
                         { targets: 7, data: 'checkup_date' },
                         { targets: 8, data: 'status' },
+                        { targets: 9, data: 'steps' },
                     ],
                     // Set the default ordering to 'id' column in descending order
                     order: [[0, 'desc']]
@@ -1050,8 +1118,9 @@ if ($result === false) {
                         { targets: 6, data: 'plan' },
                         { targets: 7, data: 'checkup_date' },
                         { targets: 8, data: 'status' },
+                        { targets: 9, data: 'steps' },
                         {
-                            targets: 9,
+                            targets: 10,
                             searchable: false,
                             data: null,
                             render: function (data, type, row) {
@@ -1075,6 +1144,7 @@ if ($result === false) {
                 var checkup_date = $('#checkup_date').val();
                 var doctor_id = $('#doctor_id').val();
                 var status = $('#status').val();
+                var steps = $('#step').val();
                 // 
                 var weight = $('#weight').val();
                 var bp = $('#bp').val();
@@ -1107,6 +1177,7 @@ if ($result === false) {
                     method: 'POST',
                     data: {
                         patient_id: patient_id,
+                        steps: steps,
                         subjective: subjective,
                         objective: objective,
                         assessment: assessment,
@@ -1149,6 +1220,7 @@ if ($result === false) {
                             $('#doctor_id').val('');
                             $('#status').val('');
                             $('#checkup_date').val('');
+                            $('#step').val('');
 
                             updateData();
                             $('#addModal').modal('hide');
@@ -1262,6 +1334,7 @@ if ($result === false) {
                         $('#editModal #weight2').val(editGetData.weight);
                         $('#editModal #bp2').val(editGetData.bp);
                         $('#editModal #status2').val(editGetData.status);
+                        $('#editModal #steps2').val(editGetData.steps);
 
                         $('#editModal #height2').val(editGetData.height);
                         $('#editModal #pulse2').val(editGetData.pulse);
@@ -1390,6 +1463,7 @@ if ($result === false) {
                 var doctor_id = $('#doctor_id2').val();
                 var checkup_date = $('#checkup_date2').val();
                 var status = $('#status2').val();
+                var steps = $('#steps2').val();
 
                 var extremities = $('input[name="extremities2"]:checked').val()
                 var skin = $('input[name="skin2"]:checked').val();
@@ -1428,6 +1502,7 @@ if ($result === false) {
                         plan: plan,
                         doctor_id: doctor_id,
                         status: status,
+                        steps: steps,
                         checkup_date: checkup_date,
                         weight: weight,
                         bp: bp,

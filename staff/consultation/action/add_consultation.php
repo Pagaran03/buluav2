@@ -43,7 +43,8 @@ $objective = sanitizeInput($_POST['objective']);
 $assessment = sanitizeInput($_POST['assessment']);
 $plan = sanitizeInput($_POST['plan']);
 $status = sanitizeInput($_POST['status']);
-$date = date('m-d-y');
+$steps = sanitizeInput($_POST['steps']);
+$date = date('Y-m-d');
 $doctor_id = sanitizeInput($_POST['doctor_id']);
 
 $severe_headaches = sanitizeInput($_POST['severe_headaches']);
@@ -80,9 +81,9 @@ if ($stmt_patient_id->execute()) {
         $stmt_patient_id->close();
 
         // Insert data into the consultations table
-        $sql_insert = "INSERT INTO consultations (patient_id, subjective, objective, assessment, plan, checkup_date, status, doctor_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql_insert = "INSERT INTO consultations (patient_id, steps, subjective, objective, assessment, plan, checkup_date, status, doctor_id) VALUES (?,?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt_insert = $conn->prepare($sql_insert);
-        $stmt_insert->bind_param("ssssssss", $patient_id, $subjective, $objective, $assessment, $plan, $date, $status, $doctor_id);
+        $stmt_insert->bind_param("sssssssss", $patient_id, $steps, $subjective, $objective, $assessment, $plan, $date, $status, $doctor_id);
         if ($stmt_insert->execute()) {
             $last_inserted_id = $conn->insert_id;
             $sql2 = "INSERT INTO fp_medical_history (consultation_id, patient_id, severe_headaches, history_stroke_heart_attack_hypertension, hematoma_bruising_gum_bleeding, breast_cancer_breast_mass, severe_chest_pain, cough_more_than_14_days, vaginal_bleeding, vaginal_discharge, phenobarbital_rifampicin, smoker, with_disability, jaundice)

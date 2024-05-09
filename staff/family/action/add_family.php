@@ -16,6 +16,7 @@ session_start();
 $patient_id = htmlspecialchars($_POST['patient_id']);
 $nurse_id = htmlspecialchars($_POST['nurse_id']);
 $status = htmlspecialchars($_POST['status']);
+$steps = htmlspecialchars($_POST['steps']);
 $method = 1;
 $serial = '123';
 $date = date('Y-m-d');
@@ -93,10 +94,10 @@ if ($stmt_patient_id->execute()) {
         if ($stmt1->execute()) {
             $last_inserted_id = $stmt1->insert_id; // Get the last inserted ID
 
-            $sql7 = "INSERT INTO fp_consultation (fp_information_id,patient_id,nurse_id,checkup_date,status)
-    VALUES (?,?,?,?,?)";
+            $sql7 = "INSERT INTO fp_consultation (fp_information_id,patient_id,nurse_id,checkup_date,status,steps)
+    VALUES (?,?,?,?,?,?)";
             $stmt7 = $conn->prepare($sql7);
-            $stmt7->bind_param("dssss", $last_inserted_id, $patient_id, $nurse_id, $date, $status);
+            $stmt7->bind_param("dsssss", $last_inserted_id, $patient_id, $nurse_id, $date, $status, $steps);
             $stmt7->execute();
 
             // Prepare and execute the SQL statement to insert into fp_medical_history with the foreign key

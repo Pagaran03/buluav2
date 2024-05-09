@@ -36,6 +36,7 @@ function sanitizeInput($input)
 
 $primary_id = sanitizeInput($_POST['primary_id']);
 $status = sanitizeInput($_POST['status']);
+$steps = sanitizeInput($_POST['steps']);
 $description = sanitizeInput($_POST['description']);
 $nurse_id = sanitizeInput($_POST['nurse_id']);
 $checkup_date = sanitizeInput($_POST['checkup_date']);
@@ -44,9 +45,9 @@ try {
     // Start a transaction
     $conn->begin_transaction();
 
-    $immunizationUpdateSql = "UPDATE immunization SET status=?, description=?, nurse_id=?, checkup_date=? WHERE id=?";
+    $immunizationUpdateSql = "UPDATE immunization SET status=?, steps=?, description=?, nurse_id=?, checkup_date=? WHERE id=?";
     $immunizationStmt = $conn->prepare($immunizationUpdateSql);
-    $immunizationStmt->bind_param("ssssi", $status, $description, $nurse_id, $checkup_date, $primary_id);
+    $immunizationStmt->bind_param("sssssi", $status, $steps, $description, $nurse_id, $checkup_date, $primary_id);
 
     // Execute the update statement
     $immunizationUpdateSuccess = $immunizationStmt->execute();

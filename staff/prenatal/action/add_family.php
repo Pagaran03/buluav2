@@ -20,6 +20,7 @@ function sanitize_input($input)
 // Get data from the POST request for prenatal_subjective
 $patient_id = sanitize_input($_POST['patient_id']);
 $status = sanitize_input($_POST['status']);
+$steps = sanitize_input($_POST['steps']);
 $height = sanitize_input($_POST['height']);
 $weight = sanitize_input($_POST['weight']);
 $temperature = sanitize_input($_POST['temperature']);
@@ -76,14 +77,15 @@ if ($stmt_patient_id->execute()) {
 }
 
 // Prepare and execute the SQL statement to insert into prenatal_subjective
-$sql1 = "INSERT INTO prenatal_subjective (patient_id, status, height, weight, temperature, pr, rr, bp, menarche, lmp, gravida, para, fullterm, preterm, abortion, stillbirth, alive, hgb, ua, vdrl, forceps_delivery, smoking, allergy_alcohol_intake, previous_cs, consecutive_miscarriage, ectopic_pregnancy_h_mole, pp_bleeding, baby_weight_gt_4kgs, asthma, goiter, premature_contraction, obesity, heart_disease, checkup_date, doctor_id,nurse_id,dm) 
-VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)";
+$sql1 = "INSERT INTO prenatal_subjective (patient_id, status, steps, height, weight, temperature, pr, rr, bp, menarche, lmp, gravida, para, fullterm, preterm, abortion, stillbirth, alive, hgb, ua, vdrl, forceps_delivery, smoking, allergy_alcohol_intake, previous_cs, consecutive_miscarriage, ectopic_pregnancy_h_mole, pp_bleeding, baby_weight_gt_4kgs, asthma, goiter, premature_contraction, obesity, heart_disease, checkup_date, doctor_id,nurse_id,dm) 
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)";
 
 $stmt1 = $conn->prepare($sql1);
 $stmt1->bind_param(
-    "sssssssssssssssssssssssssssssssssssss",
+    "ssssssssssssssssssssssssssssssssssssss",
     $patient_id,
     $status,
+    $steps,
     $height,
     $weight,
     $temperature,

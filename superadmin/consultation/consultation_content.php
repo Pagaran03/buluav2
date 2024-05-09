@@ -157,7 +157,7 @@ if ($result === false) {
                                         <?php echo $row['status']; ?>
                                     </td>
                                     <td class="align-middle">
-                                        <?php echo $row['step']; ?>
+                                        <?php echo $row['steps']; ?>
                                     </td>
                                     <td class="align-middle">
                                         <a href="history_consultation.php?id=<?php echo $row['id']; ?>"><button type="button"
@@ -701,7 +701,7 @@ if ($result === false) {
                     { targets: 3, data: 'subjective' },
                     { targets: 4, data: 'checkup_date' },
                     { targets: 5, data: 'status' },
-                    { targets: 6, data: 'step' },
+                    { targets: 6, data: 'steps' },
                     {
                         targets: 7,
                         searchable: false,
@@ -729,7 +729,7 @@ if ($result === false) {
                     { targets: 3, data: 'subjective' },
                     { targets: 4, data: 'checkup_date' },
                     { targets: 5, data: 'status' },
-                    { targets: 6, data: 'step' },
+                    { targets: 6, data: 'steps' },
                 ],
                 // Set the default ordering to 'id' column in descending order
                 order: [[0, 'desc']]
@@ -747,7 +747,7 @@ if ($result === false) {
                     { targets: 3, data: 'subjective' },
                     { targets: 4, data: 'checkup_date' },
                     { targets: 5, data: 'status' },
-                    { targets: 6, data: 'step' },
+                    { targets: 6, data: 'steps' },
                     {
                         targets: 7,
                         searchable: false,
@@ -770,7 +770,7 @@ if ($result === false) {
 
             var patient_id = $('#patient_id').val();
             var status = $('#editstatus').val();
-            var step = $('#editstep').val();
+            var steps = $('#editstep').val();
             var diagnosis = $('#editDiagnosis').val();
             var medicine = $('#editMedicine').val();
 
@@ -781,7 +781,7 @@ if ($result === false) {
                 data: {
                     patient_id: patient_id,
                     status: status,
-                    step: step,
+                    steps: steps,
                     diagnosis: diagnosis,
                     medicine: medicine,
                 },
@@ -911,7 +911,7 @@ if ($result === false) {
                     $('#editModal #editdataId').val(editGetData.id);
                     $('#editModal #editPatient_id').val(editGetData.patient_id);
                     $('#editModal #editstatus').val(editGetData.status);
-                    $('#editModal #editstep').val(editGetData.step);
+                    $('#editModal #editstep').val(editGetData.steps);
                     $('#editModal #editDiagnosis').val(editGetData.diagnosis);
                     $('#editModal #editMedicine').val(editGetData.medicine);
 
@@ -938,7 +938,7 @@ if ($result === false) {
                     $('#editModal2 #editdataId').val(editGetData.id);
                     $('#editModal2 #doctor_id2').val(editGetData.doctor_id);
                     $('#editModal2 #status').val(editGetData.status);
-                    $('#editModal2 #step').val(editGetData.step);
+                    $('#editModal2 #step').val(editGetData.steps);
                     $('#editModal2 #checkup_date2').val(editGetData.checkup_date);
                     $('#editModal2 #subjective2').val(editGetData.subjective);
                     $('#editModal2 #objective2').val(editGetData.objective);
@@ -1071,7 +1071,7 @@ if ($result === false) {
 
             var editId = $('#editdataId').val();
             var status = $('#editstatus').val();
-            var step = $('#editstep').val();
+            var steps = $('#editstep').val();
             var diagnosis = $('#editDiagnosis').val();
             var medicine = $('#editMedicine').val();
 
@@ -1081,7 +1081,7 @@ if ($result === false) {
                 data: {
                     primary_id: editId,
                     status: status,
-                    step: step,
+                    steps: steps,
                     diagnosis: diagnosis,
                     medicine: medicine,
                 },
@@ -1124,7 +1124,7 @@ if ($result === false) {
 
             var editId = $('#editdataId').val();
             var status = $('#status').val();
-            var step = $('#step').val();
+            var steps = $('#step').val();
             var subjective = $('#subjective2').val();
             var objective = $('#objective2').val();
             var assessment = $('#assessment2').val();
@@ -1164,7 +1164,7 @@ if ($result === false) {
                 data: {
                     primary_id: editId,
                     status: status,
-                    step: step,
+                    steps: steps,
                     subjective: subjective,
                     objective: objective,
                     assessment: assessment,

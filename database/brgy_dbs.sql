@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 10, 2024 at 12:33 AM
+-- Generation Time: May 03, 2024 at 02:27 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -63,20 +63,6 @@ CREATE TABLE `announcements` (
   `time` time DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `announcements`
---
-
-INSERT INTO `announcements` (`id`, `is_active`, `is_deleted`, `description`, `title`, `date`, `time`) VALUES
-(1, 0, 0, 'asd', 'asd', '2024-05-07', '03:49:05'),
-(2, 0, 0, 'dasdwad', 'awdaw', '2024-05-07', '03:49:09'),
-(3, 0, 0, 'awdawd', 'asdawd', '2024-05-07', '03:49:13'),
-(4, 0, 0, 'cdawdcawd', 'asd wadaw', '2024-05-07', '03:49:17'),
-(5, 0, 0, '4', '4', '2024-05-07', '04:08:31'),
-(6, 0, 0, '5', '5', '2024-05-07', '04:08:34'),
-(7, 0, 0, '5', '5', '2024-05-07', '04:08:34'),
-(8, 0, 0, '8', '8', '2024-05-07', '04:08:38');
-
 -- --------------------------------------------------------
 
 --
@@ -96,14 +82,6 @@ CREATE TABLE `children` (
   `place_of_birth_child` text NOT NULL,
   `children_id` int(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `children`
---
-
-INSERT INTO `children` (`id`, `first_name_child`, `last_name_child`, `middle_name_child`, `suffix_child`, `gender_child`, `birthdate_child`, `birth_weight_child`, `birth_height_child`, `place_of_birth_child`, `children_id`) VALUES
-(1, 'James', 'Obrial', 'Uba', 'None', 'Male', '2002-10-21', 50.00, 165.00, 'CDO', 0),
-(2, 'test1', 'test1', 'test1', 'None', 'Male', '2019-12-22', 40.00, 134.00, 'CDO', 0);
 
 -- --------------------------------------------------------
 
@@ -128,19 +106,8 @@ CREATE TABLE `consultations` (
   `checkup_date` date DEFAULT NULL,
   `is_print` int(11) NOT NULL DEFAULT 0,
   `is_deleted` int(11) NOT NULL DEFAULT 0,
-  `status` varchar(255) NOT NULL,
-  `steps` varchar(255) NOT NULL
+  `status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `consultations`
---
-
-INSERT INTO `consultations` (`id`, `patient_id`, `subjective`, `objective`, `assessment`, `plan`, `diagnosis`, `medicine`, `doctor_id`, `is_active`, `not_approved`, `nurse_id`, `category`, `checkup_date`, `is_print`, `is_deleted`, `status`, `steps`) VALUES
-(1, 1, 'test', 'test', 'test', 'test', NULL, NULL, 1, 0, 0, 0, 'Consultations', '2005-09-24', 0, 0, 'Pending', ''),
-(2, 1, '1', '1', '1', '1', 'asd', 'asd', 1, 0, 0, 0, 'Consultations', '2005-09-24', 0, 0, 'Pending', 'Step 4 Prescription'),
-(3, 2, 'qwe', 'qwe', 'qwe', 'qwe', NULL, NULL, 1, 0, 0, 0, 'Consultations', '2024-05-09', 0, 0, 'Pending', 'Consultation'),
-(4, 2, 'qwe', 'qwe', 'qwe', 'qwe', NULL, NULL, 1, 0, 0, 0, 'Consultations', '2024-05-16', 0, 0, 'Pending', 'Consultation');
 
 -- --------------------------------------------------------
 
@@ -181,16 +148,8 @@ CREATE TABLE `fp_consultation` (
   `fp_information_id` int(11) DEFAULT NULL,
   `method` varchar(255) DEFAULT NULL,
   `is_deleted` int(11) NOT NULL DEFAULT 0,
-  `status` varchar(255) NOT NULL,
-  `steps` varchar(255) NOT NULL
+  `status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `fp_consultation`
---
-
-INSERT INTO `fp_consultation` (`id`, `patient_id`, `description`, `diagnosis`, `medicine`, `nurse_id`, `checkup_date`, `is_print`, `fp_information_id`, `method`, `is_deleted`, `status`, `steps`) VALUES
-(1, 1, NULL, NULL, NULL, 1, 2024, 0, 1, NULL, 0, 'Pending', 'FamilyPlanning');
 
 -- --------------------------------------------------------
 
@@ -214,13 +173,6 @@ CREATE TABLE `fp_information` (
   `checkup_date` date NOT NULL DEFAULT current_timestamp(),
   `is_deleted` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `fp_information`
---
-
-INSERT INTO `fp_information` (`id`, `patient_id`, `no_of_children`, `income`, `plan_to_have_more_children`, `client_type`, `reason_for_fp`, `nurse_id`, `method`, `serial`, `doctor_id`, `not_approved`, `checkup_date`, `is_deleted`) VALUES
-(1, 1, 1, 1, 'Yes', 'NewAcceptor', 'spacing', 1, '1', '123', 2, 0, '2024-05-09', 0);
 
 -- --------------------------------------------------------
 
@@ -248,19 +200,6 @@ CREATE TABLE `fp_medical_history` (
   `consultation_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `fp_medical_history`
---
-
-INSERT INTO `fp_medical_history` (`id`, `patient_id`, `fp_information_id`, `severe_headaches`, `history_stroke_heart_attack_hypertension`, `hematoma_bruising_gum_bleeding`, `breast_cancer_breast_mass`, `severe_chest_pain`, `cough_more_than_14_days`, `vaginal_bleeding`, `vaginal_discharge`, `phenobarbital_rifampicin`, `smoker`, `with_disability`, `jaundice`, `is_deleted`, `consultation_id`) VALUES
-(1, 1, NULL, 'Yes', 'No', 'No', 'No', 'No', 'No', 'No', 'No', 'No', 'No', 'No', 'No', 0, 1),
-(2, 1, NULL, 'Yes', 'No', 'No', 'No', 'No', 'No', 'No', 'No', 'No', 'No', 'No', 'No', 0, 2),
-(3, 1, NULL, 'Yes', 'No', 'No', 'No', 'No', 'No', 'No', 'No', 'No', 'No', 'No', 'No', 0, 1),
-(4, 1, NULL, 'Yes', 'No', 'No', 'No', 'No', 'No', 'No', 'No', 'No', 'No', 'No', 'No', 0, 2),
-(5, 2, NULL, 'Yes', 'No', 'No', 'No', 'No', 'No', 'No', 'No', 'No', 'No', 'No', 'No', 0, 3),
-(6, 2, NULL, 'Yes', 'No', 'No', 'No', 'No', 'No', 'No', 'No', 'No', 'No', 'No', 'No', 0, 4),
-(7, 1, 1, 'Yes', 'No', 'No', 'No', 'No', 'No', 'No', 'No', 'No', 'No', 'No', 'No', 0, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -277,13 +216,6 @@ CREATE TABLE `fp_obstetrical_history` (
   `fp_information_id` int(11) DEFAULT NULL,
   `is_deleted` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `fp_obstetrical_history`
---
-
-INSERT INTO `fp_obstetrical_history` (`id`, `last_period`, `no_of_pregnancies`, `date_of_last_delivery`, `type_of_last_delivery`, `mens_type`, `fp_information_id`, `is_deleted`) VALUES
-(1, '2024-05-17', 1, '2024-05-16', 'Vaginal', 'Scanty', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -308,19 +240,6 @@ CREATE TABLE `fp_physical_examination` (
   `consultation_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `fp_physical_examination`
---
-
-INSERT INTO `fp_physical_examination` (`id`, `weight`, `bp`, `height`, `pulse`, `skin`, `extremities`, `conjunctiva`, `neck`, `breast`, `abdomen`, `fp_information_id`, `is_deleted`, `consultation_id`) VALUES
-(1, 'asd', 'asd', 'asd', 'asd', 'Normal', '', 'Normal', '', NULL, NULL, NULL, 0, 1),
-(2, 'asd', 'asd', 'asd', 'asd', 'Normal', 'Normal', 'Normal', 'Normal', NULL, NULL, NULL, 0, 2),
-(3, '14', '14', '14', '14', 'Normal', 'Normal', 'Normal', 'Normal', NULL, NULL, NULL, 0, 1),
-(4, '1', '1', '1', '1', 'Normal', 'Normal', 'Normal', 'Normal', NULL, NULL, NULL, 0, 2),
-(5, '123', '123', '123', '123', 'Normal', 'Normal', 'Normal', 'Normal', NULL, NULL, NULL, 0, 3),
-(6, '123', '123', '123', '123', 'Normal', 'Normal', 'Normal', 'Normal', NULL, NULL, NULL, 0, 4),
-(7, '1', '1', '1', '1', 'Normal', 'Normal', 'Normal', 'Normal', 'Normal', 'Normal', 1, 0, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -337,13 +256,6 @@ CREATE TABLE `fp_risk_for_sexuality` (
   `hiv_aids_pid` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `fp_risk_for_sexuality`
---
-
-INSERT INTO `fp_risk_for_sexuality` (`id`, `fp_information_id`, `abnormal_discharge`, `genital_sores_ulcers`, `genital_pain_burning_sensation`, `treatment_for_sti`, `hiv_aids_pid`) VALUES
-(1, 1, 'Yes', 'No', 'No', 'No', 'No');
-
 -- --------------------------------------------------------
 
 --
@@ -357,13 +269,6 @@ CREATE TABLE `fp_risk_for_violence_against_women` (
   `partner_does_not_approve` varchar(10) DEFAULT NULL,
   `domestic_violence` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `fp_risk_for_violence_against_women`
---
-
-INSERT INTO `fp_risk_for_violence_against_women` (`id`, `fp_information_id`, `unpleasant_relationship`, `partner_does_not_approve`, `domestic_violence`) VALUES
-(1, 1, 'Yes', 'No', 'No');
 
 -- --------------------------------------------------------
 
@@ -401,16 +306,8 @@ CREATE TABLE `immunization` (
   `nurse_id` int(11) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   `is_deleted` int(11) NOT NULL DEFAULT 0,
-  `status` varchar(255) NOT NULL,
-  `steps` varchar(255) NOT NULL
+  `status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `immunization`
---
-
-INSERT INTO `immunization` (`id`, `bgc_date`, `bgc_remarks`, `hepa_date`, `hepa_remarks`, `pentavalent_date1`, `pentavalent_date2`, `pentavalent_date3`, `pentavalent_remarks`, `oral_date1`, `oral_date2`, `oral_date3`, `oral_remarks`, `ipv_date1`, `ipv_date2`, `ipv_remarks`, `pcv_date1`, `pcv_date2`, `pcv_date3`, `pcv_remarks`, `mmr_date1`, `mmr_date2`, `mmr_remarks`, `patient_id`, `checkup_date`, `doctor_id`, `nurse_id`, `description`, `is_deleted`, `status`, `steps`) VALUES
-(1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2024-05-29', NULL, 1, 'asd', 0, 'Pending', 'Immunization');
 
 -- --------------------------------------------------------
 
@@ -431,41 +328,275 @@ CREATE TABLE `logs` (
 --
 
 INSERT INTO `logs` (`id`, `type`, `date`, `time`, `user_id`) VALUES
-(1, 'logout', '2024-05-07', '02:31:21', 2),
-(2, 'login', '2024-05-07', '05:34:21', 2),
-(3, 'logout', '2024-05-07', '05:35:15', 2),
-(4, 'login', '2024-05-07', '05:35:19', 3),
-(5, 'logout', '2024-05-07', '05:35:34', 3),
-(6, 'login', '2024-05-07', '05:35:42', 1),
-(7, 'logout', '2024-05-07', '05:46:41', 1),
-(8, 'login', '2024-05-07', '05:46:45', 2),
-(9, 'logout', '2024-05-07', '05:52:49', 2),
-(10, 'login', '2024-05-07', '06:01:41', 2),
-(11, 'logout', '2024-05-07', '06:38:18', 2),
-(12, 'login', '2024-05-07', '06:49:14', 2),
-(13, 'logout', '2024-05-07', '07:35:26', 2),
-(14, 'login', '2024-05-08', '06:53:45', 2),
-(15, 'logout', '2024-05-08', '06:59:54', 2),
-(16, 'login', '2024-05-08', '07:10:07', 2),
-(17, 'logout', '2024-05-08', '07:37:59', 2),
-(18, 'login', '2024-05-08', '06:45:21', 2),
-(19, 'logout', '2024-05-08', '06:52:52', 2),
-(20, 'login', '2024-05-10', '04:16:48', 2),
-(21, 'logout', '2024-05-10', '04:23:42', 2),
-(22, 'login', '2024-05-10', '04:31:52', 1),
-(23, 'logout', '2024-05-10', '04:32:00', 1),
-(24, 'login', '2024-05-10', '04:33:00', 2),
-(25, 'logout', '2024-05-10', '05:14:21', 2),
-(26, 'login', '2024-05-10', '05:14:50', 2),
-(27, 'logout', '2024-05-10', '05:51:29', 2),
-(28, 'login', '2024-05-10', '05:54:47', 2),
-(29, 'logout', '2024-05-10', '06:26:01', 2),
-(30, 'login', '2024-05-10', '06:26:07', 1),
-(31, 'logout', '2024-05-10', '06:32:04', 1),
-(32, 'login', '2024-05-10', '06:32:17', 3),
-(33, 'logout', '2024-05-10', '06:32:43', 3),
-(34, 'login', '2024-05-10', '06:32:49', 1),
-(35, 'logout', '2024-05-10', '06:32:51', 1);
+(1, 'login', '2024-03-13', '05:15:34', 2),
+(2, 'logout', '2024-03-13', '05:17:14', 2),
+(3, 'login', '2024-03-13', '05:17:19', 3),
+(4, 'logout', '2024-03-13', '05:17:51', 3),
+(5, 'login', '2024-04-25', '06:45:17', 8),
+(6, 'logout', '2024-04-25', '06:45:21', 8),
+(7, 'login', '2024-04-25', '06:45:25', 2),
+(8, 'logout', '2024-04-25', '06:46:03', 2),
+(9, 'login', '2024-04-25', '06:46:09', 8),
+(10, 'logout', '2024-04-25', '06:49:12', 8),
+(11, 'login', '2024-04-25', '06:49:17', 2),
+(12, 'logout', '2024-04-25', '06:56:13', 2),
+(13, 'login', '2024-04-25', '06:59:16', 8),
+(14, 'logout', '2024-04-25', '07:00:53', 8),
+(15, 'login', '2024-04-25', '07:00:58', 2),
+(16, 'logout', '2024-04-25', '07:02:07', 2),
+(17, 'login', '2024-04-25', '07:02:19', 8),
+(18, 'login', '2024-04-25', '07:02:30', 3),
+(19, 'logout', '2024-04-25', '07:02:43', 3),
+(20, 'login', '2024-04-25', '07:02:57', 2),
+(21, 'logout', '2024-04-25', '07:27:35', 8),
+(22, 'login', '2024-04-25', '07:38:44', 8),
+(23, 'logout', '2024-04-25', '07:38:47', 8),
+(24, 'login', '2024-04-25', '07:39:02', 3),
+(25, 'login', '2024-04-25', '07:40:02', 2),
+(26, 'logout', '2024-04-25', '07:40:06', 2),
+(27, 'login', '2024-04-26', '05:37:57', 3),
+(28, 'logout', '2024-04-26', '05:38:40', 3),
+(29, 'login', '2024-04-26', '05:39:45', 3),
+(30, 'logout', '2024-04-26', '05:47:08', 3),
+(31, 'login', '2024-04-26', '05:47:23', 3),
+(32, 'logout', '2024-04-26', '05:52:15', 3),
+(33, 'login', '2024-04-26', '05:54:31', 18),
+(34, 'logout', '2024-04-26', '05:54:36', 18),
+(35, 'login', '2024-04-26', '05:55:05', 3),
+(36, 'logout', '2024-04-26', '06:00:06', 3),
+(37, 'login', '2024-04-26', '06:00:10', 2),
+(38, 'logout', '2024-04-26', '06:02:40', 2),
+(39, 'login', '2024-04-26', '06:02:46', 8),
+(40, 'logout', '2024-04-26', '06:02:56', 8),
+(41, 'login', '2024-04-26', '06:03:00', 3),
+(42, 'logout', '2024-04-26', '06:12:27', 3),
+(43, 'login', '2024-04-26', '06:12:32', 2),
+(44, 'logout', '2024-04-26', '06:14:21', 2),
+(45, 'login', '2024-04-26', '06:14:25', 3),
+(46, 'logout', '2024-04-26', '06:14:31', 3),
+(47, 'login', '2024-04-26', '06:14:36', 8),
+(48, 'logout', '2024-04-26', '06:14:39', 8),
+(49, 'login', '2024-04-26', '06:14:43', 2),
+(50, 'logout', '2024-04-26', '06:15:01', 2),
+(51, 'login', '2024-04-26', '06:15:08', 1),
+(52, 'logout', '2024-04-26', '07:00:30', 1),
+(53, 'login', '2024-04-26', '07:04:00', 1),
+(54, 'logout', '2024-04-26', '07:08:33', 1),
+(55, 'login', '2024-04-26', '07:08:39', 5),
+(56, 'logout', '2024-04-26', '07:08:47', 5),
+(57, 'login', '2024-04-26', '07:09:50', 5),
+(58, 'logout', '2024-04-26', '07:10:25', 5),
+(59, 'login', '2024-04-26', '07:10:32', 1),
+(60, 'logout', '2024-04-26', '07:11:07', 1),
+(61, 'login', '2024-04-26', '07:17:41', 8),
+(62, 'logout', '2024-04-26', '07:17:44', 8),
+(63, 'login', '2024-04-27', '05:06:28', 3),
+(64, 'logout', '2024-04-27', '05:37:54', 2),
+(65, 'logout', '2024-04-27', '05:46:30', 3),
+(66, 'login', '2024-04-27', '05:46:35', 2),
+(67, 'logout', '2024-04-27', '05:47:35', 2),
+(68, 'login', '2024-04-27', '05:47:42', 8),
+(69, 'logout', '2024-04-27', '05:47:46', 8),
+(70, 'login', '2024-04-27', '06:56:19', 2),
+(71, 'logout', '2024-04-27', '07:07:04', 2),
+(72, 'login', '2024-04-27', '07:17:36', 2),
+(73, 'logout', '2024-04-27', '07:26:02', 2),
+(74, 'login', '2024-04-27', '07:36:59', 2),
+(75, 'logout', '2024-04-27', '07:43:27', 2),
+(76, 'login', '2024-04-27', '07:59:46', 2),
+(77, 'logout', '2024-04-27', '08:04:46', 2),
+(78, 'login', '2024-04-27', '08:04:52', 1),
+(79, 'logout', '2024-04-27', '08:05:15', 1),
+(80, 'login', '2024-04-27', '08:05:20', 2),
+(81, 'logout', '2024-04-27', '08:11:25', 2),
+(82, 'login', '2024-04-28', '05:32:09', 2),
+(83, 'logout', '2024-04-28', '05:40:45', 2),
+(84, 'login', '2024-04-28', '05:43:47', 2),
+(85, 'logout', '2024-04-28', '05:58:58', 2),
+(86, 'login', '2024-04-28', '05:59:05', 8),
+(87, 'logout', '2024-04-28', '05:59:09', 8),
+(88, 'login', '2024-04-28', '05:59:13', 2),
+(89, 'logout', '2024-04-28', '06:17:19', 2),
+(90, 'login', '2024-04-28', '06:17:24', 1),
+(91, 'logout', '2024-04-28', '06:17:39', 1),
+(92, 'login', '2024-04-28', '06:17:53', 8),
+(93, 'logout', '2024-04-28', '06:17:57', 8),
+(94, 'login', '2024-04-28', '06:18:01', 2),
+(95, 'logout', '2024-04-28', '06:18:11', 2),
+(96, 'login', '2024-04-28', '06:18:16', 8),
+(97, 'logout', '2024-04-28', '06:45:49', 8),
+(98, 'login', '2024-04-28', '06:45:58', 5),
+(99, 'logout', '2024-04-28', '06:46:02', 5),
+(100, 'login', '2024-04-28', '06:46:09', 3),
+(101, 'logout', '2024-04-28', '06:51:48', 3),
+(102, 'login', '2024-04-28', '06:51:53', 5),
+(103, 'logout', '2024-04-28', '06:56:40', 5),
+(104, 'login', '2024-04-28', '06:56:45', 3),
+(105, 'logout', '2024-04-28', '06:56:48', 3),
+(106, 'login', '2024-04-28', '06:57:05', 5),
+(107, 'logout', '2024-04-28', '06:57:43', 5),
+(108, 'login', '2024-04-28', '06:57:54', 3),
+(109, 'logout', '2024-04-28', '06:58:14', 3),
+(110, 'login', '2024-04-28', '06:58:22', 5),
+(111, 'logout', '2024-04-28', '07:01:25', 5),
+(112, 'login', '2024-04-28', '07:01:29', 3),
+(113, 'logout', '2024-04-28', '07:01:35', 3),
+(114, 'login', '2024-04-28', '07:01:50', 5),
+(115, 'logout', '2024-04-28', '07:03:51', 5),
+(116, 'login', '2024-04-28', '07:04:00', 3),
+(117, 'logout', '2024-04-28', '07:04:05', 3),
+(118, 'login', '2024-04-28', '07:04:11', 5),
+(119, 'logout', '2024-04-28', '07:25:55', 5),
+(120, 'login', '2024-04-28', '06:40:06', 2),
+(121, 'logout', '2024-04-28', '06:51:22', 2),
+(122, 'login', '2024-04-28', '06:51:36', 8),
+(123, 'logout', '2024-04-28', '06:52:06', 8),
+(124, 'login', '2024-04-28', '06:52:11', 2),
+(125, 'logout', '2024-04-28', '06:53:22', 2),
+(126, 'login', '2024-04-28', '06:53:28', 8),
+(127, 'logout', '2024-04-28', '06:55:42', 8),
+(128, 'login', '2024-04-28', '06:55:46', 3),
+(129, 'logout', '2024-04-28', '06:57:52', 3),
+(130, 'login', '2024-04-28', '06:57:56', 2),
+(131, 'logout', '2024-04-28', '07:09:46', 2),
+(132, 'login', '2024-04-28', '07:09:51', 3),
+(133, 'logout', '2024-04-28', '07:14:21', 3),
+(134, 'login', '2024-04-28', '07:14:27', 8),
+(135, 'logout', '2024-04-28', '07:28:52', 8),
+(136, 'login', '2024-04-28', '07:29:41', 5),
+(137, 'logout', '2024-04-28', '07:29:56', 5),
+(138, 'login', '2024-04-28', '07:31:25', 8),
+(139, 'logout', '2024-04-28', '07:42:14', 8),
+(140, 'login', '2024-04-28', '07:42:19', 5),
+(141, 'login', '2024-04-29', '06:21:42', 5),
+(142, 'logout', '2024-04-29', '06:28:11', 5),
+(143, 'login', '2024-04-29', '06:29:07', 5),
+(144, 'logout', '2024-04-29', '06:29:40', 5),
+(145, 'login', '2024-04-29', '06:29:44', 2),
+(146, 'logout', '2024-04-29', '06:34:46', 2),
+(147, 'login', '2024-04-29', '06:35:00', 5),
+(148, 'logout', '2024-04-29', '06:36:33', 5),
+(149, 'login', '2024-04-29', '06:36:37', 2),
+(150, 'logout', '2024-04-29', '06:50:03', 2),
+(151, 'login', '2024-04-29', '06:50:08', 5),
+(152, 'logout', '2024-04-29', '06:52:19', 5),
+(153, 'login', '2024-04-29', '06:52:24', 2),
+(154, 'logout', '2024-04-29', '06:52:53', 2),
+(155, 'login', '2024-04-29', '06:53:04', 5),
+(156, 'logout', '2024-04-29', '06:56:55', 5),
+(157, 'login', '2024-04-29', '06:56:59', 2),
+(158, 'logout', '2024-04-29', '06:57:27', 2),
+(159, 'login', '2024-04-29', '06:57:32', 5),
+(160, 'logout', '2024-04-29', '06:57:37', 5),
+(161, 'login', '2024-04-29', '06:57:43', 3),
+(162, 'logout', '2024-04-29', '06:57:48', 3),
+(163, 'login', '2024-04-29', '06:57:53', 5),
+(164, 'logout', '2024-04-29', '07:05:08', 5),
+(165, 'login', '2024-04-29', '07:24:21', 5),
+(166, 'logout', '2024-04-29', '07:39:55', 5),
+(167, 'login', '2024-04-29', '07:44:20', 5),
+(168, 'logout', '2024-04-29', '07:48:12', 5),
+(169, 'login', '2024-04-29', '07:48:16', 2),
+(170, 'logout', '2024-04-29', '07:49:10', 2),
+(171, 'login', '2024-04-29', '07:49:15', 3),
+(172, 'logout', '2024-04-29', '07:49:54', 3),
+(173, 'login', '2024-04-29', '07:50:01', 1),
+(174, 'logout', '2024-04-29', '07:50:09', 1),
+(175, 'login', '2024-04-29', '07:50:27', 2),
+(176, 'logout', '2024-04-29', '07:55:18', 2),
+(177, 'login', '2024-04-29', '07:55:27', 3),
+(178, 'logout', '2024-04-29', '08:09:50', 3),
+(179, 'login', '2024-04-29', '08:09:55', 3),
+(180, 'logout', '2024-04-29', '08:10:38', 3),
+(181, 'login', '2024-04-29', '08:10:42', 2),
+(182, 'logout', '2024-04-29', '08:11:30', 2),
+(183, 'login', '2024-04-29', '08:12:37', 3),
+(184, 'logout', '2024-04-29', '08:12:50', 3),
+(185, 'login', '2024-04-29', '08:13:00', 19),
+(186, 'logout', '2024-04-29', '08:14:20', 19),
+(187, 'login', '2024-04-29', '08:14:28', 3),
+(188, 'logout', '2024-04-29', '08:20:33', 3),
+(189, 'login', '2024-04-29', '08:37:08', 3),
+(190, 'logout', '2024-04-29', '08:37:45', 3),
+(191, 'login', '2024-04-29', '08:37:50', 5),
+(192, 'logout', '2024-04-29', '08:41:58', 5),
+(193, 'login', '2024-04-29', '08:42:04', 8),
+(194, 'logout', '2024-04-29', '08:44:36', 8),
+(195, 'login', '2024-04-29', '08:44:43', 3),
+(196, 'logout', '2024-04-29', '08:45:02', 3),
+(197, 'login', '2024-04-29', '08:45:08', 8),
+(198, 'logout', '2024-04-29', '08:46:25', 8),
+(199, 'login', '2024-04-29', '08:46:29', 3),
+(200, 'logout', '2024-04-29', '08:47:05', 3),
+(201, 'login', '2024-04-29', '08:47:10', 2),
+(202, 'logout', '2024-04-29', '08:47:42', 2),
+(203, 'login', '2024-04-29', '08:48:06', 3),
+(204, 'logout', '2024-04-29', '08:48:20', 3),
+(205, 'login', '2024-04-29', '08:48:25', 20),
+(206, 'logout', '2024-04-29', '08:49:35', 20),
+(207, 'login', '2024-04-29', '08:49:42', 8),
+(208, 'logout', '2024-04-29', '09:11:58', 8),
+(209, 'login', '2024-04-29', '09:12:04', 3),
+(210, 'logout', '2024-04-29', '09:12:06', 3),
+(211, 'login', '2024-04-29', '09:12:12', 5),
+(212, 'logout', '2024-04-29', '09:16:45', 5),
+(213, 'login', '2024-04-29', '09:16:49', 3),
+(214, 'logout', '2024-04-29', '09:17:05', 3),
+(215, 'login', '2024-04-29', '09:17:23', 1),
+(216, 'logout', '2024-04-29', '09:22:10', 1),
+(217, 'login', '2024-04-29', '09:22:14', 2),
+(218, 'logout', '2024-04-29', '09:22:36', 2),
+(219, 'login', '2024-04-29', '09:22:42', 1),
+(220, 'login', '2024-04-29', '04:29:21', 1),
+(221, 'logout', '2024-04-29', '04:36:24', 1),
+(222, 'login', '2024-04-29', '04:36:28', 3),
+(223, 'logout', '2024-04-29', '04:52:17', 3),
+(224, 'login', '2024-04-29', '04:52:56', 3),
+(225, 'logout', '2024-04-29', '05:04:11', 3),
+(226, 'login', '2024-04-29', '05:04:22', 3),
+(227, 'logout', '2024-04-29', '05:17:26', 3),
+(228, 'login', '2024-04-29', '05:58:04', 3),
+(229, 'logout', '2024-04-29', '05:58:18', 3),
+(230, 'login', '2024-04-29', '05:58:32', 3),
+(231, 'logout', '2024-04-29', '05:58:35', 3),
+(232, 'login', '2024-04-30', '02:37:42', 2),
+(233, 'logout', '2024-04-30', '02:37:50', 2),
+(234, 'login', '2024-04-30', '02:37:59', 1),
+(235, 'logout', '2024-04-30', '02:43:22', 1),
+(236, 'login', '2024-04-30', '02:43:31', 1),
+(237, 'logout', '2024-04-30', '02:59:49', 1),
+(238, 'login', '2024-04-30', '03:05:23', 1),
+(239, 'logout', '2024-04-30', '03:30:37', 1),
+(240, 'login', '2024-04-30', '03:32:34', 1),
+(241, 'logout', '2024-04-30', '03:33:09', 1),
+(242, 'login', '2024-04-30', '03:37:39', 3),
+(243, 'logout', '2024-04-30', '04:07:14', 3),
+(244, 'login', '2024-04-30', '06:09:27', 2),
+(245, 'logout', '2024-04-30', '06:27:32', 2),
+(246, 'login', '2024-04-30', '06:45:27', 2),
+(247, 'logout', '2024-04-30', '07:02:02', 2),
+(248, 'login', '2024-04-30', '07:19:31', 2),
+(249, 'logout', '2024-04-30', '07:34:54', 2),
+(250, 'login', '2024-04-30', '07:43:56', 2),
+(251, 'logout', '2024-04-30', '07:47:21', 2),
+(252, 'login', '2024-05-03', '04:56:05', 2),
+(253, 'logout', '2024-05-03', '05:06:20', 2),
+(254, 'login', '2024-05-03', '05:10:38', 2),
+(255, 'logout', '2024-05-03', '05:24:08', 2),
+(256, 'login', '2024-05-03', '05:37:30', 2),
+(257, 'logout', '2024-05-03', '05:44:15', 2),
+(258, 'login', '2024-05-03', '05:50:56', 2),
+(259, 'logout', '2024-05-03', '05:58:09', 2),
+(260, 'login', '2024-05-03', '06:41:58', 2),
+(261, 'logout', '2024-05-03', '06:55:55', 2),
+(262, 'login', '2024-05-03', '07:00:27', 2),
+(263, 'logout', '2024-05-03', '07:32:12', 2),
+(264, 'login', '2024-05-03', '07:33:36', 2),
+(265, 'logout', '2024-05-03', '08:01:01', 2),
+(266, 'login', '2024-05-03', '08:01:07', 1),
+(267, 'logout', '2024-05-03', '08:10:41', 1),
+(268, 'login', '2024-05-03', '08:10:46', 2),
+(269, 'logout', '2024-05-03', '08:21:20', 2);
 
 -- --------------------------------------------------------
 
@@ -543,14 +674,6 @@ CREATE TABLE `patients` (
   `step` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `patients`
---
-
-INSERT INTO `patients` (`id`, `first_name`, `last_name`, `birthdate`, `address`, `is_active`, `middle_name`, `suffix`, `gender`, `age`, `contact_no`, `civil_status`, `religion`, `is_deleted`, `serial_no`, `step`) VALUES
-(1, 'Joemari', 'Obrial', '2002-11-21', 'CDO', 0, 'Uba', 'None', 'Male', '21', '09123', 'Married', 'Roman Catholic', 0, '240001', 'Interview Staff'),
-(2, 'Test', 'Test', '2009-12-21', 'cdo', 0, 'Test', 'None', 'Female', '14', '123', 'Married', 'Muslim', 0, '240002', 'Interview Staff');
-
 -- --------------------------------------------------------
 
 --
@@ -608,14 +731,6 @@ CREATE TABLE `prenatal_consultation` (
   `prenatal_subjective_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `prenatal_consultation`
---
-
-INSERT INTO `prenatal_consultation` (`id`, `patient_id`, `description`, `diagnosis`, `medicine`, `midwife_id`, `checkup_date`, `is_print`, `prenatal_subjective_id`) VALUES
-(1, 2, NULL, NULL, NULL, 1, '2024-05-09', 0, 1),
-(2, 2, NULL, NULL, NULL, 1, '2024-05-10', 0, 2);
-
 -- --------------------------------------------------------
 
 --
@@ -654,14 +769,6 @@ CREATE TABLE `prenatal_diagnosis` (
   `patient_id` int(11) DEFAULT NULL,
   `prenatal_subjective_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `prenatal_diagnosis`
---
-
-INSERT INTO `prenatal_diagnosis` (`id`, `edc`, `aog`, `date_of_last_delivery`, `place_of_last_delivery`, `tt1`, `tt2`, `tt3`, `tt4`, `tt5`, `multiple_sex_partners`, `unusual_discharges`, `itching_sores_around_vagina`, `tx_for_stis_in_the_past`, `pain_burning_sensation`, `ovarian_cyst`, `myoma_uteri`, `placenta_previa`, `still_birth`, `pre_eclampsia`, `eclampsia`, `premature_contraction`, `hpn`, `uterine_myomectomy`, `thyroid_disorder`, `epilepsy`, `height_less_than_145cm`, `family_history_gt_36cm`, `patient_id`, `prenatal_subjective_id`) VALUES
-(1, '1', '1', '2024-06-07', '1', '1', '1', '1', '1', '1', 'Yes', 'No', 'No', 'No', 'No', 'Yes', 'No', 'No', 'No', 'No', 'No', 'Yes', 'No', 'No', 'No', 'No', 'No', 'No', 2, 1),
-(2, '12', '21', '2024-05-22', 'qwe', '1', '1', '1', '1', '1', 'Yes', 'No', 'No', 'No', 'No', 'Yes', 'No', 'No', 'No', 'No', 'No', 'No', 'No', 'No', 'No', 'No', 'No', 'No', 2, 2);
 
 -- --------------------------------------------------------
 
@@ -708,28 +815,7 @@ CREATE TABLE `prenatal_subjective` (
   `nurse_id` int(11) DEFAULT NULL,
   `dm` varchar(255) DEFAULT NULL,
   `is_deleted` int(11) NOT NULL DEFAULT 0,
-  `status` varchar(255) NOT NULL,
-  `steps` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `prenatal_subjective`
---
-
-INSERT INTO `prenatal_subjective` (`id`, `height`, `weight`, `temperature`, `pr`, `rr`, `bp`, `menarche`, `lmp`, `gravida`, `para`, `fullterm`, `preterm`, `abortion`, `stillbirth`, `alive`, `hgb`, `ua`, `vdrl`, `forceps_delivery`, `smoking`, `allergy_alcohol_intake`, `previous_cs`, `consecutive_miscarriage`, `ectopic_pregnancy_h_mole`, `pp_bleeding`, `baby_weight_gt_4kgs`, `asthma`, `goiter`, `premature_contraction`, `obesity`, `heart_disease`, `patient_id`, `checkup_date`, `doctor_id`, `nurse_id`, `dm`, `is_deleted`, `status`, `steps`) VALUES
-(1, '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', 'Yes', 'Yes', 'Yes', 'Yes', 'Yes', 'Yes', 'Yes', 'Yes', 'Yes', 'Yes', 'Yes', 'Yes', 'Yes', 2, '2024-05-09', NULL, 1, 'Yes', 0, 'Pending', 'Prenatal'),
-(2, '123', '123', '123', '123', '123', '123', '123', '123', '123', '123', '123', '123', '123', '123', '123', '123', '123', '123', 'Yes', 'No', 'No', 'No', 'No', 'No', 'No', 'No', 'No', 'No', 'No', 'No', 'No', 2, '2024-05-10', NULL, 1, 'No', 0, 'Pending', 'Prenatal');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `process`
---
-
-CREATE TABLE `process` (
-  `id` int(11) NOT NULL,
-  `step` varchar(255) NOT NULL,
-  `patient_id` int(255) NOT NULL
+  `status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -804,7 +890,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `role`, `is_active`, `is_deleted`, `email`) VALUES
-(1, 'doctor', '$2y$10$JG57dAWRiqqFwybIqIcJjOfQ4NKyg2oF2FPw3AJfQwN9MCcFv8KXm', 'superadmin', 0, 0, ''),
+(1, 'superadmin', '$2y$10$5cHBud369AJA1EgGcRVsxuJH5eNUxzxokeOyN07X0ZONOysXjgUU2', 'superadmin', 0, 0, ''),
 (2, 'staff', '$2y$10$VT9uPNhpb7Yqym3UokBxPOVtIkomIbee7NUFoUuALXQdKeC9hUn1e', 'staff', 0, 0, ''),
 (3, 'admin', '$2y$10$/ECAxe./Yu8tvLqASD7gXeVB/hRzIWKjJlP2bCNvHX2L1oiIs248a', 'admin', 0, 0, 'joemariobrial54@gmail.com'),
 (5, 'nurse', '$2y$10$UEg98xlisBhOCHdsUxVd.uVLyRJW4qtHDN5CmbXU56fXvE0l.RD9G', 'nurse', 0, 0, ''),
@@ -950,12 +1036,6 @@ ALTER TABLE `prenatal_subjective`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `process`
---
-ALTER TABLE `process`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `staffs`
 --
 ALTER TABLE `staffs`
@@ -987,19 +1067,19 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT for table `announcements`
 --
 ALTER TABLE `announcements`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `children`
 --
 ALTER TABLE `children`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `consultations`
 --
 ALTER TABLE `consultations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `family_plannings`
@@ -1011,55 +1091,55 @@ ALTER TABLE `family_plannings`
 -- AUTO_INCREMENT for table `fp_consultation`
 --
 ALTER TABLE `fp_consultation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `fp_information`
 --
 ALTER TABLE `fp_information`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `fp_medical_history`
 --
 ALTER TABLE `fp_medical_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `fp_obstetrical_history`
 --
 ALTER TABLE `fp_obstetrical_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `fp_physical_examination`
 --
 ALTER TABLE `fp_physical_examination`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `fp_risk_for_sexuality`
 --
 ALTER TABLE `fp_risk_for_sexuality`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `fp_risk_for_violence_against_women`
 --
 ALTER TABLE `fp_risk_for_violence_against_women`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `immunization`
 --
 ALTER TABLE `immunization`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=270;
 
 --
 -- AUTO_INCREMENT for table `midwife`
@@ -1077,7 +1157,7 @@ ALTER TABLE `nurses`
 -- AUTO_INCREMENT for table `patients`
 --
 ALTER TABLE `patients`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `prenatal`
@@ -1089,24 +1169,18 @@ ALTER TABLE `prenatal`
 -- AUTO_INCREMENT for table `prenatal_consultation`
 --
 ALTER TABLE `prenatal_consultation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `prenatal_diagnosis`
 --
 ALTER TABLE `prenatal_diagnosis`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `prenatal_subjective`
 --
 ALTER TABLE `prenatal_subjective`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `process`
---
-ALTER TABLE `process`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --

@@ -10,16 +10,16 @@ $objective = $_POST['objective'];
 $assessment = $_POST['assessment'];
 $plan = $_POST['plan'];
 $status = $_POST['status'];
-$step = $_POST['step'];
+$steps = $_POST['steps'];
 $diagnosis = $_POST['diagnosis'];
 $medicine = $_POST['medicine'];
 $date = date('Y-m-d');
 $doctor_id = $_POST['doctor_id'];
 
 
-$sql = "INSERT INTO consultations (patient_id, step, status, subjective, objective, assessment, plan, diagnosis, medicine,checkup_date,doctor_id) VALUES (?,?,?, ?, ?, ?, ?, ?,?,?,?)";
+$sql = "INSERT INTO consultations (patient_id, steps, status, subjective, objective, assessment, plan, diagnosis, medicine,checkup_date,doctor_id) VALUES (?,?,?, ?, ?, ?, ?, ?,?,?,?)";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("sssssssssss", $patient_id, $step, $status, $subjective, $objective, $assessment, $plan, $diagnosis, $medicine, $date, $doctor_id);
+$stmt->bind_param("sssssssssss", $patient_id, $steps, $status, $subjective, $objective, $assessment, $plan, $diagnosis, $medicine, $date, $doctor_id);
 
 if ($stmt->execute()) {
     // Successful insertion

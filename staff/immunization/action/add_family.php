@@ -38,6 +38,7 @@ function sanitizeInput($input)
 // Get data from the POST request and sanitize input
 $serial_no = sanitizeInput(strip_tags($_POST['patient_id']));
 $status = sanitizeInput(strip_tags($_POST['status']));
+$steps = sanitizeInput(strip_tags($_POST['steps']));
 $description = sanitizeInput(strip_tags($_POST['description']));
 $nurse_id = sanitizeInput(strip_tags($_POST['nurse_id']));
 $checkup_date = sanitizeInput(strip_tags($_POST['checkup_date']));
@@ -58,14 +59,15 @@ if ($stmt_patient_id->execute()) {
         // Now you have the patient_id
         $stmt_patient_id->close();
 
-        $sql = "INSERT INTO immunization (patient_id, status, description, nurse_id, checkup_date) 
-        VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO immunization (patient_id, status,  steps, description, nurse_id, checkup_date) 
+        VALUES (?, ?, ?, ?, ?, ?)";
 
         $stmt = $conn->prepare($sql);
         $stmt->bind_param(
-            "sssss",
+            "ssssss",
             $patient_id,
             $status,
+            $steps,
             $description,
             $nurse_id,
             $checkup_date

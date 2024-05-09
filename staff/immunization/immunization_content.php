@@ -113,6 +113,28 @@ if ($result === false) {
                                             <!-- <div id="editStatus_error" class="error"></div> -->
                                         </div>
                                     </div>
+                                    <style>
+                                        .otag {
+                                            display: none;
+                                        }
+                                    </style>
+                                    <div class="form-group otag">
+                                        <label for="">Select Step</label>
+                                        <select class="form-control" name="step" id="step" required class="">
+                                            <option value="" disabled selected hidden>Select a Step</option>
+                                            <option value="Interview Staff">Interview Staff</option>
+                                            <option value="Consultation">Consultation</option>
+                                            <option value="Immunization">Immunization</option>
+                                            <option value="Prenatal">Prenatal</option>
+                                            <option value="Family Planning">Family Planning</option>
+                                            <option value="Doctor">Doctor</option>
+                                            <option value="Nurse">Nurse</option>
+                                            <option value="Midwife">Midwife</option>
+                                            <option value="Head Nurse">Head Nurse</option>
+                                            <option value="Prescription">Prescription</option>
+                                        </select>
+                                        <!-- <div id="editStatus_error" class="error"></div> -->
+                                    </div>
                                 </div>
 
                                 <script>
@@ -209,6 +231,25 @@ if ($result === false) {
     // Add an event listener to the Save button
     document.getElementById('addButton').addEventListener('click', function () {
         // Assuming you have a variable `completedStep` that holds the completed step value, e.g., "Step1", "Step2", etc.
+        var completedStep = "Immunization"; // Example completed step
+
+        // Get the select element
+        var selectStep = document.getElementById('step');
+
+        // Loop through options and set selected attribute if value matches completedStep
+        for (var i = 0; i < selectStep.options.length; i++) {
+            if (selectStep.options[i].value === completedStep) {
+                selectStep.options[i].setAttribute('selected', 'selected');
+                break; // Exit loop once selected option is found
+            }
+        }
+    });
+
+</script>
+<script>
+    // Add an event listener to the Save button
+    document.getElementById('addButton').addEventListener('click', function () {
+        // Assuming you have a variable `completedStep` that holds the completed step value, e.g., "Step1", "Step2", etc.
         var completedStep = "Pending"; // Example completed step
 
         // Get the select element
@@ -237,6 +278,7 @@ if ($result === false) {
                         <th>Description</th>
                         <th>Date</th>
                         <th>Status</th>
+                        <th>Process</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -264,6 +306,9 @@ if ($result === false) {
                                 <td class="align-middle">
                                     <?php echo $row['status']; ?>
                                 </td>
+                                <td class="align-middle">
+                                    <?php echo $row['steps']; ?>
+                                </td>
                                 <td class="align-middle"> <button type="button" class="btn btn-success editbtn"
                                         data-row-id="<?php echo $row['id']; ?>">
                                         <i class="fas fa-edit"></i> Update
@@ -281,6 +326,7 @@ if ($result === false) {
                             <td class="align-middle">No Immunization Found</td>
                             <td class="align-middle">
                             <td>
+                            <td class="align-middle"></td>
                             <td class="align-middle"></td>
                             <td class="align-middle"></td>
                             <td class="align-middle"></td>
@@ -317,43 +363,67 @@ if ($result === false) {
                         <div class="col">
 
 
-                            <div class="form-group">
-                                <label for="">Select Nurse</label>
-                                <select class="form-control" name="nurse_id2" id="nurse_id2" required>
-                                    <option value="" disabled selected hidden>Select Nurse</option>
-                                    <?php
+                            <div class="row">
+                                <div class="col-sm">
+                                    <div class="form-group">
+                                        <label for="">Select Nurse</label>
+                                        <select class="form-control" name="nurse_id2" id="nurse_id2" required>
+                                            <option value="" disabled selected hidden>Select Nurse</option>
+                                            <?php
 
-                                    // Query to fetch patients from the database
-                                    $sql2 = "SELECT id, first_name, last_name FROM nurses ORDER BY id DESC";
-                                    $result2 = $conn->query($sql2);
+                                            // Query to fetch patients from the database
+                                            $sql2 = "SELECT id, first_name, last_name FROM nurses ORDER BY id DESC";
+                                            $result2 = $conn->query($sql2);
 
-                                    if ($result2->num_rows > 0) {
-                                        while ($row2 = $result2->fetch_assoc()) {
-                                            $patientId = $row2['id'];
-                                            $firstName = $row2['first_name'];
-                                            $lastName = $row2['last_name'];
+                                            if ($result2->num_rows > 0) {
+                                                while ($row2 = $result2->fetch_assoc()) {
+                                                    $patientId = $row2['id'];
+                                                    $firstName = $row2['first_name'];
+                                                    $lastName = $row2['last_name'];
 
-                                            // Output an option element for each patient
-                                            echo "<option value='$patientId'>$firstName $lastName</option>";
-                                        }
-                                    } else {
-                                        echo "<option disabled>No patients found</option>";
-                                    }
+                                                    // Output an option element for each patient
+                                                    echo "<option value='$patientId'>$firstName $lastName</option>";
+                                                }
+                                            } else {
+                                                echo "<option disabled>No patients found</option>";
+                                            }
 
-                                    // Close the database connection
-                                    
-                                    ?>
-                                </select>
+                                            // Close the database connection
+                                            
+                                            ?>
+                                        </select>
 
+                                    </div>
+
+                                </div>
+                                <div class="col-sm">
+
+                                    <div class="form-group ">
+                                        <label for="">Select Status</label>
+                                        <select class="form-control" name="status2" id="status2" required>
+                                            <option value="" disabled selected hidden>Select a Status</option>
+                                            <option value="Complete">Complete</option>
+                                            <option value="Pending">Pending</option>
+                                            <option value="Progress">Progress</option>
+                                        </select>
+                                        <!-- <div id="editStatus_error" class="error"></div> -->
+                                    </div>
+                                </div>
                             </div>
-
                             <div class="form-group">
-                                <label for="">Select Status</label>
-                                <select class="form-control" name="status2" id="status2" required>
-                                    <option value="" disabled selected hidden>Select a Status</option>
-                                    <option value="Complete">Complete</option>
-                                    <option value="Pending">Pending</option>
-                                    <option value="Progress">Progress</option>
+                                <label for="">Select Step</label>
+                                <select class="form-control" name="step2" id="step2" required class="">
+                                    <option value="" disabled selected hidden>Select a Step</option>
+                                    <option value="Interview Staff">Interview Staff</option>
+                                    <option value="Consultation">Consultation</option>
+                                    <option value="Immunization">Immunization</option>
+                                    <option value="Prenatal">Prenatal</option>
+                                    <option value="Family Planning">Family Planning</option>
+                                    <option value="Doctor">Doctor</option>
+                                    <option value="Nurse">Nurse</option>
+                                    <option value="Midwife">Midwife</option>
+                                    <option value="Head Nurse">Head Nurse</option>
+                                    <option value="Prescription">Prescription</option>
                                 </select>
                                 <!-- <div id="editStatus_error" class="error"></div> -->
                             </div>
@@ -423,8 +493,9 @@ if ($result === false) {
                     { targets: 3, data: 'description' },
                     { targets: 4, data: 'checkup_date' },
                     { targets: 5, data: 'status' },
+                    { targets: 6, data: 'steps' },
                     {
-                        targets: 6,
+                        targets: 7,
                         searchable: false,
                         data: null,
                         render: function (data, type, row) {
@@ -448,6 +519,7 @@ if ($result === false) {
                     { targets: 3, data: 'description' },
                     { targets: 4, data: 'checkup_date' },
                     { targets: 5, data: 'status' },
+                    { targets: 6, data: 'steps' },
                 ],
                 // Set the default ordering to 'id' column in descending order
                 order: [[0, 'desc']]
@@ -466,8 +538,9 @@ if ($result === false) {
                     { targets: 3, data: 'description' },
                     { targets: 4, data: 'checkup_date' },
                     { targets: 5, data: 'status' },
+                    { targets: 6, data: 'steps' },
                     {
-                        targets: 6,
+                        targets: 7,
                         searchable: false,
                         data: null,
                         render: function (data, type, row) {
@@ -487,6 +560,7 @@ if ($result === false) {
             var patient_id = $('#serial_no2').val();
             var nurse_id = $('#nurse_id').val();
             var status = $('#status').val();
+            var steps = $('#step').val();
             var description = $('#description').val();
             var checkup_date = $('#checkup_date').val();
 
@@ -498,6 +572,7 @@ if ($result === false) {
                     patient_id: patient_id,
                     nurse_id: nurse_id,
                     status: status,
+                    steps: steps,
                     description: description,
                     checkup_date: checkup_date,
 
@@ -508,6 +583,7 @@ if ($result === false) {
                         $('#patient_id').val('');
                         $('#nurse_id').val('');
                         $('#status').val('');
+                        $('#step').val('');
                         $('#description').val('');
                         $('#checkup_date').val('');
 
@@ -620,6 +696,7 @@ if ($result === false) {
                     $('#editModal #editdataId').val(editGetData.id);
                     $('#editModal #nurse_id2').val(editGetData.nurse_id);
                     $('#editModal #status2').val(editGetData.status);
+                    $('#editModal #step2').val(editGetData.steps);
                     $('#editModal #description2').val(editGetData.description);
                     $('#editModal #checkup_date2').val(editGetData.checkup_date);
                     $('#editModal').modal('show');
@@ -634,6 +711,7 @@ if ($result === false) {
             var editId = $('#editdataId').val();
             var nurse_id = $('#nurse_id2').val();
             var status = $('#status2').val();
+            var steps = $('#step2').val();
             var description = $('#description2').val();
             var checkup_date = $('#checkup_date2').val();
 
@@ -644,6 +722,7 @@ if ($result === false) {
                     primary_id: editId,
                     nurse_id: nurse_id,
                     status: status,
+                    steps: steps,
                     description: description,
                     checkup_date: checkup_date,
                 },

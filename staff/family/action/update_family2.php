@@ -37,6 +37,7 @@ function sanitizeInput($input)
 $primary_id = sanitizeInput($_POST['primary_id']);
 $method = sanitizeInput($_POST['method']);
 $status = sanitizeInput($_POST['status']);
+$steps = sanitizeInput($_POST['steps']);
 $description = sanitizeInput($_POST['description']);
 $diagnosis = sanitizeInput($_POST['diagnosis']);
 $medicine = sanitizeInput($_POST['medicine']);
@@ -45,9 +46,9 @@ try {
     // Start a transaction
     $conn->begin_transaction();
 
-    $consultationUpdateSql = "UPDATE fp_consultation SET method=?, status=?, description=?, diagnosis=?, medicine=? WHERE id=?";
+    $consultationUpdateSql = "UPDATE fp_consultation SET method=?, status=?, steps=?, description=?, diagnosis=?, medicine=? WHERE id=?";
     $consultationStmt = $conn->prepare($consultationUpdateSql);
-    $consultationStmt->bind_param("sssssi", $method, $status, $description, $diagnosis, $medicine, $primary_id);
+    $consultationStmt->bind_param("ssssssi", $method, $status, $steps, $description, $diagnosis, $medicine, $primary_id);
 
     // Execute the update statement
     $consultationUpdateSuccess = $consultationStmt->execute();
