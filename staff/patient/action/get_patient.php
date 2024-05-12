@@ -4,9 +4,8 @@ include_once ('../../../config.php');
 
 // Fetch the latest patient data from the "patients" table
 
-$sql = "SELECT *,CONCAT(patients.last_name, ', ', patients.first_name) AS full_name,CONCAT(children.last_name_child, ', ', children.first_name_child) AS Child
+$sql = "SELECT *,CONCAT(patients.last_name, ', ', patients.first_name) AS full_name
 FROM patients 
-JOIN children ON patients.id = children.id
 WHERE is_active = 0 AND patients.is_deleted = 0 ORDER BY serial_no DESC";
 
 $result = $conn->query($sql);

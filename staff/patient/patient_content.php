@@ -3,9 +3,8 @@
 include_once ('../../config.php');
 
 
-$sql = "SELECT *,CONCAT(patients.last_name, ', ', patients.first_name) AS full_name,CONCAT(children.last_name_child, ', ', children.first_name_child) AS Child
+$sql = "SELECT *,CONCAT(patients.last_name, ', ', patients.first_name) AS full_name
 FROM patients 
-JOIN children ON patients.id = children.id
 WHERE is_active = 0 AND patients.is_deleted = 0 ORDER BY serial_no DESC";
 
 $result = $conn->query($sql);
@@ -416,7 +415,7 @@ if ($result2->num_rows > 0) {
                             <th style="display:none;">ID</th>
                             <th>Serial Number</th>
                             <th>Full Name</th>
-                            <th>Child Name</th>
+                            <!-- <th>Child Name</th> -->
                             <th>Birthdate</th>
                             <th>Address</th>
                             <th>Process</th>
@@ -438,9 +437,9 @@ if ($result2->num_rows > 0) {
                                     <td class="align-middle">
                                         <?php echo $row['full_name']; ?>
                                     </td>
-                                    <td class="align-middle">
+                                    <!-- <td class="align-middle">
                                         <?php echo $row['Child']; ?>
-                                    </td>
+                                    </td> -->
                                     <td class="align-middle">
                                         <?php echo $row['birthdate']; ?>
                                     </td>
@@ -463,10 +462,10 @@ if ($result2->num_rows > 0) {
                                         <button type="button" class="btn btn-danger deletebtn"
                                             data-id="' + row.serial_no + '"><i class="fas fa-user-times"></i> Inactive</button>
                                         <!-- Button trigger modal -->
-                                        <button type="button" class="btn btn-primary childbtn" data-toggle="modal"
+                                        <!-- <button type="button" class="btn btn-primary childbtn" data-toggle="modal"
                                             data-target="#childModal_<?php echo $row['serial_no']; ?>">
                                             Child Details
-                                        </button>
+                                        </button> -->
 
                                     </td>
                                 </tr>
@@ -482,7 +481,7 @@ if ($result2->num_rows > 0) {
                                 <td class="align-middle"></td>
                                 <td class="align-middle"></td>
                                 <td class="align-middle"></td>
-                                <td class="align-middle"></td>
+                                <!-- <td class="align-middle"></td> -->
 
 
                             </tr>
@@ -495,7 +494,7 @@ if ($result2->num_rows > 0) {
         </div>
     </div>
     <!-- Child Modal -->
-    <div class="modal fade" id="childModal" tabindex="-1" role="dialog" aria-labelledby="childModalLabel"
+    <!-- <div class="modal fade" id="childModal" tabindex="-1" role="dialog" aria-labelledby="childModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -505,18 +504,18 @@ if ($result2->num_rows > 0) {
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <!-- Child details go here -->
-                    <p id="childName"></p>
-                    <p id="childBirthdate"></p>
-                    <p id="childAddress"></p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
+                <div class="modal-body"> -->
+    <!-- Child details go here -->
+    <!-- <p id="childName"></p>
+    <p id="childBirthdate"></p>
+    <p id="childAddress"></p>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div> -->
 
 
 
@@ -861,12 +860,12 @@ if ($result2->num_rows > 0) {
                     { targets: 0, data: 'id', visible: false },
                     { targets: 1, data: 'serial_no' },
                     { targets: 2, data: 'full_name' },
-                    { targets: 3, data: 'Child' },
-                    { targets: 4, data: 'birthdate' },
-                    { targets: 5, data: 'address' },
-                    { targets: 6, data: 'step' },
+                    // { targets: 3, data: 'Child' },
+                    { targets: 3, data: 'birthdate' },
+                    { targets: 4, data: 'address' },
+                    { targets: 5, data: 'step' },
                     {
-                        targets: 7,
+                        targets: 6,
                         searchable: false,
                         data: null,
                         render: function (data, type, row) {
@@ -889,10 +888,10 @@ if ($result2->num_rows > 0) {
                     { targets: 0, data: 'id', visible: false },
                     { targets: 1, data: 'serial_no' },
                     { targets: 2, data: 'full_name' },
-                    { targets: 3, data: 'Child' },
-                    { targets: 4, data: 'birthdate' },
-                    { targets: 5, data: 'address' },
-                    { targets: 6, data: 'step' }
+                    // { targets: 3, data: 'Child' },
+                    { targets: 3, data: 'birthdate' },
+                    { targets: 4, data: 'address' },
+                    { targets: 5, data: 'step' }
                 ],
                 // Set the default ordering to 'id' column in descending order
                 order: [[0, 'desc']]
@@ -939,12 +938,12 @@ if ($result2->num_rows > 0) {
                         { targets: 0, data: 'id', visible: false },
                         { targets: 1, data: 'serial_no' },
                         { targets: 2, data: 'full_name' },
-                        { targets: 3, data: 'Child' },
-                        { targets: 4, data: 'birthdate' },
-                        { targets: 5, data: 'address' },
-                        { targets: 6, data: 'step' },
+                        // { targets: 3, data: 'Child' },
+                        { targets: 3, data: 'birthdate' },
+                        { targets: 4, data: 'address' },
+                        { targets: 5, data: 'step' },
                         {
-                            targets: 7,
+                            targets: 6,
                             searchable: false,
                             data: null,
                             render: function (data, type, row) {
@@ -985,9 +984,9 @@ if ($result2->num_rows > 0) {
                     },
                     success: function (response) {
 
-                        if (document.getElementById("first_name_child").value != "") {
-                            addChild();
-                        }
+                        // if (document.getElementById("first_name_child").value != "") {
+                        //     addChild();
+                        // }
 
                         // Handle the response
                         if (response === 'Success') {
