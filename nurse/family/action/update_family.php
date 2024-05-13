@@ -13,6 +13,7 @@ $reason_for_fp = $_POST['reason_for_fp'];
 
 //Variables for Updatig fp_consultation table
 $status = $_POST['status'];
+$steps = $_POST['steps'];
 
 // Variables for updating fp_medical_history table
 
@@ -80,9 +81,9 @@ try {
 
 
     // Update query for fp_consultation table
-    $updateConsultSql = "UPDATE fp_consultation SET status=? WHERE fp_information_id=?";
+    $updateConsultSql = "UPDATE fp_consultation SET status=?, steps=? WHERE fp_information_id=?";
     $updateConsultStmt = $conn->prepare($updateConsultSql);
-    $updateConsultStmt->bind_param("si", $status, $primary_id);
+    $updateConsultStmt->bind_param("ssi", $status, $steps, $primary_id);
     // Update query for fp_risk_for_sexuality table
     // $updateRiskSql = "UPDATE fp_risk_for_sexuality SET abnormal_discharge=?, genital_sores_ulcers=?, genital_pain_burning_sensation=?, treatment_for_sti=?, hiv_aids_pid=? WHERE id=?";
     // $updateRiskStmt = $conn->prepare($updateRiskSql);

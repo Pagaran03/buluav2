@@ -3,7 +3,7 @@
 include_once ('../../../config.php');
 
 
-$sql = "SELECT *,fp_information.id as id,CONCAT(patients.last_name,',',patients.first_name) AS full_name,nurses.first_name as first_name2,nurses.last_name as last_name2
+$sql = "SELECT *,fp_information.id as id,CONCAT(patients.last_name,', ',patients.first_name) AS full_name,nurses.first_name as first_name2,nurses.last_name as last_name2
 FROM fp_information
 JOIN patients ON fp_information.patient_id = patients.id
 JOIN nurses ON fp_information.nurse_id = nurses.id

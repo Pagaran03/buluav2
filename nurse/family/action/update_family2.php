@@ -8,15 +8,16 @@ $description = $_POST['description'];
 $diagnosis = $_POST['diagnosis'];
 $medicine = $_POST['medicine'];
 $status = $_POST['status'];
+$steps = $_POST['steps'];
 
 try {
     // Start a transaction
     $conn->begin_transaction();
 
 
-    $consultationUpdateSql = "UPDATE fp_consultation SET status=?,method=?, description=?, diagnosis=?, medicine=? WHERE id=?";
+    $consultationUpdateSql = "UPDATE fp_consultation SET steps=?, status=?,method=?, description=?, diagnosis=?, medicine=? WHERE id=?";
     $consultationStmt = $conn->prepare($consultationUpdateSql);
-    $consultationStmt->bind_param("sssssi", $status, $method, $description, $diagnosis, $medicine, $primary_id);
+    $consultationStmt->bind_param("ssssssi", $steps, $status, $method, $description, $diagnosis, $medicine, $primary_id);
 
 
     // Execute both update statements

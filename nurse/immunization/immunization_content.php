@@ -21,36 +21,95 @@ if ($result === false) {
 <div class="container-fluid">
 
 
-    <div style="text-align: left; float: left;">
-        <button type="button" id="openModalButton" class="btn btn-primary" style="display:none">
-            Add Child Immunization Record
-        </button>
+
+
+    <style>
+        .tago {
+            display: none;
+        }
+    </style>
+    <div class="row">
+        <div class="col-12">
+            <div class="card-body table-responsive p-0" style="z-index: -99999">
+                <table id="tablebod" class="table table-head-fixed text-nowrap table-striped">
+                    <thead class="thead-light">
+                        <tr>
+                            <th class="tago">ID</th>
+                            <th>Serial Number</th>
+                            <th>Patient Name</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Process</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                ?>
+                                <tr>
+                                    <td class="align-middle class"><?php echo $row['id']; ?></td>
+                                    <td class="align-middle"><?php echo $row['serial_no']; ?></td>
+                                    <td class="align-middle"><?php echo $row['full_name']; ?></td>
+                                    <td class="align-middle"><?php echo $row['checkup_date']; ?></td>
+                                    <td class="align-middle"><?php echo $row['status']; ?></td>
+                                    <td class="align-middle"><?php echo $row['steps']; ?></td>
+                                    <td class="align-middle"> <button type="button" class="btn btn-success editbtn"
+                                            data-row-id="<?php echo $row['id']; ?>">
+                                            <i class="fas fa-edit"></i> Update Immunization Record
+                                        </button>
+                                        <button type="button" class="btn btn-danger deletebtn" data-id="' + row.id + '"><i
+                                                class="fas fa-trash"></i> Delete</button>
+                                    </td>
+                                </tr>
+                                <?php
+                            }
+                        } else {
+                            ?>
+                            <tr>
+                                <td class="align-middle"></td>
+                                <td class="align-middle">No Immunization Found</td>
+                                <td class="align-middle"></td>
+                                <td class="align-middle"></td>
+                                <td class="align-middle"></td>
+                                <td class="align-middle">
+                                <td>
+
+                            </tr>
+                            <?php
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
-    <br><br>
+    <!-- modal edit -->
 
-
-    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Child Immunization Information</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Immunization</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="addForm">
+                    <form id="editForm">
+                        <input type="hidden" id="editdataId" name="primary_id">
+                        <!-- Form fields go here -->
 
                         <h5>IMMUNIZATION RECORD</h5>
                         <hr>
-
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
                                     <label for="">Select Patient</label>
-                                    <select class="form-control" name="patient_id" id="patient_id" required>
+                                    <select class="form-control" name="patient_id2" id="patient_id2" required disabled>
                                         <option value="" disabled selected hidden>Select a patient</option>
                                         <?php
 
@@ -79,7 +138,35 @@ if ($result === false) {
 
                                 </div>
                             </div>
-
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="">Status</label>
+                                    <select class="form-control" name="status" id="editstatus" required>
+                                        <option value="" disabled selected hidden>Select a Status</option>
+                                        <option value="Complete">Complete</option>
+                                        <option value="Pending">Pending</option>
+                                        <option value="Progress">Progress</option>
+                                    </select>
+                                    <!-- <div id="editStatus_error" class="error"></div> -->
+                                </div>
+                            </div>
+                            <div class="form-group tago">
+                                <label for="">Select Step</label>
+                                <select class="form-control" name="step" id="step" required class="">
+                                    <option value="" disabled selected hidden>Select a Step</option>
+                                    <option value="Interview Staff">Interview Staff</option>
+                                    <option value="Consultation">Consultation</option>
+                                    <option value="Immunization">Immunization</option>
+                                    <option value="Prenatal">Prenatal</option>
+                                    <option value="Family Planning">Family Planning</option>
+                                    <option value="Doctor">Doctor</option>
+                                    <option value="Already Nurse">Nurse</option>
+                                    <option value="Midwife">Midwife</option>
+                                    <option value="Head Nurse">Head Nurse</option>
+                                    <option value="Prescription">Prescription</option>
+                                </select>
+                                <!-- <div id="editStatus_error" class="error"></div> -->
+                            </div>
                         </div>
 
                         <hr>
@@ -118,13 +205,13 @@ if ($result === false) {
 
                             <div class="col-6">
                                 <div class="form-group">
-                                    <input type="date" class="form-control" id="bgc_date" name="bgc_date" required>
+                                    <input type="date" class="form-control" id="bgc_date2" name="bgc_date2" required>
                                 </div>
                             </div>
 
                             <div class="col-2">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="bgc_remarks" name="bgc_remarks"
+                                    <input type="text" class="form-control" id="bgc_remarks2" name="bgc_remarks2"
                                         required>
                                 </div>
                             </div>
@@ -145,13 +232,13 @@ if ($result === false) {
 
                             <div class="col-6">
                                 <div class="form-group">
-                                    <input type="date" class="form-control" id="hepa_date" name="hepa_date" required>
+                                    <input type="date" class="form-control" id="hepa_date2" name="hepa_date2" required>
                                 </div>
                             </div>
 
                             <div class="col-2">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="hepa_remarks" name="hepa_remarks"
+                                    <input type="text" class="form-control" id="hepa_remarks2" name="hepa_remarks2"
                                         required>
                                 </div>
                             </div>
@@ -174,16 +261,16 @@ if ($result === false) {
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col">
-                                            <input type="date" class="form-control" id="pentavalent_date1"
-                                                name="pentavalent_date1" required>
+                                            <input type="date" class="form-control" id="pentavalent_date12"
+                                                name="pentavalent_date12" required>
                                         </div>
                                         <div class="col">
-                                            <input type="date" class="form-control" id="pentavalent_date2"
-                                                name="pentavalent_date2" required>
+                                            <input type="date" class="form-control" id="pentavalent_date22"
+                                                name="pentavalent_date22" required>
                                         </div>
                                         <div class="col">
-                                            <input type="date" class="form-control" id="pentavalent_date3"
-                                                name="pentavalent_date3" required>
+                                            <input type="date" class="form-control" id="pentavalent_date32"
+                                                name="pentavalent_date32" required>
                                         </div>
                                     </div>
                                 </div>
@@ -191,8 +278,8 @@ if ($result === false) {
 
                             <div class="col-2">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="pentavalent_remarks"
-                                        name="pentavalent_remarks" required>
+                                    <input type="text" class="form-control" id="pentavalent_remarks2"
+                                        name="pentavalent_remarks2" required>
                                 </div>
                             </div>
                         </div>
@@ -214,15 +301,15 @@ if ($result === false) {
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col">
-                                            <input type="date" class="form-control" id="oral_date1" name="oral_date1"
+                                            <input type="date" class="form-control" id="oral_date12" name="oral_date12"
                                                 required>
                                         </div>
                                         <div class="col">
-                                            <input type="date" class="form-control" id="oral_date2" name="oral_date2"
+                                            <input type="date" class="form-control" id="oral_date22" name="oral_date22"
                                                 required>
                                         </div>
                                         <div class="col">
-                                            <input type="date" class="form-control" id="oral_date3" name="oral_date3"
+                                            <input type="date" class="form-control" id="oral_date32" name="oral_date32"
                                                 required>
                                         </div>
                                     </div>
@@ -231,7 +318,7 @@ if ($result === false) {
 
                             <div class="col-2">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="oral_remarks" name="oral_remarks"
+                                    <input type="text" class="form-control" id="oral_remarks2" name="oral_remarks2"
                                         required>
                                 </div>
                             </div>
@@ -254,11 +341,11 @@ if ($result === false) {
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col">
-                                            <input type="date" class="form-control" id="ipv_date1" name="ipv_date1"
+                                            <input type="date" class="form-control" id="ipv_date12" name="ipv_date12"
                                                 required>
                                         </div>
                                         <div class="col">
-                                            <input type="date" class="form-control" id="ipv_date2" name="ipv_date2"
+                                            <input type="date" class="form-control" id="ipv_date22" name="ipv_date22"
                                                 required>
                                         </div>
                                     </div>
@@ -267,7 +354,7 @@ if ($result === false) {
 
                             <div class="col-2">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="ipv_remarks" name="ipv_remarks"
+                                    <input type="text" class="form-control" id="ipv_remarks2" name="ipv_remarks2"
                                         required>
                                 </div>
                             </div>
@@ -290,15 +377,15 @@ if ($result === false) {
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col">
-                                            <input type="date" class="form-control" id="pcv_date1" name="pcv_date1"
+                                            <input type="date" class="form-control" id="pcv_date12" name="pcv_date12"
                                                 required>
                                         </div>
                                         <div class="col">
-                                            <input type="date" class="form-control" id="pcv_date2" name="pcv_date2"
+                                            <input type="date" class="form-control" id="pcv_date22" name="pcv_date22"
                                                 required>
                                         </div>
                                         <div class="col">
-                                            <input type="date" class="form-control" id="pcv_date3" name="pcv_date3"
+                                            <input type="date" class="form-control" id="pcv_date32" name="pcv_date32"
                                                 required>
                                         </div>
                                     </div>
@@ -307,7 +394,7 @@ if ($result === false) {
 
                             <div class="col-2">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="pcv_remarks" name="pcv_remarks"
+                                    <input type="text" class="form-control" id="pcv_remarks2" name="pcv_remarks2"
                                         required>
                                 </div>
                             </div>
@@ -330,11 +417,11 @@ if ($result === false) {
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col">
-                                            <input type="date" class="form-control" id="mmr_date1" name="mmr_date1"
+                                            <input type="date" class="form-control" id="mmr_date12" name="mmr_date12"
                                                 required>
                                         </div>
                                         <div class="col">
-                                            <input type="date" class="form-control" id="mmr_date2" name="mmr_date2"
+                                            <input type="date" class="form-control" id="mmr_date22" name="mmr_date22"
                                                 required>
                                         </div>
                                     </div>
@@ -343,426 +430,41 @@ if ($result === false) {
 
                             <div class="col-2">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="mmr_remarks" name="mmr_remarks"
+                                    <input type="text" class="form-control" id="mmr_remarks2" name="mmr_remarks2"
                                         required>
                                 </div>
                             </div>
                         </div>
-
-
-
-
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                        id="closeModalButton">Close</button>
-                    <button type="submit" class="btn btn-primary" id="addButton">Save</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="updateButton">Update</button>
                 </div>
             </div>
         </div>
     </div>
-</div>
-</div>
-<style>
-    .tago {
-        display: none;
-    }
-</style>
-<div class="row">
-    <div class="col-12">
-        <div class="card-body table-responsive p-0" style="z-index: -99999">
-            <table id="tablebod" class="table table-head-fixed text-nowrap table-striped">
-                <thead class="thead-light">
-                    <tr>
-                        <th class="tago">ID</th>
-                        <th>Serial Number</th>
-                        <th>Patient Name</th>
-                        <th>Date</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    if ($result->num_rows > 0) {
-                        while ($row = $result->fetch_assoc()) {
-                            ?>
-                            <tr>
-                                <td class="align-middle class"><?php echo $row['id']; ?></td>
-                                <td class="align-middle"><?php echo $row['serial_no']; ?></td>
-                                <td class="align-middle"><?php echo $row['full_name']; ?></td>
-                                <td class="align-middle"><?php echo $row['checkup_date']; ?></td>
-                                <td class="align-middle"><?php echo $row['status']; ?></td>
-                                <td class="align-middle"> <button type="button" class="btn btn-success editbtn"
-                                        data-row-id="<?php echo $row['id']; ?>">
-                                        <i class="fas fa-edit"></i> Update Immunization Record
-                                    </button>
-                                    <button type="button" class="btn btn-danger deletebtn" data-id="' + row.id + '"><i
-                                            class="fas fa-trash"></i> Delete</button>
-                                </td>
-                            </tr>
-                            <?php
-                        }
-                    } else {
-                        ?>
-                        <tr>
-                            <td class="align-middle"></td>
-                            <td class="align-middle">No Immunization Found</td>
-                            <td class="align-middle"></td>
-                            <td class="align-middle"></td>
-                            <td class="align-middle">
-                            <td>
+    <script>
+        // Add an event listener to the Save button
+        document.getElementById('updateButton').addEventListener('click', function () {
+            // Assuming you have a variable `completedStep` that holds the completed step value, e.g., "Step1", "Step2", etc.
+            var completedStep = "Already Nurse"; // Example completed step
 
-                        </tr>
-                        <?php
-                    }
-                    ?>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
+            // Get the select element
+            var selectStep = document.getElementById('step');
 
-<!-- modal edit -->
+            // Loop through options and set selected attribute if value matches completedStep
+            for (var i = 0; i < selectStep.options.length; i++) {
+                if (selectStep.options[i].value === completedStep) {
+                    selectStep.options[i].setAttribute('selected', 'selected');
+                    break; // Exit loop once selected option is found
+                }
+            }
+        });
 
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit Immunization</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="editForm">
-                    <input type="hidden" id="editdataId" name="primary_id">
-                    <!-- Form fields go here -->
+    </script>
 
-                    <h5>IMMUNIZATION RECORD</h5>
-                    <hr>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="">Select Patient</label>
-                                <select class="form-control" name="patient_id2" id="patient_id2" required>
-                                    <option value="" disabled selected hidden>Select a patient</option>
-                                    <?php
-
-                                    // Query to fetch patients from the database
-                                    $sql2 = "SELECT id, first_name, last_name FROM patients
-                                    WHERE is_active = 0 ORDER BY id DESC";
-                                    $result2 = $conn->query($sql2);
-
-                                    if ($result2->num_rows > 0) {
-                                        while ($row2 = $result2->fetch_assoc()) {
-                                            $patientId = $row2['id'];
-                                            $firstName = $row2['first_name'];
-                                            $lastName = $row2['last_name'];
-
-                                            // Output an option element for each patient
-                                            echo "<option value='$patientId'>$firstName $lastName</option>";
-                                        }
-                                    } else {
-                                        echo "<option disabled>No patients found</option>";
-                                    }
-
-                                    // Close the database connection
-                                    
-                                    ?>
-                                </select>
-
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="form-group">
-                                <label for="">Status</label>
-                                <select class="form-control" name="status" id="editstatus" required>
-                                    <option value="" disabled selected hidden>Select a Status</option>
-                                    <option value="Complete">Complete</option>
-                                    <option value="Pending">Pending</option>
-                                    <option value="Progress">Progress</option>
-                                </select>
-                                <!-- <div id="editStatus_error" class="error"></div> -->
-                            </div>
-                        </div>
-                    </div>
-
-                    <hr>
-
-                    <div class="row">
-                        <div class="col-3">
-                            <label for="">Bakuna</label>
-                        </div>
-
-                        <div class="col-1">
-                            <label for="">Doses</label>
-                        </div>
-
-                        <div class="col-6">
-                            <label for="">Petsa ng Bakuna</label>
-                        </div>
-
-                        <div class="col-2">
-                            <label for="">Remarks</label>
-                        </div>
-                    </div>
-
-
-                    <div class="row">
-                        <div class="col-3">
-                            <div class="form-group">
-                                <p>BCG Vaccine</p>
-                            </div>
-                        </div>
-
-                        <div class="col-1">
-                            <div class="form-group">
-                                <p>At Birth</p>
-                            </div>
-                        </div>
-
-                        <div class="col-6">
-                            <div class="form-group">
-                                <input type="date" class="form-control" id="bgc_date2" name="bgc_date2" required>
-                            </div>
-                        </div>
-
-                        <div class="col-2">
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="bgc_remarks2" name="bgc_remarks2" required>
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-3">
-                            <div class="form-group">
-                                <p>Hepatitis B Vaccine</p>
-                            </div>
-                        </div>
-
-                        <div class="col-1">
-                            <div class="form-group">
-                                <p>At Birth</p>
-                            </div>
-                        </div>
-
-                        <div class="col-6">
-                            <div class="form-group">
-                                <input type="date" class="form-control" id="hepa_date2" name="hepa_date2" required>
-                            </div>
-                        </div>
-
-                        <div class="col-2">
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="hepa_remarks2" name="hepa_remarks2"
-                                    required>
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-3">
-                            <div class="form-group">
-                                <p>Pentavalent Vaccine (DPT-Hep B-HIB)</p>
-                            </div>
-                        </div>
-
-                        <div class="col-1">
-                            <div class="form-group">
-                                <p>At Birth</p>
-                            </div>
-                        </div>
-
-                        <div class="col-6">
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col">
-                                        <input type="date" class="form-control" id="pentavalent_date12"
-                                            name="pentavalent_date12" required>
-                                    </div>
-                                    <div class="col">
-                                        <input type="date" class="form-control" id="pentavalent_date22"
-                                            name="pentavalent_date22" required>
-                                    </div>
-                                    <div class="col">
-                                        <input type="date" class="form-control" id="pentavalent_date32"
-                                            name="pentavalent_date32" required>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-2">
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="pentavalent_remarks2"
-                                    name="pentavalent_remarks2" required>
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-3">
-                            <div class="form-group">
-                                <p>Oral Polio Vaccine (OPV)</p>
-                            </div>
-                        </div>
-
-                        <div class="col-1">
-                            <div class="form-group">
-                                <p>1½,2½,3½ Months</p>
-                            </div>
-                        </div>
-
-                        <div class="col-6">
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col">
-                                        <input type="date" class="form-control" id="oral_date12" name="oral_date12"
-                                            required>
-                                    </div>
-                                    <div class="col">
-                                        <input type="date" class="form-control" id="oral_date22" name="oral_date22"
-                                            required>
-                                    </div>
-                                    <div class="col">
-                                        <input type="date" class="form-control" id="oral_date32" name="oral_date32"
-                                            required>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-2">
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="oral_remarks2" name="oral_remarks2"
-                                    required>
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-3">
-                            <div class="form-group">
-                                <p>Inactivated Polio Vaccine (IPV)</p>
-                            </div>
-                        </div>
-
-                        <div class="col-1">
-                            <div class="form-group">
-                                <p>3½ and 9 Months</p>
-                            </div>
-                        </div>
-
-                        <div class="col-6">
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col">
-                                        <input type="date" class="form-control" id="ipv_date12" name="ipv_date12"
-                                            required>
-                                    </div>
-                                    <div class="col">
-                                        <input type="date" class="form-control" id="ipv_date22" name="ipv_date22"
-                                            required>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-2">
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="ipv_remarks2" name="ipv_remarks2" required>
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-3">
-                            <div class="form-group">
-                                <p>Pneumococcal Conjugate Vaccine (PCV)</p>
-                            </div>
-                        </div>
-
-                        <div class="col-1">
-                            <div class="form-group">
-                                <p>1½,2½,3½ Months</p>
-                            </div>
-                        </div>
-
-                        <div class="col-6">
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col">
-                                        <input type="date" class="form-control" id="pcv_date12" name="pcv_date12"
-                                            required>
-                                    </div>
-                                    <div class="col">
-                                        <input type="date" class="form-control" id="pcv_date22" name="pcv_date22"
-                                            required>
-                                    </div>
-                                    <div class="col">
-                                        <input type="date" class="form-control" id="pcv_date32" name="pcv_date32"
-                                            required>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-2">
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="pcv_remarks2" name="pcv_remarks2" required>
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-3">
-                            <div class="form-group">
-                                <p>Measles,Mumps,Rubella Vaccine (MMR)</p>
-                            </div>
-                        </div>
-
-                        <div class="col-1">
-                            <div class="form-group">
-                                <p>1½,2½,3½ Months</p>
-                            </div>
-                        </div>
-
-                        <div class="col-6">
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col">
-                                        <input type="date" class="form-control" id="mmr_date12" name="mmr_date12"
-                                            required>
-                                    </div>
-                                    <div class="col">
-                                        <input type="date" class="form-control" id="mmr_date22" name="mmr_date22"
-                                            required>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-2">
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="mmr_remarks2" name="mmr_remarks2" required>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="updateButton">Update</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- modal edit -->
+    <!-- modal edit -->
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
@@ -772,9 +474,7 @@ if ($result === false) {
 <script>
     $(document).ready(function () {
 
-        document.getElementById('openModalButton').addEventListener('click', function () {
-            $('#addModal').modal('show'); // Show the modal
-        });
+
 
 
         <?php if ($result->num_rows > 0): ?>
@@ -785,8 +485,9 @@ if ($result === false) {
                     { targets: 2, data: 'full_name' },
                     { targets: 3, data: 'checkup_date' },
                     { targets: 4, data: 'status' },
+                    { targets: 5, data: 'steps' },
                     {
-                        targets: 5,
+                        targets: 6,
                         searchable: false,
                         data: null,
                         render: function (data, type, row) {
@@ -809,6 +510,7 @@ if ($result === false) {
                     { targets: 2, data: 'full_name' },
                     { targets: 3, data: 'checkup_date' },
                     { targets: 4, data: 'status' },
+                    { targets: 5, data: 'steps' },
                 ],
                 // Set the default ordering to 'id' column in descending order
                 order: [[0, 'desc']]
@@ -826,8 +528,9 @@ if ($result === false) {
                     { targets: 2, data: 'full_name' },
                     { targets: 3, data: 'checkup_date' },
                     { targets: 4, data: 'status' },
+                    { targets: 5, data: 'steps' },
                     {
-                        targets: 5,
+                        targets: 6,
                         searchable: false,
                         data: null,
                         render: function (data, type, row) {
@@ -1033,6 +736,7 @@ if ($result === false) {
                     $('#editModal #editdataId').val(editGetData.id);
                     $('#editModal #patient_id2').val(editGetData.patient_id);
                     $('#editModal #editstatus').val(editGetData.status);
+                    $('#editModal #step').val(editGetData.steps);
                     $('#editModal #bgc_date2').val(editGetData.bgc_date);
                     $('#editModal #bgc_remarks2').val(editGetData.bgc_remarks);
 
@@ -1078,6 +782,7 @@ if ($result === false) {
         $('#updateButton').click(function () {
             var editId = $('#editdataId').val();
             var status = $('#editstatus').val();
+            var steps = $('#step').val();
             var bgc_date = $('#bgc_date2').val();
             var bgc_remarks = $('#bgc_remarks2').val();
             var hepa_date = $('#hepa_date2').val();
@@ -1107,6 +812,7 @@ if ($result === false) {
                 data: {
                     primary_id: editId,
                     status: status,
+                    steps: steps,
                     bgc_date: bgc_date,
                     bgc_remarks: bgc_remarks,
                     hepa_date: hepa_date,
