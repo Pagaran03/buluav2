@@ -22,30 +22,34 @@ if ($result === false) {
 ?>
 
 <div class="container-fluid">
-    <div style="text-align: left; float: left;">
-        <button type="button" id="openModalButton" class="btn btn-primary">
-            Add Consultation
-        </button>
-    </div>
-
-    <div style="text-align: left; float: left;">
-        <a href="archive_consultation.php">
-            <button type="button" id="openModalButton" class="btn btn-danger ml-1">
-                View Archive
+    <div class="row">
+        <div style="text-align: left; float: left;">
+            <button type="button" id="openModalButton" class="btn btn-primary">
+                Add Consultation
             </button>
-        </a>
-    </div>
-    <!-- <a href="history_consultation.php">
+        </div>
+
+        <div style="text-align: left; float: left;">
+            <a href="archive_consultation.php">
+                <button type="button" id="openModalButton" class="btn btn-danger ml-1">
+                    View Archive
+                </button>
+            </a>
+        </div>
+        <!-- <a href="history_consultation.php">
         <button type="button" id="openModalButton" class="btn btn-warning ml-1">
             View History
         </button>
     </a> -->
-    <div style="text-align: left; float: left; margin-left: 10px;">
-        <form action="" method="GET">
-            <input type="text" class="form-control" id="datepicker" name="date" placeholder="Select Date"
-                onchange="this.form.submit()">
-        </form>
+
+        <div style="text-align: left; float: left; margin-left: 10px;">
+            <form action="" method="GET">
+                <input type="text" class="form-control" id="datepicker" name="date" placeholder="Select Date"
+                    onchange="this.form.submit()">
+            </form>
+        </div>
     </div>
+
 
     <br><br>
 

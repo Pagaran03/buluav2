@@ -85,11 +85,15 @@ foreach ($tables as $table) {
   tr:nth-child(even) {
     background-color: #f2f2f2;
   }
+
+  .highlight {
+    background-color: #4d79ff;
+  }
 </style>
 <!-- Button trigger modal -->
 <div class="container-fluid">
   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#weeklyCalendarModal">
-    Weekly Calendar
+    Weekly Activity Calendar
   </button>
 </div>
 <hr class="my-4">
@@ -99,7 +103,7 @@ foreach ($tables as $table) {
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="weeklyCalendarModalLabel">Weekly Calendar</h5>
+        <h5 class="modal-title" id="weeklyCalendarModalLabel">Weekly Activity Calendar</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -107,7 +111,7 @@ foreach ($tables as $table) {
       <div class="modal-body">
         <div class="row">
           <div class="col-sm-12">
-            <table class="table">
+            <table class="table" id="calendar">
               <thead>
                 <tr>
                   <th>Date</th>
@@ -118,15 +122,9 @@ foreach ($tables as $table) {
               <tbody>
                 <?php foreach ($dates as $date => $day): ?>
                   <tr>
-                    <td>
-                      <?php echo $date; ?>
-                    </td>
-                    <td>
-                      <?php echo $day; ?>
-                    </td>
-                    <td>
-                      <?php echo isset($activities[$day]) ? $activities[$day] : 'No Activity'; ?>
-                    </td>
+                    <td><?php echo $date; ?></td>
+                    <td><?php echo $day; ?></td>
+                    <td><?php echo isset($activities[$day]) ? $activities[$day] : 'No Activity'; ?></td>
                   </tr>
                 <?php endforeach; ?>
               </tbody>
@@ -476,4 +474,21 @@ JOIN nurses ON fp_information.nurse_id = nurses.id";
 
   // Initialize the timer on page load
   resetTimer();
+</script>
+<script>
+  // Get current day of the week
+  var currentDayOfWeek = new Date().getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+
+  // Highlight the row corresponding to the current day
+  var table = document.getElementById("calendar");
+  var rows = table.getElementsByTagName("tr");
+  for (var i = 0; i < rows.length; i++) {
+    var cells = rows[i].getElementsByTagName("td");
+    if (cells.length > 0) {
+      var day = cells[1].innerText.trim();
+      if (day === "<?php echo date('l'); ?>") {
+        rows[i].classList.add("highlight");
+      }
+    }
+  }
 </script>
