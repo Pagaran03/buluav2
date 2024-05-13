@@ -837,6 +837,23 @@ if ($result2->num_rows > 0) {
             }
         });
 
+
+        $('#editContact_no').on('input', function() {
+            var editcontactNo = $(this).val();
+            if (editcontactNo.length < 10) {
+                $('#editContact_error').text('\nInvalid Phone number.');
+            } else if (!editcontactNo.startsWith("9")) {
+                $('#editContact_error').text('\nInvalid Phone number. Phone number should start with 9');
+            } else {
+                $('#editContact_error').text('');
+            }
+
+
+            if (contactNo.length > 10) {
+                $(this).val(contactNo.substring(0, 10));
+            }
+        });
+
         var contactInput = document.getElementById("editContact_no").value.trim();
 
         if (contactInput.startsWith("+63")) {
