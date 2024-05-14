@@ -231,18 +231,18 @@ if(!isset($_SESSION['role'])){
             </li> -->
 
 
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a href="../status/status.php" class="nav-link">
                 <i class="fas fa-vial fa-lg "></i>
                 <p>
                   Status
                 </p>
               </a>
-            </li>
+            </li> -->
 
 
 
-            <li class="nav-item <?php
+            <!-- <li class="nav-item <?php
             if (
               strpos($_SERVER['REQUEST_URI'], '/brgyv2/admin/report/immunization.php') !== false ||
               strpos($_SERVER['REQUEST_URI'], '/brgyv2/admin/report/family.php') !== false ||
@@ -289,15 +289,15 @@ if(!isset($_SESSION['role'])){
                     <p>Prenatal</p>
                   </a>
                 </li>
-                <!-- <li class="nav-item">
+                 <li class="nav-item">
                   <a href="../midwife/midwife.php" class="nav-link <?php if ($_SERVER['REQUEST_URI'] === '/brgyv2/admin/midwife/midwife.php')
                     echo 'active'; ?>">
                     <i class="fas fa-user-edit fa-lg nav-icon"></i>
                     <p>Midwife</p>
                   </a>
-                </li> -->
+                </li>
               </ul>
-            </li>
+            </li> -->
 
 
             <li class="nav-item">

@@ -6,7 +6,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] !== "admin") {
   exit;
 }
 
-if(!isset($_SESSION['role'])){
+if (!isset($_SESSION['role'])) {
   header("location: ../../index.php");
 }
 
@@ -105,7 +105,7 @@ echo "<script>console.log('{$_SESSION['user_id']}')</script>";
               onmousedown="return false;">
           </div>
           <?php
-          include_once ('../../config.php');
+          include_once('../../config.php');
 
           // Check if user is logged in
           if (isset($_SESSION['user_id'])) {
@@ -295,121 +295,15 @@ echo "<script>console.log('{$_SESSION['user_id']}')</script>";
               </a>
             </li>
 
-            <li class="nav-item <?php
-            if (
-              strpos($_SERVER['REQUEST_URI'], '/brgyv2/admin/report/immunization.php') !== false ||
-              strpos($_SERVER['REQUEST_URI'], '/brgyv2/admin/report/family.php') !== false ||
-              strpos($_SERVER['REQUEST_URI'], '/brgyv2/admin/report/consultation.php') !== false ||
-              strpos($_SERVER['REQUEST_URI'], '/brgyv2/admin/report/prenatal.php') !== false
-
-            ) {
-              echo 'menu-open';
-            }
-            ?>">
-              <a href="" class=" nav-link">
+            <li class=" nav-item" data-toggle="modal" data-target="#reportsModal">
+              <a href="#" class=" nav-link">
                 <i class="fa fa-book fa-lg" aria-hidden="true"></i>
                 <p>
-                  Report
-                  <i class="fas fa-angle-left right"></i>
+                  Generate Report
                 </p>
               </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="../report/immunization.php" class="nav-link <?php if ($_SERVER['REQUEST_URI'] === '/brgyv2/admin/report/immunization.php')
-                    echo 'active'; ?>">
-                    <i class="fas fa-list fa-lg nav-icon"></i>
-                    <p>Immunization</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="../report/family.php" class="nav-link <?php if ($_SERVER['REQUEST_URI'] === '/brgyv2/admin/report/family.php')
-                    echo 'active'; ?>">
-                    <i class="fas fa-list fa-lg nav-icon"></i>
-                    <p>Family Planning</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="../report/consultation.php" class="nav-link <?php if ($_SERVER['REQUEST_URI'] === '/brgyv2/admin/report/consultation.php')
-                    echo 'active'; ?>">
-                    <i class="fas fa-list fa-lg nav-icon"></i>
-                    <p>Consultation</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="../report/prenatal.php" class="nav-link <?php if ($_SERVER['REQUEST_URI'] === '/brgyv2/admin/report/prenatal.php')
-                    echo 'active'; ?>">
-                    <i class="fas fa-list fa-lg nav-icon"></i>
-                    <p>Prenatal</p>
-                  </a>
-                </li>
-                <!-- <li class="nav-item">
-                  <a href="../midwife/midwife.php" class="nav-link <?php if ($_SERVER['REQUEST_URI'] === '/brgyv2/admin/midwife/midwife.php')
-                    echo 'active'; ?>">
-                    <i class="fas fa-user-edit fa-lg nav-icon"></i>
-                    <p>Midwife</p>
-                  </a>
-                </li> -->
-              </ul>
             </li>
 
-
-
-            <li class="nav-item <?php
-            if (
-              strpos($_SERVER['REQUEST_URI'], '/brgyv2/admin/admin/admin.php') !== false ||
-              strpos($_SERVER['REQUEST_URI'], '/brgyv2/admin/nurse/nurse.php') !== false ||
-              strpos($_SERVER['REQUEST_URI'], '/brgyv2/admin/superadmin/superadmin.php') !== false ||
-              strpos($_SERVER['REQUEST_URI'], '/brgyv2/admin/midwife/midwife.php') !== false ||
-              strpos($_SERVER['REQUEST_URI'], '/brgyv2/admin/staff/staff.php') !== false
-            ) {
-              echo 'menu-open';
-            }
-            ?>">
-              <a href="" class="nav-link">
-                <i class="fa fa-cog fa-lg" aria-hidden="true"></i>
-                <p>
-                  Settings
-                  <i class="fas fa-angle-left right"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="../admin/admin.php" class="nav-link <?php if ($_SERVER['REQUEST_URI'] === '/brgyv2/superadmin/admin/admin.php')
-                    echo 'active'; ?>">
-                    <i class="fas fa-user-edit fa-lg nav-icon"></i>
-                    <p>Admin</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="../superadmin/superadmin.php" class="nav-link <?php if ($_SERVER['REQUEST_URI'] === '/brgyv2/superadmin/superadmin.php')
-                    echo 'active'; ?>">
-                    <i class="fas fa-user-edit fa-lg nav-icon"></i>
-                    <p>Doctor</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="../nurse/nurse.php" class="nav-link <?php if ($_SERVER['REQUEST_URI'] === '/brgyv2/superadmin/nurse/nurse.php')
-                    echo 'active'; ?>">
-                    <i class="fas fa-user-edit fa-lg nav-icon"></i>
-                    <p>Nurses</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="../staff/staff.php" class="nav-link <?php if ($_SERVER['REQUEST_URI'] === '/brgyv2/superadmin/staff/staff.php')
-                    echo 'active'; ?>">
-                    <i class="fas fa-user-edit fa-lg nav-icon"></i>
-                    <p>Staff</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="../midwife/midwife.php" class="nav-link <?php if ($_SERVER['REQUEST_URI'] === '/brgyv2/admin/midwife/midwife.php')
-                    echo 'active'; ?>">
-                    <i class="fas fa-user-edit fa-lg nav-icon"></i>
-                    <p>Midwife</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
 
             <li class="nav-item">
               <a href="../action/logout.php" class="nav-link">
@@ -452,6 +346,84 @@ echo "<script>console.log('{$_SESSION['user_id']}')</script>";
     <!-- /.control-sidebar -->
   </div>
   <!-- ./wrapper -->
+
+  <!-- GENERATE REPORTS Modal -->
+  <div class="modal fade" id="reportsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    style="z-index: 1050;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">GENERATE REPORTS</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="fromDate">From Date:</label>
+            <input type="date" class="form-control" id="fromDate" placeholder="Select From Date">
+          </div>
+          <div class="form-group">
+            <label for="toDate">To Date:</label>
+            <input type="date" class="form-control" id="toDate" placeholder="Select To Date">
+          </div>
+          <div class="form-group">
+            <label for="reportType">Report Type:</label>
+            <select class="form-control" id="reportType">
+              <option value="none" selected disabled>-Select Report Type-</option>
+              <option value="Patients">Patient List</option>
+              <option value="Consultation">Consultations</option>
+              <option value="Immunization">Immunization</option>
+              <option value="FamPlan">Family Planning</option>
+              <option value="Prenatal">Prenatal</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" onclick="generateReport()">Generate Report</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+   !-- SCRIPT FOR GENERATING REPORTS -->
+   <script>
+    function generateReport() {
+      var fromDate = document.getElementById("fromDate").value;
+      var toDate = document.getElementById("toDate").value;
+      var reportType = document.getElementById("reportType").value;
+
+      switch (reportType) {
+        case "Patients":
+          var url = "../report/generate-patient.php?fromDate=" + fromDate + "&toDate=" + toDate;
+          window.open(url, '_blank');
+          break;
+        case "Consultation":
+          var url = "../report/generate-consultation.php?fromDate=" + fromDate + "&toDate=" + toDate;
+          window.open(url, '_blank');
+          break;
+        case "Immunization":
+          var url = "../report/generate-immunization.php?fromDate=" + fromDate + "&toDate=" + toDate;
+          window.open(url, '_blank');
+          break;
+        case "FamPlan":
+          var url = "../report/generate-family.php?fromDate=" + fromDate + "&toDate=" + toDate;
+          window.open(url, '_blank');
+          break;
+        case "Prenatal":
+          var url = "../report/generate-prenatal.php?fromDate=" + fromDate + "&toDate=" + toDate;
+          window.open(url, '_blank');
+          break;
+
+        // case "Consultation": window.location.href = "../report/consultation.php?fromDate=" + fromDate + "&toDate=" + toDate;
+        //   break;
+      }
+
+    }
+  </script>
+
 
   <!-- jQuery -->
   <script src="../../assets/plugins/jquery/jquery.min.js"></script>

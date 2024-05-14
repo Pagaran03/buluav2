@@ -200,14 +200,14 @@ if(!isset($_SESSION['role'])){
 
 
 
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a href="../report/report.php" class="nav-link">
                 <i class="fa fa-book fa-lg "></i>
                 <p>
                   Report
                 </p>
               </a>
-            </li>
+            </li> -->
 
 
 
