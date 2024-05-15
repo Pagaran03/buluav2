@@ -1,6 +1,6 @@
 <?php
 require '../../vendor/autoload.php';
-include_once ('../../config.php');
+include_once('../../config.php');
 
 use Dompdf\Dompdf;
 use Dompdf\Options;
@@ -9,26 +9,43 @@ use Dompdf\Options;
 // $fromDate = $_GET['fromDate'];
 // $toDate = $_GET['toDate'];
 
-// $fromDate = "2024/05/06";
-// $toDate = "2024/05/06";
+$fromDate = "2024/05/06";
+$toDate = "2024/05/06";
 
-// $fromDate = mysqli_real_escape_string($conn, $fromDate);
-// $toDate = mysqli_real_escape_string($conn, $toDate);
+$fromDateTime = new DateTime($fromDate);
+$toDateTime = new DateTime($toDate);
+
+$currentMonth = $fromDateTime->format('F');
+$currentYear = $fromDateTime->format('Y');
+
+$fromDate = mysqli_real_escape_string($conn, $fromDate);
+$toDate = mysqli_real_escape_string($conn, $toDate);
 
 // Build the SQL query using the passed dates
-// $sql = "SELECT fp_consultation.*, patients.age
-//         FROM fp_consultation
-//         INNER JOIN patients ON fp_consultation.patient_id = patients.id
-//         WHERE fp_consultation.checkup_date BETWEEN '$fromDate' AND '$toDate'";
+$sql = "SELECT fp_consultation.method, COUNT(*) AS service_count
+FROM fp_consultation
+INNER JOIN patients ON fp_consultation.patient_id = patients.id
+WHERE fp_consultation.checkup_date BETWEEN '$fromDate' AND '$toDate'
+GROUP BY fp_consultation.method";
 
+$result = $conn->query($sql);
 
+$methods = [];
 
+if ($result->num_rows > 0){
+    while($row = $result->fetch_assoc()){
+        $methods[$row['method']] = $row['service_count'];
+    }
+}else{
+    return 0;
+}
+
+$conn->close();
 
 $pdf = new Dompdf();
 
 $pdf->setPaper('A2', 'landscape');
 
-// $result = $conn->query($sql);
 
 $evenRow = false;
 
@@ -64,10 +81,7 @@ $htmlContent = '<html lang="en">
         <tr>
             <td colspan="35">
                 <center>
-                    <?php
-                    // Output the report header
-                    echo "FHSIS REPORT for the month of $currentMonth Year $currentYear";
-                    ?>
+                    FHSIS REPORT for the month of '.$currentMonth.' Year '. $currentYear.'.
                     <br>
                     Name of Municipality/City: CAGAYAN DE ORO CITY
                     <br>
@@ -804,57 +818,7 @@ $htmlContent = '<html lang="en">
             <td></td>
 
         </tr>
-        <!-- Rest of your table code -->
     </table>
-    <script>
-        // Set the timeout duration (in milliseconds)
-        var inactivityTimeout = 360000; // 10 seconds
-
-        // Track user activity
-        var activityTimer;
-
-        function resetTimer() {
-            clearTimeout(activityTimer);
-            activityTimer = setTimeout(logout, inactivityTimeout);
-        }
-
-        function logout() {
-            // Redirect to logout PHP script
-            window.location.href = "../action/logout.php";
-        }
-
-        // Add event listeners to reset the timer on user activity
-        document.addEventListener("mousemove", resetTimer);
-        document.addEventListener("keypress", resetTimer);
-
-        // Initialize the timer on page load
-        resetTimer();
-    </script>
-    <script>
-        function filterByFromDate() {
-            // Implement your logic for filtering by From Date here
-            alert("Filtering by From Date...");
-        }
-
-        function filterByToDate() {
-            // Implement your logic for filtering by To Date here
-            alert("Filtering by To Date...");
-        }
-    </script>
-    <script>
-        function filterByDateRange() {
-            // Retrieve selected dates
-            var fromDate = document.getElementById("fromDate").value;
-            var toDate = document.getElementById("toDate").value;
-
-            // Implement your filtering logic with fromDate and toDate here
-            alert("Filtering from " + fromDate + " to " + toDate);
-        }
-    </script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
 </body>
 
 </html>';
@@ -884,4 +848,3 @@ echo '<script>
     var url = URL.createObjectURL(blob);
     window.open(url, "_blank");
 </script>';
-?>

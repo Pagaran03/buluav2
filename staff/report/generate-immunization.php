@@ -23,9 +23,11 @@ $sql = "
         COUNT(ipv_date2) AS ipv2_count,
         COUNT(pcv_date1) AS pcv1_count,
         COUNT(pcv_date2) AS pcv2_count,
-        COUNT(pcv_date3) AS pcv3_count
-      
-    FROM immunization";
+        COUNT(pcv_date3) AS pcv3_count,
+        COUNT(MCV_1) AS mcv1_count,
+        COUNT(MCV_2) AS mcv2_count
+
+      FROM immunization";
 
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
@@ -43,11 +45,13 @@ if ($result->num_rows > 0) {
     $pcv1Count = $row['pcv1_count'];
     $pcv2Count = $row['pcv2_count'];
     $pcv3Count = $row['pcv3_count'];
+    $mcv1Count = $row['mcv1_count'];
+    $mcv2Count = $row['mcv2_count'];
 } else {
     // Handle the case where no data is returned, if necessary
     $bcgCount = $hepBCount = $dpt1Count = $dpt2Count = $dpt3Count = 0;
     $opv1Count = $opv2Count = $opv3Count = $ipv1Count = $ipv2Count = 0;
-    $pcv1Count = $pcv2Count = $pcv3Count = 0;
+    $pcv1Count = $pcv2Count = $pcv3Count = $mcv1Count =  $mcv2Count = 0;
 }
 
 
@@ -65,7 +69,9 @@ $gender_sql_male = "
         COUNT(ipv_date2) AS ipv2_count,
         COUNT(pcv_date1) AS pcv1_count,
         COUNT(pcv_date2) AS pcv2_count,
-        COUNT(pcv_date3) AS pcv3_count
+        COUNT(pcv_date3) AS pcv3_count,
+        COUNT(MCV_1) AS mcv1_count,
+        COUNT(MCV_2) AS mcv2_count
     FROM immunization
     JOIN patients ON immunization.id = patients.id
     WHERE patients.gender = 'male'";
@@ -86,51 +92,12 @@ if ($result->num_rows > 0) {
     $male_pcv1Count = $row['pcv1_count'];
     $male_pcv2Count = $row['pcv2_count'];
     $male_pcv3Count = $row['pcv3_count'];
+    $male_mcv1Count = $row['mcv1_count'];
+    $male_mcv2Count = $row['mcv2_count'];
 } else {
     $male_bcgCount = $male_hepBCount = $male_dpt1Count = $male_dpt2Count = $male_dpt3Count = 0;
     $male_opv1Count = $male_opv2Count = $male_opv3Count = $male_ipv1Count = $male_ipv2Count = 0;
-    $male_pcv1Count = $male_pcv2Count = $male_pcv3Count = 0;
-}
-
-$gender_sql_male = "
-    SELECT
-        COUNT(bgc_date) AS bcg_count,
-        COUNT(hepa_date) AS hepB_count,
-        COUNT(pentavalent_date1) AS dpt1_count,
-        COUNT(pentavalent_date2) AS dpt2_count,
-        COUNT(pentavalent_date3) AS dpt3_count,
-        COUNT(oral_date1) AS opv1_count,
-        COUNT(oral_date2) AS opv2_count,
-        COUNT(oral_date3) AS opv3_count,
-        COUNT(ipv_date1) AS ipv1_count,
-        COUNT(ipv_date2) AS ipv2_count,
-        COUNT(pcv_date1) AS pcv1_count,
-        COUNT(pcv_date2) AS pcv2_count,
-        COUNT(pcv_date3) AS pcv3_count
-    FROM immunization
-    JOIN patients ON immunization.id = patients.id
-    WHERE patients.gender = 'Male'";
-
-$result = $conn->query($gender_sql_male);
-if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    $male_bcgCount = $row['bcg_count'];
-    $male_hepBCount = $row['hepB_count'];
-    $male_dpt1Count = $row['dpt1_count'];
-    $male_dpt2Count = $row['dpt2_count'];
-    $male_dpt3Count = $row['dpt3_count'];
-    $male_opv1Count = $row['opv1_count'];
-    $male_opv2Count = $row['opv2_count'];
-    $male_opv3Count = $row['opv3_count'];
-    $male_ipv1Count = $row['ipv1_count'];
-    $male_ipv2Count = $row['ipv2_count'];
-    $male_pcv1Count = $row['pcv1_count'];
-    $male_pcv2Count = $row['pcv2_count'];
-    $male_pcv3Count = $row['pcv3_count'];
-} else {
-    $male_bcgCount = $male_hepBCount = $male_dpt1Count = $male_dpt2Count = $male_dpt3Count = 0;
-    $male_opv1Count = $male_opv2Count = $male_opv3Count = $male_ipv1Count = $male_ipv2Count = 0;
-    $male_pcv1Count = $male_pcv2Count = $male_pcv3Count = 0;
+    $male_pcv1Count = $male_pcv2Count = $male_pcv3Count  = $male_mcv1Count =  $male_mcv2Count = 0;
 }
 
 $gender_sql_female = "
@@ -147,7 +114,9 @@ SELECT
     COUNT(ipv_date2) AS ipv2_count,
     COUNT(pcv_date1) AS pcv1_count,
     COUNT(pcv_date2) AS pcv2_count,
-    COUNT(pcv_date3) AS pcv3_count
+    COUNT(pcv_date3) AS pcv3_count,
+    COUNT(MCV_1) AS mcv1_count,
+    COUNT(MCV_2) AS mcv2_count
 FROM immunization
 JOIN patients ON immunization.id = patients.id
 WHERE patients.gender = 'Female'";
@@ -168,10 +137,12 @@ if ($result->num_rows > 0) {
     $female_pcv1Count = $row['pcv1_count'];
     $female_pcv2Count = $row['pcv2_count'];
     $female_pcv3Count = $row['pcv3_count'];
+    $female_mcv1Count = $row['mcv1_count'];
+    $female_mcv2Count = $row['mcv2_count'];
 } else {
     $female_bcgCount = $female_hepBCount = $female_dpt1Count = $female_dpt2Count = $female_dpt3Count = 0;
     $female_opv1Count = $female_opv2Count = $female_opv3Count = $female_ipv1Count = $female_ipv2Count = 0;
-    $female_pcv1Count = $female_pcv2Count = $female_pcv3Count = 0;
+    $female_pcv1Count = $female_pcv2Count = $female_pcv3Count = $female_mcv1Count =  $female_mcv2Count = 0;
 }
 
 
@@ -383,9 +354,9 @@ $htmlContent = '<html lang="en">
         <tr>
             <td>16. MCV1 - Total</td>
             <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>' . $male_mcv1Count . '</td>
+            <td>' . $female_mcv1Count . '</td>
+            <td>' . $mcv1Count . '</td>
             <td></td>
             <td></td>
             <td></td>
@@ -393,9 +364,9 @@ $htmlContent = '<html lang="en">
         <tr>
             <td>17. MCV2 - Total</td>
             <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>' . $male_mcv2Count . '</td>
+            <td>' . $female_mcv2Count . '</td>
+            <td>' . $mcv2Count . '</td>
             <td></td>
             <td></td>
             <td></td>
