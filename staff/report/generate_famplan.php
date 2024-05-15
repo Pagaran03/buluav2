@@ -9,17 +9,17 @@ use Dompdf\Options;
 // $fromDate = $_GET['fromDate'];
 // $toDate = $_GET['toDate'];
 
-$fromDate = "2024/05/06";
-$toDate = "2024/05/06";
+// $fromDate = "2024/05/06";
+// $toDate = "2024/05/06";
 
-$fromDate = mysqli_real_escape_string($conn, $fromDate);
-$toDate = mysqli_real_escape_string($conn, $toDate);
+// $fromDate = mysqli_real_escape_string($conn, $fromDate);
+// $toDate = mysqli_real_escape_string($conn, $toDate);
 
 // Build the SQL query using the passed dates
-$sql = "SELECT fp_consultation.*, patients.age
-        FROM fp_consultation
-        INNER JOIN patients ON fp_consultation.patient_id = patients.id
-        WHERE fp_consultation.checkup_date BETWEEN '$fromDate' AND '$toDate'";
+// $sql = "SELECT fp_consultation.*, patients.age
+//         FROM fp_consultation
+//         INNER JOIN patients ON fp_consultation.patient_id = patients.id
+//         WHERE fp_consultation.checkup_date BETWEEN '$fromDate' AND '$toDate'";
 
 
 
@@ -28,7 +28,7 @@ $pdf = new Dompdf();
 
 $pdf->setPaper('A2', 'landscape');
 
-$result = $conn->query($sql);
+// $result = $conn->query($sql);
 
 $evenRow = false;
 
@@ -169,7 +169,7 @@ $htmlContent = '<html lang="en">
             <td rowspan="2" colspan="4">
                 Current Users
                 <br>
-                (Beginning of Qtr)
+                (Beginning of Month)
                 <br>
                 (Col. 2)
             </td>
@@ -178,17 +178,17 @@ $htmlContent = '<html lang="en">
             </td>
             <td rowspan="2" colspan="4">
                 Drop-outs<br>
-                (Present Quarter) <br>
+                (Present Month) <br>
                 (Col. 5)
             </td>
             <td rowspan="2" colspan="4">
                 Current Users<br>
-                (End of Quarter) <br>
+                (End of Month) <br>
                 (Col. 6)
             </td>
             <td rowspan="2" colspan="4">
                 New Acceptors<br>
-                (Last Month of Present Qtr) <br>
+                (Previous Month) <br>
                 (Col. 7)
             </td>
             <td rowspan="2" colspan="4">
@@ -208,11 +208,11 @@ $htmlContent = '<html lang="en">
         <tr>
             <!-- Nested row for Age -->
             <td colspan="4">
-                New(end of Qtr)
+                New Acceptors(Previous Month)
                 (Col. 3)
             </td>
             <td colspan="4">
-                Other(end of Qtr)
+                Other Acceptors(Present Month)
                 (Col. 4)
             </td>
         </tr>
