@@ -59,37 +59,8 @@ foreach ($tables as $table) {
   $row = $result->fetch_assoc();
   $counts[] = $row['count'];
 }
-
-
-
-
-
 ?>
-<style>
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
 
-  th,
-  td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-  }
-
-  th {
-    background-color: #f2f2f2;
-  }
-
-  tr:nth-child(even) {
-    background-color: #f2f2f2;
-  }
-
-  .highlight {
-    background-color: #4d79ff;
-  }
-</style>
 <!-- Button trigger modal -->
 <div class="container-fluid">
   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#weeklyCalendarModal">
@@ -100,7 +71,7 @@ foreach ($tables as $table) {
 <!-- Modal -->
 <div class="modal fade" id="weeklyCalendarModal" tabindex="-1" aria-labelledby="weeklyCalendarModalLabel"
   aria-hidden="true">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="weeklyCalendarModalLabel">Weekly Activity Calendar</h5>
@@ -109,26 +80,121 @@ foreach ($tables as $table) {
         </button>
       </div>
       <div class="modal-body">
-        <div class="row">
-          <div class="col-sm-12">
-            <table class="table" id="calendar">
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Day</th>
-                  <th>Activity</th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php foreach ($dates as $date => $day): ?>
-                  <tr>
-                    <td><?php echo $date; ?></td>
-                    <td><?php echo $day; ?></td>
-                    <td><?php echo isset($activities[$day]) ? $activities[$day] : 'No Activity'; ?></td>
-                  </tr>
-                <?php endforeach; ?>
-              </tbody>
-            </table>
+        <div class="calendar">
+          <div class="timeline">
+            <div class="spacer"></div>
+            <div class="time-marker">8 AM</div>
+            <div class="time-marker">9 AM</div>
+            <div class="time-marker">10 AM</div>
+            <div class="time-marker">11 AM</div>
+            <div class="time-marker">12 PM</div>
+            <div class="time-marker">1 PM</div>
+            <div class="time-marker">2 PM</div>
+            <div class="time-marker">3 PM</div>
+            <div class="time-marker">4 PM</div>
+            <div class="time-marker">5 PM</div>
+          </div>
+          <div class="days">
+            <div class="day mon">
+              <div class="date">
+                <!-- <p class="date-num">9</p> -->
+                <p class="date-day">Mon</p>
+              </div>
+              <div class="events">
+                <div class="event start-2 end-5 ent-law">
+                  <p class="title">Consultation - Doctor <br> Family Planning - Nurse</p>
+                  <p class="time">8 AM - 5 PM</p>
+                </div>
+                <div class="event start-8 end-9 ent-law">
+                  <p class="title">Consultation - Doctor <br> Family Planning - Nurse</p>
+                  <p class="time">8 AM - 5 PM</p>
+                </div>
+                <div class="event start-6 end-12 lunch">
+                  <p class="title">Lunch Break - 12PM</p>
+                  <!-- <p class="time">8 AM - 5 PM</p> -->
+                </div>
+              </div>
+            </div>
+            <div class="day tues">
+              <div class="date">
+                <!-- <p class="date-num">12</p> -->
+                <p class="date-day">Tues</p>
+              </div>
+              <div class="events">
+                <div class="event start-2 end-5 securities">
+                  <p class="title">Prenatal - Midwife <br> Family Planning - Nurse</p>
+                  <p class="time">8 AM - 5 PM</p>
+                </div>
+                <div class="event start-8 end-9 securities">
+                  <p class="title">Prenatal - Midwife <br> Family Planning - Nurse</p>
+                  <p class="time">8 AM - 5 PM</p>
+                </div>
+                <div class="event start-6 end-12 lunch">
+                  <p class="title">Lunch Break - 12PM</p>
+                  <!-- <p class="time">8 AM - 5 PM</p> -->
+                </div>
+              </div>
+            </div>
+            <div class="day wed">
+              <div class="date">
+                <!-- <p class="date-num">11</p> -->
+                <p class="date-day">Wed</p>
+              </div>
+              <div class="events">
+                <div class="event start-2 end-5 ent-law">
+                  <p class="title">Consultation - Doctor <br> Family Planning - Nurse <br> Immunization - Nurse</p>
+                  <p class="time">8 AM - 5 PM</p>
+                </div>
+                <div class="event start-8 end-9 ent-law">
+                  <p class="title">Consultation - Doctor <br> Family Planning - Nurse <br> Immunization - Nurse</p>
+                  <p class="time">8 AM - 5 PM</p>
+                </div>
+                <div class="event start-6 end-12 lunch">
+                  <p class="title">Lunch Break - 12PM</p>
+                  <!-- <p class="time">8 AM - 5 PM</p> -->
+                </div>
+              </div>
+            </div>
+            <div class="day thurs">
+              <div class="date">
+                <!-- <p class="date-num">12</p> -->
+                <p class="date-day">Thurs</p>
+              </div>
+              <div class="events">
+                <div class="event start-2 end-5 securities">
+                  <p class="title">Prenatal - Midwife <br> Family Planning - Nurse</p>
+                  <p class="time">8 AM - 5 PM</p>
+                </div>
+                <div class="event start-8 end-9 securities">
+                  <p class="title">Prenatal - Midwife <br> Family Planning - Nurse</p>
+                  <p class="time">8 AM - 5 PM</p>
+                </div>
+                <div class="event start-6 end-12 lunch">
+                  <p class="title">Lunch Break - 12PM</p>
+                  <!-- <p class="time">8 AM - 5 PM</p> -->
+                </div>
+              </div>
+            </div>
+            <div class="day fri">
+              <div class="date">
+                <!-- <p class="date-num">13</p> -->
+                <p class="date-day">Fri</p>
+              </div>
+              <div class="events">
+                <div class="event start-2 end-5 ent-law">
+                  <p class="title">Family Planning - Nurse</p>
+                  <p class="time">8 AM - 5 PM</p>
+                </div>
+                <div class="event start-8 end-9 ent-law">
+                  <p class="title">Family Planning - Nurse</p>
+                  <p class="time">8 AM - 5 PM</p>
+                </div>
+                <div class="event start-6 end-12 lunch">
+                  <p class="title">Lunch Break - 12PM</p>
+                  <!-- <p class="time">8 AM - 5 PM</p> -->
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -448,7 +514,7 @@ JOIN nurses ON fp_information.nurse_id = nurses.id";
 </div>
 
 
-
+<link rel="stylesheet" href="../../assets/css/calendar.css">
 
 <!-- Include this script in your HTML file -->
 <script>
@@ -475,7 +541,7 @@ JOIN nurses ON fp_information.nurse_id = nurses.id";
   // Initialize the timer on page load
   resetTimer();
 </script>
-<script>
+<!-- <script>
   // Get current day of the week
   var currentDayOfWeek = new Date().getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
 
@@ -491,4 +557,26 @@ JOIN nurses ON fp_information.nurse_id = nurses.id";
       }
     }
   }
-</script>
+</script> -->
+<!-- <div class="row">
+          <div class="col-sm-12">
+            <table class="table" id="calendar">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Day</th>
+                  <th>Activity</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php foreach ($dates as $date => $day): ?>
+                  <tr>
+                    <td><?php echo $date; ?></td>
+                    <td><?php echo $day; ?></td>
+                    <td><?php echo isset($activities[$day]) ? $activities[$day] : 'No Activity'; ?></td>
+                  </tr>
+                <?php endforeach; ?>
+              </tbody>
+            </table>
+          </div>
+        </div> -->
