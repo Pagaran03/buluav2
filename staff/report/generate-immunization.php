@@ -195,11 +195,9 @@ $htmlContent = '<html lang="en">
             <td style="width: 10%;">Female</td>
             <td style="width: 10%;">Total</td>
             <td style="width: 10%;">% (Col.5E.Pop * 100)</td>
-            <td style="width: 15%;">Interpretation</td>
-            <td style="width: 15%;">Recommendation Action to be taken</td>
         </tr>
         <tr>
-            <td colspan="8" style="text-align: center;"><b>Immunization Services for Newborns, Infants and School-Aged Children/Adolescents</b></td>
+            <td colspan="6" style="text-align: center;"><b>Immunization Services for Newborns, Infants and School-Aged Children/Adolescents</b></td>
         </tr>
         <tr>
             <td>1. CPAB - Total</td>
@@ -208,8 +206,7 @@ $htmlContent = '<html lang="en">
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
-            <td></td>
+           
         </tr>
         <tr>
             <td>2. BCG - Total</td>
@@ -218,8 +215,7 @@ $htmlContent = '<html lang="en">
             <td>' . $female_bcgCount . '</td>
             <td>' . $bcgCount . '</td>
             <td></td>
-            <td></td>
-            <td></td>
+           
         </tr>
         <tr>
             <td>3. HepB, within 24 Hours - Total</td>
@@ -228,8 +224,7 @@ $htmlContent = '<html lang="en">
             <td>' . $female_hepBCount . '</td>
             <td>' . $hepBCount . '</td>
             <td></td>
-            <td></td>
-            <td></td>
+            
         </tr>
         <tr>
             <td>4. DPT HiB-HebB 1 - Total</td>
@@ -238,8 +233,7 @@ $htmlContent = '<html lang="en">
             <td>' . $female_dpt1Count . '</td>
             <td>' . $dpt1Count . '</td>
             <td></td>
-            <td></td>
-            <td></td>
+           
         </tr>
         <tr>
             <td>5. DPT HiB-HebB 2 - Total</td>
@@ -248,8 +242,8 @@ $htmlContent = '<html lang="en">
             <td>' . $female_dpt2Count . '</td>
             <td>' . $dpt2Count . '</td>
             <td></td>
-            <td></td>
-            <td></td>
+            
+           
         </tr>
         <tr>
             <td>6. DPT HiB-HebB 3 - Total</td>
@@ -258,8 +252,7 @@ $htmlContent = '<html lang="en">
             <td>' . $female_dpt3Count . '</td>
             <td>' . $dpt3Count . '</td>
             <td></td>
-            <td></td>
-            <td></td>
+           
         </tr>
         <tr>
             <td>7. OPV 1 - Total</td>
@@ -268,8 +261,7 @@ $htmlContent = '<html lang="en">
             <td>' . $female_opv1Count . '</td>
             <td>' . $opv1Count . '</td>
             <td></td>
-            <td></td>
-            <td></td>
+            
         </tr>
         <tr>
             <td>8. OPV 2 - Total</td>
@@ -278,8 +270,7 @@ $htmlContent = '<html lang="en">
             <td>' . $female_opv2Count . '</td>
             <td>' . $opv2Count . '</td>
             <td></td>
-            <td></td>
-            <td></td>
+            
         </tr>
         <tr>
             <td>9. OPV 3 - Total</td>
@@ -288,8 +279,7 @@ $htmlContent = '<html lang="en">
             <td>' . $female_opv3Count . '</td>
             <td>' . $opv3Count . '</td>
             <td></td>
-            <td></td>
-            <td></td>
+           
         </tr>
         <tr>
             <td>10. IPV1 - Total</td>
@@ -298,8 +288,7 @@ $htmlContent = '<html lang="en">
             <td>' . $female_ipv1Count . '</td>
             <td>' . $ipv1Count . '</td>
             <td></td>
-            <td></td>
-            <td></td>
+            
         </tr>
         <tr>
             <td>11. IPV2 - Total</td>
@@ -308,8 +297,7 @@ $htmlContent = '<html lang="en">
             <td>' . $female_ipv2Count . '</td>
             <td>' . $ipv2Count . '</td>
             <td></td>
-            <td></td>
-            <td></td>
+            
         </tr>
         <tr>
             <td>12. IPV2 catch-up - Total</td>
@@ -318,8 +306,7 @@ $htmlContent = '<html lang="en">
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
-            <td></td>
+            
         </tr>
         <tr>
             <td>13. PCV1 - Total</td>
@@ -328,8 +315,7 @@ $htmlContent = '<html lang="en">
             <td>' . $female_pcv1Count . '</td>
             <td>' . $pcv1Count . '</td>
             <td></td>
-            <td></td>
-            <td></td>
+            
         </tr>
         <tr>
             <td>14. PCV2 - Total</td>
@@ -338,8 +324,7 @@ $htmlContent = '<html lang="en">
             <td>' . $female_pcv2Count . '</td>
             <td>' . $pcv2Count . '</td>
             <td></td>
-            <td></td>
-            <td></td>
+            
         </tr>
         <tr>
             <td>15. PCV3 - Total</td>
@@ -348,8 +333,7 @@ $htmlContent = '<html lang="en">
             <td>' . $female_pcv3Count . '</td>
             <td>' . $pcv3Count . '</td>
             <td></td>
-            <td></td>
-            <td></td>
+           
         </tr>
         <tr>
             <td>16. MCV1 - Total</td>
@@ -358,8 +342,8 @@ $htmlContent = '<html lang="en">
             <td>' . $female_mcv1Count . '</td>
             <td>' . $mcv1Count . '</td>
             <td></td>
-            <td></td>
-            <td></td>
+            
+           
         </tr>
         <tr>
             <td>17. MCV2 - Total</td>
@@ -368,8 +352,7 @@ $htmlContent = '<html lang="en">
             <td>' . $female_mcv2Count . '</td>
             <td>' . $mcv2Count . '</td>
             <td></td>
-            <td></td>
-            <td></td>
+           
         </tr>
         <tr>
             <td>18. FIC - Total</td>
@@ -378,8 +361,7 @@ $htmlContent = '<html lang="en">
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
-            <td></td>
+            
         </tr>
         <tr>
             <td>19. CIC - Total</td>
@@ -388,8 +370,7 @@ $htmlContent = '<html lang="en">
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
-            <td></td>
+            
         </tr>
         <tr>
             <td>20. Td, Grade 1 (Month) - Total</td>
@@ -398,8 +379,7 @@ $htmlContent = '<html lang="en">
             <td>0</td>
             <td>0</td>
             <td></td>
-            <td></td>
-            <td></td>
+           
         </tr>
         <tr>
             <td>21. MR, Grade 1 (Month) - Total</td>
@@ -408,8 +388,7 @@ $htmlContent = '<html lang="en">
             <td>0</td>
             <td>0</td>
             <td></td>
-            <td></td>
-            <td></td>
+            
         </tr>
         <tr>
             <td>22. Td, Grade 2 (Month) - Total</td>
@@ -418,8 +397,7 @@ $htmlContent = '<html lang="en">
             <td>0</td>
             <td>0</td>
             <td></td>
-            <td></td>
-            <td></td>
+            
         </tr>
         <tr>
             <td>23. Td, Grade 2 (Month) - Total</td>
@@ -428,8 +406,7 @@ $htmlContent = '<html lang="en">
             <td>0</td>
             <td>0</td>
             <td></td>
-            <td></td>
-            <td></td>
+            
         </tr>
         <tr>
             <td>24. HPV 9-14 - Total</td>
@@ -438,8 +415,7 @@ $htmlContent = '<html lang="en">
             <td>0</td>
             <td>0</td>
             <td></td>
-            <td></td>
-            <td></td>
+            
         </tr>
         <tr>
             <td>25. HPV 15-40 - Total</td>
@@ -448,8 +424,7 @@ $htmlContent = '<html lang="en">
             <td>0</td>
             <td>0</td>
             <td></td>
-            <td></td>
-            <td></td>
+           
         </tr>
     </tbody>
 </table>
