@@ -1,5 +1,5 @@
 <?php
-include_once ('../../config.php');
+include_once ('../../../config.php');
 
 // Check connection
 if ($conn->connect_error) {
