@@ -893,7 +893,7 @@ if ($result === false) {
                             <th>Date Of Last Delivery</th>
                             <th>Check up Today</th>
                             <th>Status</th>
-                            <th>Process</th>
+                            <th>Progress</th>
                             <th>Action</th>
                         </tr>
                     </thead>

@@ -278,7 +278,7 @@ if ($result === false) {
                         <th>Description</th>
                         <th>Date</th>
                         <th>Status</th>
-                        <th>Process</th>
+                        <th>Progress</th>
                         <th>Action</th>
                     </tr>
                 </thead>
