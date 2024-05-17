@@ -78,7 +78,7 @@ if ($result2->num_rows > 0) {
                             <label for="">Select Step</label>
                             <select class="form-control" name="step" id="step" required class="">
                                 <option value="" disabled selected hidden>Select a Step</option>
-                                <option value="Interview Staff">Interview Staff</option>
+                                <option value="Walk In">Interview Staff</option>
                                 <option value="Consultation">Consultation</option>
                                 <option value="Immunization">Immunization</option>
                                 <option value="Prenatal">Prenatal</option>
@@ -88,6 +88,7 @@ if ($result2->num_rows > 0) {
                                 <option value="Midwife">Midwife</option>
                                 <option value="Head Nurse">Head Nurse</option>
                                 <option value="Prescription">Prescription</option>
+                                <option value="Online Register">Online Register</option>
                             </select>
                             <!-- <div id="editStatus_error" class="error"></div> -->
                         </div>
@@ -369,7 +370,7 @@ if ($result2->num_rows > 0) {
         // Add an event listener to the Save button
         document.getElementById('addPatientButton').addEventListener('click', function () {
             // Assuming you have a variable `completedStep` that holds the completed step value, e.g., "Step1", "Step2", etc.
-            var completedStep = "Interview Staff"; // Example completed step
+            var completedStep = "Walk In"; // Example completed step
 
             // Get the select element
             var selectStep = document.getElementById('step');
@@ -576,7 +577,7 @@ if ($result2->num_rows > 0) {
                         <label for="">Select Process</label>
                         <select class="form-control" name="step" id="editstep" required class="">
                             <option value="" disabled selected hidden>Select a Process</option>
-                            <option value="Interview Staff">Interview Staff</option>
+                            <option value="Walk In">Interview Staff</option>
                             <option value="Consultation">Consultation</option>
                             <option value="Immunization">Immunization</option>
                             <option value="Prenatal">Prenatal</option>
@@ -586,6 +587,7 @@ if ($result2->num_rows > 0) {
                             <option value="Midwife">Midwife</option>
                             <option value="Head Nurse">Head Nurse</option>
                             <option value="Prescription">Prescription</option>
+                            <option value="Online Register">Online Register</option>
                         </select>
                         <!-- <div id="editStatus_error" class="error"></div> -->
                     </div>
@@ -931,7 +933,7 @@ if ($result2->num_rows > 0) {
         updateSerialNumber();
 
         // Optionally, update the serial number periodically
-        setInterval(updateSerialNumber, 5000); // Update every 5 seconds (adjust as needed)
+        setInterval(updateSerialNumber, 2000); // Update every 2 seconds
 
         // Event listener for displaying child details modal
         $('#patientTableBody').on('click', '.childbtn', function () {

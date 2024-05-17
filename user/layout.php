@@ -1,10 +1,66 @@
 <?php
 // Include your database configuration file
 include_once ('../../config.php');
-$sql = "SELECT *,CONCAT(patients.last_name, ', ', patients.first_name) AS full_name
-FROM patients 
-WHERE is_active = 0 AND patients.is_deleted = 0 ORDER BY serial_no DESC";
 
+// Function to process form submission
+function processFormSubmission($conn)
+{
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Validate and sanitize input data
+        $step = trim($_POST['step']);
+        $first_name = trim($_POST['first_name']);
+        $last_name = trim($_POST['last_name']);
+        $middle_name = trim($_POST['middle_name']);
+        $suffix = trim($_POST['suffix']);
+        $gender = trim($_POST['gender']);
+        $contact_no = trim($_POST['contact_no']);
+        $civil_status = trim($_POST['civil_status']);
+        $age = trim($_POST['age']);
+        $serial_no = trim($_POST['serial_no']);
+        $religion = trim($_POST['religion']);
+        $address = trim($_POST['address']);
+        $birthdate = trim($_POST['birthdate']);
+
+        // Create a DateTime object for the user's birthdate
+        $birthDateObj = new DateTime($birthdate);
+
+        // Get the current date
+        $currentDateObj = new DateTime();
+
+        // Calculate the interval between the user's birthdate and the current date
+        $interval = $currentDateObj->diff($birthDateObj);
+
+        // Get the years from the interval
+        $age = $interval->y;
+
+        // Check for duplicates
+        $stmt_check = $conn->prepare("SELECT * FROM patients WHERE first_name = ? AND last_name = ? AND middle_name = ?");
+        $stmt_check->bind_param("sss", $first_name, $last_name, $middle_name);
+        $stmt_check->execute();
+        $result_check = $stmt_check->get_result();
+
+        if ($result_check->num_rows > 0) {
+            echo "<script>swal.fire('Error', 'Duplicate entry found: A patient with the same first name, last name, and middle name already exists.', 'error');</script>";
+        } else {
+            // Prepare SQL statement
+            $stmt = $conn->prepare("INSERT INTO patients (step, first_name, last_name, middle_name, suffix, gender, contact_no, civil_status, birthdate, age, serial_no, religion, address) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("sssssssssssss", $step, $first_name, $last_name, $middle_name, $suffix, $gender, $contact_no, $civil_status, $birthdate, $age, $serial_no, $religion, $address);
+
+            if ($stmt->execute()) {
+                echo "<script>swal.fire('Success', 'New record created successfully', 'success');</script>";
+            } else {
+                echo "<script>swal.fire('Error', 'Error: " . $stmt->error . "', 'error');</script>";
+            }
+
+            $stmt->close();
+        }
+
+        $stmt_check->close();
+    }
+}
+
+// Fetch inactive and non-deleted patients
+$sql = "SELECT *, CONCAT(patients.last_name, ', ', patients.first_name) AS full_name FROM patients WHERE is_active = 0 AND patients.is_deleted = 0 ORDER BY serial_no DESC";
 $result = $conn->query($sql);
 
 if ($result === false) {
@@ -14,33 +70,78 @@ if ($result === false) {
 $currentYear = date("y");
 $defaultSerial = $currentYear . "0001";
 
-// Query to get the latest serial number
+// Get the latest serial number
 $sql2 = "SELECT MAX(serial_no) AS max_serial FROM patients";
 $result2 = $conn->query($sql2);
 
 if ($result2->num_rows > 0) {
     $row2 = $result2->fetch_assoc();
-    // Get the latest serial number
     $latestSerial = $row2["max_serial"];
-
-    // Extract year from the latest serial number
     $latestYear = substr($latestSerial, 0, 2);
 
-    // Check if the latest serial number is from the current year
     if ($latestYear == $currentYear) {
-        // Increment the counting part
         $newCount = intval(substr($latestSerial, -4)) + 1;
         $newSerial = $currentYear . sprintf("%04d", $newCount);
     } else {
-        // If the latest serial number is from a different year, start from 0001
-        $newSerial = $currentYear . "0001";
+        $newSerial = $defaultSerial;
     }
 } else {
-    // If there are no records, use the default serial number
     $newSerial = $defaultSerial;
 }
 
+// Process form submission if POST request
+processFormSubmission($conn);
+
+// // Fetch inactive and non-deleted patients
+// $sql = "SELECT *, CONCAT(patients.last_name, ', ', patients.first_name) AS full_name FROM patients WHERE is_active = 0 AND patients.is_deleted = 0 ORDER BY serial_no DESC";
+// $result = $conn->query($sql);
+
+// if ($result === false) {
+//     die("Query failed: " . $conn->error);
+// }
+
+// $currentYear = date("y");
+// $defaultSerial = $currentYear . "0001";
+
+// // Get the latest serial number
+// $sql2 = "SELECT MAX(serial_no) AS max_serial FROM patients";
+// $result2 = $conn->query($sql2);
+
+// if ($result2->num_rows > 0) {
+//     $row2 = $result2->fetch_assoc();
+//     $latestSerial = $row2["max_serial"];
+//     $latestYear = substr($latestSerial, 0, 2);
+
+//     if ($latestYear == $currentYear) {
+//         $newCount = intval(substr($latestSerial, -4)) + 1;
+//         $newSerial = $currentYear . sprintf("%04d", $newCount);
+//     } else {
+//         $newSerial = $defaultSerial;
+//     }
+// } else {
+//     $newSerial = $defaultSerial;
+// }
+
+// // Check for duplicate serial number
+// $stmt_check_serial = $conn->prepare("SELECT * FROM patients WHERE serial_no = ?");
+// $stmt_check_serial->bind_param("s", $newSerial);
+// $stmt_check_serial->execute();
+// $result_check_serial = $stmt_check_serial->get_result();
+
+// if ($result_check_serial->num_rows > 0) {
+//     echo "<script>swal.fire('Error', 'Duplicate serial number found. Please contact your administrator.', 'error');</script>";
+//     exit; // Stop execution if duplicate serial number is found
+// }
+
+// $stmt_check_serial->close();
+
+// // Process form submission if POST request
+// processFormSubmission($conn);
+
 ?>
+
+
+
 
 
 
@@ -52,26 +153,19 @@ if ($result2->num_rows > 0) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Brgy Health Center</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <!-- AdminLTE -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/css/adminlte.min.css">
-    <!-- overlayScrollbars -->
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/overlayscrollbars/1.13.1/css/OverlayScrollbars.min.css">
-    <!-- Bootstrap 4.5.2 -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
-
     <style>
         .error {
             color: red;
-
         }
     </style>
 </head>
@@ -95,9 +189,9 @@ if ($result2->num_rows > 0) {
             </div>
         </nav>
 
-
         <!-- Content Wrapper -->
         <?php include $contentTemplate; ?>
+
         <!-- Modal -->
         <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel"
             aria-hidden="true">
@@ -110,7 +204,8 @@ if ($result2->num_rows > 0) {
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form id="addPatientForm">
+                        <form id="addPatientForm" method="POST"
+                            action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                             <style>
                                 .otag {
                                     display: none;
@@ -201,7 +296,7 @@ if ($result2->num_rows > 0) {
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="civil_status">Civil Status</label>
+                                        <label for="civil_status">Select Civil Status</label>
                                         <select class="form-control" name="civil_status" id="civil_status" required>
                                             <option value="" disabled selected hidden>Select Civil Status</option>
                                             <option value="Single">Single</option>
@@ -225,8 +320,9 @@ if ($result2->num_rows > 0) {
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="age">Age</label>
-                                        <p id="age" class="form-control" name="age"></p>
+                                        <label for="age">Age (Click The Birthdate First)</label>
+                                        <p id="age_display" class="form-control" readonly></p>
+                                        <input type="hidden" id="age" name="age">
                                         <div id="age_error" class="error"></div>
                                     </div>
                                 </div>
@@ -234,7 +330,7 @@ if ($result2->num_rows > 0) {
                                     <div class="form-group">
                                         <label for="serial_no">Serial No</label>
                                         <input type="text" class="form-control" id="serial_no" name="serial_no"
-                                            value="<?php echo $newSerial; ?>" required readonly>
+                                            value="<?php echo $newSerial; ?>" readonly>
                                         <div id="serial_error" class="error"></div>
                                     </div>
                                 </div>
@@ -268,42 +364,28 @@ if ($result2->num_rows > 0) {
                                 </div>
                             </div>
 
+
+
+                            <button type="submit" class="btn btn-primary" id="addPatientButton">Register</button>
                         </form>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-warning" id="NoneChildButton"
-                                onclick="clearForm()">Clear</button>
-                            <button type="button" class="btn btn-primary" id="addPatientButton">Save</button>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-
+        <!-- Footer -->
+        <footer class="main-footer text-center">
+            <strong>&copy; <?php echo date("Y"); ?> <a href="#">Brgy Bulua Health Center</a></strong>. All rights
+            reserved.
+        </footer>
     </div>
-    <!-- ./wrapper -->
-    <!-- Bootstrap and Popper.js scripts -->
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
-    <!-- Script to clear form entries -->
-    <script>
-        function clearForm() {
-            document.getElementById("serial_number").value = "";
-            document.getElementById("firstname").value = "";
-            document.getElementById("lastname").value = "";
-            document.getElementById("middlename").value = "";
-            document.getElementById("age").value = "";
-            document.getElementById("contact_no").value = "";
-            document.getElementById("civilStatus").value = "";
-            document.getElementById("religion").value = "";
-            document.getElementById("birthdate").value = "";
-            document.getElementById("address").value = "";
-        }
-    </script>
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
     <script>
         // Add an event listener to the Save button
         document.getElementById('addPatientButton').addEventListener('click', function () {
@@ -321,39 +403,6 @@ if ($result2->num_rows > 0) {
                 }
             }
         });
-    </script>
-    <script>
-        function calculateAge() {
-            const birthdate = new Date(document.getElementById("birthdate").value);
-            const today = new Date();
-            let ages = today.getFullYear() - birthdate.getFullYear();
-
-            // Check if the birthday has occurred this year
-            if (
-                today.getMonth() < birthdate.getMonth() ||
-                (today.getMonth() === birthdate.getMonth() && today.getDate() < birthdate.getDate())
-            ) {
-                ages--;
-            }
-
-            // Update the age display
-            document.getElementById("age").innerText = ages;
-        }
-
-        const today = new Date();
-        const year = today.getFullYear();
-        const month = String(today.getMonth() + 1).padStart(2, '0'); // Add 1 to month since it's zero-based
-        const day = String(today.getDate()).padStart(2, '0');
-        const maxDate = `${year}-${month}-${day}`;
-
-        document.getElementById("birthdate").max = maxDate;
-
-        // Attach the calculateAge function to the input's change event
-        document.getElementById("birthdate").addEventListener("change", calculateAge);
-    </script>
-
-
-    <script>
         document.getElementById("contact_no").addEventListener("input", function () {
             var contactInput = document.getElementById("contact_no").value.trim();
             if (contactInput.startsWith("0")) {
@@ -381,226 +430,114 @@ if ($result2->num_rows > 0) {
             });
 
 
-            // $('#editContact_no').on('input', function () {
-            //     var editcontactNo = $(this).val();
-            //     if (editcontactNo.length < 10) {
-            //         $('#editContact_error').text('\nInvalid Phone number.');
-            //     } else if (!editcontactNo.startsWith("9")) {
-            //         $('#editContact_error').text('\nInvalid Phone number. Phone number should start with 9');
-            //     } else {
-            //         $('#editContact_error').text('');
-            //     }
+            if (contactInput.startsWith("+63")) {
+                contactInput = contactInput.substring(3);
+            }
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#addPatientForm').on('submit', function (event) {
+                event.preventDefault();
+                var form = $(this);
 
-
-            //     if (contactNo.length > 10) {
-            //         $(this).val(contactNo.substring(0, 10));
-            //     }
-            // });
-
-            // var contactInput = document.getElementById("editContact_no").value.trim();
-
-            // if (contactInput.startsWith("+63")) {
-            //     contactInput = contactInput.substring(3);
-            // }
-
-            // document.getElementById("editContact_no").value = contactInput;
-
-            function updateSerialNumber() {
                 $.ajax({
-                    url: 'action/get_serial.php',
-                    type: 'GET',
-                    success: function (data) {
-                        $('#serial_no').val(data);
-                    },
-                    error: function () {
-                        // Handle errors if any
-                        console.log('Error fetching serial number.');
+                    url: form.attr('action'),
+                    type: form.attr('method'),
+                    data: form.serialize(),
+                    success: function (response) {
+                        // Assuming the PHP script outputs a SweetAlert script
+                        $('body').append(response);
                     }
                 });
-            }
-
-            // Call the function on page load
-            updateSerialNumber();
-
-            // Optionally, update the serial number periodically
-            setInterval(updateSerialNumber, 5000); // Update every 5 seconds (adjust as needed)
-
-            // Event listener for displaying child details modal
-
-            //Modal add Patient
-            document.getElementById('openModalButton').addEventListener('click', function () {
-                $('#registerModal').modal('show'); // Show the modal
-            });
-
-            // Check if there are rows in the PHP-generated table
-
-
-
-            $('#addPatientButton').click(function () {
-
-                $('.error').text('');
-
-                // Get data from the form
-                var step = $('#step').val();
-                var first_name = $('#first_name').val();
-                var last_name = $('#last_name').val();
-                var birthdate = $('#birthdate').val();
-                var address = $('#address').val();
-
-                var middle_name = $('#middle_name').val();
-                var suffix = $('#suffix').val();
-                var gender = $('#gender').val();
-                var age = $('#age').val();
-
-                var contact_no = $('#contact_no').val();
-                var civil_status = $('#civil_status').val();
-                var religion = $('#religion').val();
-                var serial_no = $('#serial_no').val();
-
-
-
-                // Validate input fields
-                // var isValid = false;
-
-                // if (first_name.trim() === '' || last_name.trim() === '' || birthdate.trim() === '' || address.trim() === '') {
-                //     isValid = false;
-                //     $('#first_name_error').text('Field is required');
-                // } else {
-                //     isValid = true;
-                //     table.destroy(); // Destroy the existing DataTable
-                //     table = $('#patientTableBody').DataTable({
-                //         columnDefs: [{
-                //             targets: 0,
-                //             data: 'id',
-                //             visible: false
-                //         },
-                //         {
-                //             targets: 1,
-                //             data: 'serial_no'
-                //         },
-                //         {
-                //             targets: 2,
-                //             data: 'full_name'
-                //         },
-                //         // { targets: 3, data: 'Child' },
-                //         {
-                //             targets: 3,
-                //             data: 'birthdate'
-                //         },
-                //         {
-                //             targets: 4,
-                //             data: 'address'
-                //         },
-                //         {
-                //             targets: 5,
-                //             data: 'step'
-                //         },
-                //         {
-                //             targets: 6,
-                //             searchable: false,
-                //             data: null,
-                //             render: function (data, type, row) {
-                //                 var viewRec = '<a href="history.php?id=' + row.id + '"><button type="button" class="btn btn-warning ml-1">  <i class="fas fa-eye"></i> View History</button></a>';
-                //                 var editButton = '<button type="button" class="btn btn-success editbtn" data-patient-id="' + row.serial_no + '"><i class="fas fa-edit"></i> Update</button>';
-                //                 var deleteButton = '<button type="button" class="btn btn-danger deletebtn" data-id="' + row.serial_no + '"><i class="fas fa-user-times"></i> Inactive</button>';
-                //                 // var childButton = '<button type="button" class="btn btn-primary childbtn" data-name="' + row.Child + '" data-birthdate="' + row.birthdate + '" data-address="' + row.address + '"><i class="fas fa-user"></i> View Child</button>';
-                //                 return viewRec + ' ' + editButton + ' ' + deleteButton;
-                //             }
-                //         } // Action column
-                //         ],
-                //         // Set the default ordering to 'id' column in descending order
-                //         order: [
-                //             [0, 'desc']
-                //         ]
-                //     });
-                // }
-
-
-                if (isValid == true) {
-                    // AJAX request to send data to the server
-                    $.ajax({
-                        url: 'action/add_patient.php',
-                        method: 'POST',
-                        data: {
-                            step: step,
-                            first_name: first_name,
-                            last_name: last_name,
-                            birthdate: birthdate,
-                            address: address,
-                            middle_name: middle_name,
-                            suffix: suffix,
-                            gender: gender,
-                            age: age,
-                            contact_no: contact_no,
-                            civil_status: civil_status,
-                            religion: religion,
-                            serial_no: serial_no,
-
-                        },
-                        success: function (response) {
-                            // Handle the response
-                            if (response === 'Success') {
-                                // Clear the form fields
-                                $('#first_name').val('');
-                                $('#last_name').val('');
-                                $('#birthdate').val('');
-                                $('#address').val('');
-
-                                updatePatientTable();
-                                $('#addPatientModal').modal('hide');
-
-                                // Remove the modal backdrop manually
-                                $('body').removeClass('modal-open');
-                                $('.modal-backdrop').remove();
-                                // Show a success SweetAlert
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Success',
-                                    text: 'Patient added successfully',
-                                });
-
-                            } else {
-                                // Show an error SweetAlert
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Error',
-                                    text: 'Error adding patient: ' + response,
-                                });
-                            }
-                        },
-                        error: function (error) {
-                            // Handle errors
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Error',
-                                text: 'Error adding patient: ' + error,
-                            });
-                        },
-
-                    });
-                }
             });
         });
     </script>
+    <script>
+        function calculateAge() {
+            const birthdate = new Date(document.getElementById("birthdate").value);
+            const today = new Date();
 
-    <!-- jQuery -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <!-- jQuery UI -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <!-- Bootstrap 4 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-    <!-- overlayScrollbars -->
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/overlayscrollbars/1.13.1/js/jquery.overlayScrollbars.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
-    <!-- DataTables -->
-    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Bootstrap-datepicker JS -->
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+            let years = today.getFullYear() - birthdate.getFullYear();
+            let months = today.getMonth() - birthdate.getMonth();
+            let days = today.getDate() - birthdate.getDate();
+
+            // Adjust for negative days and months
+            if (days < 0) {
+                months--;
+                const daysInPreviousMonth = new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+                days += daysInPreviousMonth;
+            }
+
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+
+            let ageDisplay;
+
+            if (years > 0) {
+                ageDisplay = `${years} ${years === 1 ? "year" : "years"} old`;
+                if (months > 0 || days > 0) {
+                    ageDisplay += `, ${months} ${months === 1 ? "month" : "months"} and ${days} ${days === 1 ? "day" : "days"}`;
+                }
+            } else if (years === 1 && months === 0 && days >= 0) {
+                ageDisplay = "1 year old";
+            } else if (months > 0) {
+                ageDisplay = `${months} ${months === 1 ? "month" : "months"} and ${days} ${days === 1 ? "day" : "days"}`;
+            } else {
+                const diffTime = today - birthdate;
+                const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+                if (diffDays < 7) {
+                    ageDisplay = `${diffDays} ${diffDays === 1 ? "day" : "days"}`;
+                } else {
+                    const weeks = Math.floor(diffDays / 7);
+                    const remainingDays = diffDays % 7;
+                    ageDisplay = `${weeks} ${weeks === 1 ? "week" : "weeks"} and ${remainingDays} ${remainingDays === 1 ? "day" : "days"}`;
+                }
+            }
+
+            // Update the age display
+            document.getElementById("age_display").innerText = ageDisplay;
+            document.getElementById("age").value = `${years} years, ${months} months, ${days} days`; // Example format
+        }
+
+        // Set the max date for the birthdate input to today
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0'); // Add 1 to month since it's zero-based
+        const day = String(today.getDate()).padStart(2, '0');
+        const maxDate = `${year}-${month}-${day}`;
+
+        document.getElementById("birthdate").max = maxDate;
+
+        // Attach the calculateAge function to the input's change event
+        document.getElementById("birthdate").addEventListener("change", calculateAge);
+
+    </script>
+    <script>
+        // Function to update the serial number
+        function updateSerialNumber() {
+            $.ajax({
+                url: 'action/get_serial.php',
+                type: 'GET',
+                success: function (data) {
+                    $('#serial_no').val(data);
+                },
+                error: function () {
+                    // Handle errors if any
+                    console.log('Error fetching serial number.');
+                }
+            });
+        }
+
+        // Call the function on page load
+        updateSerialNumber();
+
+        // Optionally, update the serial number periodically
+        setInterval(updateSerialNumber, 2000); // Update every 2 seconds
+    </script>
+
 </body>
 
 </html>
