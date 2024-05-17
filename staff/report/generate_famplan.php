@@ -6,11 +6,11 @@ use Dompdf\Dompdf;
 use Dompdf\Options;
 
 
-// $fromDate = $_GET['fromDate'];
-// $toDate = $_GET['toDate'];
+$fromDate = $_GET['fromDate'];
+$toDate = $_GET['toDate'];
 
-$fromDate = "2024/05/06";
-$toDate = "2024/05/06";
+$fromDate = $conn->real_escape_string($fromDate);
+$toDate = $conn->real_escape_string($toDate);
 
 $fromDateTime = new DateTime($fromDate);
 $toDateTime = new DateTime($toDate);
