@@ -11,25 +11,29 @@ $sql = "SELECT * FROM patients";
 // Combined query
 $sql = "
     SELECT
-        COUNT(bgc_date) AS bcg_count,
-        COUNT(hepa_date) AS hepB_count,
-        COUNT(pentavalent_date1) AS dpt1_count,
-        COUNT(pentavalent_date2) AS dpt2_count,
-        COUNT(pentavalent_date3) AS dpt3_count,
-        COUNT(oral_date1) AS opv1_count,
-        COUNT(oral_date2) AS opv2_count,
-        COUNT(oral_date3) AS opv3_count,
-        COUNT(ipv_date1) AS ipv1_count,
-        COUNT(ipv_date2) AS ipv2_count,
-        COUNT(pcv_date1) AS pcv1_count,
-        COUNT(pcv_date2) AS pcv2_count,
-        COUNT(pcv_date3) AS pcv3_count,
-        COUNT(MCV_1) AS mcv1_count,
-        COUNT(MCV_2) AS mcv2_count
-
-      FROM immunization";
+        COUNT(CASE WHEN bgc_date <> '0000-00-00' THEN 1 END) AS bcg_count,
+        COUNT(CASE WHEN hepa_date <> '0000-00-00' THEN 1 END) AS hepB_count,
+        COUNT(CASE WHEN pentavalent_date1 <> '0000-00-00' THEN 1 END) AS dpt1_count,
+        COUNT(CASE WHEN pentavalent_date2 <> '0000-00-00' THEN 1 END) AS dpt2_count,
+        COUNT(CASE WHEN pentavalent_date3 <> '0000-00-00' THEN 1 END) AS dpt3_count,
+        COUNT(CASE WHEN oral_date1 <> '0000-00-00' THEN 1 END) AS opv1_count,
+        COUNT(CASE WHEN oral_date2 <> '0000-00-00' THEN 1 END) AS opv2_count,
+        COUNT(CASE WHEN oral_date3 <> '0000-00-00' THEN 1 END) AS opv3_count,
+        COUNT(CASE WHEN ipv_date1 <> '0000-00-00' THEN 1 END) AS ipv1_count,
+        COUNT(CASE WHEN ipv_date2 <> '0000-00-00' THEN 1 END) AS ipv2_count,
+        COUNT(CASE WHEN pcv_date1 <> '0000-00-00' THEN 1 END) AS pcv1_count,
+        COUNT(CASE WHEN pcv_date2 <> '0000-00-00' THEN 1 END) AS pcv2_count,
+        COUNT(CASE WHEN pcv_date3 <> '0000-00-00' THEN 1 END) AS pcv3_count,
+        COUNT(CASE WHEN MCV_1 <> '0000-00-00' THEN 1 END) AS mcv1_count,
+        COUNT(CASE WHEN MCV_2 <> '0000-00-00' THEN 1 END) AS mcv2_count,
+        COUNT(CASE WHEN mmr_date1 <> '0000-00-00' THEN 1 END) AS mmr1_count,
+        COUNT(CASE WHEN mmr_date2 <> '0000-00-00' THEN 1 END) AS mmr2_count
+    FROM immunization";
 
 $result = $conn->query($sql);
+
+$result = $conn->query($sql);
+
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
     $bcgCount = $row['bcg_count'];
@@ -47,32 +51,36 @@ if ($result->num_rows > 0) {
     $pcv3Count = $row['pcv3_count'];
     $mcv1Count = $row['mcv1_count'];
     $mcv2Count = $row['mcv2_count'];
+    $mmr1Count = $row['mmr1_count'];
+    $mmr2Count = $row['mmr2_count'];
 } else {
     // Handle the case where no data is returned, if necessary
     $bcgCount = $hepBCount = $dpt1Count = $dpt2Count = $dpt3Count = 0;
     $opv1Count = $opv2Count = $opv3Count = $ipv1Count = $ipv2Count = 0;
-    $pcv1Count = $pcv2Count = $pcv3Count = $mcv1Count =  $mcv2Count = 0;
+    $pcv1Count = $pcv2Count = $pcv3Count = $mcv1Count =  $mcv2Count =  $mmr1Count = $mmr2Count = 0;
 }
 
 
 $gender_sql_male = "
-    SELECT
-        COUNT(bgc_date) AS bcg_count,
-        COUNT(hepa_date) AS hepB_count,
-        COUNT(pentavalent_date1) AS dpt1_count,
-        COUNT(pentavalent_date2) AS dpt2_count,
-        COUNT(pentavalent_date3) AS dpt3_count,
-        COUNT(oral_date1) AS opv1_count,
-        COUNT(oral_date2) AS opv2_count,
-        COUNT(oral_date3) AS opv3_count,
-        COUNT(ipv_date1) AS ipv1_count,
-        COUNT(ipv_date2) AS ipv2_count,
-        COUNT(pcv_date1) AS pcv1_count,
-        COUNT(pcv_date2) AS pcv2_count,
-        COUNT(pcv_date3) AS pcv3_count,
-        COUNT(MCV_1) AS mcv1_count,
-        COUNT(MCV_2) AS mcv2_count
-    FROM immunization
+SELECT
+COUNT(CASE WHEN bgc_date <> '0000-00-00' THEN 1 END) AS bcg_count,
+COUNT(CASE WHEN hepa_date <> '0000-00-00' THEN 1 END) AS hepB_count,
+COUNT(CASE WHEN pentavalent_date1 <> '0000-00-00' THEN 1 END) AS dpt1_count,
+COUNT(CASE WHEN pentavalent_date2 <> '0000-00-00' THEN 1 END) AS dpt2_count,
+COUNT(CASE WHEN pentavalent_date3 <> '0000-00-00' THEN 1 END) AS dpt3_count,
+COUNT(CASE WHEN oral_date1 <> '0000-00-00' THEN 1 END) AS opv1_count,
+COUNT(CASE WHEN oral_date2 <> '0000-00-00' THEN 1 END) AS opv2_count,
+COUNT(CASE WHEN oral_date3 <> '0000-00-00' THEN 1 END) AS opv3_count,
+COUNT(CASE WHEN ipv_date1 <> '0000-00-00' THEN 1 END) AS ipv1_count,
+COUNT(CASE WHEN ipv_date2 <> '0000-00-00' THEN 1 END) AS ipv2_count,
+COUNT(CASE WHEN pcv_date1 <> '0000-00-00' THEN 1 END) AS pcv1_count,
+COUNT(CASE WHEN pcv_date2 <> '0000-00-00' THEN 1 END) AS pcv2_count,
+COUNT(CASE WHEN pcv_date3 <> '0000-00-00' THEN 1 END) AS pcv3_count,
+COUNT(CASE WHEN MCV_1 <> '0000-00-00' THEN 1 END) AS mcv1_count,
+COUNT(CASE WHEN MCV_2 <> '0000-00-00' THEN 1 END) AS mcv2_count,
+COUNT(CASE WHEN mmr_date1 <> '0000-00-00' THEN 1 END) AS mmr1_count,
+COUNT(CASE WHEN mmr_date2 <> '0000-00-00' THEN 1 END) AS mmr2_count
+FROM immunization
     JOIN patients ON immunization.id = patients.id
     WHERE patients.gender = 'male'";
 
@@ -94,29 +102,33 @@ if ($result->num_rows > 0) {
     $male_pcv3Count = $row['pcv3_count'];
     $male_mcv1Count = $row['mcv1_count'];
     $male_mcv2Count = $row['mcv2_count'];
+    $male_mmr1Count = $row['mmr1_count'];
+    $male_mmr2Count = $row['mmr2_count'];
 } else {
     $male_bcgCount = $male_hepBCount = $male_dpt1Count = $male_dpt2Count = $male_dpt3Count = 0;
     $male_opv1Count = $male_opv2Count = $male_opv3Count = $male_ipv1Count = $male_ipv2Count = 0;
-    $male_pcv1Count = $male_pcv2Count = $male_pcv3Count  = $male_mcv1Count =  $male_mcv2Count = 0;
+    $male_pcv1Count = $male_pcv2Count = $male_pcv3Count  = $male_mcv1Count =  $male_mcv2Count = $male_mmr1Count = $male_mmr2Count = 0;
 }
 
 $gender_sql_female = "
 SELECT
-    COUNT(bgc_date) AS bcg_count,
-    COUNT(hepa_date) AS hepB_count,
-    COUNT(pentavalent_date1) AS dpt1_count,
-    COUNT(pentavalent_date2) AS dpt2_count,
-    COUNT(pentavalent_date3) AS dpt3_count,
-    COUNT(oral_date1) AS opv1_count,
-    COUNT(oral_date2) AS opv2_count,
-    COUNT(oral_date3) AS opv3_count,
-    COUNT(ipv_date1) AS ipv1_count,
-    COUNT(ipv_date2) AS ipv2_count,
-    COUNT(pcv_date1) AS pcv1_count,
-    COUNT(pcv_date2) AS pcv2_count,
-    COUNT(pcv_date3) AS pcv3_count,
-    COUNT(MCV_1) AS mcv1_count,
-    COUNT(MCV_2) AS mcv2_count
+COUNT(CASE WHEN bgc_date <> '0000-00-00' THEN 1 END) AS bcg_count,
+COUNT(CASE WHEN hepa_date <> '0000-00-00' THEN 1 END) AS hepB_count,
+COUNT(CASE WHEN pentavalent_date1 <> '0000-00-00' THEN 1 END) AS dpt1_count,
+COUNT(CASE WHEN pentavalent_date2 <> '0000-00-00' THEN 1 END) AS dpt2_count,
+COUNT(CASE WHEN pentavalent_date3 <> '0000-00-00' THEN 1 END) AS dpt3_count,
+COUNT(CASE WHEN oral_date1 <> '0000-00-00' THEN 1 END) AS opv1_count,
+COUNT(CASE WHEN oral_date2 <> '0000-00-00' THEN 1 END) AS opv2_count,
+COUNT(CASE WHEN oral_date3 <> '0000-00-00' THEN 1 END) AS opv3_count,
+COUNT(CASE WHEN ipv_date1 <> '0000-00-00' THEN 1 END) AS ipv1_count,
+COUNT(CASE WHEN ipv_date2 <> '0000-00-00' THEN 1 END) AS ipv2_count,
+COUNT(CASE WHEN pcv_date1 <> '0000-00-00' THEN 1 END) AS pcv1_count,
+COUNT(CASE WHEN pcv_date2 <> '0000-00-00' THEN 1 END) AS pcv2_count,
+COUNT(CASE WHEN pcv_date3 <> '0000-00-00' THEN 1 END) AS pcv3_count,
+COUNT(CASE WHEN MCV_1 <> '0000-00-00' THEN 1 END) AS mcv1_count,
+COUNT(CASE WHEN MCV_2 <> '0000-00-00' THEN 1 END) AS mcv2_count,
+COUNT(CASE WHEN mmr_date1 <> '0000-00-00' THEN 1 END) AS mmr1_count,
+COUNT(CASE WHEN mmr_date2 <> '0000-00-00' THEN 1 END) AS mmr2_count
 FROM immunization
 JOIN patients ON immunization.id = patients.id
 WHERE patients.gender = 'Female'";
@@ -139,10 +151,12 @@ if ($result->num_rows > 0) {
     $female_pcv3Count = $row['pcv3_count'];
     $female_mcv1Count = $row['mcv1_count'];
     $female_mcv2Count = $row['mcv2_count'];
+    $female_mmr1Count = $row['mmr1_count'];
+    $female_mmr2Count = $row['mmr2_count'];
 } else {
     $female_bcgCount = $female_hepBCount = $female_dpt1Count = $female_dpt2Count = $female_dpt3Count = 0;
     $female_opv1Count = $female_opv2Count = $female_opv3Count = $female_ipv1Count = $female_ipv2Count = 0;
-    $female_pcv1Count = $female_pcv2Count = $female_pcv3Count = $female_mcv1Count =  $female_mcv2Count = 0;
+    $female_pcv1Count = $female_pcv2Count = $female_pcv3Count = $female_mcv1Count =  $female_mcv2Count = $female_mmr1Count = $female_mmr2Count = 0;
 }
 
 
@@ -423,6 +437,24 @@ $htmlContent = '<html lang="en">
             <td>0</td>
             <td>0</td>
             <td>0</td>
+            <td></td>
+           
+        </tr>
+        <tr>
+            <td>26. MMR1 - Total</td>
+            <td></td>
+            <td>' . $male_mmr1Count .'</td>
+            <td>' . $female_mmr1Count . '</td>
+            <td>' . $mmr1Count . '</td>
+            <td></td>
+           
+        </tr>
+        <tr>
+            <td>27. MMR2 - Total</td>
+            <td></td>
+            <td>' . $male_mmr2Count .'</td>
+            <td>' . $female_mmr2Count . '</td>
+            <td>' . $mmr2Count . '</td>
             <td></td>
            
         </tr>
