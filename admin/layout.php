@@ -105,7 +105,7 @@ echo "<script>console.log('{$_SESSION['user_id']}')</script>";
               onmousedown="return false;">
           </div>
           <?php
-          include_once('../../config.php');
+          include_once ('../../config.php');
 
           // Check if user is logged in
           if (isset($_SESSION['user_id'])) {
@@ -294,6 +294,62 @@ echo "<script>console.log('{$_SESSION['user_id']}')</script>";
                 </p>
               </a>
             </li>
+            <li class="nav-item <?php
+            if (
+              strpos($_SERVER['REQUEST_URI'], '/brgyv2/admin/admin/admin.php') !== false ||
+              strpos($_SERVER['REQUEST_URI'], '/brgyv2/admin/nurse/nurse.php') !== false ||
+              strpos($_SERVER['REQUEST_URI'], '/brgyv2/admin/superadmin/superadmin.php') !== false ||
+              strpos($_SERVER['REQUEST_URI'], '/brgyv2/admin/midwife/midwife.php') !== false ||
+              strpos($_SERVER['REQUEST_URI'], '/brgyv2/admin/staff/staff.php') !== false
+            ) {
+              echo 'menu-open';
+            }
+            ?>">
+              <a href="" class="nav-link">
+                <i class="fa fa-cog fa-lg" aria-hidden="true"></i>
+                <p>
+                  Settings
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="../admin/admin.php" class="nav-link <?php if ($_SERVER['REQUEST_URI'] === '/brgyv2/superadmin/admin/admin.php')
+                    echo 'active'; ?>">
+                    <i class="fas fa-user-edit fa-lg nav-icon"></i>
+                    <p>Admin</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="../superadmin/superadmin.php" class="nav-link <?php if ($_SERVER['REQUEST_URI'] === '/brgyv2/superadmin/superadmin.php')
+                    echo 'active'; ?>">
+                    <i class="fas fa-user-edit fa-lg nav-icon"></i>
+                    <p>Superadmin</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="../nurse/nurse.php" class="nav-link <?php if ($_SERVER['REQUEST_URI'] === '/brgyv2/superadmin/nurse/nurse.php')
+                    echo 'active'; ?>">
+                    <i class="fas fa-user-edit fa-lg nav-icon"></i>
+                    <p>Nurses</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="../staff/staff.php" class="nav-link <?php if ($_SERVER['REQUEST_URI'] === '/brgyv2/superadmin/staff/staff.php')
+                    echo 'active'; ?>">
+                    <i class="fas fa-user-edit fa-lg nav-icon"></i>
+                    <p>Staff</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="../midwife/midwife.php" class="nav-link <?php if ($_SERVER['REQUEST_URI'] === '/brgyv2/admin/midwife/midwife.php')
+                    echo 'active'; ?>">
+                    <i class="fas fa-user-edit fa-lg nav-icon"></i>
+                    <p>Midwife</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
 
             <li class=" nav-item" data-toggle="modal" data-target="#reportsModal">
               <a href="#" class=" nav-link">
@@ -388,8 +444,8 @@ echo "<script>console.log('{$_SESSION['user_id']}')</script>";
   </div>
 
 
-   !-- SCRIPT FOR GENERATING REPORTS -->
-   <script>
+  !-- SCRIPT FOR GENERATING REPORTS -->
+  <script>
     function generateReport() {
       var fromDate = document.getElementById("fromDate").value;
       var toDate = document.getElementById("toDate").value;
