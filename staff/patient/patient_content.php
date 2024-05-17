@@ -459,7 +459,7 @@ if ($result2->num_rows > 0) {
                             <!-- <th>Child Name</th> -->
                             <th>Birthdate</th>
                             <th>Address</th>
-                            <th>Progress</th>
+                            <th>Register Type</th>
                             <th>Action</th>
                         </tr>
                     </thead>

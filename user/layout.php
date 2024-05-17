@@ -28,7 +28,7 @@ function processFormSubmission($conn)
         // Remove File Path injection characters
         $input = preg_replace("/[\/\\\\\.\.]/", "", $input);
         // Remove control characters and whitespace
-        $input = preg_replace("/[\x00-\x1F\s]+/", "", $input);
+        // $input = preg_replace("/[\x00-\x1F\s]+/", "", $input);
         // Remove script and content characters
         $input = preg_replace("/<script[^>]*>(.*?)<\/script>/is", "", $input);
         return $input;
@@ -393,7 +393,7 @@ processFormSubmission($conn);
                             </div>
 
 
-
+                            <button type="button" class="btn btn-warning" onclick="clearForm()">Clear Data</button>
                             <button type="submit" class="btn btn-primary" id="addPatientButton">Register</button>
                         </form>
                     </div>
@@ -414,6 +414,24 @@ processFormSubmission($conn);
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+    <!-- Script to clear form entries -->
+<script>
+    function clearForm() {
+    
+        document.getElementById("first_name").value = "";
+        document.getElementById("last_name").value = "";
+        document.getElementById("middle_name").value = "";
+        document.getElementById("age").value = "";
+        document.getElementById("suffix").value = "";
+        document.getElementById("gender").value = "";
+        document.getElementById("contact_no").value = "";
+        document.getElementById("civil_status").value = "";
+        document.getElementById("birthdate").value = "";
+        // document.getElementById("age").value = "";
+        document.getElementById("religion").value = "";
+        document.getElementById("address").value = "";
+    }
+</script>
     <script>
         // Add an event listener to the Save button
         document.getElementById('addPatientButton').addEventListener('click', function () {
