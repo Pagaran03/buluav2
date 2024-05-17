@@ -1,25 +1,52 @@
 <?php
 // Include your database configuration file
 include_once ('../../config.php');
+// header("Content-Security-Policy: default-src 'self';"); // Set Content Security Policy header to restrict resource loading
+// header('Content-Type: text/plain'); // Set the content type to plain text
+header('X-Content-Type-Options: nosniff'); // Prevent browsers from interpreting files as a different MIME type
+header('X-Frame-Options: DENY'); // Prevent clickjacking attacks
+header('Referrer-Policy: strict-origin-when-cross-origin'); // Control referrer information sent to other sites
+header('X-XSS-Protection: 1; mode=block'); // Enable XSS (Cross-Site Scripting) protection
 
 // Function to process form submission
 function processFormSubmission($conn)
 {
+    function sanitizeInput($input)
+    {
+        // Remove all HTML tags using preg_replace
+        $input = preg_replace("/<[^>]*>/", "", trim($input));
+        // Use regular expression to remove potentially harmful characters
+        $input = preg_replace("/[^a-zA-Z0-9\s]/", "", $input);
+        // Remove SQL injection characters
+        $input = preg_replace("/[;#\*--]/", "", $input);
+        // Remove Javascript injection characters
+        $input = preg_replace("/[<>\"\']/", "", $input);
+        // Remove Shell injection characters
+        $input = preg_replace("/[|&\$\>\<'`\"]/", "", $input);
+        // Remove URL injection characters
+        $input = preg_replace("/[&\?=]/", "", $input);
+        // Remove File Path injection characters
+        $input = preg_replace("/[\/\\\\\.\.]/", "", $input);
+        // Remove control characters and whitespace
+        $input = preg_replace("/[\x00-\x1F\s]+/", "", $input);
+        // Remove script and content characters
+        $input = preg_replace("/<script[^>]*>(.*?)<\/script>/is", "", $input);
+        return $input;
+    }
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Validate and sanitize input data
-        $step = trim($_POST['step']);
-        $first_name = trim($_POST['first_name']);
-        $last_name = trim($_POST['last_name']);
-        $middle_name = trim($_POST['middle_name']);
-        $suffix = trim($_POST['suffix']);
-        $gender = trim($_POST['gender']);
-        $contact_no = trim($_POST['contact_no']);
-        $civil_status = trim($_POST['civil_status']);
-        $age = trim($_POST['age']);
-        $serial_no = trim($_POST['serial_no']);
-        $religion = trim($_POST['religion']);
-        $address = trim($_POST['address']);
-        $birthdate = trim($_POST['birthdate']);
+        $step = sanitizeInput($_POST['step']);
+        $first_name = sanitizeInput($_POST['first_name']);
+        $last_name = sanitizeInput($_POST['last_name']);
+        $middle_name = sanitizeInput($_POST['middle_name']);
+        $suffix = sanitizeInput($_POST['suffix']);
+        $gender = sanitizeInput($_POST['gender']);
+        $contact_no = sanitizeInput($_POST['contact_no']);
+        $civil_status = sanitizeInput($_POST['civil_status']);
+        $birthdate = sanitizeInput($_POST['birthdate']);
+        $serial_no = sanitizeInput($_POST['serial_no']);
+        $religion = sanitizeInput($_POST['religion']);
+        $address = sanitizeInput($_POST['address']);
 
         // Create a DateTime object for the user's birthdate
         $birthDateObj = new DateTime($birthdate);
@@ -58,6 +85,7 @@ function processFormSubmission($conn)
         $stmt_check->close();
     }
 }
+
 
 // Fetch inactive and non-deleted patients
 $sql = "SELECT *, CONCAT(patients.last_name, ', ', patients.first_name) AS full_name FROM patients WHERE is_active = 0 AND patients.is_deleted = 0 ORDER BY serial_no DESC";
