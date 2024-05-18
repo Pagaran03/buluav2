@@ -1,12 +1,19 @@
 <?php
 // Include your database configuration file
-include_once ('../../config.php');
+include_once('../../config.php');
 // header("Content-Security-Policy: default-src 'self';"); // Set Content Security Policy header to restrict resource loading
 // header('Content-Type: text/plain'); // Set the content type to plain text
 header('X-Content-Type-Options: nosniff'); // Prevent browsers from interpreting files as a different MIME type
 header('X-Frame-Options: DENY'); // Prevent clickjacking attacks
 header('Referrer-Policy: strict-origin-when-cross-origin'); // Control referrer information sent to other sites
 header('X-XSS-Protection: 1; mode=block'); // Enable XSS (Cross-Site Scripting) protection
+
+
+require __DIR__ . '/../vendor/autoload.php';
+
+use Twilio\Rest\Client;
+use Dotenv\Dotenv;
+
 
 // Function to process form submission
 function processFormSubmission($conn)
@@ -41,13 +48,13 @@ function processFormSubmission($conn)
         $middle_name = sanitizeInput($_POST['middle_name']);
         $suffix = sanitizeInput($_POST['suffix']);
         $gender = sanitizeInput($_POST['gender']);
-        $contact_no = sanitizeInput($_POST['contact_no']);
+        $contact_nos = sanitizeInput($_POST['contact_no']);
         $civil_status = sanitizeInput($_POST['civil_status']);
         $birthdate = sanitizeInput($_POST['birthdate']);
         $serial_no = sanitizeInput($_POST['serial_no']);
         $religion = sanitizeInput($_POST['religion']);
         $address = sanitizeInput($_POST['address']);
-
+        $contact_no = "+63$contact_nos";
         // Create a DateTime object for the user's birthdate
         $birthDateObj = new DateTime($birthdate);
 
@@ -75,6 +82,7 @@ function processFormSubmission($conn)
 
             if ($stmt->execute()) {
                 echo "<script>swal.fire('Success', 'New record created successfully', 'success');</script>";
+                sendSMS($contact_no);
             } else {
                 echo "<script>swal.fire('Error', 'Error: " . $stmt->error . "', 'error');</script>";
             }
@@ -84,6 +92,35 @@ function processFormSubmission($conn)
 
         $stmt_check->close();
     }
+}
+
+function sendSMS($phoneNumber)
+{
+    // Load environment variables from .env file
+    $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
+    $dotenv->safeLoad();
+
+    // Check if the variables are set correctly
+    $account_sid = $_ENV['TWILIO_ACCOUNT_SID'];
+    $auth_token = $_ENV['TWILIO_AUTH_TOKEN'];
+    $twilio_number = $_ENV['TWILIO_PHONE_NUMBER'];
+
+    if (!$account_sid || !$auth_token) {
+        die('Twilio Account SID and Auth Token are not set.');
+    }
+
+    if (!$account_sid || !$auth_token) {
+        die('Twilio Account SID and Auth Token are not set.');
+    }
+
+    $client = new Client($account_sid, $auth_token);
+    $client->messages->create(
+        $phoneNumber,
+        array(
+            'from' => $twilio_number,
+            'body' => "Bulua Health Center Notif:\n\nYou are scheduled for tomorrow's consultation at Barangay Bulua Health Center. To verify your information, please bring the following:\n- Zone Certificate or Valid ID."
+        )
+    );
 }
 
 
@@ -169,11 +206,6 @@ processFormSubmission($conn);
 ?>
 
 
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -183,12 +215,10 @@ processFormSubmission($conn);
     <title>Brgy Health Center</title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/css/adminlte.min.css">
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/overlayscrollbars/1.13.1/css/OverlayScrollbars.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/overlayscrollbars/1.13.1/css/OverlayScrollbars.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
     <style>
@@ -204,15 +234,13 @@ processFormSubmission($conn);
         <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
             <div class="container d-flex justify-content-between">
                 <div class="navbar-brand text-left mr-10">
-                    <img src="../../assets/images/buluaLogo.png" alt="Brgy Bulua Health Center Logo"
-                        style="height:70px; width:70px;">
+                    <img src="../../assets/images/buluaLogo.png" alt="Brgy Bulua Health Center Logo" style="height:70px; width:70px;">
                     <span class="brand-text font-weight-bold ml-2">Brgy Bulua Health Center</span>
                 </div>
                 <div class="ml-auto">
                     <a href="#" class="mr-3">Home</a>
                     <a href="#">About</a>
-                    <button class="btn btn-primary ml-3" data-toggle="modal"
-                        data-target="#registerModal">Register</button>
+                    <button class="btn btn-primary ml-3" data-toggle="modal" data-target="#registerModal">Register</button>
                 </div>
             </div>
         </nav>
@@ -221,8 +249,7 @@ processFormSubmission($conn);
         <?php include $contentTemplate; ?>
 
         <!-- Modal -->
-        <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel"
-            aria-hidden="true">
+        <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -232,8 +259,7 @@ processFormSubmission($conn);
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form id="addPatientForm" method="POST"
-                            action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                        <form id="addPatientForm" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                             <style>
                                 .otag {
                                     display: none;
@@ -261,16 +287,14 @@ processFormSubmission($conn);
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="first_name">First Name</label>
-                                        <input type="text" class="form-control" id="first_name" name="first_name"
-                                            required>
+                                        <input type="text" class="form-control" id="first_name" name="first_name" required>
                                         <div id="first_name_error" class="error"></div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="last_name">Last Name</label>
-                                        <input type="text" class="form-control" id="last_name" name="last_name"
-                                            required>
+                                        <input type="text" class="form-control" id="last_name" name="last_name" required>
                                         <div id="last_name_error" class="error"></div>
                                     </div>
                                 </div>
@@ -280,8 +304,7 @@ processFormSubmission($conn);
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="middle_name">Middle Name</label>
-                                        <input type="text" class="form-control" id="middle_name" name="middle_name"
-                                            required>
+                                        <input type="text" class="form-control" id="middle_name" name="middle_name" required>
                                         <div id="middle_name_error" class="error"></div>
                                     </div>
                                 </div>
@@ -313,8 +336,7 @@ processFormSubmission($conn);
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="basic-addon3">+63</span>
                                             </div>
-                                            <input type="text" class="form-control" id="contact_no" name="contact_no"
-                                                required>
+                                            <input type="text" class="form-control" id="contact_no" name="contact_no" required>
                                             <div id="contact_error" class="error"></div>
                                         </div>
                                     </div>
@@ -338,8 +360,7 @@ processFormSubmission($conn);
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="birthdate">Birthdate</label>
-                                        <input type="date" class="form-control" id="birthdate" name="birthdate"
-                                            required>
+                                        <input type="date" class="form-control" id="birthdate" name="birthdate" required>
                                         <div id="birthdate_error" class="error"></div>
                                     </div>
                                 </div>
@@ -357,8 +378,7 @@ processFormSubmission($conn);
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="serial_no">Serial No</label>
-                                        <input type="text" class="form-control" id="serial_no" name="serial_no"
-                                            value="<?php echo $newSerial; ?>" readonly>
+                                        <input type="text" class="form-control" id="serial_no" name="serial_no" value="<?php echo $newSerial; ?>" readonly>
                                         <div id="serial_error" class="error"></div>
                                     </div>
                                 </div>
@@ -385,8 +405,7 @@ processFormSubmission($conn);
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="address">Address</label>
-                                        <textarea class="form-control" id="address" name="address" rows="3"
-                                            required></textarea>
+                                        <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
                                         <div id="address_error" class="error"></div>
                                     </div>
                                 </div>
@@ -394,7 +413,7 @@ processFormSubmission($conn);
 
 
                             <button type="button" class="btn btn-warning" onclick="clearForm()">Clear Data</button>
-                            <button type="submit" class="btn btn-primary" id="addPatientButton" onclick="saveForm()">Register</button>
+                            <button type="submit" class="btn btn-primary" id="addPatientButton">Register</button>
                         </form>
                     </div>
                 </div>
@@ -417,61 +436,25 @@ processFormSubmission($conn);
     <!-- Script to clear form entries -->
 
     <script>
-    function saveForm() {
-        // Collect form data
-        const formData = new FormData(document.getElementById('addPatientForm'));
-        
-        // Convert formData to JSON object
-        const data = {};
-        formData.forEach((value, key) => {
-            data[key] = value;
-        });
+        function clearForm() {
 
-        // Make AJAX call to save data and send SMS
-        fetch('/save-and-send-sms', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert('Data saved and SMS sent successfully!');
-            } else {
-                alert('There was an error: ' + data.message);
-            }
-        })
-        .catch(error => console.error('Error:', error));
-    }
-</script>
-
-
-
-
-
-
-<script>
-    function clearForm() {
-    
-        document.getElementById("first_name").value = "";
-        document.getElementById("last_name").value = "";
-        document.getElementById("middle_name").value = "";
-        document.getElementById("age").value = "";
-        document.getElementById("suffix").value = "";
-        document.getElementById("gender").value = "";
-        document.getElementById("contact_no").value = "";
-        document.getElementById("civil_status").value = "";
-        document.getElementById("birthdate").value = "";
-        // document.getElementById("age").value = "";
-        document.getElementById("religion").value = "";
-        document.getElementById("address").value = "";
-    }
-</script>
+            document.getElementById("first_name").value = "";
+            document.getElementById("last_name").value = "";
+            document.getElementById("middle_name").value = "";
+            document.getElementById("age").value = "";
+            document.getElementById("suffix").value = "";
+            document.getElementById("gender").value = "";
+            document.getElementById("contact_no").value = "";
+            document.getElementById("civil_status").value = "";
+            document.getElementById("birthdate").value = "";
+            // document.getElementById("age").value = "";
+            document.getElementById("religion").value = "";
+            document.getElementById("address").value = "";
+        }
+    </script>
     <script>
         // Add an event listener to the Save button
-        document.getElementById('addPatientButton').addEventListener('click', function () {
+        document.getElementById('addPatientButton').addEventListener('click', function() {
             // Assuming you have a variable `completedStep` that holds the completed step value, e.g., "Step1", "Step2", etc.
             var completedStep = "Online Register"; // Example completed step
 
@@ -486,7 +469,7 @@ processFormSubmission($conn);
                 }
             }
         });
-        document.getElementById("contact_no").addEventListener("input", function () {
+        document.getElementById("contact_no").addEventListener("input", function() {
             var contactInput = document.getElementById("contact_no").value.trim();
             if (contactInput.startsWith("0")) {
                 contactInput = contactInput.substring(1);
@@ -494,9 +477,9 @@ processFormSubmission($conn);
             document.getElementById("contact_no").value = contactInput;
         });
 
-        $(document).ready(function () {
+        $(document).ready(function() {
 
-            $('#contact_no').on('input', function () {
+            $('#contact_no').on('input', function() {
                 var contactNo = $(this).val();
                 if (contactNo.length < 10) {
                     $('#contact_error').text('\nInvalid Phone number.');
@@ -519,8 +502,8 @@ processFormSubmission($conn);
         });
     </script>
     <script>
-        $(document).ready(function () {
-            $('#addPatientForm').on('submit', function (event) {
+        $(document).ready(function() {
+            $('#addPatientForm').on('submit', function(event) {
                 event.preventDefault();
                 var form = $(this);
 
@@ -528,7 +511,7 @@ processFormSubmission($conn);
                     url: form.attr('action'),
                     type: form.attr('method'),
                     data: form.serialize(),
-                    success: function (response) {
+                    success: function(response) {
                         // Assuming the PHP script outputs a SweetAlert script
                         $('body').append(response);
                     }
@@ -596,7 +579,6 @@ processFormSubmission($conn);
 
         // Attach the calculateAge function to the input's change event
         document.getElementById("birthdate").addEventListener("change", calculateAge);
-
     </script>
     <script>
         // Function to update the serial number
@@ -604,10 +586,10 @@ processFormSubmission($conn);
             $.ajax({
                 url: 'action/get_serial.php',
                 type: 'GET',
-                success: function (data) {
+                success: function(data) {
                     $('#serial_no').val(data);
                 },
-                error: function () {
+                error: function() {
                     // Handle errors if any
                     console.log('Error fetching serial number.');
                 }

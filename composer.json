@@ -1,6 +1,7 @@
 {
     "require": {
         "dompdf/dompdf": "^2.0",
-        "twilio/sdk": "^8.0"
+        "twilio/sdk": "^8.0",
+        "vlucas/phpdotenv": "^5.6"
     }
 }

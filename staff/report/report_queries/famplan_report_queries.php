@@ -338,40 +338,6 @@ $iudPP_ANAPMCount = "
     $iudPP_stmt->fetch();
     $iudPP_stmt->close();
 
-
-// // ANAPM = Acceptors New Acceptors Previous Month - NFP-LAM QUERY
-// $nfpLAM_ANAPMCount = "
-//     SELECT
-//     SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS nfplamANAPMCount_10_to_14,
-//     SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS nfplamANAPMCount_15_to_19,
-//     SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS nfplamANAPMCount_20_to_49
-//     FROM 
-//     fp_consultation
-//     INNER JOIN 
-//     patients ON fp_consultation.patient_id = patients.id
-//     INNER JOIN (
-//     SELECT 
-//         patient_id
-//     FROM 
-//         fp_information
-//     WHERE 
-//         client_type = 'New Acceptor'
-//     GROUP BY 
-//         patient_id
-//     ) AS fp_info ON fp_consultation.patient_id = fp_info.patient_id
-//     WHERE 
-//     fp_consultation.method = 'NFP-LAM'
-//     AND fp_consultation.checkup_date <> '0000-00-00'
-//     AND MONTH(fp_consultation.checkup_date) = MONTH(? - INTERVAL 1 MONTH)
-//     AND YEAR(fp_consultation.checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
-
-//     $nfpLAM_stmt = $conn->prepare($nfpLAM_ANAPMCount);
-//     $nfpLAM_stmt->bind_param("ss", $fromDate, $toDate);
-//     $nfpLAM_stmt->execute();
-//     $nfpLAM_stmt->bind_result($nfpLAM_ANAPMCount_count10to14, $nfpLAM_ANAPMCount_count15to19, $nfpLAM_ANAPMCount_count20to49);
-//     $nfpLAM_stmt->fetch();
-//     $nfpLAM_stmt->close();
-
 // ANAPM = Acceptors New Acceptors Previous Month - IMPLANT QUERY
 $implantANAPMCount = "
     SELECT
@@ -591,7 +557,55 @@ $nfpcmmANAPMCount_countTotal = $nfpcmmANAPMCount_count10to14 + $nfpcmmANAPMCount
 $nfpstmANAPMCount_countTotal = $nfpstmANAPMCount_count10to14 + $nfpstmANAPMCount_count15to19 + $nfpstmANAPMCount_count20to49;
 $nfpsdmANAPMCount_countTotal = $nfpsdmANAPMCount_count10to14 + $nfpsdmANAPMCount_count15to19 + $nfpsdmANAPMCount_count20to49;
 
+//OAPM = Other Acceptor Present Month
+
+//OAPM - BTL
+$btlOAPMCount = "
+SELECT SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS btlOAPMCount_10_to_14,
+SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS btlOAPMCount_15_to_19,
+SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS btlOAPMCount_20_to_49
+FROM fp_consultation
+INNER JOIN patients ON fp_consultation.patient_id = patients.id
+WHERE method = 'BTL'
+AND checkup_date <> '0000-00-00'
+AND checkup_date BETWEEN ? AND ?";
+
+try {
+    $btlOAPM_stmt = $conn->prepare($btlOAPMCount);
+    $btlOAPM_stmt->bind_param("ss", $fromDate, $toDate);
+    $btlOAPM_stmt->execute();
+    $btlOAPM_stmt->bind_result($btlOAPMCount_count10to14, $btlOAPMCount_count15to19, $btlOAPMCount_count20to49);
+    $btlOAPM_stmt->fetch();
+    $btlOAPM_stmt->close();
+} catch (Exception $e) {
+    echo "Error: " . $e->getMessage();
+}
+
+//OAPM - NSV
+$nsvOAPMCount = "
+SELECT SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS nsvOAPMCount_10_to_14,
+SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS nsvOAPMCount_15_to_19,
+SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS nsvOAPMCount_20_to_49
+FROM fp_consultation
+INNER JOIN patients ON fp_consultation.patient_id = patients.id
+WHERE method = 'NSV'
+AND checkup_date <> '0000-00-00'
+AND checkup_date BETWEEN ? AND ?";
+
+try {
+    $nsvOAPM_stmt = $conn->prepare($nsvOAPMCount);
+    $nsvOAPM_stmt->bind_param("ss", $fromDate, $toDate);
+    $nsvOAPM_stmt->execute();
+    $nsvOAPM_stmt->bind_result($nsvOAPMCount_count10to14, $nsvOAPMCount_count15to19, $nsvOAPMCount_count20to49);
+    $nsvOAPM_stmt->fetch();
+    $nsvOAPM_stmt->close();
+} catch (Exception $e) {
+    echo "Error: " . $e->getMessage();
+}
 
 
 
+
+$btlOAPMCount_totalCount = $btlOAPMCount_count10to14 + $btlOAPMCount_count15to19 + $btlOAPMCount_count20to49;
+$nsvOAPMCount_totalCount = $nsvOAPMCount_count10to14 + $nsvOAPMCount_count15to19 + $nsvOAPMCount_count20to49;
 ?>
