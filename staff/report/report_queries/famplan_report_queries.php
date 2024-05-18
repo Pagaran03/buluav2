@@ -4,15 +4,29 @@ include_once('./../../config.php');
 // ANAPM = Acceptors New Acceptors Previous Month - BTL QUERY
 $btlANAPMCount = "
     SELECT
-    SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS btlANAPMCount_10_to_14,
-    SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS btlANAPMCount_15_to_19,
-    SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS btlANAPMCount_20_to_49
-        FROM fp_consultation
-        INNER JOIN patients ON fp_consultation.patient_id = patients.id
-        WHERE method = 'BTL'
-        AND checkup_date <> '0000-00-00'
-        AND MONTH(checkup_date) = MONTH(? - INTERVAL 1 MONTH)
-        AND YEAR(checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
+        SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS btlANAPMCount_10_to_14,
+        SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS btlANAPMCount_15_to_19,
+        SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS btlANAPMCount_20_to_49
+    FROM 
+        fp_consultation
+    INNER JOIN 
+        patients ON fp_consultation.patient_id = patients.id
+    INNER JOIN (
+        SELECT 
+            patient_id
+        FROM 
+            fp_information
+        WHERE 
+            client_type = 'New Acceptor'
+        GROUP BY 
+            patient_id
+    ) AS fp_info ON fp_consultation.patient_id = fp_info.patient_id
+    WHERE 
+        fp_consultation.method = 'BTL'
+        AND fp_consultation.checkup_date <> '0000-00-00'
+        AND MONTH(fp_consultation.checkup_date) = MONTH(? - INTERVAL 1 MONTH)
+        AND YEAR(fp_consultation.checkup_date) = YEAR(? - INTERVAL 1 MONTH)
+    ";
     $stmt = $conn->prepare($btlANAPMCount);
     $stmt->bind_param("ss", $toDate, $toDate);
     $stmt->execute();
@@ -21,19 +35,32 @@ $btlANAPMCount = "
     $stmt->close();
 
 
+
 // ANAPM = Acceptors New Acceptors Previous Month - NSV QUERY
 $nsvANAPMCount = "
-    SELECT SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS nsvANAPMCount_10_to_14,
-    SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS nsvANAPMCount_15_to_19,
-    SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS nsvANAPMCount_20_to_49
-    FROM fp_consultation
-    INNER JOIN patients ON fp_consultation.patient_id = patients.id
-    INNER JOIN fp_information ON fp_consultation.patient_id = fp_information.patient_id
-    WHERE method = 'NSV'
-    AND fp_information.client_type = 'NewAcceptor'
-    AND checkup_date <> '0000-00-00'
-    AND MONTH(checkup_date) = MONTH(? - INTERVAL 1 MONTH)
-    AND YEAR(checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
+        SELECT
+        SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS nsvANAPMCount_10_to_14,
+        SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS nsvANAPMCount_15_to_19,
+        SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS nsvANAPMCount_20_to_49
+        FROM 
+        fp_consultation
+        INNER JOIN 
+        patients ON fp_consultation.patient_id = patients.id
+        INNER JOIN (
+        SELECT 
+            patient_id
+        FROM 
+            fp_information
+        WHERE 
+            client_type = 'New Acceptor'
+        GROUP BY 
+            patient_id
+        ) AS fp_info ON fp_consultation.patient_id = fp_info.patient_id
+        WHERE 
+        fp_consultation.method = 'NSV'
+        AND fp_consultation.checkup_date <> '0000-00-00'
+        AND MONTH(fp_consultation.checkup_date) = MONTH(? - INTERVAL 1 MONTH)
+        AND YEAR(fp_consultation.checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
 
     $nsv_stmt = $conn->prepare($nsvANAPMCount);
     $nsv_stmt->bind_param("ss", $fromDate, $toDate);
@@ -44,15 +71,29 @@ $nsvANAPMCount = "
 
 // ANAPM = Acceptors New Acceptors Previous Month - CONDOM QUERY
 $condomANAPMCount = "
-    SELECT SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS nsvANAPMCount_10_to_14,
-    SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS nsvANAPMCount_15_to_19,
-    SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS nsvANAPMCount_20_to_49
-    FROM fp_consultation
-    INNER JOIN patients ON fp_consultation.patient_id = patients.id
-    WHERE method = 'Condom'
-    AND checkup_date <> '0000-00-00'
-    AND MONTH(checkup_date) = MONTH(? - INTERVAL 1 MONTH)
-    AND YEAR(checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
+    SELECT
+    SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS condomANAPMCount_10_to_14,
+    SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS condomANAPMCount_15_to_19,
+    SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS condomANAPMCount_20_to_49
+    FROM 
+    fp_consultation
+    INNER JOIN 
+    patients ON fp_consultation.patient_id = patients.id
+    INNER JOIN (
+    SELECT 
+        patient_id
+    FROM 
+        fp_information
+    WHERE 
+        client_type = 'New Acceptor'
+    GROUP BY 
+        patient_id
+    ) AS fp_info ON fp_consultation.patient_id = fp_info.patient_id
+    WHERE 
+    fp_consultation.method = 'Condom'
+    AND fp_consultation.checkup_date <> '0000-00-00'
+    AND MONTH(fp_consultation.checkup_date) = MONTH(? - INTERVAL 1 MONTH)
+    AND YEAR(fp_consultation.checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
 
     $condom_stmt = $conn->prepare($condomANAPMCount);
     $condom_stmt->bind_param("ss", $fromDate, $toDate);
@@ -61,17 +102,32 @@ $condomANAPMCount = "
     $condom_stmt->fetch();
     $condom_stmt->close();
 
+
 // ANAPM = Acceptors New Acceptors Previous Month - PILLS QUERY
 $pillsANAPMCount = "
-    SELECT SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS nsvANAPMCount_10_to_14,
-    SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS nsvANAPMCount_15_to_19,
-    SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS nsvANAPMCount_20_to_49
-    FROM fp_consultation
-    INNER JOIN patients ON fp_consultation.patient_id = patients.id
-    WHERE method = 'Pills'
-    AND checkup_date <> '0000-00-00'
-    AND MONTH(checkup_date) = MONTH(? - INTERVAL 1 MONTH)
-    AND YEAR(checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
+    SELECT
+    SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS pillsANAPMCount_10_to_14,
+    SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS pillsANAPMCount_15_to_19,
+    SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS pillsANAPMCount_20_to_49
+    FROM 
+    fp_consultation
+    INNER JOIN 
+    patients ON fp_consultation.patient_id = patients.id
+    INNER JOIN (
+    SELECT 
+        patient_id
+    FROM 
+        fp_information
+    WHERE 
+        client_type = 'New Acceptor'
+    GROUP BY 
+        patient_id
+    ) AS fp_info ON fp_consultation.patient_id = fp_info.patient_id
+    WHERE 
+    fp_consultation.method = 'Pills'
+    AND fp_consultation.checkup_date <> '0000-00-00'
+    AND MONTH(fp_consultation.checkup_date) = MONTH(? - INTERVAL 1 MONTH)
+    AND YEAR(fp_consultation.checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
 
     $pills_stmt = $conn->prepare($pillsANAPMCount);
     $pills_stmt->bind_param("ss", $fromDate, $toDate);
@@ -80,17 +136,32 @@ $pillsANAPMCount = "
     $pills_stmt->fetch();
     $pills_stmt->close();
 
+
 // ANAPM = Acceptors New Acceptors Previous Month - PILLS POP QUERY
 $pillspopANAPMCount = "
-    SELECT SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS nsvANAPMCount_10_to_14,
-    SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS nsvANAPMCount_15_to_19,
-    SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS nsvANAPMCount_20_to_49
-    FROM fp_consultation
-    INNER JOIN patients ON fp_consultation.patient_id = patients.id
-    WHERE method = 'Pills-POP'
-    AND checkup_date <> '0000-00-00'
-    AND MONTH(checkup_date) = MONTH(? - INTERVAL 1 MONTH)
-    AND YEAR(checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
+    SELECT
+    SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS ppopANAPMCount_10_to_14,
+    SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS ppopANAPMCount_15_to_19,
+    SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS ppopANAPMCount_20_to_49
+    FROM 
+    fp_consultation
+    INNER JOIN 
+    patients ON fp_consultation.patient_id = patients.id
+    INNER JOIN (
+    SELECT 
+        patient_id
+    FROM 
+        fp_information
+    WHERE 
+        client_type = 'New Acceptor'
+    GROUP BY 
+        patient_id
+    ) AS fp_info ON fp_consultation.patient_id = fp_info.patient_id
+    WHERE 
+    fp_consultation.method = 'Pills-POP'
+    AND fp_consultation.checkup_date <> '0000-00-00'
+    AND MONTH(fp_consultation.checkup_date) = MONTH(? - INTERVAL 1 MONTH)
+    AND YEAR(fp_consultation.checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
 
     $pillspop_stmt = $conn->prepare($pillspopANAPMCount);
     $pillspop_stmt->bind_param("ss", $fromDate, $toDate);
@@ -99,17 +170,32 @@ $pillspopANAPMCount = "
     $pillspop_stmt->fetch();
     $pillspop_stmt->close();
 
+
 // ANAPM = Acceptors New Acceptors Previous Month - PILLS COC QUERY
 $pillscocANAPMCount = "
-    SELECT SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS nsvANAPMCount_10_to_14,
-    SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS nsvANAPMCount_15_to_19,
-    SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS nsvANAPMCount_20_to_49
-    FROM fp_consultation
-    INNER JOIN patients ON fp_consultation.patient_id = patients.id
-    WHERE method = 'Pills-COC'
-    AND checkup_date <> '0000-00-00'
-    AND MONTH(checkup_date) = MONTH(? - INTERVAL 1 MONTH)
-    AND YEAR(checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
+    SELECT
+    SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS pcocANAPMCount_10_to_14,
+    SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS pcocANAPMCount_15_to_19,
+    SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS pcocANAPMCount_20_to_49
+    FROM 
+    fp_consultation
+    INNER JOIN 
+    patients ON fp_consultation.patient_id = patients.id
+    INNER JOIN (
+    SELECT 
+        patient_id
+    FROM 
+        fp_information
+    WHERE 
+        client_type = 'New Acceptor'
+    GROUP BY 
+        patient_id
+    ) AS fp_info ON fp_consultation.patient_id = fp_info.patient_id
+    WHERE 
+    fp_consultation.method = 'Pills-COC'
+    AND fp_consultation.checkup_date <> '0000-00-00'
+    AND MONTH(fp_consultation.checkup_date) = MONTH(? - INTERVAL 1 MONTH)
+    AND YEAR(fp_consultation.checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
 
     $pillscoc_stmt = $conn->prepare($pillscocANAPMCount);
     $pillscoc_stmt->bind_param("ss", $fromDate, $toDate);
@@ -120,15 +206,29 @@ $pillscocANAPMCount = "
 
 // ANAPM = Acceptors New Acceptors Previous Month - INJECTABLES(DMPA/POI) QUERY
 $injectablesANAPMCount = "
-    SELECT SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS nsvANAPMCount_10_to_14,
-    SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS nsvANAPMCount_15_to_19,
-    SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS nsvANAPMCount_20_to_49
-    FROM fp_consultation
-    INNER JOIN patients ON fp_consultation.patient_id = patients.id
-    WHERE method = 'Injectables (DMPA/POI)'
-    AND checkup_date <> '0000-00-00'
-    AND MONTH(checkup_date) = MONTH(? - INTERVAL 1 MONTH)
-    AND YEAR(checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
+    SELECT
+    SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS injectablesANAPMCount_10_to_14,
+    SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS injectablesANAPMCount_15_to_19,
+    SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS injectablesANAPMCount_20_to_49
+    FROM 
+    fp_consultation
+    INNER JOIN 
+    patients ON fp_consultation.patient_id = patients.id
+    INNER JOIN (
+    SELECT 
+        patient_id
+    FROM 
+        fp_information
+    WHERE 
+        client_type = 'New Acceptor'
+    GROUP BY 
+        patient_id
+    ) AS fp_info ON fp_consultation.patient_id = fp_info.patient_id
+    WHERE 
+    fp_consultation.method = 'Injectables (DMPA/POI)'
+    AND fp_consultation.checkup_date <> '0000-00-00'
+    AND MONTH(fp_consultation.checkup_date) = MONTH(? - INTERVAL 1 MONTH)
+    AND YEAR(fp_consultation.checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
 
     $injectables_stmt = $conn->prepare($injectablesANAPMCount);
     $injectables_stmt->bind_param("ss", $fromDate, $toDate);
@@ -139,19 +239,29 @@ $injectablesANAPMCount = "
 
 // ANAPM = Acceptors New Acceptors Previous Month - IUD QUERY
 $iudANAPMCount = "
-    SELECT 
-        SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS iudANAPMCount_10_to_14,
-        SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS iudANAPMCount_15_to_19,
-        SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS iudANAPMCount_20_to_49
+    SELECT
+    SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS iudANAPMCount_10_to_14,
+    SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS iudANAPMCount_15_to_19,
+    SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS iudANAPMCount_20_to_49
     FROM 
-        fp_consultation
+    fp_consultation
     INNER JOIN 
-        patients ON fp_consultation.patient_id = patients.id
+    patients ON fp_consultation.patient_id = patients.id
+    INNER JOIN (
+    SELECT 
+        patient_id
+    FROM 
+        fp_information
     WHERE 
-        method = 'IUD'
-        AND checkup_date <> '0000-00-00'
-        AND MONTH(checkup_date) = MONTH(? - INTERVAL 1 MONTH)
-        AND YEAR(checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
+        client_type = 'New Acceptor'
+    GROUP BY 
+        patient_id
+    ) AS fp_info ON fp_consultation.patient_id = fp_info.patient_id
+    WHERE 
+    fp_consultation.method = 'IUD'
+    AND fp_consultation.checkup_date <> '0000-00-00'
+    AND MONTH(fp_consultation.checkup_date) = MONTH(? - INTERVAL 1 MONTH)
+    AND YEAR(fp_consultation.checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
 
     $iud_stmt = $conn->prepare($iudANAPMCount);
     $iud_stmt->bind_param("ss", $fromDate, $toDate);
@@ -160,21 +270,32 @@ $iudANAPMCount = "
     $iud_stmt->fetch();
     $iud_stmt->close();
 
+
 // ANAPM = Acceptors New Acceptors Previous Month - IUD-I QUERY
 $iudI_ANAPMCount = "
-    SELECT 
-        SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS iudI_ANAPMCount_10_to_14,
-        SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS iudI_ANAPMCount_15_to_19,
-        SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS iudI_ANAPMCount_20_to_49
+    SELECT
+    SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS iudiANAPMCount_10_to_14,
+    SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS iudiANAPMCount_15_to_19,
+    SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS iudiANAPMCount_20_to_49
     FROM 
-        fp_consultation
+    fp_consultation
     INNER JOIN 
-        patients ON fp_consultation.patient_id = patients.id
+    patients ON fp_consultation.patient_id = patients.id
+    INNER JOIN (
+    SELECT 
+        patient_id
+    FROM 
+        fp_information
     WHERE 
-        method = 'IUD-I'
-        AND checkup_date <> '0000-00-00'
-    AND MONTH(checkup_date) = MONTH(? - INTERVAL 1 MONTH)
-    AND YEAR(checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
+        client_type = 'New Acceptor'
+    GROUP BY 
+        patient_id
+    ) AS fp_info ON fp_consultation.patient_id = fp_info.patient_id
+    WHERE 
+    fp_consultation.method = 'IUD-I'
+    AND fp_consultation.checkup_date <> '0000-00-00'
+    AND MONTH(fp_consultation.checkup_date) = MONTH(? - INTERVAL 1 MONTH)
+    AND YEAR(fp_consultation.checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
 
     $iudI_stmt = $conn->prepare($iudI_ANAPMCount);
     $iudI_stmt->bind_param("ss", $fromDate, $toDate);
@@ -183,21 +304,32 @@ $iudI_ANAPMCount = "
     $iudI_stmt->fetch();
     $iudI_stmt->close();
 
+
 // ANAPM = Acceptors New Acceptors Previous Month - IUD-PP QUERY
 $iudPP_ANAPMCount = "
-    SELECT 
-        SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS iudPP_ANAPMCount_10_to_14,
-        SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS iudPP_ANAPMCount_15_to_19,
-        SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS iudPP_ANAPMCount_20_to_49
+    SELECT
+    SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS iudppANAPMCount_10_to_14,
+    SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS injectablesANAPMCount_15_to_19,
+    SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS iudppANAPMCount_20_to_49
     FROM 
-        fp_consultation
+    fp_consultation
     INNER JOIN 
-        patients ON fp_consultation.patient_id = patients.id
+    patients ON fp_consultation.patient_id = patients.id
+    INNER JOIN (
+    SELECT 
+        patient_id
+    FROM 
+        fp_information
     WHERE 
-        method = 'IUD-PP'
-        AND checkup_date <> '0000-00-00'
-    AND MONTH(checkup_date) = MONTH(? - INTERVAL 1 MONTH)
-    AND YEAR(checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
+        client_type = 'New Acceptor'
+    GROUP BY 
+        patient_id
+    ) AS fp_info ON fp_consultation.patient_id = fp_info.patient_id
+    WHERE 
+    fp_consultation.method = 'IUD-PP'
+    AND fp_consultation.checkup_date <> '0000-00-00'
+    AND MONTH(fp_consultation.checkup_date) = MONTH(? - INTERVAL 1 MONTH)
+    AND YEAR(fp_consultation.checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
 
     $iudPP_stmt = $conn->prepare($iudPP_ANAPMCount);
     $iudPP_stmt->bind_param("ss", $fromDate, $toDate);
@@ -206,44 +338,65 @@ $iudPP_ANAPMCount = "
     $iudPP_stmt->fetch();
     $iudPP_stmt->close();
 
-// ANAPM = Acceptors New Acceptors Previous Month - NFP-LAM QUERY
-$nfpLAM_ANAPMCount = "
-    SELECT 
-        SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS nfpLAM_ANAPMCount_10_to_14,
-        SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS nfpLAM_ANAPMCount_15_to_19,
-        SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS nfpLAM_ANAPMCount_20_to_49
-    FROM 
-        fp_consultation
-    INNER JOIN 
-        patients ON fp_consultation.patient_id = patients.id
-    WHERE 
-        method = 'NFP-LAM'
-        AND checkup_date <> '0000-00-00'
-    AND MONTH(checkup_date) = MONTH(? - INTERVAL 1 MONTH)
-    AND YEAR(checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
 
-    $nfpLAM_stmt = $conn->prepare($nfpLAM_ANAPMCount);
-    $nfpLAM_stmt->bind_param("ss", $fromDate, $toDate);
-    $nfpLAM_stmt->execute();
-    $nfpLAM_stmt->bind_result($nfpLAM_ANAPMCount_count10to14, $nfpLAM_ANAPMCount_count15to19, $nfpLAM_ANAPMCount_count20to49);
-    $nfpLAM_stmt->fetch();
-    $nfpLAM_stmt->close();
+// // ANAPM = Acceptors New Acceptors Previous Month - NFP-LAM QUERY
+// $nfpLAM_ANAPMCount = "
+//     SELECT
+//     SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS nfplamANAPMCount_10_to_14,
+//     SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS nfplamANAPMCount_15_to_19,
+//     SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS nfplamANAPMCount_20_to_49
+//     FROM 
+//     fp_consultation
+//     INNER JOIN 
+//     patients ON fp_consultation.patient_id = patients.id
+//     INNER JOIN (
+//     SELECT 
+//         patient_id
+//     FROM 
+//         fp_information
+//     WHERE 
+//         client_type = 'New Acceptor'
+//     GROUP BY 
+//         patient_id
+//     ) AS fp_info ON fp_consultation.patient_id = fp_info.patient_id
+//     WHERE 
+//     fp_consultation.method = 'NFP-LAM'
+//     AND fp_consultation.checkup_date <> '0000-00-00'
+//     AND MONTH(fp_consultation.checkup_date) = MONTH(? - INTERVAL 1 MONTH)
+//     AND YEAR(fp_consultation.checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
+
+//     $nfpLAM_stmt = $conn->prepare($nfpLAM_ANAPMCount);
+//     $nfpLAM_stmt->bind_param("ss", $fromDate, $toDate);
+//     $nfpLAM_stmt->execute();
+//     $nfpLAM_stmt->bind_result($nfpLAM_ANAPMCount_count10to14, $nfpLAM_ANAPMCount_count15to19, $nfpLAM_ANAPMCount_count20to49);
+//     $nfpLAM_stmt->fetch();
+//     $nfpLAM_stmt->close();
 
 // ANAPM = Acceptors New Acceptors Previous Month - IMPLANT QUERY
 $implantANAPMCount = "
-    SELECT 
-        SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS implantANAPMCount_10_to_14,
-        SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS implantANAPMCount_15_to_19,
-        SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS implantANAPMCount_20_to_49
+    SELECT
+    SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS implantANAPMCount_10_to_14,
+    SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS implantANAPMCount_15_to_19,
+    SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS implantANAPMCount_20_to_49
     FROM 
-        fp_consultation
+    fp_consultation
     INNER JOIN 
-        patients ON fp_consultation.patient_id = patients.id
+    patients ON fp_consultation.patient_id = patients.id
+    INNER JOIN (
+    SELECT 
+        patient_id
+    FROM 
+        fp_information
     WHERE 
-        method = 'Implant'
-        AND checkup_date <> '0000-00-00'
-    AND MONTH(checkup_date) = MONTH(? - INTERVAL 1 MONTH)
-    AND YEAR(checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
+        client_type = 'New Acceptor'
+    GROUP BY 
+        patient_id
+    ) AS fp_info ON fp_consultation.patient_id = fp_info.patient_id
+    WHERE 
+    fp_consultation.method = 'Implant'
+    AND fp_consultation.checkup_date <> '0000-00-00'
+    AND MONTH(fp_consultation.checkup_date) = MONTH(? - INTERVAL 1 MONTH)
+    AND YEAR(fp_consultation.checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
 
     $implant_stmt = $conn->prepare($implantANAPMCount);
     $implant_stmt->bind_param("ss", $fromDate, $toDate);
@@ -255,19 +408,29 @@ $implantANAPMCount = "
 
 // ANAPM = Acceptors New Acceptors Previous Month - NFP-LAM QUERY
 $nfplamANAPMCount = "
-    SELECT 
-        SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS nfplamANAPMCount_10_to_14,
-        SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS nfplamANAPMCount_15_to_19,
-        SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS nfplamANAPMCount_20_to_49
+    SELECT
+    SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS nfplamANAPMCount_10_to_14,
+    SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS nfplamANAPMCount_15_to_19,
+    SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS nfplamANAPMCount_20_to_49
     FROM 
-        fp_consultation
+    fp_consultation
     INNER JOIN 
-        patients ON fp_consultation.patient_id = patients.id
+    patients ON fp_consultation.patient_id = patients.id
+    INNER JOIN (
+    SELECT 
+        patient_id
+    FROM 
+        fp_information
     WHERE 
-        method = 'NFP-LAM'
-        AND checkup_date <> '0000-00-00'
-    AND MONTH(checkup_date) = MONTH(? - INTERVAL 1 MONTH)
-    AND YEAR(checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
+        client_type = 'New Acceptor'
+    GROUP BY 
+        patient_id
+    ) AS fp_info ON fp_consultation.patient_id = fp_info.patient_id
+    WHERE 
+    fp_consultation.method = 'NFP-LAM'
+    AND fp_consultation.checkup_date <> '0000-00-00'
+    AND MONTH(fp_consultation.checkup_date) = MONTH(? - INTERVAL 1 MONTH)
+    AND YEAR(fp_consultation.checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
 
     $nfplam_stmt = $conn->prepare($nfplamANAPMCount);
     $nfplam_stmt->bind_param("ss", $fromDate, $toDate);
@@ -278,19 +441,29 @@ $nfplamANAPMCount = "
 
 // ANAPM = Acceptors New Acceptors Previous Month - NFP-BBT QUERY
 $nfpbbtANAPMCount = "
-    SELECT 
-        SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS nfpbbtANAPMCount_10_to_14,
-        SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS nfpbbtANAPMCount_15_to_19,
-        SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS nfpbbtANAPMCount_20_to_49
+    SELECT
+    SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS nfpbbtANAPMCount_10_to_14,
+    SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS nfpbbtANAPMCount_15_to_19,
+    SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS nfpbbtANAPMCount_20_to_49
     FROM 
-        fp_consultation
+    fp_consultation
     INNER JOIN 
-        patients ON fp_consultation.patient_id = patients.id
+    patients ON fp_consultation.patient_id = patients.id
+    INNER JOIN (
+    SELECT 
+        patient_id
+    FROM 
+        fp_information
     WHERE 
-        method = 'NFP-BBT'
-        AND checkup_date <> '0000-00-00'
-    AND MONTH(checkup_date) = MONTH(? - INTERVAL 1 MONTH)
-    AND YEAR(checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
+        client_type = 'New Acceptor'
+    GROUP BY 
+        patient_id
+    ) AS fp_info ON fp_consultation.patient_id = fp_info.patient_id
+    WHERE 
+    fp_consultation.method = 'NFP-BBT'
+    AND fp_consultation.checkup_date <> '0000-00-00'
+    AND MONTH(fp_consultation.checkup_date) = MONTH(? - INTERVAL 1 MONTH)
+    AND YEAR(fp_consultation.checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
 
     $nfpbbt_stmt = $conn->prepare($nfpbbtANAPMCount);
     $nfpbbt_stmt->bind_param("ss", $fromDate, $toDate);
@@ -301,19 +474,29 @@ $nfpbbtANAPMCount = "
 
 // ANAPM = Acceptors New Acceptors Previous Month - NFP-CMM QUERY
 $nfpcmmANAPMCount = "
-    SELECT 
-        SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS nfpcmmANAPMCount_10_to_14,
-        SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS nfpcmmANAPMCount_15_to_19,
-        SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS nfpcmmANAPMCount_20_to_49
+    SELECT
+    SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS nfpcmmANAPMCount_10_to_14,
+    SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS nfpcmmANAPMCount_15_to_19,
+    SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS nfpcmmANAPMCount_20_to_49
     FROM 
-        fp_consultation
+    fp_consultation
     INNER JOIN 
-        patients ON fp_consultation.patient_id = patients.id
+    patients ON fp_consultation.patient_id = patients.id
+    INNER JOIN (
+    SELECT 
+        patient_id
+    FROM 
+        fp_information
     WHERE 
-        method = 'NFP-CMM'
-        AND checkup_date <> '0000-00-00'
-    AND MONTH(checkup_date) = MONTH(? - INTERVAL 1 MONTH)
-    AND YEAR(checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
+        client_type = 'New Acceptor'
+    GROUP BY 
+        patient_id
+    ) AS fp_info ON fp_consultation.patient_id = fp_info.patient_id
+    WHERE 
+    fp_consultation.method = 'NFP-CMM'
+    AND fp_consultation.checkup_date <> '0000-00-00'
+    AND MONTH(fp_consultation.checkup_date) = MONTH(? - INTERVAL 1 MONTH)
+    AND YEAR(fp_consultation.checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
 
     $nfpcmm_stmt = $conn->prepare($nfpcmmANAPMCount);
     $nfpcmm_stmt->bind_param("ss", $fromDate, $toDate);
@@ -324,19 +507,29 @@ $nfpcmmANAPMCount = "
 
 // ANAPM = Acceptors New Acceptors Previous Month - NFP-STM QUERY
 $nfpstmANAPMCount = "
-    SELECT 
-        SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS nfpstmANAPMCount_10_to_14,
-        SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS nfpstmANAPMCount_15_to_19,
-        SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS nfpstmANAPMCount_20_to_49
+    SELECT
+    SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS nfpstmANAPMCount_10_to_14,
+    SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS nfpstmANAPMCount_15_to_19,
+    SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS nfpstmANAPMCount_20_to_49
     FROM 
-        fp_consultation
+    fp_consultation
     INNER JOIN 
-        patients ON fp_consultation.patient_id = patients.id
+    patients ON fp_consultation.patient_id = patients.id
+    INNER JOIN (
+    SELECT 
+        patient_id
+    FROM 
+        fp_information
     WHERE 
-        method = 'NFP-STM'
-        AND checkup_date <> '0000-00-00'
-    AND MONTH(checkup_date) = MONTH(? - INTERVAL 1 MONTH)
-    AND YEAR(checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
+        client_type = 'New Acceptor'
+    GROUP BY 
+        patient_id
+    ) AS fp_info ON fp_consultation.patient_id = fp_info.patient_id
+    WHERE 
+    fp_consultation.method = 'NFP-STM'
+    AND fp_consultation.checkup_date <> '0000-00-00'
+    AND MONTH(fp_consultation.checkup_date) = MONTH(? - INTERVAL 1 MONTH)
+    AND YEAR(fp_consultation.checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
 
     $nfpstm_stmt = $conn->prepare($nfpstmANAPMCount);
     $nfpstm_stmt->bind_param("ss", $fromDate, $toDate);
@@ -347,19 +540,29 @@ $nfpstmANAPMCount = "
 
 // ANAPM = Acceptors New Acceptors Previous Month - NFP-SDM QUERY
 $nfpsdmANAPMCount = "
-    SELECT 
-        SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS nfpsdmANAPMCount_10_to_14,
-        SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS nfpsdmANAPMCount_15_to_19,
-        SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS nfpsdmANAPMCount_20_to_49
+    SELECT
+    SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS nfpsdmANAPMCount_10_to_14,
+    SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS nfpsdmANAPMCount_15_to_19,
+    SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS nfpsdmANAPMCount_20_to_49
     FROM 
-        fp_consultation
+    fp_consultation
     INNER JOIN 
-        patients ON fp_consultation.patient_id = patients.id
+    patients ON fp_consultation.patient_id = patients.id
+    INNER JOIN (
+    SELECT 
+        patient_id
+    FROM 
+        fp_information
     WHERE 
-        method = 'NFP-SDM'
-        AND checkup_date <> '0000-00-00'
-    AND MONTH(checkup_date) = MONTH(? - INTERVAL 1 MONTH)
-    AND YEAR(checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
+        client_type = 'New Acceptor'
+    GROUP BY 
+        patient_id
+    ) AS fp_info ON fp_consultation.patient_id = fp_info.patient_id
+    WHERE 
+    fp_consultation.method = 'NFP-SDM'
+    AND fp_consultation.checkup_date <> '0000-00-00'
+    AND MONTH(fp_consultation.checkup_date) = MONTH(? - INTERVAL 1 MONTH)
+    AND YEAR(fp_consultation.checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
 
     $nfpsdm_stmt = $conn->prepare($nfpsdmANAPMCount);
     $nfpsdm_stmt->bind_param("ss", $fromDate, $toDate);
