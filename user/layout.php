@@ -394,7 +394,7 @@ processFormSubmission($conn);
 
 
                             <button type="button" class="btn btn-warning" onclick="clearForm()">Clear Data</button>
-                            <button type="submit" class="btn btn-primary" id="addPatientButton">Register</button>
+                            <button type="submit" class="btn btn-primary" id="addPatientButton" onclick="saveForm()">Register</button>
                         </form>
                     </div>
                 </div>
@@ -415,6 +415,43 @@ processFormSubmission($conn);
     <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
     <!-- Script to clear form entries -->
+
+    <script>
+    function saveForm() {
+        // Collect form data
+        const formData = new FormData(document.getElementById('addPatientForm'));
+        
+        // Convert formData to JSON object
+        const data = {};
+        formData.forEach((value, key) => {
+            data[key] = value;
+        });
+
+        // Make AJAX call to save data and send SMS
+        fetch('/save-and-send-sms', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Data saved and SMS sent successfully!');
+            } else {
+                alert('There was an error: ' + data.message);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+</script>
+
+
+
+
+
+
 <script>
     function clearForm() {
     
