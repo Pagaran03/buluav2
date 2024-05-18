@@ -34,7 +34,6 @@ $vaginal_discharge = htmlspecialchars($_POST['vaginal_discharge']);
 $phenobarbital_rifampicin = htmlspecialchars($_POST['phenobarbital_rifampicin']);
 $smoker = htmlspecialchars($_POST['smoker']);
 $with_disability = htmlspecialchars($_POST['with_disability']);
-
 $jaundice = htmlspecialchars($_POST['jaundice']);
 // Get data from input fields
 $no_of_children = htmlspecialchars($_POST['no_of_children']);
@@ -84,11 +83,52 @@ if ($stmt_patient_id->execute()) {
         // Now you have the patient_id
         $stmt_patient_id->close();
 
+        // Function to find the next available date with less than 30 patients
+        function getNextAvailableDate($conn, $start_date) {
+            $current_date = $start_date;
+            $max_patients_per_day = 30;
+        
+            // Helper function to check if the date is a weekend
+            function isWeekend($date) {
+                $weekday = date('N', strtotime($date)); // 'N' returns 1 for Monday, 7 for Sunday
+                return ($weekday >= 6); // 6 for Saturday and 7 for Sunday
+            }
+        
+            // If the start date is a weekend, move to the next Monday
+            if (isWeekend($current_date)) {
+                $current_date = date('Y-m-d', strtotime('next Monday', strtotime($current_date)));
+            }
+            while (true) {
+                // Check if the current date has less than 30 patients
+                $sql_check_date = "SELECT COUNT(*) FROM fp_information WHERE checkup_date = ?";
+                $stmt_check_date = $conn->prepare($sql_check_date);
+                $stmt_check_date->bind_param("s", $current_date);
+                $stmt_check_date->execute();
+                $stmt_check_date->bind_result($patient_count);
+                $stmt_check_date->fetch();
+                $stmt_check_date->close();
+        
+                if ($patient_count < $max_patients_per_day) {
+                    return $current_date;
+                }
+        
+                // Move to the next weekday (skipping weekends)
+                $current_date = date('Y-m-d', strtotime($current_date . ' +1 day'));
+                if (isWeekend($current_date)) {
+                    $current_date = date('Y-m-d', strtotime('next Monday', strtotime($current_date)));
+                }
+            }
+        }
+        
+
+        // Get the next available date starting from today
+        $scheduled_date = getNextAvailableDate($conn, $date);
+
         // Prepare and execute the SQL statement to insert into fp_information
         $sql1 = "INSERT INTO fp_information (patient_id, nurse_id, method, serial, checkup_date, doctor_id, no_of_children, income, plan_to_have_more_children, client_type, reason_for_fp)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt1 = $conn->prepare($sql1);
-        $stmt1->bind_param("sssssssssss", $patient_id, $nurse_id, $method, $serial, $date, $doctor_id, $no_of_children, $income, $plan_to_have_more_children, $client_type, $reason_for_fp);
+        $stmt1->bind_param("sssssssssss", $patient_id, $nurse_id, $method, $serial, $scheduled_date, $doctor_id, $no_of_children, $income, $plan_to_have_more_children, $client_type, $reason_for_fp);
 
         // Execute the SQL statement to insert into fp_information
         if ($stmt1->execute()) {
@@ -97,7 +137,7 @@ if ($stmt_patient_id->execute()) {
             $sql7 = "INSERT INTO fp_consultation (fp_information_id,patient_id,nurse_id,checkup_date,status,steps)
     VALUES (?,?,?,?,?,?)";
             $stmt7 = $conn->prepare($sql7);
-            $stmt7->bind_param("dsssss", $last_inserted_id, $patient_id, $nurse_id, $date, $status, $steps);
+            $stmt7->bind_param("dsssss", $last_inserted_id, $patient_id, $nurse_id, $scheduled_date, $status, $steps);
             $stmt7->execute();
 
             // Prepare and execute the SQL statement to insert into fp_medical_history with the foreign key

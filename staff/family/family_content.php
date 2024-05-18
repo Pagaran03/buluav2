@@ -891,7 +891,7 @@ if ($result === false) {
                             <th>Serial No</th>
                             <th>Patient Name</th>
                             <th>Date Of Last Delivery</th>
-                            <th>Check up Today</th>
+                            <th>Check up Date</th>
                             <th>Status</th>
                             <th>Progress</th>
                             <th>Action</th>

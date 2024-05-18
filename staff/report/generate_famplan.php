@@ -1,4 +1,5 @@
 <?php
+session_start();
 require '../../vendor/autoload.php';
 include_once('../../config.php');
 
@@ -21,31 +22,12 @@ $currentYear = $fromDateTime->format('Y');
 $fromDate = mysqli_real_escape_string($conn, $fromDate);
 $toDate = mysqli_real_escape_string($conn, $toDate);
 
-// Build the SQL query using the passed dates
-$sql = "SELECT fp_consultation.method, COUNT(*) AS service_count
-FROM fp_consultation
-INNER JOIN patients ON fp_consultation.patient_id = patients.id
-WHERE fp_consultation.checkup_date BETWEEN '$fromDate' AND '$toDate'
-GROUP BY fp_consultation.method";
-
-$result = $conn->query($sql);
-
-$methods = [];
-
-if ($result->num_rows > 0){
-    while($row = $result->fetch_assoc()){
-        $methods[$row['method']] = $row['service_count'];
-    }
-}else{
-    return 0;
-}
-
+include("report_queries/famplan_report_queries.php");
 $conn->close();
 
 $pdf = new Dompdf();
 
 $pdf->setPaper('A2', 'landscape');
-
 
 $evenRow = false;
 
@@ -270,10 +252,10 @@ $htmlContent = '<html lang="en">
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>'.$btlANAPMCount_count10to14.'</td>
+            <td>'.$btlANAPMCount_count15to19.'</td>
+            <td>'.$btlANAPMCount_count20to49.'</td>
+            <td>'.$btlANAPMCount_countTotal.'</td>
             <td></td>
             <td></td>
             <td></td>
@@ -302,10 +284,10 @@ $htmlContent = '<html lang="en">
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>'.$nsvANAPMCount_count10to14.'</td>
+            <td>'.$nsvANAPMCount_count15to19.'</td>
+            <td>'.$nsvANAPMCount_count20to49.'</td>
+            <td>'.$nsvANAPMCount_countTotal.'</td>
             <td></td>
             <td></td>
             <td></td>
@@ -334,10 +316,10 @@ $htmlContent = '<html lang="en">
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>'.$condomANAPMCount_count10to14.'</td>
+            <td>'.$condomANAPMCount_count15to19.'</td>
+            <td>'.$condomANAPMCount_count20to49.'</td>
+            <td>'.$condomANAPMCount_countTotal.'</td>
             <td></td>
             <td></td>
             <td></td>
@@ -366,10 +348,10 @@ $htmlContent = '<html lang="en">
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>'.$pillsANAPMCount_count10to14.'</td>
+            <td>'.$pillsANAPMCount_count15to19.'</td>
+            <td>'.$pillsANAPMCount_count20to49.'</td>
+            <td>'.$pillsANAPMCount_counTotal.'</td>
             <td></td>
             <td></td>
             <td></td>
@@ -398,10 +380,10 @@ $htmlContent = '<html lang="en">
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>'.$pillspopANAPMCount_count10to14.'</td>
+            <td>'.$pillspopANAPMCount_count15to19.'</td>
+            <td>'.$pillspopANAPMCount_count20to49.'</td>
+            <td>'.$pillspopANAPMCount_counTotal.'</td>
             <td></td>
             <td></td>
             <td></td>
@@ -430,10 +412,10 @@ $htmlContent = '<html lang="en">
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>'.$pillscocANAPMCount_count10to14.'</td>
+            <td>'.$pillscocANAPMCount_count15to19.'</td>
+            <td>'.$pillscocANAPMCount_count20to49.'</td>
+            <td>'.$pillscocANAPMCount_counTotal.'</td>
             <td></td>
             <td></td>
             <td></td>
@@ -462,10 +444,10 @@ $htmlContent = '<html lang="en">
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>'.$injectablesANAPMCount_count10to14.'</td>
+            <td>'.$injectablesANAPMCount_count15to19.'</td>
+            <td>'.$injectablesANAPMCount_count20to49.'</td>
+            <td>'.$injectablesANAPMCount_countTotal.'</td>
             <td></td>
             <td></td>
             <td></td>
@@ -494,10 +476,10 @@ $htmlContent = '<html lang="en">
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>'.$implantANAPMCount_count10to14.'</td>
+            <td>'.$implantANAPMCount_count15to19.'</td>
+            <td>'.$implantANAPMCount_count20to49.'</td>
+            <td>'.$implantANAPMCount_countTotal.'</td>
             <td></td>
             <td></td>
             <td></td>
@@ -527,10 +509,10 @@ $htmlContent = '<html lang="en">
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>'.$iudANAPMCount_count10to14.'</td>
+            <td>'.$iudANAPMCount_count15to19.'</td>
+            <td>'.$iudANAPMCount_count20to49.'</td>
+            <td>'.$iudANAPMCount_countTotal.'</td>
             <td></td>
             <td></td>
             <td></td>
@@ -559,10 +541,10 @@ $htmlContent = '<html lang="en">
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>'.$iudI_ANAPMCount_count10to14.'</td>
+            <td>'.$iudI_ANAPMCount_count15to19.'</td>
+            <td>'.$iudI_ANAPMCount_count20to49.'</td>
+            <td>'.$iudI_ANAPMCount_countTotal.'</td>
             <td></td>
             <td></td>
             <td></td>
@@ -591,10 +573,10 @@ $htmlContent = '<html lang="en">
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>'.$iudPP_ANAPMCount_count10to14.'</td>
+            <td>'.$iudPP_ANAPMCount_count15to19.'</td>
+            <td>'.$iudPP_ANAPMCount_count20to49.'</td>
+            <td>'.$iudPP_ANAPMCount_countTotal.'</td>
             <td></td>
             <td></td>
             <td></td>
@@ -624,10 +606,10 @@ $htmlContent = '<html lang="en">
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>'.$nfplamANAPMCount_count10to14.'</td>
+            <td>'.$nfplamANAPMCount_count15to19.'</td>
+            <td>'.$nfplamANAPMCount_count20to49.'</td>
+            <td>'.$nfplamANAPMCount_countTotal.'</td>
             <td></td>
             <td></td>
             <td></td>
@@ -653,15 +635,15 @@ $htmlContent = '<html lang="en">
 
 
         <tr>
-            <td colspan="5"> i. NFP-BBT - Total<< /td>
+            <td colspan="5"> i. NFP-BBT - Total</td>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>'.$nfpbbtANAPMCount_count10to14.'</td>
+            <td>'.$nfpbbtANAPMCount_count15to19.'</td>
+            <td>'.$nfpbbtANAPMCount_count20to49.'</td>
+            <td>'.$nfpbbtANAPMCount_countTotal.'</td>
             <td></td>
             <td></td>
             <td></td>
@@ -693,10 +675,10 @@ $htmlContent = '<html lang="en">
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>'.$nfpcmmANAPMCount_count10to14.'</td>
+            <td>'.$nfpcmmANAPMCount_count15to19.'</td>
+            <td>'.$nfpcmmANAPMCount_count20to49.'</td>
+            <td>'.$nfpcmmANAPMCount_countTotal.'</td>
             <td></td>
             <td></td>
             <td></td>
@@ -726,6 +708,10 @@ $htmlContent = '<html lang="en">
             <td></td>
             <td></td>
             <td></td>
+            <td>'.$nfpstmANAPMCount_count10to14.'</td>
+            <td>'.$nfpstmANAPMCount_count15to19.'</td>
+            <td>'.$nfpstmANAPMCount_count20to49.'</td>
+            <td>'.$nfpstmANAPMCount_countTotal.'</td>
             <td></td>
             <td></td>
             <td></td>
@@ -746,11 +732,6 @@ $htmlContent = '<html lang="en">
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-
         </tr>
 
         <tr>
@@ -759,10 +740,10 @@ $htmlContent = '<html lang="en">
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>'.$nfpsdmANAPMCount_count10to14.'</td>
+            <td>'.$nfpsdmANAPMCount_count15to19.'</td>
+            <td>'.$nfpsdmANAPMCount_count20to49.'</td>
+            <td>'.$nfpsdmANAPMCount_countTotal.'</td>
             <td></td>
             <td></td>
             <td></td>

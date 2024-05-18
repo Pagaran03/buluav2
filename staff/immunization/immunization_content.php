@@ -143,8 +143,8 @@ if ($result === false) {
                                     patientInput.addEventListener('input', function () {
                                         const selectedOption = document.querySelector('datalist#patients option[value="' + this.value + '"]');
                                         if (selectedOption) {
-                                            this.value = selectedOption.innerText; // Update the input text
-                                            patient_id = selectedOption.value; // Set patient_id to the value of the selected option (serial_no)
+                                            this.value = selectedOption.innerText;
+                                            patient_id = selectedOption.value;
                                             $('#serial_no2').val(patient_id);
                                         }
                                     });
@@ -211,10 +211,6 @@ if ($result === false) {
 
                             </div>
                         </div>
-
-
-
-
 
                     </form>
                 </div>
