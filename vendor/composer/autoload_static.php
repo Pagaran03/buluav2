@@ -7,14 +7,14 @@ namespace Composer\Autoload;
 class ComposerStaticInitcf67d5c2110942c5f39b75748bb2b116
 {
     public static $prefixLengthsPsr4 = array (
+        'T' => 
+        array (
+            'Twilio\\' => 7,
+        ),
         'S' => 
         array (
             'Svg\\' => 4,
             'Sabberworm\\CSS\\' => 15,
-        ),
-        'P' => 
-        array (
-            'PHPMailer\\PHPMailer\\' => 20,
         ),
         'M' => 
         array (
@@ -31,6 +31,10 @@ class ComposerStaticInitcf67d5c2110942c5f39b75748bb2b116
     );
 
     public static $prefixDirsPsr4 = array (
+        'Twilio\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/twilio/sdk/src/Twilio',
+        ),
         'Svg\\' => 
         array (
             0 => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg',
@@ -38,10 +42,6 @@ class ComposerStaticInitcf67d5c2110942c5f39b75748bb2b116
         'Sabberworm\\CSS\\' => 
         array (
             0 => __DIR__ . '/..' . '/sabberworm/php-css-parser/src',
-        ),
-        'PHPMailer\\PHPMailer\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
         'Masterminds\\' => 
         array (
