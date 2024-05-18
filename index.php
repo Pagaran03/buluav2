@@ -85,7 +85,7 @@ include ("action/redirect.php");
             </div>
           </div>
         </div>
-        <button type="submit" name="submit">LOGIN</button><br><br>
+        <button type="submit" name="submit" class="btn btn-primary">LOGIN</button><br><br>
         <b>Forgot your Password?</b>
         <span style="margin-left: 10px;"></span>
 
