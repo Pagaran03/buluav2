@@ -400,8 +400,33 @@ processFormSubmission($conn);
                                     </div>
                                 </div>
                             </div>
-
+                            
                             <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="address">Address</label>
+                                    <select class="form-control" id="address" name="address" required>
+                                        <option value="" disabled selected>Select your address</option>
+                                        <option value="Zone 1, Bulua, Cagayan de Oro">Zone 1, Bulua, Cagayan de Oro, Misamis Oriental</option>
+                                        <option value="Zone 2, Bulua, Cagayan de Oro">Zone 2, Bulua, Cagayan de Oro, Misamis Oriental</option>
+                                        <option value="Zone 3, Bulua, Cagayan de Oro">Zone 3, Bulua, Cagayan de Oro, Misamis Oriental</option>
+                                        <option value="Zone 4, Bulua, Cagayan de Oro">Zone 4, Bulua, Cagayan de Oro, Misamis Oriental</option>
+                                        <option value="Zone 5, Bulua, Cagayan de Oro">Zone 5, Bulua, Cagayan de Oro, Misamis Oriental</option>
+                                        <option value="Zone 6, Bulua, Cagayan de Oro">Zone 6, Bulua, Cagayan de Oro, Misamis Oriental</option>
+                                        <option value="Zone 7, Bulua, Cagayan de Oro">Zone 7, Bulua, Cagayan de Oro, Misamis Oriental</option>
+                                        <option value="Zone 8, Bulua, Cagayan de Oro">Zone 8, Bulua, Cagayan de Oro, Misamis Oriental</option>
+                                        <option value="Zone 9, Bulua, Cagayan de Oro">Zone 9, Bulua, Cagayan de Oro, Misamis Oriental</option>
+                                        <option value="Zone 10, Bulua, Cagayan de Oro">Zone 10, Bulua, Cagayan de Oro, Misamis Oriental</option>
+                                        <option value="Zone 11, Bulua, Cagayan de Oro">Zone 11, Bulua, Cagayan de Oro, Misamis Oriental</option>
+                                        <option value="Zone 12, Bulua, Cagayan de Oro">Zone 12, Bulua, Cagayan de Oro, Misamis Oriental</option>
+                                        <option value="Zone 13, Bulua, Cagayan de Oro">Zone 13, Bulua, Cagayan de Oro, Misamis Oriental</option>
+                                        <!-- Add more address options as needed -->
+                                    </select>
+                                    <div id="address_error" class="error"></div>
+                                </div>
+                            </div>
+                        </div>
+                            <!-- <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="address">Address</label>
@@ -409,7 +434,7 @@ processFormSubmission($conn);
                                         <div id="address_error" class="error"></div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
 
                             <button type="button" class="btn btn-warning" onclick="clearForm()">Clear Data</button>
