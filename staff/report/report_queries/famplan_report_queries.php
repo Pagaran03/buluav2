@@ -619,9 +619,11 @@ SELECT
 
     SUM(CASE WHEN fp_consultation.method = 'NFP-STM' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS nfpstmOAPMCount_10_to_14,
     SUM(CASE WHEN fp_consultation.method = 'NFP-STM' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS nfpstmOAPMCount_15_to_19,
-    SUM(CASE WHEN fp_consultation.method = 'NFP-STM' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS nfpstmOAPMCount_20_to_49
+    SUM(CASE WHEN fp_consultation.method = 'NFP-STM' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS nfpstmOAPMCount_20_to_49,
 
-
+    SUM(CASE WHEN fp_consultation.method = 'NFP-SDM' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS nfpsdmOAPMCount_10_to_14,
+    SUM(CASE WHEN fp_consultation.method = 'NFP-SDM' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS nfpsdmOAPMCount_15_to_19,
+    SUM(CASE WHEN fp_consultation.method = 'NFP-SDM' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS nfpsdmOAPMCount_20_to_49
 
 FROM 
     fp_consultation
@@ -654,6 +656,7 @@ try {
         $nfpbbtOAPMCount_count10to14, $nfpbbtOAPMCount_count15to19, $nfpbbtOAPMCount_count20to49,
         $nfpcmmOAPMCount_count10to14, $nfpcmmOAPMCount_count15to19, $nfpcmmOAPMCount_count20to49,
         $nfpstmOAPMCount_count10to14, $nfpstmOAPMCount_count15to19, $nfpstmOAPMCount_count20to49,
+        $nfpsdmOAPMCount_count10to14, $nfpsdmOAPMCount_count15to19, $nfpsdmOAPMCount_count20to49,
     );
     $combinedOAPM_stmt->fetch();
     $combinedOAPM_stmt->close();
@@ -677,10 +680,37 @@ $nfplamOAPMCount_totalCount = $nfplamOAPMCount_count10to14 + $nfplamOAPMCount_co
 $nfpbbtOAPMCount_totalCount = $nfpbbtOAPMCount_count10to14 + $nfpbbtOAPMCount_count15to19 + $nfpbbtOAPMCount_count20to49;
 $nfpcmmOAPMCount_totalCount = $nfpcmmOAPMCount_count10to14 + $nfpcmmOAPMCount_count15to19 + $nfpcmmOAPMCount_count20to49;
 $nfpstmOAPMCount_totalCount = $nfpstmOAPMCount_count10to14 + $nfpstmOAPMCount_count15to19 + $nfpstmOAPMCount_count20to49;
+$nfpsdmOAPMCount_totalCount = $nfpsdmOAPMCount_count10to14 + $nfpsdmOAPMCount_count15to19 + $nfpsdmOAPMCount_count20to49;
 
 
+// DOPM - Drop Out Present Month
+// SHERD AWATA LANG NI SHERD I COPY ANG KANANG GIKAN LANG SA SUM KANANG SA 10 TO 49,
+$combinedDOPMCount = "
+SELECT SUM(CASE WHEN fp_consultation.method = 'BTL' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS btlOAPMCount_10_to_14,
+SUM(CASE WHEN fp_consultation.method = 'BTL' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS btlOAPMCount_15_to_19,
+SUM(CASE WHEN fp_consultation.method = 'BTL' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS btlOAPMCount_20_to_49,
 
+FROM 
+fp_consultation
+INNER JOIN 
+patients ON fp_consultation.patient_id = patients.id
+INNER JOIN 
+fp_information ON fp_information.patient_id = patients.id
+WHERE 
+fp_information.client_type = 'DropoutRestart'
+AND fp_consultation.checkup_date <> '0000-00-00'
+AND fp_consultation.checkup_date BETWEEN ? AND ?";
 
-
-
+// TAPOS DIRI FOLLOW LANG SA AKONG NAMING CONVENTION SHERD, LIKE nsvDOPM, DOPM meaning ana Drop Out Present Month
+// AND THEN AYAW PUD KALIMOT SA TOTAL2X TAN AWA LANG ANG SA IBABAW GAW
+try{
+    $combinedDOPM_stmt = $conn->prepare($combinedDOPMCount);
+    $combinedDOPM_stmt->bind_param("ss", $fromDate, $toDate);
+    $combinedDOPM_stmt->execute();
+    $combinedDOPM_stmt->bind_result(
+        $btlDOPMCount_count10to14, $btlDOPMCount_count15to19, $btlDOPMCount_count20to49,
+    );
+}catch(Exception $e){
+    echo "Error: " . $e->getMessage();
+}
 ?>

@@ -260,10 +260,10 @@ $htmlContent = '<html lang="en">
             <td>'.$btlOAPMCount_count15to19.'</td>
             <td>'.$btlOAPMCount_count20to49.'</td>
             <td>'.$btlOAPMCount_totalCount.'</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>'.$btlDOPMCount_count10to14.'</td>
+            <td>'.$btlDOPMCount_count15to19.'</td>
+            <td>'.$btlDOPMCount_count20to49.'</td>
+            <td>'.$btlDOPMCount_totalCount.'</td>
             <td></td>
             <td></td>
             <td></td>
@@ -744,10 +744,10 @@ $htmlContent = '<html lang="en">
             <td>'.$nfpsdmANAPMCount_count15to19.'</td>
             <td>'.$nfpsdmANAPMCount_count20to49.'</td>
             <td>'.$nfpsdmANAPMCount_countTotal.'</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>'.$nfpsdmOAPMCount_count10to14.'</td>
+            <td>'.$nfpsdmOAPMCount_count15to19.'</td>
+            <td>'.$nfpsdmOAPMCount_count20to49.'</td>
+            <td>'.$nfpsdmOAPMCount_totalCount.'</td>
             <td></td>
             <td></td>
             <td></td>
