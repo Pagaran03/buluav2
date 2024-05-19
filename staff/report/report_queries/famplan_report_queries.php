@@ -559,53 +559,128 @@ $nfpsdmANAPMCount_countTotal = $nfpsdmANAPMCount_count10to14 + $nfpsdmANAPMCount
 
 //OAPM = Other Acceptor Present Month
 
-//OAPM - BTL
-$btlOAPMCount = "
-SELECT SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS btlOAPMCount_10_to_14,
-SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS btlOAPMCount_15_to_19,
-SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS btlOAPMCount_20_to_49
-FROM fp_consultation
-INNER JOIN patients ON fp_consultation.patient_id = patients.id
-WHERE method = 'BTL'
-AND checkup_date <> '0000-00-00'
-AND checkup_date BETWEEN ? AND ?";
+$combinedOAPMCount = "
+SELECT 
+    SUM(CASE WHEN fp_consultation.method = 'BTL' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS btlOAPMCount_10_to_14,
+    SUM(CASE WHEN fp_consultation.method = 'BTL' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS btlOAPMCount_15_to_19,
+    SUM(CASE WHEN fp_consultation.method = 'BTL' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS btlOAPMCount_20_to_49,
+    
+    SUM(CASE WHEN fp_consultation.method = 'NSV' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS nsvOAPMCount_10_to_14,
+    SUM(CASE WHEN fp_consultation.method = 'NSV' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS nsvOAPMCount_15_to_19,
+    SUM(CASE WHEN fp_consultation.method = 'NSV' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS nsvOAPMCount_20_to_49,
+    
+    SUM(CASE WHEN fp_consultation.method = 'Condom' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS condomOAPMCount_10_to_14,
+    SUM(CASE WHEN fp_consultation.method = 'Condom' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS condomOAPMCount_15_to_19,
+    SUM(CASE WHEN fp_consultation.method = 'Condom' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS condomOAPMCount_20_to_49,
+
+    SUM(CASE WHEN fp_consultation.method = 'Pills' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS pillsOAPMCount_10_to_14,
+    SUM(CASE WHEN fp_consultation.method = 'Pills' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS pillsOAPMCount_15_to_19,
+    SUM(CASE WHEN fp_consultation.method = 'Pills' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS pillsOAPMCount_20_to_49,
+
+    SUM(CASE WHEN fp_consultation.method = 'Pills-POP' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS pillspopOAPMCount_10_to_14,
+    SUM(CASE WHEN fp_consultation.method = 'Pills-POP' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS pillspopOAPMCount_15_to_19,
+    SUM(CASE WHEN fp_consultation.method = 'Pills-POP' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS pillspopOAPMCount_20_to_49,
+
+    SUM(CASE WHEN fp_consultation.method = 'Pills-COC' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS pillscocOAPMCount_10_to_14,
+    SUM(CASE WHEN fp_consultation.method = 'Pills-COC' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS pillscocOAPMCount_15_to_19,
+    SUM(CASE WHEN fp_consultation.method = 'Pills-COC' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS pillscocOAPMCount_20_to_49,
+
+    SUM(CASE WHEN fp_consultation.method = 'Injectables (DMPA/POI)' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS injectablesOAPMCount_10_to_14,
+    SUM(CASE WHEN fp_consultation.method = 'Injectables (DMPA/POI)' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS injectablesOAPMCount_15_to_19,
+    SUM(CASE WHEN fp_consultation.method = 'Injectables (DMPA/POI)' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS injectablesOAPMCount_20_to_49,
+
+    SUM(CASE WHEN fp_consultation.method = 'Implant' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS implantOAPMCount_10_to_14,
+    SUM(CASE WHEN fp_consultation.method = 'Implant' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS implantOAPMCount_15_to_19,
+    SUM(CASE WHEN fp_consultation.method = 'Implant' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS implantOAPMCount_20_to_49,
+    
+    SUM(CASE WHEN fp_consultation.method = 'IUD' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS iudOAPMCount_10_to_14,
+    SUM(CASE WHEN fp_consultation.method = 'IUD' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS iudOAPMCount_15_to_19,
+    SUM(CASE WHEN fp_consultation.method = 'IUD' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS iudOAPMCount_20_to_49,
+
+    SUM(CASE WHEN fp_consultation.method = 'IUD-I' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS iudiOAPMCount_10_to_14,
+    SUM(CASE WHEN fp_consultation.method = 'IUD-I' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS iudiOAPMCount_15_to_19,
+    SUM(CASE WHEN fp_consultation.method = 'IUD-I' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS iudiOAPMCount_20_to_49,
+
+    SUM(CASE WHEN fp_consultation.method = 'IUD-PP' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS iudppOAPMCount_10_to_14,
+    SUM(CASE WHEN fp_consultation.method = 'IUD-PP' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS iudppOAPMCount_15_to_19,
+    SUM(CASE WHEN fp_consultation.method = 'IUD-PP' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS iudppOAPMCount_20_to_49,
+
+    SUM(CASE WHEN fp_consultation.method = 'NFP-LAM' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS nfplamOAPMCount_10_to_14,
+    SUM(CASE WHEN fp_consultation.method = 'NFP-LAM' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS nfplamOAPMCount_15_to_19,
+    SUM(CASE WHEN fp_consultation.method = 'NFP-LAM' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS nfplamOAPMCount_20_to_49,
+
+    SUM(CASE WHEN fp_consultation.method = 'NFP-BBT' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS nfpbbtOAPMCount_10_to_14,
+    SUM(CASE WHEN fp_consultation.method = 'NFP-BBT' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS nfpbbtOAPMCount_15_to_19,
+    SUM(CASE WHEN fp_consultation.method = 'NFP-BBT' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS nfpbbtOAPMCount_20_to_49,
+
+    SUM(CASE WHEN fp_consultation.method = 'NFP-CMM' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS nfpcmmOAPMCount_10_to_14,
+    SUM(CASE WHEN fp_consultation.method = 'NFP-CMM' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS nfpcmmOAPMCount_15_to_19,
+    SUM(CASE WHEN fp_consultation.method = 'NFP-CMM' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS nfpcmmOAPMCount_20_to_49,
+
+    SUM(CASE WHEN fp_consultation.method = 'NFP-STM' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS nfpstmOAPMCount_10_to_14,
+    SUM(CASE WHEN fp_consultation.method = 'NFP-STM' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS nfpstmOAPMCount_15_to_19,
+    SUM(CASE WHEN fp_consultation.method = 'NFP-STM' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS nfpstmOAPMCount_20_to_49
+
+
+
+FROM 
+    fp_consultation
+INNER JOIN 
+    patients ON fp_consultation.patient_id = patients.id
+INNER JOIN 
+    fp_information ON fp_information.patient_id = patients.id
+WHERE 
+    fp_information.client_type = 'ChangingMethod'
+    AND fp_consultation.checkup_date <> '0000-00-00'
+    AND fp_consultation.checkup_date BETWEEN ? AND ?";
 
 try {
-    $btlOAPM_stmt = $conn->prepare($btlOAPMCount);
-    $btlOAPM_stmt->bind_param("ss", $fromDate, $toDate);
-    $btlOAPM_stmt->execute();
-    $btlOAPM_stmt->bind_result($btlOAPMCount_count10to14, $btlOAPMCount_count15to19, $btlOAPMCount_count20to49);
-    $btlOAPM_stmt->fetch();
-    $btlOAPM_stmt->close();
+    $combinedOAPM_stmt = $conn->prepare($combinedOAPMCount);
+    $combinedOAPM_stmt->bind_param("ss", $fromDate, $toDate);
+    $combinedOAPM_stmt->execute();
+    $combinedOAPM_stmt->bind_result(
+        $btlOAPMCount_count10to14, $btlOAPMCount_count15to19, $btlOAPMCount_count20to49,
+        $nsvOAPMCount_count10to14, $nsvOAPMCount_count15to19, $nsvOAPMCount_count20to49,
+        $condomOAPMCount_count10to14, $condomOAPMCount_count15to19, $condomOAPMCount_count20to49,
+        $pillsOAPMCount_count10to14, $pillsOAPMCount_count15to19, $pillsOAPMCount_count20to49,
+        $pillspopOAPMCount_count10to14, $pillspopOAPMCount_count15to19, $pillspopOAPMCount_count20to49,
+        $pillscocOAPMCount_count10to14, $pillscocOAPMCount_count15to19, $pillscocOAPMCount_count20to49,
+        $injectablesOAPMCount_count10to14, $injectablesOAPMCount_count15to19, $injectablesOAPMCount_count20to49,
+        $implantOAPMCount_count10to14, $implantOAPMCount_count15to19, $implantOAPMCount_count20to49,
+        $iudOAPMCount_count10to14, $iudOAPMCount_count15to19, $iudOAPMCount_count20to49,
+        $iudiOAPMCount_count10to14, $iudiOAPMCount_count15to19, $iudiOAPMCount_count20to49,
+        $iudppOAPMCount_count10to14, $iudppOAPMCount_count15to19, $iudppOAPMCount_count20to49,
+        $nfplamOAPMCount_count10to14, $nfplamOAPMCount_count15to19, $nfplamOAPMCount_count20to49,
+        $nfpbbtOAPMCount_count10to14, $nfpbbtOAPMCount_count15to19, $nfpbbtOAPMCount_count20to49,
+        $nfpcmmOAPMCount_count10to14, $nfpcmmOAPMCount_count15to19, $nfpcmmOAPMCount_count20to49,
+        $nfpstmOAPMCount_count10to14, $nfpstmOAPMCount_count15to19, $nfpstmOAPMCount_count20to49,
+    );
+    $combinedOAPM_stmt->fetch();
+    $combinedOAPM_stmt->close();
 } catch (Exception $e) {
     echo "Error: " . $e->getMessage();
 }
-
-//OAPM - NSV
-$nsvOAPMCount = "
-SELECT SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END) AS nsvOAPMCount_10_to_14,
-SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END) AS nsvOAPMCount_15_to_19,
-SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END) AS nsvOAPMCount_20_to_49
-FROM fp_consultation
-INNER JOIN patients ON fp_consultation.patient_id = patients.id
-WHERE method = 'NSV'
-AND checkup_date <> '0000-00-00'
-AND checkup_date BETWEEN ? AND ?";
-
-try {
-    $nsvOAPM_stmt = $conn->prepare($nsvOAPMCount);
-    $nsvOAPM_stmt->bind_param("ss", $fromDate, $toDate);
-    $nsvOAPM_stmt->execute();
-    $nsvOAPM_stmt->bind_result($nsvOAPMCount_count10to14, $nsvOAPMCount_count15to19, $nsvOAPMCount_count20to49);
-    $nsvOAPM_stmt->fetch();
-    $nsvOAPM_stmt->close();
-} catch (Exception $e) {
-    echo "Error: " . $e->getMessage();
-}
-
-
 
 
 $btlOAPMCount_totalCount = $btlOAPMCount_count10to14 + $btlOAPMCount_count15to19 + $btlOAPMCount_count20to49;
 $nsvOAPMCount_totalCount = $nsvOAPMCount_count10to14 + $nsvOAPMCount_count15to19 + $nsvOAPMCount_count20to49;
+$condomOAPMCount_totalCount = $condomOAPMCount_count10to14 + $condomOAPMCount_count15to19 + $condomOAPMCount_count20to49;
+$pillsOAPMCount_totalCount = $pillsOAPMCount_count10to14 + $pillsOAPMCount_count15to19 + $pillsOAPMCount_count20to49;
+$pillspopOAPMCount_totalCount =  $pillspopOAPMCount_count10to14 + $pillspopOAPMCount_count15to19 + $pillspopOAPMCount_count20to49;
+$pillscocOAPMCount_totalCount =  $pillscocOAPMCount_count10to14 + $pillscocOAPMCount_count15to19 + $pillscocOAPMCount_count20to49;
+$injectablesOAPMCount_totalCount = $injectablesOAPMCount_count10to14 + $injectablesOAPMCount_count15to19 + $injectablesOAPMCount_count20to49;
+$implantOAPMCount_totalCount = $implantOAPMCount_count10to14 + $implantOAPMCount_count15to19 + $implantOAPMCount_count20to49;
+$iudOAPMCount_totalCount = $iudOAPMCount_count10to14 + $iudOAPMCount_count15to19 + $iudOAPMCount_count20to49;
+$iudiOAPMCount_totalCount = $iudiOAPMCount_count10to14 + $iudiOAPMCount_count15to19 + $iudiOAPMCount_count20to49;
+$iudppOAPMCount_totalCount = $iudppOAPMCount_count10to14 + $iudppOAPMCount_count15to19 + $iudppOAPMCount_count20to49;
+$nfplamOAPMCount_totalCount = $nfplamOAPMCount_count10to14 + $nfplamOAPMCount_count15to19 + $nfplamOAPMCount_count20to49;
+$nfpbbtOAPMCount_totalCount = $nfpbbtOAPMCount_count10to14 + $nfpbbtOAPMCount_count15to19 + $nfpbbtOAPMCount_count20to49;
+$nfpcmmOAPMCount_totalCount = $nfpcmmOAPMCount_count10to14 + $nfpcmmOAPMCount_count15to19 + $nfpcmmOAPMCount_count20to49;
+$nfpstmOAPMCount_totalCount = $nfpstmOAPMCount_count10to14 + $nfpstmOAPMCount_count15to19 + $nfpstmOAPMCount_count20to49;
+
+
+
+
+
+
 ?>
