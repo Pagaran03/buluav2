@@ -855,4 +855,22 @@ try {
 } catch (Exception $e) {
     echo "Error: " . $e->getMessage();
 }
+
+$btlDOPMCount_totalCount = $btlDOPMCount_count10to14 + $btlDOPMCount_count15to19 + $btlDOPMCount_count20to49;
+$nsvDOPMCount_totalCount = $nsvDOPMCount_count10to14 + $nsvDOPMCount_count15to19 + $nsvDOPMCount_count20to49;
+$condomDOPMCount_totalCount = $condomDOPMCount_count10to14 + $condomDOPMCount_count15to19 + $condomDOPMCount_count20to49;
+$pillsDOPMCount_totalCount = $pillsDOPMCount_count10to14 + $pillsDOPMCount_count15to19 + $pillsDOPMCount_count20to49;
+$pillspopDOPMCount_totalCount =  $pillspopDOPMCount_count10to14 + $pillspopDOPMCount_count15to19 + $pillspopDOPMCount_count20to49;
+$pillscocDOPMCount_totalCount =  $pillscocDOPMCount_count10to14 + $pillscocDOPMCount_count15to19 + $pillscocDOPMCount_count20to49;
+$injectablesDOPMCount_totalCount = $injectablesDOPMCount_count10to14 + $injectablesDOPMCount_count15to19 + $injectablesDOPMCount_count20to49;
+$implantDOPMCount_totalCount = $implantDOPMCount_count10to14 + $implantDOPMCount_count15to19 + $implantDoPMCount_count20to49;
+$iudDOPMCount_totalCount = $iudDOPMCount_count10to14 + $iudDOPMCount_count15to19 + $iudDOPMCount_count20to49;
+$iudiDOPMCount_totalCount = $iudiDOPMCount_count10to14 + $iudiDOPMCount_count15to19 + $iudiDOPMCount_count20to49;
+$iudppDOPMCount_totalCount = $iudppDOPMCount_count10to14 + $iudppDOPMCount_count15to19 + $iudppDOPMCount_count20to49;
+$nfplamDOPMCount_totalCount = $nfplamDOPMCount_count10to14 + $nfplamDOPMCount_count15to19 + $nfplamDOPMCount_count20to49;
+$nfpbbtDOPMCount_totalCount = $nfpbbtDOPMCount_count10to14 + $nfpbbtDOPMCount_count15to19 + $nfpbbtDOPMCount_count20to49;
+$nfpcmmDOPMCount_totalCount = $nfpcmmDOPMCount_count10to14 + $nfpcmmDOPMCount_count15to19 + $nfpcmmDOPMCount_count20to49;
+$nfpstmDOPMCount_totalCount = $nfpstmDOPMCount_count10to14 + $nfpstmDOPMCount_count15to19 + $nfpstmDOPMCount_count20to49;
+$nfpsdmDOPMCount_totalCount = $nfpsdmDOPMCount_count10to14 + $nfpsdmDOPMCount_count15to19 + $nfpsdmDOPMCount_count20to49;
+
 ?>
