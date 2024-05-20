@@ -44,9 +44,9 @@ if (isset($_POST['status'])) {
                 $tableRows .= '<td class="align-middle tago">' . $row['patient_id'] . '</td>';
                 $tableRows .= '<td class="align-middle">';
                 $tableRows .= '<a href="history_consultation.php?patient_id=' . $row['patient_id'] . '"><button type="button" class="btn btn-warning ml-1">View History</button></a>';
-                $tableRows .= '<button type="button" class="btn btn-info editbtn" data-row-id="' . $row['id'] . '"><i class="fas fa-eye"></i> View Record</button>';
-                $tableRows .= '<button type="button" class="btn btn-success editbtn2" data-row-id="' . $row['id'] . '"><i class="fas fa-edit"></i> Add Consultation</button>';
-                $tableRows .= '<button type="button" class="btn btn-danger deletebtn" data-id="' . $row['id'] . '"><i class="fas fa-trash"></i> Delete</button>';
+                $tableRows .= '<button type="button" class="btn btn-info editbtn ml-2" data-row-id="' . $row['id'] . '"><i class="fas fa-eye"></i> View Record</button>';
+                $tableRows .= '<button type="button" class="btn btn-success editbtn2 ml-2" data-row-id="' . $row['id'] . '"><i class="fas fa-edit"></i> Add Consultation</button>';
+                $tableRows .= '<button type="button" class="btn btn-danger deletebtn ml-2" data-id="' . $row['id'] . '"><i class="fas fa-trash"></i> Delete</button>';
                 $tableRows .= '</td>';
                 $tableRows .= '</tr>';
             }

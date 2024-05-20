@@ -27,7 +27,43 @@ if ($result === false) {
 }
 
 ?>
+<style>
+    .filter-container {
+        display: flex;
+        /* margin-left: px; */
 
+    }
+
+    #filterSelect {
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        outline: none;
+        transition: border-color 0.3s;
+    }
+
+    #filterSelect:focus {
+        border-color: #007BFF;
+    }
+
+    .item {
+        display: none;
+        padding: 15px;
+        margin: 10px 0;
+        border-radius: 5px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .item[data-status="Complete"] {
+        border-left: 5px solid #28a745;
+    }
+
+    .item[data-status="Pending"] {
+        border-left: 5px solid #ffc107;
+    }
+</style>
 <div class="container-fluid">
 
 
@@ -37,17 +73,20 @@ if ($result === false) {
         </button>
     </div>
 
-    <a href="archive.php">
-        <button type="button" class="btn btn-danger ml-1">
-            View Archive
-        </button>
-    </a>
 
-    <select id="filterSelect" onchange="selectStatus()">
-        <option value="All" selected>Show All</option>
-        <option value="Complete">Complete</option>
-        <option value="Pending">Pending</option>
-    </select>
+
+    <div class="filter-container">
+        <a href="archive.php">
+            <button type="button" class="btn btn-danger ml-1">
+                View Archive
+            </button>
+        </a>
+        <select id="filterSelect" onchange="selectStatus()" class="ml-2">
+            <option value="All" selected>Show All</option>
+            <option value="Complete">Complete</option>
+            <option value="Pending">Pending</option>
+        </select>
+    </div>
 
 
 
