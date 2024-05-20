@@ -383,13 +383,15 @@ if ($result === false) {
 
                             <div class="col-3">
                                 <div class="form-group">
-                                    <label for="hgb">HGB</label>
+                                    <label for="hgb">HGB (+/-)</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="hgb" name="hgb" required>
+                                        <input type="text" class="form-control" id="hgb" name="hgb" required
+                                            oninput="checkHgbValue()">
                                         <div class="input-group-append">
                                             <span class="input-group-text">g/dL</span>
                                         </div>
                                     </div>
+                                    <span id="hgb-feedback"></span>
                                 </div>
                             </div>
 
@@ -737,6 +739,33 @@ if ($result === false) {
     </div>
 </div>
 </div>
+<script>
+    function checkHgbValue() {
+        const hgbInput = document.getElementById('hgb');
+        const feedback = document.getElementById('hgb-feedback');
+        const hgbValue = parseFloat(hgbInput.value);
+
+        if (isNaN(hgbValue)) {
+            feedback.textContent = '';
+            feedback.className = '';
+            return;
+        }
+
+        if (hgbValue > 12) {
+            feedback.textContent = 'Negative';
+            feedback.className = 'text-danger';
+        } else if (hgbValue >= 10 && hgbValue <= 12) {
+            feedback.textContent = 'Positive';
+            feedback.className = 'text-success';
+        } else if (hgbValue < 10) {
+            feedback.textContent = 'Alarming / Referral';
+            feedback.className = 'text-warning';
+        } else {
+            feedback.textContent = '';
+            feedback.className = '';
+        }
+    }
+</script>
 <script>
     // Add an event listener to the Save button
     document.getElementById('addButton').addEventListener('click', function () {
