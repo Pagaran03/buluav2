@@ -1046,10 +1046,6 @@ processFormSubmission($conn);
     <script src="assets/js/main.js"></script>
 
 
-
-
-
-
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>

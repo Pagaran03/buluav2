@@ -61,10 +61,13 @@ if ($result === false) {
                 </div>
                 <div class="modal-body">
                     <form id="addForm">
-                        <!-- <datalist id="patients">
+                        <datalist id="patients">
                                                 <?php
                                                 // Query to fetch patients from the database
-                                                $sql2 = "SELECT serial_no, first_name, last_name FROM patients ORDER BY id DESC";
+                                                $sql2 = "SELECT serial_no, first_name, last_name 
+                                                FROM patients 
+                                                WHERE age <= 5
+                                                ORDER BY id DESC;";
                                                 $result2 = $conn->query($sql2);
 
                                                 if ($result2->num_rows > 0) {
@@ -80,7 +83,7 @@ if ($result === false) {
                                                     echo "<option disabled>No patients found</option>";
                                                 }
                                                 ?>
-                                            </datalist> -->
+                                            </datalist>
 
                         <div class="row">
                             <div class="col">
