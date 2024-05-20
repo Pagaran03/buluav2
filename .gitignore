@@ -7,3 +7,4 @@ vendor/symfony/polyfill-php80/
 vendor/twilio/sdk/
 vendor/vlucas/phpdotenv/
 .env
+.env
