@@ -97,7 +97,7 @@ include("action/redirect.php");
 
 
 </body>
-<!-- <script type="text/javascript">
+<script type="text/javascript">
 
   document.addEventListener('contextmenu', function (e) {
     e.preventDefault();
@@ -145,7 +145,7 @@ include("action/redirect.php");
 
 
 
-</script> -->
+</script>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     // Disable text selection
