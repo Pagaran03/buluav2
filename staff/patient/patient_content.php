@@ -187,7 +187,7 @@ if ($result2->num_rows > 0) {
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="age">Age (Click The Birthdate First)</label>
-                                    <p id="age" class="form-control" name="age" readonly></p>
+                                    <p id="age" class="form-control" name="age"  readonly></p>
                                     <div id="age_error" class="error"></div>
                                 </div>
                             </div>
@@ -237,7 +237,7 @@ if ($result2->num_rows > 0) {
                                         <option value="Zone 10, Bulua, Cagayan de Oro">Zone 10, Bulua, Cagayan de Oro, Misamis Oriental</option>
                                         <option value="Zone 11, Bulua, Cagayan de Oro">Zone 11, Bulua, Cagayan de Oro, Misamis Oriental</option>
                                         <option value="Zone 12, Bulua, Cagayan de Oro">Zone 12, Bulua, Cagayan de Oro, Misamis Oriental</option>
-                                        <option value="Zone 13, Bulua, Cagayan de Oro">Zone 13, Bulua, Cagayan de Oro, Misamis Oriental</option>
+                                        
                                         <!-- Add more address options as needed -->
                                     </select>
                                     <div id="address_error" class="error"></div>
@@ -710,10 +710,11 @@ if ($result2->num_rows > 0) {
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="age">Age</label>
-                                    <input type="number" class="form-control" id="editAge" name="age" required>
+                                    <input type="number" class="form-control" id="editAge" name="age"  required>
                                     <div id="editAge_error" class="error"></div>
                                 </div>
                             </div>
+                            
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="serial_no">Serial No</label>
@@ -768,7 +769,7 @@ if ($result2->num_rows > 0) {
                                         <option value="Zone 10, Bulua, Cagayan de Oro">Zone 10, Bulua, Cagayan de Oro, Misamis Oriental</option>
                                         <option value="Zone 11, Bulua, Cagayan de Oro">Zone 11, Bulua, Cagayan de Oro, Misamis Oriental</option>
                                         <option value="Zone 12, Bulua, Cagayan de Oro">Zone 12, Bulua, Cagayan de Oro, Misamis Oriental</option>
-                                        <option value="Zone 13, Bulua, Cagayan de Oro">Zone 13, Bulua, Cagayan de Oro, Misamis Oriental</option>
+                                        
                                         <!-- Add more address options as needed -->
                                     </select>
                                     <div id="EditAddress_error" class="error"></div>

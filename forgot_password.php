@@ -117,53 +117,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forgot Password</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./assets/css/login.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"
-        integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forgot Password</title>
+  <link rel="stylesheet" href="./assets/css/login.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
-
 <body>
+  <div class="wrapper">
     <div class="container">
-        <div class="myform">
-            <h1>Forgot Password</h1>
-            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
-                <div class="form-group">
-                    <input type="text" class="form-control" id="username" name="username"
-                        placeholder="Enter your Username" required>
-                </div>
-                <button type="submit" name="submit" class="btn btn-primary">Reset Password</button>
-            </form>
-        </div>
+      <div class="myform">
+        <h1>Forgot Password</h1>
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+          <div class="form-group">
+            <input type="text" class="form-control" id="username" name="username" placeholder="Enter your Username" required>
+          </div>
+          <button type="submit" name="submit" class="btn btn-primary">Reset Password</button>
+        </form>
+      </div>
     </div>
+  </div>
 
-    <!-- SweetAlert2 Script -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        // Show SweetAlert2 when message is set in session
-        <?php if (isset($_SESSION['message'])): ?>
-            Swal.fire({
-                title: 'Message',
-                text: '<?php echo $_SESSION['message']; ?>',
-                icon: '<?php echo ($_SESSION['message_type'] === 'success') ? 'success' : 'error'; ?>',
-                confirmButtonText: 'Close'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    redirectToIndex();
-                }
-            });
-            <?php unset($_SESSION['message']); ?>
-        <?php endif; ?>
-
-        function redirectToIndex() {
-            window.location.href = 'index.php'; // Change 'index.php' to the desired location
+  <!-- Script to handle SweetAlert2 -->
+  <script>
+    <?php if (isset($_SESSION['message'])): ?>
+      Swal.fire({
+        title: 'Message',
+        text: '<?php echo $_SESSION['message']; ?>',
+        icon: '<?php echo ($_SESSION['message_type'] === 'success') ? 'success' : 'error'; ?>',
+        confirmButtonText: 'Close'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          redirectToIndex();
         }
-    </script>
+      });
+      <?php unset($_SESSION['message']); ?>
+    <?php endif; ?>
 
+    function redirectToIndex() {
+      window.location.href = 'index.php'; // Change 'index.php' to the desired location
+    }
+  </script>
 </body>
 
 </html>
