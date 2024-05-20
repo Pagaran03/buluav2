@@ -208,17 +208,30 @@ if ($result === false) {
                                     <div class="form-group">
                                         <label for="">Family Planning Method</label>
                                         <select class="form-control" id="editMethod" name="method" id="method" required>
-                                            <option value="" disabled selected hidden>Select a Method</option>
-                                            <option value="Condom">Condom</option>
-                                            <option value="Cervical cap">Cervical cap</option>
-                                            <option value="Contraceptive sponge">Contraceptive sponge</option>
-                                            <option value="Birth control pills">Birth control pills</option>
-                                            <option value="Birth control ring">Birth control ring</option>
-                                            <option value="Hormonal IUD">Hormonal IUD</option>
-                                            <option value="Emergency contraceptive pills">Emergency
-                                                contraceptive pills
-                                            </option>
-                                            <option value="Sterilization">Sterilization</option>
+                                        <option value="" disabled selected hidden>Select a Method</option>
+                                        <option value="BTL">BTL</option>
+                                        <option value="NSV">NSV</option>
+                                        <option value="Condom">Condom</option>
+                                        <option value="Pills">Pills</option>
+                                        <option value="Pills-POP">Pills-POP</option>
+                                        <option value="Pills-COC">Pills-COC</option>
+                                        <option value="Injectables (DMPA/POI)">Injectables (DMPA/POI)</option>
+                                        <option value="Implant">Implant</option>
+                                        <option value="IUD">IUD</option>
+                                        <option value="IUD-I">IUD-I</option>
+                                        <option value="IUD-PP">IUD-PP</option>
+                                        <option value="NFP-LAM">NFP-LAM</option>
+                                        <option value="NFP-BBT">NFP-BBT</option>
+                                        <option value="NFP-CMM">NFP-CMM</option>
+                                        <option value="NFP-STM">NFP-STM</option>
+                                        <option value="NFP-SDM">NFP-SDM</option>
+                                        <option value="Cervical cap">Cervical cap</option>
+                                        <option value="Contraceptive sponge">Contraceptive sponge</option>
+                                        <option value="Birth control ring">Birth control ring</option>
+                                        <option value="Hormonal IUD">Hormonal IUD</option>
+                                        <option value="Emergency contraceptive pills">Emergency contraceptive pills
+                                        </option>
+                                        <option value="Sterilization">Sterilization</option>
                                         </select>
                                         <div id="civil_status_error" class="error"></div>
                                     </div>
