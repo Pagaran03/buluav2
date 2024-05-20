@@ -201,7 +201,7 @@ if (!isset($_SESSION['role'])) {
                 <li class="nav-item">
                   <a href="../immunization/immunization.php" class="nav-link <?php if ($_SERVER['REQUEST_URI'] === '/brgyv2/staff/immunization/immunization.php')
                     echo 'active'; ?>">
-                    <i class="fas fa-user-edit fa-lg nav-icon"></i>
+                    <i class="fas fa-file-medical-alt fa-lg"></i>
                     <p>Immunization</p>
                   </a>
                 </li>
