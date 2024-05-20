@@ -158,21 +158,73 @@ if (!isset($_SESSION['role'])) {
 
             <li class="nav-item ">
 
+            <li class="nav-item <?php
+            if (
+              strpos($_SERVER['REQUEST_URI'], '/brgyv2/staff//consultation/consultation.php') !== false ||
+              strpos($_SERVER['REQUEST_URI'], '/brgyv2/staff/family/family.php') !== false ||
+              strpos($_SERVER['REQUEST_URI'], '/brgyv2/staff/prenatal/prenatal.php') !== false ||
+              strpos($_SERVER['REQUEST_URI'], '/brgyv2/staff/immunization/immunization.php') !== false
 
-
-
-
-            <li class="nav-item">
+            ) {
+              echo 'menu-open';
+            }
+            ?>">
+              <a href="" class="nav-link">
+                <i class="fa fa-cog fa-lg" aria-hidden="false"></i>
+                <p>
+                  Services
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="../consultation/consultation.php" class="nav-link <?php if ($_SERVER['REQUEST_URI'] === '/brgyv2/staff/consultation/consultation.php')
+                    echo 'active'; ?>">
+                    <i class="fas fa-file-prescription fa-lg"></i>
+                    <p>Consultation</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="../family/family.php" class="nav-link <?php if ($_SERVER['REQUEST_URI'] === '/brgyv2/staff/family/family.php')
+                    echo 'active'; ?>">
+                    <i class="fas fa-file-medical fa-lg "></i>
+                    <p>Family Planning</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="../prenatal/prenatal.php" class="nav-link <?php if ($_SERVER['REQUEST_URI'] === '/brgyv2/staff/prenatal/prenatal.php')
+                    echo 'active'; ?>">
+                    <i class="fas fa-file-medical-alt fa-lg"></i>
+                    <p>Prenatal</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="../immunization/immunization.php" class="nav-link <?php if ($_SERVER['REQUEST_URI'] === '/brgyv2/staff/immunization/immunization.php')
+                    echo 'active'; ?>">
+                    <i class="fas fa-user-edit fa-lg nav-icon"></i>
+                    <p>Immunization</p>
+                  </a>
+                </li>
+                <!-- <li class="nav-item">
+                  <a href="../midwife/midwife.php" class="nav-link <?php if ($_SERVER['REQUEST_URI'] === '/brgyv2/admin/midwife/midwife.php')
+                    echo 'active'; ?>">
+                    <i class="fas fa-user-edit fa-lg nav-icon"></i>
+                    <p>Midwife</p>
+                  </a>
+                </li> -->
+              </ul>
+            </li>
+            <!-- <li class="nav-item">
               <a href="../consultation/consultation.php" class="nav-link">
                 <i class="fas fa-file-prescription fa-lg "></i>
                 <p>
                   Consultation
                 </p>
               </a>
-            </li>
+            </li> -->
 
 
-
+            <!-- 
             <li class="nav-item">
               <a href="../family/family.php" class="nav-link">
                 <i class="fas fa-file-medical fa-lg "></i>
@@ -180,10 +232,10 @@ if (!isset($_SESSION['role'])) {
                   Family Planning
                 </p>
               </a>
-            </li>
+            </li> -->
 
 
-
+            <!-- 
             <li class="nav-item">
               <a href="../prenatal/prenatal.php" class="nav-link">
                 <i class="fas fa-file-medical-alt fa-lg "></i>
@@ -200,7 +252,7 @@ if (!isset($_SESSION['role'])) {
                   Immunization
                 </p>
               </a>
-            </li>
+            </li> -->
 
 
             <li class="nav-item">

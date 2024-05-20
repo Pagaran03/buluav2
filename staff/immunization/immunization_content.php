@@ -61,17 +61,7 @@ if ($result === false) {
                 </div>
                 <div class="modal-body">
                     <form id="addForm">
-
-
-                        <div class="row">
-                            <div class="col">
-                                <div class="row">
-                                    <div class="col-sm">
-                                        <div class="form-group">
-                                            <label for="patient">Select Patient</label>
-                                            <input list="patients" class="form-control" name="patient_id"
-                                                id="patient_id" required>
-                                            <datalist id="patients">
+                        <!-- <datalist id="patients">
                                                 <?php
                                                 // Query to fetch patients from the database
                                                 $sql2 = "SELECT serial_no, first_name, last_name FROM patients ORDER BY id DESC";
@@ -85,6 +75,71 @@ if ($result === false) {
 
                                                         // Output an option element for each patient with the serial_no as the value
                                                         echo "<option value='$patientSerialNo'>$firstName $lastName</option>";
+                                                    }
+                                                } else {
+                                                    echo "<option disabled>No patients found</option>";
+                                                }
+                                                ?>
+                                            </datalist> -->
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <div class="form-group">
+                                            <label for="patient">Select Patient</label>
+                                            <input list="patients" class="form-control" name="patient_id"
+                                                id="patient_id" required>
+                                            <datalist id="patients">
+                                                <?php
+                                                // Query to fetch patients from the database
+                                                $sql2 = "SELECT serial_no, first_name, last_name, birthdate FROM patients ORDER BY id DESC";
+                                                $result2 = $conn->query($sql2);
+
+                                                if ($result2->num_rows > 0) {
+                                                    while ($row2 = $result2->fetch_assoc()) {
+                                                        $patientSerialNo = $row2['serial_no'];
+                                                        $firstName = $row2['first_name'];
+                                                        $lastName = $row2['last_name'];
+                                                        $dateOfBirth = $row2['birthdate'];
+
+                                                        // Calculate the age of the patient
+                                                        $dateOfBirthDateTime = new DateTime($dateOfBirth);
+                                                        $currentDateTime = new DateTime();
+                                                        $ageInterval = $currentDateTime->diff($dateOfBirthDateTime);
+                                                        $ageInYears = $ageInterval->y;
+                                                        $ageInMonths = $ageInterval->m;
+
+                                                        // Output an option element for each patient with the serial_no as the value
+                                                        // Filter for patients aged 0-1 year
+                                                        if ($ageInYears == 0) {
+                                                            if ($ageInMonths <= 1) {
+                                                                // Display age in days if less than or equal to 30 days
+                                                                if ($ageInterval->days <= 30) {
+                                                                    // Adjust the condition to handle 0 or 1 day without "s"
+                                                                    $ageString = ($ageInterval->days == 1 || $ageInterval->days == 0) ? "day" : "days";
+                                                                    echo "<option value='$patientSerialNo'>$firstName $lastName (Age: $ageInterval->days $ageString)</option>";
+                                                                }
+
+
+                                                                // Display age in weeks if less than or equal to 8 weeks
+                                                                elseif ($ageInterval->days <= 60) {
+                                                                    $ageInWeeks = ceil($ageInterval->days / 7);
+                                                                    $ageString = ($ageInWeeks == 1) ? "week" : "weeks";
+                                                                    echo "<option value='$patientSerialNo'>$firstName $lastName (Age: $ageInWeeks $ageString)</option>";
+                                                                }
+                                                                // Display age in months
+                                                                else {
+                                                                    echo "<option value='$patientSerialNo'>$firstName $lastName (Age: $ageInMonths months)</option>";
+                                                                }
+                                                            }
+                                                            // Display age in months if less than 12 months
+                                                            elseif ($ageInMonths < 12) {
+                                                                echo "<option value='$patientSerialNo'>$firstName $lastName (Age: $ageInMonths months)</option>";
+                                                            }
+                                                        }
+
+
                                                     }
                                                 } else {
                                                     echo "<option disabled>No patients found</option>";
