@@ -8,6 +8,7 @@ $diagnosis = $_POST['diagnosis'];
 $medicine = $_POST['medicine'];
 
 $status = $_POST['status'];
+$trimester = $_POST['trimester'];
 try {
     // Start a transaction
     $conn->begin_transaction();
@@ -17,9 +18,9 @@ try {
     $consultationStmt = $conn->prepare($consultationUpdateSql);
     $consultationStmt->bind_param("sssi", $description, $diagnosis, $medicine, $primary_id);
     //Prenatal Subjective
-    $subjectivenUpdateSql = "UPDATE prenatal_subjective SET status=? WHERE id=?";
+    $subjectivenUpdateSql = "UPDATE prenatal_subjective SET status=?, trimester=? WHERE id=?";
     $subjectiveStmt = $conn->prepare($subjectivenUpdateSql);
-    $subjectiveStmt->bind_param("si", $status, $primary_id);
+    $subjectiveStmt->bind_param("ssi", $status, $trimester, $primary_id);
     // Execute both update statements
     $consultationUpdateSuccess = $consultationStmt->execute();
     $subjectiveUpdateSuccess = $subjectiveStmt->execute();
