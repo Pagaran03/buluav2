@@ -215,8 +215,8 @@ processFormSubmission($conn);
                     <li><a class="nav-link scrollto" href="#about">About</a></li>
                     <li><a class="nav-link scrollto" href="#services">Services</a></li>
                     <li><a class="nav-link scrollto" href="#team">Team</a></li>
-                    <li><a class="getstarted scrollto" href="#" data-toggle="modal" data-target="#registerModal">Consultation Registration</a></li>
-                    <li><a class="getstarted scrollto" href="../../index.php" data-target="">Login</a></li>
+                    <li><a class="getstarted scrollto" href="#" data-toggle="modal"
+                            data-target="#registerModal">Consultation Registration</a></li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav><!-- .navbar -->
@@ -513,12 +513,53 @@ processFormSubmission($conn);
                             education, our doors
                             are always open to provide you with the care and support you deserve.
                         </p>
-                        <a href="#" class="btn-learn-more">Learn More</a>
+                        <!-- <a href="#" class="btn-learn-more">Learn More</a> -->
                     </div>
                 </div>
 
             </div>
         </section><!-- End About Section -->
+
+        <!-- ======= Vision ======= -->
+        <section id="about" class="about">
+            <div class="container" data-aos="fade-up">
+
+                <div class="section-title">
+                    <h2>Vision</h2>
+                    <h3>
+                        The strategic and prime development hub of the south, a city managed through good governance, with an empowered citizenry that thrives in a highly competitive economy, and a sustainable environment that nurtures its diversity and multi-cultural heritage towards a resilient, progressive, and inclusive future
+                    </h3>
+                </div>
+
+            </div>
+
+            </div>
+        </section><!-- End Vision Section -->
+
+        <!-- ======= Mission ======= -->
+        <section id="about" class="about">
+            <div class="container" data-aos="fade-up">
+
+                <div class="section-title">
+                    <h2>Mission</h2>
+                    <h3>
+                        The City Government's mission under Mayor Moreno's leadership is to best serve all stakeholders through the following mission principles, namely-
+                    </h3>
+                    <ul style="list-style: none;">
+                        <li><i class="ri-check-double-line"></i> the empowerment of the citizenry;</li>
+                        <li><i class="ri-check-double-line"></i> humane, efficient and transparent participatory governance;</li>
+                        <li><i class="ri-check-double-line"></i> the deliver of services that respond to stakeholders needs;</li>
+                        <li><i class="ri-check-double-line"></i> compassionate adherence to the rule of law; and</li>
+                        <li><i class="ri-check-double-line"></i>
+                            the transformation of Cagayan de Oro as the prime city of convergence in the south</li>
+                    </ul>
+                </div>
+
+            </div>
+
+            </div>
+        </section><!-- End Vision Section -->
+
 
         <!-- ======= About Video Section ======= -->
         <section id="about-video" class="about-video">
@@ -999,10 +1040,6 @@ processFormSubmission($conn);
 
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
-
-
-
-
 
 
     <!-- Scripts -->

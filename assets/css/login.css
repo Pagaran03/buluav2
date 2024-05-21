@@ -1,14 +1,14 @@
 /* POPPINS FONT */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
-
+ 
 *{
     font-family: 'Poppins', sans-serif;
 }
 .wrapper{
-  
+ 
   background-color: rgba(152, 148, 148, 0.5); /* Transparent white overlay (adjust alpha as needed) */
   padding: 0 20px; /* Adjust padding as needed */
-  
+ 
 }
 .main{
     display: flex;
@@ -22,7 +22,7 @@
   background-size: 80%; /* Adjust the size as needed */
   background-repeat: no-repeat;
   border-radius: 10px;
-    
+ 
 }
 .row{
   width:  900px;
@@ -64,7 +64,7 @@ i{
   margin-bottom: 20px;
   color: #fff;
 }
-
+ 
 img {
   width: 400px; /* Set the width of the image */
   display: block; /* Ensures the image behaves as a block element */
@@ -73,8 +73,8 @@ img {
   top: 75px; /* Adjust top position if needed */
   left: 30px; /* Adjust left position if needed */
 }
-
-
+ 
+ 
 .input-box header{
     font-weight: 900;
     text-align: center;
@@ -87,17 +87,17 @@ img {
     position: relative;
     padding: 0 10px 0 10px;
     color: #fff;
-
+ 
 }
 .fa-eye-slash {
   color: red; /* Example color */
 }
-
+ 
 .fa-eye {
   color: green; /* Example color */
 }
-
-
+ 
+ 
 .input{
     height: 45px;
     width: 100%;
@@ -107,7 +107,7 @@ img {
     outline: none;
     margin-bottom: 20px;
     color: #ffffff;
-    
+ 
 }
 .input-box .input-field label{
     position: absolute;
@@ -159,13 +159,13 @@ span a:hover{
     text-decoration: underline;
     color: #88a3e8;
 }
-
+ 
 @media only screen and (max-width: 768px) {
   .side-image {
     border-radius: 10px 10px 0 0;
     text-align: center; /* Center text in case of smaller screens */
   }
-
+ 
   img {
     width: 100px; /* Adjusted width for smaller screens */
     position: absolute; /* Position image absolutely within .side-image */
@@ -173,7 +173,7 @@ span a:hover{
     left: 50%; /* Center horizontally */
     transform: translate(-50%, -50%); /* Center the image perfectly */
   }
-
+ 
   .text {
     position: absolute; /* Position text absolutely */
     top: 80%; /* Adjust top position as needed */
@@ -181,19 +181,19 @@ span a:hover{
     transform: translateX(-50%); /* Center text horizontally */
     text-align: center; /* Center text in case of smaller screens */
   }
-
+ 
   .text p,
   .text i {
     font-size: 16px; /* Adjust font size for smaller screens */
   }
-
+ 
   .row {
     max-width: 100%; /* Full width for smaller screens */
     width: 100%;
   }
 }
-
-
+ 
+ 
 /* General styling */
 body {
   font-family: Arial, sans-serif;
@@ -201,38 +201,38 @@ body {
   margin: 0;
   padding: 0;
 }
-
+ 
 .wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
 }
-
+ 
 .container {
   width: 100%;
   max-width: 600px;
   padding: 20px;
   box-sizing: border-box;
 }
-
+ 
 .myform {
   background-color: #ffffff;
   padding: 30px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-
+ 
 .myform h1 {
   text-align: center;
   margin-bottom: 20px;
   color: #333333;
 }
-
+ 
 .form-group {
   margin-bottom: 20px;
 }
-
+ 
 .form-control {
   width: 100%;
   padding: 10px;
@@ -240,7 +240,7 @@ body {
   border: 1px solid #dddddd;
   border-radius: 4px;
 }
-
+ 
 .btn-primary {
   width: 100%;
   padding: 12px;
@@ -251,14 +251,15 @@ body {
   border-radius: 4px;
   cursor: pointer;
 }
-
+ 
 .btn-primary:hover {
   background-color: #0056b3;
 }
-
+ 
 /* Responsive adjustments */
 @media only screen and (max-width: 600px) {
   .myform {
     padding: 20px;
   }
 }
+ 
