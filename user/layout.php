@@ -204,7 +204,7 @@ processFormSubmission($conn);
     <!-- ======= Header ======= -->
     <header id="header" class="fixed-top">
         <div class="container d-flex align-items-center justify-content-between">
-            
+
             <h1 class="logo"><a href="">Bulua Health Center</a></h1>
             <!-- Uncomment below if you prefer to use an image logo -->
             <a href="" class="logo"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>
@@ -215,8 +215,8 @@ processFormSubmission($conn);
                     <li><a class="nav-link scrollto" href="#about">About</a></li>
                     <li><a class="nav-link scrollto" href="#services">Services</a></li>
                     <li><a class="nav-link scrollto" href="#team">Team</a></li>
-                    <li><a class="getstarted scrollto" href="#" data-toggle="modal"
-                            data-target="#registerModal">Consultation Registration</a></li>
+                    <li><a class="getstarted scrollto" href="#" data-toggle="modal" data-target="#registerModal">Consultation Registration</a></li>
+                    <li><a class="getstarted scrollto" href="./../index.php">Login</a></li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav><!-- .navbar -->
@@ -712,8 +712,8 @@ processFormSubmission($conn);
                 </div> -->
                             </div>
                             <div class="member-info">
-                                <h4>Katrina Ann Pangadlin</h4>
-                                <span>Nurse</span>
+                                <h4>Dr. Salahuddin Sumagayan</h4>
+                                <span>Doctor</span>
                             </div>
                         </div>
                     </div>
@@ -730,8 +730,8 @@ processFormSubmission($conn);
                 </div> -->
                             </div>
                             <div class="member-info">
-                                <h4>Annaliza P. Acaso</h4>
-                                <span>Midwife</span>
+                                <h4>Katrina Ann Pangadlin</h4>
+                                <span>Nurse II</span>
                             </div>
                         </div>
                     </div>
@@ -748,8 +748,8 @@ processFormSubmission($conn);
                 </div> -->
                             </div>
                             <div class="member-info">
-                                <h4>Mary Sunshine D. Abrogar</h4>
-                                <span>Midwife</span>
+                                <h4>Phoebe Parel Balingkit</h4>
+                                <span>Nurse II</span>
                             </div>
                         </div>
                     </div>
@@ -766,8 +766,8 @@ processFormSubmission($conn);
                 </div> -->
                             </div>
                             <div class="member-info">
-                                <h4>Amanda Jepson</h4>
-                                <span>Accountant</span>
+                                <h4>Chris Jones Chua</h4>
+                                <span>NDP</span>
                             </div>
                         </div>
                     </div>
@@ -784,8 +784,8 @@ processFormSubmission($conn);
                 </div> -->
                             </div>
                             <div class="member-info">
-                                <h4>Amanda Jepson</h4>
-                                <span>Accountant</span>
+                                <h4>Esther Joy Eugenio</h4>
+                                <span>NDP</span>
                             </div>
                         </div>
                     </div>
@@ -802,8 +802,8 @@ processFormSubmission($conn);
                 </div> -->
                             </div>
                             <div class="member-info">
-                                <h4>Amanda Jepson</h4>
-                                <span>Accountant</span>
+                                <h4>Gene Tagapulot</h4>
+                                <span>NDP</span>
                             </div>
                         </div>
                     </div>
@@ -820,8 +820,8 @@ processFormSubmission($conn);
                 </div> -->
                             </div>
                             <div class="member-info">
-                                <h4>Amanda Jepson</h4>
-                                <span>Accountant</span>
+                                <h4>Anna Lisa Acaso</h4>
+                                <span>Midwife</span>
                             </div>
                         </div>
                     </div>
@@ -838,8 +838,77 @@ processFormSubmission($conn);
                 </div> -->
                             </div>
                             <div class="member-info">
-                                <h4>Aileen Mendoza</h4>
+                                <h4>Arlene Cabarrubias</h4>
                                 <span>Midwife</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="900">
+                        <div class="member">
+                            <div class="member-img">
+                                <img src="https://placehold.co/600x400.png" class="img-fluid" alt="">
+                                <!-- <div class="social">
+                  <a href=""><i class="bi bi-twitter"></i></a>
+                  <a href=""><i class="bi bi-facebook"></i></a>
+                  <a href=""><i class="bi bi-instagram"></i></a>
+                  <a href=""><i class="bi bi-linkedin"></i></a>
+                </div> -->
+                            </div>
+                            <div class="member-info">
+                                <h4>Mary Sunshine Dahiroc</h4>
+                                <span>Midwife</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="900">
+                        <div class="member">
+                            <div class="member-img">
+                                <img src="https://placehold.co/600x400.png" class="img-fluid" alt="">
+                                <!-- <div class="social">
+                  <a href=""><i class="bi bi-twitter"></i></a>
+                  <a href=""><i class="bi bi-facebook"></i></a>
+                  <a href=""><i class="bi bi-instagram"></i></a>
+                  <a href=""><i class="bi bi-linkedin"></i></a>
+                </div> -->
+                            </div>
+                            <div class="member-info">
+                                <h4>Rose</h4>
+                                <span>BHW</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="900">
+                        <div class="member">
+                            <div class="member-img">
+                                <img src="https://placehold.co/600x400.png" class="img-fluid" alt="">
+                                <!-- <div class="social">
+                  <a href=""><i class="bi bi-twitter"></i></a>
+                  <a href=""><i class="bi bi-facebook"></i></a>
+                  <a href=""><i class="bi bi-instagram"></i></a>
+                  <a href=""><i class="bi bi-linkedin"></i></a>
+                </div> -->
+                            </div>
+                            <div class="member-info">
+                                <h4>Anni</h4>
+                                <span>BHW</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="900">
+                        <div class="member">
+                            <div class="member-img">
+                                <img src="https://placehold.co/600x400.png" class="img-fluid" alt="">
+                                <!-- <div class="social">
+                  <a href=""><i class="bi bi-twitter"></i></a>
+                  <a href=""><i class="bi bi-facebook"></i></a>
+                  <a href=""><i class="bi bi-instagram"></i></a>
+                  <a href=""><i class="bi bi-linkedin"></i></a>
+                </div> -->
+                            </div>
+                            <div class="member-info">
+                                <h4>Mary </h4>
+                                <span>BHW</span>
                             </div>
                         </div>
                     </div>
