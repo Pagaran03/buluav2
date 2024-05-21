@@ -216,7 +216,7 @@ processFormSubmission($conn);
                     <li><a class="nav-link scrollto" href="#services">Services</a></li>
                     <li><a class="nav-link scrollto" href="#team">Team</a></li>
                     <li><a class="getstarted scrollto" href="#" data-toggle="modal" data-target="#registerModal">Consultation Registration</a></li>
-                    <li><a class="getstarted scrollto" href="./../index.php">Login</a></li>
+                    <li><a class="getstarted scrollto" href="../../index.php">Login</a></li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav><!-- .navbar -->
@@ -932,25 +932,18 @@ processFormSubmission($conn);
                 <div class="faq-list">
                     <ul>
                         <li data-aos="fade-up">
-                            <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" class="collapse" data-bs-target="#faq-list-1">QUESTION 1 <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-                            <div id="faq-list-1" class="collapse show" data-bs-parent=".faq-list">
-                                <p>
-                                    Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet
-                                    non curabitur
-                                    gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.
-                                </p>
+                            <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-1" class="collapsed">When are you available?<i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                            <div id="faq-list-1" class="collapse" data-bs-parent=".faq-list">
+                                <img src="./assets/img/sched.jpg" alt="hehe" style="max-width: 50%; height: auto;">
                             </div>
                         </li>
 
+
                         <li data-aos="fade-up" data-aos-delay="100">
-                            <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-2" class="collapsed">QUESTION 2 <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                            <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-2" class="collapsed">Needed to bring? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
                             <div id="faq-list-2" class="collapse" data-bs-parent=".faq-list">
                                 <p>
-                                    Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum
-                                    velit laoreet id
-                                    donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est
-                                    pellentesque elit
-                                    ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.
+                                    Valid ID
                                 </p>
                             </div>
                         </li>
@@ -991,7 +984,7 @@ processFormSubmission($conn);
                   nunc vel. Tincidunt eget nullam non nisi est sit amet. Turpis nunc eget lorem dolor sed. Ut venenatis
                   tellus in metus vulputate eu scelerisque.
                 </p> -->
-                                <img src="https://i0.wp.com/bloody-disgusting.com/wp-content/uploads/2020/03/gonjiam-2.png" alt="hehe">
+                                <img src="https://i0.wp.com/bloody-disgusting.com/wp-content/uploads/2020/03/gonjiam-2.png" alt="hehe" style="max-width: 50%; height: auto;">
                             </div>
                         </li>
 
@@ -1023,8 +1016,7 @@ processFormSubmission($conn);
                     <div class="container" data-aos="fade-up">
 
                         <div class="row">
-
-                            <div class="col-lg-4 col-md-5 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+                            <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
                                 <div class="icon-box iconbox-blue">
                                     <div class="icon">
                                         <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
@@ -1034,12 +1026,11 @@ processFormSubmission($conn);
                                         <i class="bi bi-geo-alt"></i>
                                     </div>
                                     <h4>Location:</h4>
-                                    <p>GJ37+QMP, Butuan - Cagayan de Oro - Iligan Rd, Butuan, Cagayan de Oro, 9000
-                                        Misamis Oriental</p>
+                                    <p>GJ37+QMP, Butuan - Cagayan de Oro - Iligan Rd, Butuan, Cagayan de Oro, 9000 Misamis Oriental</p>
                                 </div>
                             </div>
 
-                            <div class="col-lg-4 col-md-5 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="250">
+                            <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="250">
                                 <div class="icon-box iconbox-pink">
                                     <div class="icon">
                                         <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
@@ -1048,14 +1039,13 @@ processFormSubmission($conn);
                                         </svg>
                                         <i class="bi bi-envelope"></i>
                                     </div>
-
                                     <h4>Email:</h4>
                                     <p>You can email us at our email: bulua.healthcenter011815@gmail.com</p>
                                 </div>
                             </div>
 
-                            <div class="col-lg-4 col-md-5 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
-                                <div class="icon-box iconbox-orange ">
+                            <div class="col-lg-3 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
+                                <div class="icon-box iconbox-orange">
                                     <div class="icon">
                                         <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
                                             <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,582.0697525312426C382.5290701553225,586.8405444964366,449.9789794690241,525.3245884688669,502.5850820975895,461.55621195738473C556.606425686781,396.0723002908107,615.8543463187945,314.28637112970534,586.6730223649479,234.56875336149918C558.9533121215079,158.8439757836574,454.9685369536778,164.00468322053177,381.49747125262974,130.76875717737553C312.15926192815925,99.40240125094834,248.97055460311594,18.661163978235184,179.8680185752513,50.54337015887873C110.5421016452524,82.52863877960104,119.82277516462835,180.83849132639028,109.12597500060166,256.43424936330496C100.08760227029461,320.3096726198365,92.17705696193138,384.0621239912766,124.79988738764834,439.7174275375508C164.83382741302287,508.01625554203684,220.96474134820875,577.5009287672846,300,582.0697525312426">
@@ -1068,8 +1058,22 @@ processFormSubmission($conn);
                                 </div>
                             </div>
 
-
+                            <div class="col-lg-3 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
+                                <div class="icon-box iconbox-blue">
+                                    <div class="icon">
+                                        <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,582.0697525312426C382.5290701553225,586.8405444964366,449.9789794690241,525.3245884688669,502.5850820975895,461.55621195738473C556.606425686781,396.0723002908107,615.8543463187945,314.28637112970534,586.6730223649479,234.56875336149918C558.9533121215079,158.8439757836574,454.9685369536778,164.00468322053177,381.49747125262974,130.76875717737553C312.15926192815925,99.40240125094834,248.97055460311594,18.661163978235184,179.8680185752513,50.54337015887873C110.5421016452524,82.52863877960104,119.82277516462835,180.83849132639028,109.12597500060166,256.43424936330496C100.08760227029461,320.3096726198365,92.17705696193138,384.0621239912766,124.79988738764834,439.7174275375508C164.83382741302287,508.01625554203684,220.96474134820875,577.5009287672846,300,582.0697525312426">
+                                            </path>
+                                        </svg>
+                                        <a href="https://www.facebook.com/profile.php?id=100095388857956"> <i class="bi bi-facebook"></i></a>
+                                    </div>
+                                    <h4>Phone:</h4>
+                                    <p>Stay updated with our latest news and updates on our fb page BULUA HEALTH CENTER</p>
+                                </div>
+                            </div>
                         </div>
+
+
                     </div>
                 </section>
             </div>

@@ -122,6 +122,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <title>Forgot Password</title>
   <link rel="stylesheet" href="./assets/css/login.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link href="user/register/assets/img/icon.png" rel="icon">
 </head>
 <body>
   <div class="wrapper">
