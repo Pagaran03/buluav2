@@ -1,6 +1,6 @@
 <?php
 // Include your database configuration file
-include_once ('../../config.php');
+include_once('../../config.php');
 
 
 $sql = "SELECT *,CONCAT(patients.last_name, ', ', patients.first_name) AS full_name
@@ -57,8 +57,7 @@ if ($result2->num_rows > 0) {
     <br><br>
 
     <!-- Add Patient Modal -->
-    <div class="modal fade" id="addPatientModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="addPatientModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -97,17 +96,15 @@ if ($result2->num_rows > 0) {
                             <div class="col-md-6">
                                 <!-- Adjusted column size for small screens -->
                                 <div class="form-group">
-                                    <label for="first_name">First Name</label>
-                                    <input type="text" class="form-control" id="first_name" name="first_name"
-                                        placeholder="Enter Your Firstname" required>
+                                    <label for="first_name">First Name</label><span style="color: red; font-size: 22px;">*</span>
+                                    <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Enter Your Firstname" required>
                                     <div id="first_name_error" class="error"></div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="last_name">Last Name</label>
-                                    <input type="text" class="form-control" id="last_name" name="last_name"
-                                        placeholder="Enter your Lastname" required>
+                                    <label for="last_name">Last Name</label><span style="color: red; font-size: 22px;">*</span>
+                                    <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Enter your Lastname" required>
                                     <div id="last_name_error" class="error"></div>
                                 </div>
                             </div>
@@ -116,17 +113,15 @@ if ($result2->num_rows > 0) {
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="middle_name">Middle Name</label>
-                                    <input type="text" class="form-control" id="middle_name" name="middle_name"
-                                        placeholder="Enter your Middlename" required>
+                                    <label for="middle_name">Middle Name</label><span style="font-size: 14px;">(optional)</span>
+                                    <input type="text" class="form-control" id="middle_name" name="middle_name" placeholder="Enter your Middlename" required>
                                     <div id="middle_name_error" class="error"></div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="suffix">Suffix</label>
-                                    <input type="text" class="form-control" id="suffix" name="suffix"
-                                        placeholder="ex. Jr. and Sr." required>
+                                    <label for="suffix">Suffix</label><span style="font-size: 14px;">(optional)</span>
+                                    <input type="text" class="form-control" id="suffix" name="suffix" placeholder="ex. Jr. and Sr." required>
                                     <div id="suffix_error" class="error"></div>
                                 </div>
                             </div>
@@ -137,7 +132,7 @@ if ($result2->num_rows > 0) {
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="gender">Select Gender</label>
+                                    <label for="gender">Select Gender</label><span style="color: red; font-size: 22px;">*</span>
                                     <select class="form-control" name="gender" id="gender" required>
                                         <option value="" disabled selected hidden>Select Gender</option>
                                         <option value="Male">Male</option>
@@ -148,13 +143,12 @@ if ($result2->num_rows > 0) {
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="contact_no">Contact No</label>
+                                    <label for="contact_no">Contact No</label><span style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon3">+63</span>
                                         </div>
-                                        <input type="text" class="form-control" id="contact_no" name="contact_no"
-                                            required>
+                                        <input type="text" class="form-control" id="contact_no" name="contact_no" required>
                                         <div id="contact_error" class="error"></div>
                                     </div>
                                 </div>
@@ -167,7 +161,7 @@ if ($result2->num_rows > 0) {
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="civil_status">Civil Status</label>
+                                    <label for="civil_status">Civil Status</label><span style="color: red; font-size: 22px;">*</span>
                                     <select class="form-control" name="civil_status" id="civil_status" required>
                                         <option value="" disabled selected hidden>Select Civil Status</option>
                                         <option value="Single">Single</option>
@@ -180,7 +174,7 @@ if ($result2->num_rows > 0) {
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="birthdate">Birthdate</label>
+                                    <label for="birthdate">Birthdate</label><span style="color: red; font-size: 22px;">*</span>
                                     <input type="date" class="form-control" id="birthdate" name="birthdate" required>
                                     <div id="birthdate_error" class="error"></div>
                                 </div>
@@ -200,8 +194,7 @@ if ($result2->num_rows > 0) {
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="serial_no">Serial No</label>
-                                    <input type="text" class="form-control" id="serial_no" name="serial_no"
-                                        value="<?php echo $newSerial; ?>" required readonly>
+                                    <input type="text" class="form-control" id="serial_no" name="serial_no" value="<?php echo $newSerial; ?>" required readonly>
                                     <div id="serial_error" class="error"></div>
                                 </div>
                             </div>
@@ -212,13 +205,19 @@ if ($result2->num_rows > 0) {
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="religion">Religion</label>
+                                    <label for="religion">Religion</label><span style="color: red; font-size: 22px;">*</span>
                                     <select class="form-control" name="religion" id="religion" required>
                                         <option value="" disabled selected hidden>Select Religion</option>
                                         <option value="Roman Catholic">Roman Catholic</option>
                                         <option value="Muslim">Muslim</option>
                                         <option value="Iglesia ni Cristo">Iglesia ni Cristo</option>
                                         <option value="Protestantism">Protestantism</option>
+                                        <option value="Aglipayan">Aglipayan</option>
+                                        <option value="Buddhism">Buddhism</option>
+                                        <option value="Hinduism">Hinduism</option>
+                                        <option value="Judaism">Judaism</option>
+                                        <option value="Eastern Orthodox">Eastern Orthodox</option>
+                                        <option value="Sikhism">Sikhism</option>
                                         <option value="Other or Non-religious">Other or Non-religious</option>
                                     </select>
                                     <div id="religion_error" class="error"></div>
@@ -229,7 +228,7 @@ if ($result2->num_rows > 0) {
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="address">Address</label>
+                                    <label for="address">Address</label><span style="color: red; font-size: 22px;">*</span>
                                     <select class="form-control" id="address" name="address" required>
                                         <option value="" disabled selected>Select your address</option>
                                         <option value="Zone 1, Bulua, Cagayan de Oro">Zone 1, Bulua,
@@ -389,7 +388,7 @@ if ($result2->num_rows > 0) {
                                 var childInputs = document.querySelectorAll('#childInformationPlaceholder input, #childInformationPlaceholder textarea');
 
                                 // Loop through each input and set its value to "None"
-                                childInputs.forEach(function (input) {
+                                childInputs.forEach(function(input) {
                                     input.value = 'None';
                                 });
                             }
@@ -402,8 +401,7 @@ if ($result2->num_rows > 0) {
                 <div class="modal-footer">
                     <!-- <button type="button" class="btn btn-warning" id="NoneChildButton"
                         onclick="setNoneForChild()">Doesn't Have a Child</button> -->
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                        id="closeModalButton">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModalButton">Close</button>
                     <button type="button" class="btn btn-primary" id="addPatientButton">Save</button>
                 </div>
             </div>
@@ -413,7 +411,7 @@ if ($result2->num_rows > 0) {
 
     <script>
         // Add an event listener to the Save button
-        document.getElementById('addPatientButton').addEventListener('click', function () {
+        document.getElementById('addPatientButton').addEventListener('click', function() {
             // Assuming you have a variable `completedStep` that holds the completed step value, e.g., "Step1", "Step2", etc.
             var completedStep = "Walk In"; // Example completed step
 
@@ -511,7 +509,7 @@ if ($result2->num_rows > 0) {
                         <?php
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
-                                ?>
+                        ?>
                                 <tr>
                                     <td class="align-middle" style="display: none;">
                                         <?php echo $row['id']; ?>
@@ -535,17 +533,14 @@ if ($result2->num_rows > 0) {
                                         <?php echo $row['step']; ?>
                                     </td>
                                     <td class="align-middle">
-                                        <button type="button" class="btn btn-warning editbtns"
-                                            data-row-id="<?php echo $row['serial_no']; ?>">
+                                        <button type="button" class="btn btn-warning editbtns" data-row-id="<?php echo $row['serial_no']; ?>">
                                             <i class="fas fa-eye"></i> View Record
                                         </button>
 
-                                        <button type="button" class="btn btn-success editbtn"
-                                            data-patient-id="<?php echo $row['serial_no']; ?>">
+                                        <button type="button" class="btn btn-success editbtn" data-patient-id="<?php echo $row['serial_no']; ?>">
                                             <i class="fas fa-edit"></i> Update
                                         </button>
-                                        <button type="button" class="btn btn-danger deletebtn"
-                                            data-id="' + row.serial_no + '"><i class="fas fa-user-times"></i> Inactive</button>
+                                        <button type="button" class="btn btn-danger deletebtn" data-id="' + row.serial_no + '"><i class="fas fa-user-times"></i> Inactive</button>
                                         <!-- Button trigger modal -->
                                         <!-- <button type="button" class="btn btn-primary childbtn" data-toggle="modal"
                                             data-target="#childModal_<?php echo $row['serial_no']; ?>">
@@ -554,7 +549,7 @@ if ($result2->num_rows > 0) {
 
                                     </td>
                                 </tr>
-                                <?php
+                            <?php
                             }
                         } else {
                             ?>
@@ -570,7 +565,7 @@ if ($result2->num_rows > 0) {
 
 
                             </tr>
-                            <?php
+                        <?php
                         }
                         ?>
                     </tbody>
@@ -606,8 +601,7 @@ if ($result2->num_rows > 0) {
 
     <!-- modal edit -->
     <!-- Edit Patient Modal -->
-    <div class="modal fade" id="editPatientModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="editPatientModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -643,8 +637,7 @@ if ($result2->num_rows > 0) {
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="first_name">First Name</label>
-                                    <input type="text" class="form-control" id="editFirstname" name="first_name"
-                                        required>
+                                    <input type="text" class="form-control" id="editFirstname" name="first_name" required>
                                     <div id="editFirstName_error" class="error"></div>
                                 </div>
                             </div>
@@ -661,8 +654,7 @@ if ($result2->num_rows > 0) {
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="middle_name">Middle Name</label>
-                                    <input type="text" class="form-control" id="editMiddlename" name="middle_name"
-                                        required>
+                                    <input type="text" class="form-control" id="editMiddlename" name="middle_name" required>
                                     <div id="editMiddleName_error" class="error"></div>
                                 </div>
                             </div>
@@ -701,8 +693,7 @@ if ($result2->num_rows > 0) {
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon3">+63</span>
                                         </div>
-                                        <input type="number" class="form-control" id="editContact_no" name="contact_no"
-                                            required>
+                                        <input type="number" class="form-control" id="editContact_no" name="contact_no" required>
                                         <div id="editContact_error" class="error"></div>
                                     </div>
                                 </div>
@@ -726,8 +717,7 @@ if ($result2->num_rows > 0) {
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="birthdate">Birthdate</label>
-                                    <input type="date" class="form-control" id="editBirthdate" name="birthdate"
-                                        required>
+                                    <input type="date" class="form-control" id="editBirthdate" name="birthdate" required>
                                     <div id="editBirthDate_error" class="error"></div>
                                 </div>
                             </div>
@@ -753,8 +743,7 @@ if ($result2->num_rows > 0) {
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="serial_no">Serial No</label>
-                                    <input type="text" class="form-control" id="editSerial_no" name="serial_no" required
-                                        readonly>
+                                    <input type="text" class="form-control" id="editSerial_no" name="serial_no" required readonly>
                                     <div id="editSerial_error" class="error"></div>
                                 </div>
                             </div>
@@ -979,7 +968,7 @@ if ($result2->num_rows > 0) {
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <script>
-    document.getElementById("contact_no").addEventListener("input", function () {
+    document.getElementById("contact_no").addEventListener("input", function() {
         var contactInput = document.getElementById("contact_no").value.trim();
         if (contactInput.startsWith("0")) {
             contactInput = contactInput.substring(1);
@@ -987,9 +976,9 @@ if ($result2->num_rows > 0) {
         document.getElementById("contact_no").value = contactInput;
     });
 
-    $(document).ready(function () {
+    $(document).ready(function() {
 
-        $('#contact_no').on('input', function () {
+        $('#contact_no').on('input', function() {
             var contactNo = $(this).val();
             if (contactNo.length < 10) {
                 $('#contact_error').text('\nInvalid Phone number.');
@@ -1006,7 +995,7 @@ if ($result2->num_rows > 0) {
         });
 
 
-        $('#editContact_no').on('input', function () {
+        $('#editContact_no').on('input', function() {
             var editcontactNo = $(this).val();
             if (editcontactNo.length < 10) {
                 $('#editContact_error').text('\nInvalid Phone number.');
@@ -1034,10 +1023,10 @@ if ($result2->num_rows > 0) {
             $.ajax({
                 url: 'action/get_serial.php',
                 type: 'GET',
-                success: function (data) {
+                success: function(data) {
                     $('#serial_no').val(data);
                 },
-                error: function () {
+                error: function() {
                     // Handle errors if any
                     console.log('Error fetching serial number.');
                 }
@@ -1051,7 +1040,7 @@ if ($result2->num_rows > 0) {
         setInterval(updateSerialNumber, 2000); // Update every 2 seconds
 
         // Event listener for displaying child details modal
-        $('#patientTableBody').on('click', '.childbtn', function () {
+        $('#patientTableBody').on('click', '.childbtn', function() {
             var childName = $(this).data('name');
             var childBirthdate = $(this).data('birthdate');
             var childAddress = $(this).data('address');
@@ -1066,51 +1055,51 @@ if ($result2->num_rows > 0) {
         });
 
         //Modal add Patient
-        document.getElementById('openModalButton').addEventListener('click', function () {
+        document.getElementById('openModalButton').addEventListener('click', function() {
             $('#addPatientModal').modal('show'); // Show the modal
         });
 
         // Check if there are rows in the PHP-generated table
-        <?php if ($result->num_rows > 0): ?>
+        <?php if ($result->num_rows > 0) : ?>
             var table = $('#patientTableBody').DataTable({
                 columnDefs: [{
-                    targets: 0,
-                    data: 'id',
-                    visible: false
-                },
-                {
-                    targets: 1,
-                    data: 'serial_no'
-                },
-                {
-                    targets: 2,
-                    data: 'full_name'
-                },
-                // { targets: 3, data: 'Child' },
-                {
-                    targets: 3,
-                    data: 'birthdate'
-                },
-                {
-                    targets: 4,
-                    data: 'address'
-                },
-                {
-                    targets: 5,
-                    data: 'step'
-                },
-                {
-                    targets: 6,
-                    searchable: false,
-                    data: null,
-                    render: function (data, type, row) {
-                        var viewRec = '<a href="history.php?id=' + row.id + '"><button type="button" class="btn btn-warning ml-1">  <i class="fas fa-eye"></i> View History</button></a>';
-                        var editButton = '<button type="button" class="btn btn-success editbtn" data-patient-id="' + row.serial_no + '"><i class="fas fa-edit"></i> Update</button>';
-                        var deleteButton = '<button type="button" class="btn btn-danger deletebtn" data-id="' + row.serial_no + '"><i class="fas fa-user-times"></i> Inactive</button>';
-                        // var childButton = '<button type="button" class="btn btn-primary childbtn" data-name="' + row.Child + '" data-birthdate="' + row.birthdate + '" data-address="' + row.address + '"><i class="fas fa-user"></i> View Child</button>';
-                        return viewRec + ' ' + editButton + ' ' + deleteButton;
-                    }
-                } // Action column
+                        targets: 0,
+                        data: 'id',
+                        visible: false
+                    },
+                    {
+                        targets: 1,
+                        data: 'serial_no'
+                    },
+                    {
+                        targets: 2,
+                        data: 'full_name'
+                    },
+                    // { targets: 3, data: 'Child' },
+                    {
+                        targets: 3,
+                        data: 'birthdate'
+                    },
+                    {
+                        targets: 4,
+                        data: 'address'
+                    },
+                    {
+                        targets: 5,
+                        data: 'step'
+                    },
+                    {
+                        targets: 6,
+                        searchable: false,
+                        data: null,
+                        render: function(data, type, row) {
+                            var viewRec = '<a href="history.php?id=' + row.id + '"><button type="button" class="btn btn-warning ml-1">  <i class="fas fa-eye"></i> View History</button></a>';
+                            var editButton = '<button type="button" class="btn btn-success editbtn" data-patient-id="' + row.serial_no + '"><i class="fas fa-edit"></i> Update</button>';
+                            var deleteButton = '<button type="button" class="btn btn-danger deletebtn" data-id="' + row.serial_no + '"><i class="fas fa-user-times"></i> Inactive</button>';
+                            // var childButton = '<button type="button" class="btn btn-primary childbtn" data-name="' + row.Child + '" data-birthdate="' + row.birthdate + '" data-address="' + row.address + '"><i class="fas fa-user"></i> View Child</button>';
+                            return viewRec + ' ' + editButton + ' ' + deleteButton;
+                        }
+                    } // Action column
                 ],
                 // Set the default ordering to 'id' column in descending order
                 order: [
@@ -1118,35 +1107,35 @@ if ($result2->num_rows > 0) {
                 ]
             });
 
-        <?php else: ?>
+        <?php else : ?>
             // Initialize DataTable without the "Action" column when no rows are found
             var table = $('#patientTableBody').DataTable({
                 columnDefs: [{
-                    targets: 0,
-                    data: 'id',
-                    visible: false
-                },
-                {
-                    targets: 1,
-                    data: 'serial_no'
-                },
-                {
-                    targets: 2,
-                    data: 'full_name'
-                },
-                // { targets: 3, data: 'Child' },
-                {
-                    targets: 3,
-                    data: 'birthdate'
-                },
-                {
-                    targets: 4,
-                    data: 'address'
-                },
-                {
-                    targets: 5,
-                    data: 'step'
-                }
+                        targets: 0,
+                        data: 'id',
+                        visible: false
+                    },
+                    {
+                        targets: 1,
+                        data: 'serial_no'
+                    },
+                    {
+                        targets: 2,
+                        data: 'full_name'
+                    },
+                    // { targets: 3, data: 'Child' },
+                    {
+                        targets: 3,
+                        data: 'birthdate'
+                    },
+                    {
+                        targets: 4,
+                        data: 'address'
+                    },
+                    {
+                        targets: 5,
+                        data: 'step'
+                    }
                 ],
                 // Set the default ordering to 'id' column in descending order
                 order: [
@@ -1157,7 +1146,7 @@ if ($result2->num_rows > 0) {
 
 
 
-        $('#addPatientButton').click(function () {
+        $('#addPatientButton').click(function() {
 
             $('.error').text('');
 
@@ -1191,43 +1180,43 @@ if ($result2->num_rows > 0) {
                 table.destroy(); // Destroy the existing DataTable
                 table = $('#patientTableBody').DataTable({
                     columnDefs: [{
-                        targets: 0,
-                        data: 'id',
-                        visible: false
-                    },
-                    {
-                        targets: 1,
-                        data: 'serial_no'
-                    },
-                    {
-                        targets: 2,
-                        data: 'full_name'
-                    },
-                    // { targets: 3, data: 'Child' },
-                    {
-                        targets: 3,
-                        data: 'birthdate'
-                    },
-                    {
-                        targets: 4,
-                        data: 'address'
-                    },
-                    {
-                        targets: 5,
-                        data: 'step'
-                    },
-                    {
-                        targets: 6,
-                        searchable: false,
-                        data: null,
-                        render: function (data, type, row) {
-                            var viewRec = '<a href="history.php?id=' + row.id + '"><button type="button" class="btn btn-warning ml-1">  <i class="fas fa-eye"></i> View History</button></a>';
-                            var editButton = '<button type="button" class="btn btn-success editbtn" data-patient-id="' + row.serial_no + '"><i class="fas fa-edit"></i> Update</button>';
-                            var deleteButton = '<button type="button" class="btn btn-danger deletebtn" data-id="' + row.serial_no + '"><i class="fas fa-user-times"></i> Inactive</button>';
-                            // var childButton = '<button type="button" class="btn btn-primary childbtn" data-name="' + row.Child + '" data-birthdate="' + row.birthdate + '" data-address="' + row.address + '"><i class="fas fa-user"></i> View Child</button>';
-                            return viewRec + ' ' + editButton + ' ' + deleteButton;
-                        }
-                    } // Action column
+                            targets: 0,
+                            data: 'id',
+                            visible: false
+                        },
+                        {
+                            targets: 1,
+                            data: 'serial_no'
+                        },
+                        {
+                            targets: 2,
+                            data: 'full_name'
+                        },
+                        // { targets: 3, data: 'Child' },
+                        {
+                            targets: 3,
+                            data: 'birthdate'
+                        },
+                        {
+                            targets: 4,
+                            data: 'address'
+                        },
+                        {
+                            targets: 5,
+                            data: 'step'
+                        },
+                        {
+                            targets: 6,
+                            searchable: false,
+                            data: null,
+                            render: function(data, type, row) {
+                                var viewRec = '<a href="history.php?id=' + row.id + '"><button type="button" class="btn btn-warning ml-1">  <i class="fas fa-eye"></i> View History</button></a>';
+                                var editButton = '<button type="button" class="btn btn-success editbtn" data-patient-id="' + row.serial_no + '"><i class="fas fa-edit"></i> Update</button>';
+                                var deleteButton = '<button type="button" class="btn btn-danger deletebtn" data-id="' + row.serial_no + '"><i class="fas fa-user-times"></i> Inactive</button>';
+                                // var childButton = '<button type="button" class="btn btn-primary childbtn" data-name="' + row.Child + '" data-birthdate="' + row.birthdate + '" data-address="' + row.address + '"><i class="fas fa-user"></i> View Child</button>';
+                                return viewRec + ' ' + editButton + ' ' + deleteButton;
+                            }
+                        } // Action column
                     ],
                     // Set the default ordering to 'id' column in descending order
                     order: [
@@ -1258,7 +1247,7 @@ if ($result2->num_rows > 0) {
                         serial_no: serial_no,
 
                     },
-                    success: function (response) {
+                    success: function(response) {
 
                         // if (document.getElementById("first_name_child").value != "") {
                         //     addChild();
@@ -1294,7 +1283,7 @@ if ($result2->num_rows > 0) {
                             });
                         }
                     },
-                    error: function (error) {
+                    error: function(error) {
                         // Handle errors
                         Swal.fire({
                             icon: 'error',
@@ -1312,14 +1301,14 @@ if ($result2->num_rows > 0) {
             $.ajax({
                 url: 'action/get_patient.php',
                 method: 'GET',
-                success: function (data) {
+                success: function(data) {
                     // Assuming the server returns JSON data, parse it
                     var patients = JSON.parse(data);
 
                     // Clear the DataTable and redraw with new data
                     table.clear().rows.add(patients).draw();
                 },
-                error: function (error) {
+                error: function(error) {
                     // Handle errors
                     console.error('Error retrieving patients: ' + error);
                 }
@@ -1327,7 +1316,7 @@ if ($result2->num_rows > 0) {
         }
 
         // Delete button click event
-        $('#patientTableBody').on('click', '.deletebtn', function () {
+        $('#patientTableBody').on('click', '.deletebtn', function() {
             var patientId = $(this).data('id');
 
             // Confirm the deletion with a SweetAlert dialog
@@ -1348,7 +1337,7 @@ if ($result2->num_rows > 0) {
                         data: {
                             patient_id: patientId
                         },
-                        success: function (response) {
+                        success: function(response) {
                             if (response === 'Success') {
                                 // Patient deleted successfully, update the table
                                 updatePatientTable();
@@ -1357,7 +1346,7 @@ if ($result2->num_rows > 0) {
                                 Swal.fire('Error', 'Error Inactive patient: ' + response, 'error');
                             }
                         },
-                        error: function (error) {
+                        error: function(error) {
                             Swal.fire('Error', 'Error Inactive patient: ' + error, 'error');
                         }
                     });
@@ -1368,7 +1357,7 @@ if ($result2->num_rows > 0) {
 
 
         // Edit button click event
-        $('#patientTableBody').on('click', '.editbtn', function () {
+        $('#patientTableBody').on('click', '.editbtn', function() {
             var patientId = $(this).data('patient-id');
 
             $.ajax({
@@ -1377,7 +1366,7 @@ if ($result2->num_rows > 0) {
                 data: {
                     patient_id: patientId
                 },
-                success: function (data) {
+                success: function(data) {
 
                     var patientData = data;
 
@@ -1404,14 +1393,14 @@ if ($result2->num_rows > 0) {
                     // Show the Edit Patient Modal
                     $('#editPatientModal').modal('show');
                 },
-                error: function (error) {
+                error: function(error) {
                     console.error('Error fetching patient data: ' + error);
                 },
             });
         });
         // When the "Update" button in the update modal is clicked
         // When the "Update" button in the update modal is clicked
-        $('#updatePatientButton').click(function () {
+        $('#updatePatientButton').click(function() {
             event.preventDefault();
             $('.error').text('');
             // Get the updated patient data from the form
@@ -1515,7 +1504,7 @@ if ($result2->num_rows > 0) {
                         serial_no: Serialno,
                         religion: Religion
                     },
-                    success: function (response) {
+                    success: function(response) {
                         // Handle the response
                         if (response === 'Success') {
                             updatePatientTable();
@@ -1538,7 +1527,7 @@ if ($result2->num_rows > 0) {
                             });
                         }
                     },
-                    error: function (error) {
+                    error: function(error) {
                         // Show an error Swal notification for AJAX errors
                         Swal.fire({
                             icon: 'error',

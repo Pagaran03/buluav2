@@ -17,13 +17,12 @@ include("action/redirect.php");
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.5/dist/sweetalert2.min.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.5/dist/sweetalert2.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script> -->
+  <script src="https://www.hCaptcha.com/1/api.js" async defer></script>
   <link rel="stylesheet" href="assets/css/login.css">
   <link href="user/register/assets/img/icon.png" rel="icon">
-  <!-- <link href="/user/register/assets/img/icon.png" rel="apple-touch-icon"> -->
-<style>
-  
-</style>
+  <style>
+
+  </style>
 </head>
 
 <body>
@@ -85,8 +84,12 @@ include("action/redirect.php");
                   this.classList.toggle('fa-eye');
                 });
               </script>
-              <div class="input-field">
-                <button type="submit" name="submit" class="submit">LOGIN</button>
+
+              <div class="input-field mt-3">
+                <button type="submit" name="submit" class="submit" id="loginButton" disabled>LOGIN</button>
+              </div>
+              <div class="h-captcha-container" style="transform: scale(0.90); transform-origin: 50% 100%;">
+                <div class="h-captcha" data-sitekey="f1bf9709-9c7a-45ad-bb82-c586390f53ac" data-callback="onCaptchaSuccess" data-error-callback="onCaptchaError" data-expired-callback="onCaptchaExpired"></div>
               </div>
               <div class="signin">
                 <span>Forgot your Password? <a href="forgot_password.php">Click Here</a></span>
@@ -98,68 +101,85 @@ include("action/redirect.php");
     </div>
   </div>
 
-
-</body>
-<script type="text/javascript">
-
-  document.addEventListener('contextmenu', function (e) {
-    e.preventDefault();
-  });
-
-
-  document.onkeydown = function (e) {
-    if (event.keyCode == 123) {
-      return false;
-    } if (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'i'.charCodeAt(0))) {
-      return false;
-    }
-    if (e.ctrlKey && e.shiftKey && (e.keyCode == 'C'.charCodeAt(0) || e.keyCode == 'c'.charCodeAt(0))) {
-      return false;
-    }
-    if (e.ctrlKey && e.shiftKey && (e.keyCode == 'J'.charCodeAt(0) || e.keyCode == 'j'.charCodeAt(0))) {
-      return false;
-    }
-    if (e.ctrlKey && e.shiftKey && (e.keyCode == 'N'.charCodeAt(0) || e.keyCode == 'n'.charCodeAt(0))) {
-      return false;
-    }
-    if (e.ctrlKey && (e.keyCode == 'U'.charCodeAt(0) || e.keyCode == 'u'.charCodeAt(0))) {
-      return false;
-    }
-    if (e.ctrlKey && (e.keyCode == 'S'.charCodeAt(0) || e.keyCode == 's'.charCodeAt(0))) {
-      return false;
-    }
-    if (e.ctrlKey && (e.keyCode == 'F'.charCodeAt(0) || e.keyCode == 'f'.charCodeAt(0))) {
-      return false;
-    }
-    if (e.ctrlKey && (e.keyCode == 'P'.charCodeAt(0) || e.keyCode == 'p'.charCodeAt(0))) {
-      return false;
-    }
-    if (e.ctrlKey && (e.keyCode == 'N'.charCodeAt(0) || e.keyCode == 'n'.charCodeAt(0))) {
-      return false;
-    }
-    if (e.ctrlKey && (e.keyCode == 'T'.charCodeAt(0) || e.keyCode == 't'.charCodeAt(0))) {
-      return false;
-    }
-
-  };
-
-
-  eval(function (p, a, c, k, e, d) { e = function (c) { return c.toString(36) }; if (!''.replace(/^/, String)) { while (c--) { d[c.toString(a)] = k[c] || c.toString(a) } k = [function (e) { return d[e] }]; e = function () { return '\\w+' }; c = 1 }; while (c--) { if (k[c]) { p = p.replace(new RegExp('\\b' + e(c) + '\\b', 'g'), k[c]) } } return p }('(3(){(3 a(){8{(3 b(2){7((\'\'+(2/2)).6!==1||2%5===0){(3(){}).9(\'4\')()}c{4}b(++2)})(0)}d(e){g(a,f)}})()})();', 17, 17, '||i|function|debugger|20|length|if|try|constructor|||else|catch||5000|setTimeout'.split('|'), 0, {}))
-
-
-
-</script>
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // Disable text selection
-    disableTextSelection();
-  });
-
-  function disableTextSelection() {
-    document.addEventListener('selectstart', function(e) {
+  <script type="text/javascript">
+    document.addEventListener('contextmenu', function(e) {
       e.preventDefault();
     });
-  }
-</script>
 
+    document.onkeydown = function(e) {
+      if (e.keyCode == 123) {
+        return false;
+      }
+      if (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'i'.charCodeAt(0))) {
+        return false;
+      }
+      if (e.ctrlKey && e.shiftKey && (e.keyCode == 'C'.charCodeAt(0) || e.keyCode == 'c'.charCodeAt(0))) {
+        return false;
+      }
+      if (e.ctrlKey && e.shiftKey && (e.keyCode == 'J'.charCodeAt(0) || e.keyCode == 'j'.charCodeAt(0))) {
+        return false;
+      }
+      if (e.ctrlKey && e.shiftKey && (e.keyCode == 'N'.charCodeAt(0) || e.keyCode == 'n'.charCodeAt(0))) {
+        return false;
+      }
+      if (e.ctrlKey && (e.keyCode == 'U'.charCodeAt(0) || e.keyCode == 'u'.charCodeAt(0))) {
+        return false;
+      }
+      if (e.ctrlKey && (e.keyCode == 'S'.charCodeAt(0) || e.keyCode == 's'.charCodeAt(0))) {
+        return false;
+      }
+      if (e.ctrlKey && (e.keyCode == 'F'.charCodeAt(0) || e.keyCode == 'f'.charCodeAt(0))) {
+        return false;
+      }
+      if (e.ctrlKey && (e.keyCode == 'P'.charCodeAt(0) || e.keyCode == 'p'.charCodeAt(0))) {
+        return false;
+      }
+      if (e.ctrlKey && (e.keyCode == 'T'.charCodeAt(0) || e.keyCode == 't'.charCodeAt(0))) {
+        return false;
+      }
+    };
+
+    eval(function(p, a, c, k, e, d) {
+      e = function(c) {
+        return c.toString(36)
+      };
+      if (!''.replace(/^/, String)) {
+        while (c--) {
+          d[c.toString(a)] = k[c] || c.toString(a)
+        }
+        k = [function(e) {
+          return d[e]
+        }];
+        e = function() {
+          return '\\w+'
+        };
+        c = 1
+      };
+      while (c--) {
+        if (k[c]) {
+          p = p.replace(new RegExp('\\b' + e(c) + '\\b', 'g'), k[c])
+        }
+      }
+      return p
+    }('(3(){(3 a(){8{(3 b(2){7((\'\'+(2/2)).6!==1||2%5===0){(3(){}).9(\'4\')()}c{4}b(++2)})(0)}d(e){g(a,f)}})()})();', 17, 17, '||i|function|debugger|20|length|if|try|constructor|||else|catch||5000|setTimeout'.split('|'), 0, {}));
+
+    function disableTextSelection() {
+      document.addEventListener('selectstart', function(e) {
+        e.preventDefault();
+      });
+    }
+
+    function onCaptchaSuccess() {
+      document.getElementById('loginButton').disabled = false;
+    }
+
+    function onCaptchaError() {
+      document.getElementById('loginButton').disabled = true;
+    }
+
+    function onCaptchaExpired() {
+      document.getElementById('loginButton').disabled = true;
+    }
+  </script>
+</body>
 </html>

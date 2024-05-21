@@ -54,7 +54,7 @@ if ($result === false) {
                         <div class="row">
                             <div class="col-4">
                                 <div class="form-group">
-                                    <label for="patient">Select Patient</label>
+                                    <label for="patient">Select Patient</label><span style="color: red; font-size: 22px;">*</span>
                                     <input list="patients" class="form-control" name="patient_id" id="patient_id"
                                         required>
                                     <datalist id="patients">
@@ -98,7 +98,7 @@ if ($result === false) {
 
                             <div class="col-4">
                                 <div class="form-group">
-                                    <label for="">Select Midwife</label>
+                                    <label for="">Select Midwife</label><span style="color: red; font-size: 22px;">*</span>
                                     <select class="form-control" name="nurse_id" id="nurse_id" required>
                                         <option value="" disabled selected hidden>Select a Midwife</option>
                                         <?php
@@ -175,7 +175,7 @@ if ($result === false) {
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="height">Height</label>
+                                    <label for="height">Height</label><span style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="height" name="height" required>
                                         <div class="input-group-append">
@@ -187,7 +187,7 @@ if ($result === false) {
 
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="weight">Weight</label>
+                                    <label for="weight">Weight</label><span style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="weight" name="weight" required>
                                         <div class="input-group-append">
@@ -199,7 +199,7 @@ if ($result === false) {
 
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="temperature">Temperature</label>
+                                    <label for="temperature">Temperature</label><span style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="temperature" name="temperature"
                                             required>
@@ -212,7 +212,7 @@ if ($result === false) {
 
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="pr">PR</label>
+                                    <label for="pr">PR</label><span style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="pr" name="pr" required>
                                         <div class="input-group-append">
@@ -228,7 +228,7 @@ if ($result === false) {
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="rr">RR</label>
+                                    <label for="rr">RR</label><span style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="rr" name="rr" required>
                                         <div class="input-group-append">
@@ -240,7 +240,7 @@ if ($result === false) {
 
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="bp">BP</label>
+                                    <label for="bp">BP</label><span style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="bp" name="bp" required>
                                         <div class="input-group-append">
@@ -252,7 +252,7 @@ if ($result === false) {
 
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="menarche">Menarche</label>
+                                    <label for="menarche">Menarche</label><span style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="menarche" name="menarche" required>
                                         <div class="input-group-append">
@@ -264,7 +264,7 @@ if ($result === false) {
 
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="lmp">LMP</label>
+                                    <label for="lmp">LMP</label><span style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="lmp" name="lmp" required>
                                         <div class="input-group-append">
@@ -284,7 +284,7 @@ if ($result === false) {
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="gravida">Gravida</label>
+                                    <label for="gravida">Gravida</label><span style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="gravida" name="gravida" required>
                                         <div class="input-group-append">
@@ -296,7 +296,7 @@ if ($result === false) {
 
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="para">Para</label>
+                                    <label for="para">Para</label><span style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="para" name="para" required>
                                         <div class="input-group-append">
@@ -308,7 +308,7 @@ if ($result === false) {
 
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="fullterm">Fullterm</label>
+                                    <label for="fullterm">Fullterm</label><span style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="fullterm" name="fullterm" required>
                                         <div class="input-group-append">
@@ -320,7 +320,7 @@ if ($result === false) {
 
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="preterm">Preterm</label>
+                                    <label for="preterm">Preterm</label><span style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="preterm" name="preterm" required>
                                         <div class="input-group-append">
@@ -337,7 +337,7 @@ if ($result === false) {
                         <div class="row">
                             <div class="col-3">
                                 <div class="form-group">
-                                    <label for="abortion">Abortion</label>
+                                    <label for="abortion">Abortion</label><span style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="abortion" name="abortion" required>
                                         <div class="input-group-append">
@@ -349,7 +349,7 @@ if ($result === false) {
 
                             <div class="col-3">
                                 <div class="form-group">
-                                    <label for="stillbirth">Stillbirth</label>
+                                    <label for="stillbirth">Stillbirth</label><span style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="stillbirth" name="stillbirth"
                                             required>
@@ -362,7 +362,7 @@ if ($result === false) {
 
                             <div class="col-3">
                                 <div class="form-group">
-                                    <label for="alive">Alive</label>
+                                    <label for="alive">Alive</label><span style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="alive" name="alive" required>
                                         <div class="input-group-append">
@@ -383,7 +383,7 @@ if ($result === false) {
 
                             <div class="col-3">
                                 <div class="form-group">
-                                    <label for="hgb">HGB (+/-)</label>
+                                    <label for="hgb">HGB (+/-)</label><span style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="hgb" name="hgb" required
                                             oninput="checkHgbValue()">
@@ -397,7 +397,7 @@ if ($result === false) {
 
                             <div class="col-3">
                                 <div class="form-group">
-                                    <label for="ua">U/A</label>
+                                    <label for="ua">U/A</label><span style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="ua" name="ua" required>
                                         <div class="input-group-append">
@@ -409,7 +409,7 @@ if ($result === false) {
 
                             <div class="col-3">
                                 <div class="form-group">
-                                    <label for="vdrl">VDRL/RPR</label>
+                                    <label for="vdrl">VDRL/RPR</label><span style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="vdrl" name="vdrl" required>
                                         <div class="input-group-append">
@@ -519,7 +519,7 @@ if ($result === false) {
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="edc">EDC</label>
+                                    <label for="edc">EDC</label><span style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="edc" name="edc" required>
                                         <div class="input-group-append">
@@ -531,7 +531,7 @@ if ($result === false) {
 
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="aog">AOG</label>
+                                    <label for="aog">AOG</label><span style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="aog" name="aog" required>
                                         <div class="input-group-append">
@@ -544,7 +544,7 @@ if ($result === false) {
 
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="">Date of Last Delivery</label>
+                                    <label for="">Date of Last Delivery</label><span style="color: red; font-size: 22px;">*</span>
                                     <input type="date" class="form-control" id="date_of_last_delivery"
                                         name="date_of_last_delivery" required>
                                 </div>
@@ -552,7 +552,7 @@ if ($result === false) {
 
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="">Place of Last Delivery</label>
+                                    <label for="">Place of Last Delivery</label><span style="color: red; font-size: 22px;">*</span>
                                     <input type="text" class="form-control" id="place_of_last_delivery"
                                         name="place_of_last_delivery" required>
                                 </div>
