@@ -1,110 +1,263 @@
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  font-family: poppins;
-}
+/* POPPINS FONT */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
-body {
-  background-color: #e8edf2;
+*{
+    font-family: 'Poppins', sans-serif;
 }
-
-/* Mobile Styles */
-@media (max-width: 768px) {
-  div.container {
+.wrapper{
+  
+  background-color: rgba(152, 148, 148, 0.5); /* Transparent white overlay (adjust alpha as needed) */
+  padding: 0 20px; /* Adjust padding as needed */
+  
+}
+.main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+.side-image{
+  background-image: url("../images/buluaLogo.png"); /* Adjust file extension (.png, .jpg, etc.) */
+  background-position: center;
+  background-size: 80%; /* Adjust the size as needed */
+  background-repeat: no-repeat;
+  border-radius: 10px;
+    
+}
+.row{
+  width:  900px;
+  height:550px;
+  border-radius: 10px;
+  background: #fff;
+  padding: 0px;
+  box-shadow: 5px 5px 10px 1px rgba(0,0,0,0.2);
+}
+.text{
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+.text p{
+    color: #fff;
+    font-size: 20px; 
+}
+i{
+    font-weight: 400;
+    font-size: 15px;
+}
+.right{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background-color: #0e2358;
+}
+.input-box{
+  width: 330px;
+  box-sizing: border-box;
+}
+.input-box header {
+  font-size: 40px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+img {
+  width: 400px; /* Set the width of the image */
+  display: block; /* Ensures the image behaves as a block element */
+  margin: auto; /* Centers the image horizontally */
+  position: relative; /* Optionally adjust position if needed */
+  top: 75px; /* Adjust top position if needed */
+  left: 30px; /* Adjust left position if needed */
+}
+
+
+.input-box header{
+    font-weight: 900;
+    text-align: center;
+    margin-bottom: 50px;
+    color: #fff;
+}
+.input-field{
     display: flex;
     flex-direction: column;
-    align-items: center;
-    background-color: white;
-    padding: 20px;
-    box-shadow: 0 50px 50px -50px darkslategray;
-  }
+    position: relative;
+    padding: 0 10px 0 10px;
+    color: #fff;
 
-  div.container div.myform {
+}
+.fa-eye-slash {
+  color: red; /* Example color */
+}
+
+.fa-eye {
+  color: green; /* Example color */
+}
+
+
+.input{
+    height: 45px;
     width: 100%;
-    margin-right: 0;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    outline: none;
+    margin-bottom: 20px;
+    color: #ffffff;
+    
+}
+.input-box .input-field label{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    pointer-events: none;
+    transition: .5s;
+}
+.input-field input:focus ~ label
+   {
+    top: -10px;
+    font-size: 13px;
   }
-
-  div.container div.myform h1 {
-    font-size: 18px;
-    margin-bottom: 10px;
-  }
-
-  div.container div.myform input {
+  .input-field input:valid ~ label
+  {
+   top: -10px;
+   font-size: 13px;
+   color: #5d5076;
+ }
+ .input-field .input:focus, .input-field .input:valid{
+    border-bottom: 1px solid #743ae1;
+ }
+ .submit{
+  color: #fff;
     border: none;
     outline: none;
-    border-radius: 0;
-    width: 100%;
-    border-bottom: 2px solid #1c1c1e;
-    margin-bottom: 10px;
-    padding: 5px 0;
-    font-size: 12px;
+    height: 45px;
+    background: #255F9CF1;
+    border-radius: 5px;
+    transition: .4s;
+ }
+ .submit:hover{
+    background: rgba(37, 95, 156, 0.937);
+    color: #ffffff;
+ }
+ .signin{
+    text-align: center;
+    font-size: small;
+    margin-top: 25px;
+    color: #4f88c5f1;
+}
+span a{
+    text-decoration: none;
+    font-weight: 700;
+    color: #ffffff;
+    transition: .5s;
+}
+span a:hover{
+    text-decoration: underline;
+    color: #88a3e8;
+}
+
+@media only screen and (max-width: 768px) {
+  .side-image {
+    border-radius: 10px 10px 0 0;
+    text-align: center; /* Center text in case of smaller screens */
   }
 
-  div.container div.myform button {
-    font-size: 12px;
-    padding: 4px 10px;
+  img {
+    width: 100px; /* Adjusted width for smaller screens */
+    position: absolute; /* Position image absolutely within .side-image */
+    top: 80%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Center the image perfectly */
   }
 
-  div.container div.image {
-    width: 100%;
-    margin-top: 20px;
+  .text {
+    position: absolute; /* Position text absolutely */
+    top: 80%; /* Adjust top position as needed */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Center text horizontally */
+    text-align: center; /* Center text in case of smaller screens */
   }
 
-  div.container div.image img {
+  .text p,
+  .text i {
+    font-size: 16px; /* Adjust font size for smaller screens */
+  }
+
+  .row {
+    max-width: 100%; /* Full width for smaller screens */
     width: 100%;
-    transform: none; /* Reset transform for mobile */
   }
 }
 
-/* Desktop Styles */
-div.container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+
+/* General styling */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+}
+
+.wrapper {
   display: flex;
-  flex-direction: row;
+  justify-content: center;
   align-items: center;
-  background-color: white;
-  padding: 30px;
-  box-shadow: 0 50px 50px -50px darkslategray;
+  height: 100vh;
 }
 
-div.container div.myform {
+.container {
   width: 100%;
-  margin-right: 0;
+  max-width: 600px;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
-div.container div.myform h1 {
+.myform {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.myform h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333333;
+}
+
+.form-group {
   margin-bottom: 20px;
 }
 
-div.container div.myform input {
-  border: none;
-  outline: none;
-  border-radius: 0;
+.form-control {
   width: 100%;
-  border-bottom: 2px solid #1c1c1e;
-  margin-bottom: 15px;
-  padding: 7px 0;
-  font-size: 14px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
 }
 
-div.container div.myform button {
-  font-size: 14px;
-  padding: 5px 12px;
+.btn-primary {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  color: #ffffff;
+  background-color: #0e2358;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
-div.container div.image {
-  margin-left: 150px;
+.btn-primary:hover {
+  background-color: #0056b3;
 }
 
-div.container div.image img {
-  max-width: 100%;
-  transform: scale(1.5); /* Adjust the scale as needed for desktop */
+/* Responsive adjustments */
+@media only screen and (max-width: 600px) {
+  .myform {
+    padding: 20px;
+  }
 }

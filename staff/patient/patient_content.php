@@ -232,7 +232,8 @@ if ($result2->num_rows > 0) {
                                     <label for="address">Address</label>
                                     <select class="form-control" id="address" name="address" required>
                                         <option value="" disabled selected>Select your address</option>
-                                        <option value="Zone 1, Bulua, Cagayan de Oro">Zone 1, Bulua, Cagayan de Oro,
+                                        <option value="Zone 1, Bulua, Cagayan de Oro">Zone 1, Bulua,
+                                            Cagayan de Oro,
                                             Misamis Oriental</option>
                                         <option value="Zone 2, Bulua, Cagayan de Oro">Zone 2, Bulua, Cagayan de Oro,
                                             Misamis Oriental</option>
@@ -250,12 +251,19 @@ if ($result2->num_rows > 0) {
                                             Misamis Oriental</option>
                                         <option value="Zone 9, Bulua, Cagayan de Oro">Zone 9, Bulua, Cagayan de Oro,
                                             Misamis Oriental</option>
-                                        <option value="Zone 10, Bulua, Cagayan de Oro">Zone 10, Bulua, Cagayan de Oro,
+                                        <option value="Zone 10, Bulua, Cagayan de Oro">Zone 10, Bulua, Cagayan de
+                                            Oro,
                                             Misamis Oriental</option>
-                                        <option value="Zone 11, Bulua, Cagayan de Oro">Zone 11, Bulua, Cagayan de Oro,
+                                        <option value="Zone 11, Bulua, Cagayan de Oro">Zone 11, Bulua, Cagayan de
+                                            Oro,
                                             Misamis Oriental</option>
-                                        <option value="Zone 12, Bulua, Cagayan de Oro">Zone 12, Bulua, Cagayan de Oro,
+                                        <option value="Zone 12, Bulua, Cagayan de Oro">Zone 12, Bulua, Cagayan de
+                                            Oro,
                                             Misamis Oriental</option>
+                                        <option value="Zone 13, Bulua, Cagayan de Oro">Zone 13, Bulua, Cagayan de
+                                            Oro,
+                                            Misamis Oriental</option>
+
                                         <!-- Add more address options as needed -->
                                     </select>
                                     <div id="address_error" class="error"></div>
@@ -741,6 +749,7 @@ if ($result2->num_rows > 0) {
                                     <div id="editAge_error" class="error"></div>
                                 </div>
                             </div>
+
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="serial_no">Serial No</label>
@@ -784,33 +793,65 @@ if ($result2->num_rows > 0) {
                                     <label for="address">Address</label>
                                     <select class="form-control" id="editAddress" name="address" required>
                                         <option value="" disabled selected>Select your address</option>
-                                        <option value="Zone 1, Bulua, Cagayan de Oro">Zone 1, Bulua, Cagayan de Oro,
+                                        <<<<<<< HEAD <option value="Zone 1, Bulua, Cagayan de Oro">Zone 1, Bulua,
+                                            Cagayan de Oro,
                                             Misamis Oriental</option>
-                                        <option value="Zone 2, Bulua, Cagayan de Oro">Zone 2, Bulua, Cagayan de Oro,
-                                            Misamis Oriental</option>
-                                        <option value="Zone 3, Bulua, Cagayan de Oro">Zone 3, Bulua, Cagayan de Oro,
-                                            Misamis Oriental</option>
-                                        <option value="Zone 4, Bulua, Cagayan de Oro">Zone 4, Bulua, Cagayan de Oro,
-                                            Misamis Oriental</option>
-                                        <option value="Zone 5, Bulua, Cagayan de Oro">Zone 5, Bulua, Cagayan de Oro,
-                                            Misamis Oriental</option>
-                                        <option value="Zone 6, Bulua, Cagayan de Oro">Zone 6, Bulua, Cagayan de Oro,
-                                            Misamis Oriental</option>
-                                        <option value="Zone 7, Bulua, Cagayan de Oro">Zone 7, Bulua, Cagayan de Oro,
-                                            Misamis Oriental</option>
-                                        <option value="Zone 8, Bulua, Cagayan de Oro">Zone 8, Bulua, Cagayan de Oro,
-                                            Misamis Oriental</option>
-                                        <option value="Zone 9, Bulua, Cagayan de Oro">Zone 9, Bulua, Cagayan de Oro,
-                                            Misamis Oriental</option>
-                                        <option value="Zone 10, Bulua, Cagayan de Oro">Zone 10, Bulua, Cagayan de Oro,
-                                            Misamis Oriental</option>
-                                        <option value="Zone 11, Bulua, Cagayan de Oro">Zone 11, Bulua, Cagayan de Oro,
-                                            Misamis Oriental</option>
-                                        <option value="Zone 12, Bulua, Cagayan de Oro">Zone 12, Bulua, Cagayan de Oro,
-                                            Misamis Oriental</option>
-                                        <option value="Zone 13, Bulua, Cagayan de Oro">Zone 13, Bulua, Cagayan de Oro,
-                                            Misamis Oriental</option>
-                                        <!-- Add more address options as needed -->
+                                            <option value="Zone 2, Bulua, Cagayan de Oro">Zone 2, Bulua, Cagayan de Oro,
+                                                Misamis Oriental</option>
+                                            <option value="Zone 3, Bulua, Cagayan de Oro">Zone 3, Bulua, Cagayan de Oro,
+                                                Misamis Oriental</option>
+                                            <option value="Zone 4, Bulua, Cagayan de Oro">Zone 4, Bulua, Cagayan de Oro,
+                                                Misamis Oriental</option>
+                                            <option value="Zone 5, Bulua, Cagayan de Oro">Zone 5, Bulua, Cagayan de Oro,
+                                                Misamis Oriental</option>
+                                            <option value="Zone 6, Bulua, Cagayan de Oro">Zone 6, Bulua, Cagayan de Oro,
+                                                Misamis Oriental</option>
+                                            <option value="Zone 7, Bulua, Cagayan de Oro">Zone 7, Bulua, Cagayan de Oro,
+                                                Misamis Oriental</option>
+                                            <option value="Zone 8, Bulua, Cagayan de Oro">Zone 8, Bulua, Cagayan de Oro,
+                                                Misamis Oriental</option>
+                                            <option value="Zone 9, Bulua, Cagayan de Oro">Zone 9, Bulua, Cagayan de Oro,
+                                                Misamis Oriental</option>
+                                            <option value="Zone 10, Bulua, Cagayan de Oro">Zone 10, Bulua, Cagayan de
+                                                Oro,
+                                                Misamis Oriental</option>
+                                            <option value="Zone 11, Bulua, Cagayan de Oro">Zone 11, Bulua, Cagayan de
+                                                Oro,
+                                                Misamis Oriental</option>
+                                            <option value="Zone 12, Bulua, Cagayan de Oro">Zone 12, Bulua, Cagayan de
+                                                Oro,
+                                                Misamis Oriental</option>
+                                            <option value="Zone 13, Bulua, Cagayan de Oro">Zone 13, Bulua, Cagayan de
+                                                Oro,
+                                                Misamis Oriental</option>
+                                            =======
+                                            <option value="Zone 1, Bulua, Cagayan de Oro">Zone 1, Bulua, Cagayan de Oro,
+                                                Misamis Oriental</option>
+                                            <option value="Zone 2, Bulua, Cagayan de Oro">Zone 2, Bulua, Cagayan de Oro,
+                                                Misamis Oriental</option>
+                                            <option value="Zone 3, Bulua, Cagayan de Oro">Zone 3, Bulua, Cagayan de Oro,
+                                                Misamis Oriental</option>
+                                            <option value="Zone 4, Bulua, Cagayan de Oro">Zone 4, Bulua, Cagayan de Oro,
+                                                Misamis Oriental</option>
+                                            <option value="Zone 5, Bulua, Cagayan de Oro">Zone 5, Bulua, Cagayan de Oro,
+                                                Misamis Oriental</option>
+                                            <option value="Zone 6, Bulua, Cagayan de Oro">Zone 6, Bulua, Cagayan de Oro,
+                                                Misamis Oriental</option>
+                                            <option value="Zone 7, Bulua, Cagayan de Oro">Zone 7, Bulua, Cagayan de Oro,
+                                                Misamis Oriental</option>
+                                            <option value="Zone 8, Bulua, Cagayan de Oro">Zone 8, Bulua, Cagayan de Oro,
+                                                Misamis Oriental</option>
+                                            <option value="Zone 9, Bulua, Cagayan de Oro">Zone 9, Bulua, Cagayan de Oro,
+                                                Misamis Oriental</option>
+                                            <option value="Zone 10, Bulua, Cagayan de Oro">Zone 10, Bulua, Cagayan de
+                                                Oro, Misamis Oriental</option>
+                                            <option value="Zone 11, Bulua, Cagayan de Oro">Zone 11, Bulua, Cagayan de
+                                                Oro, Misamis Oriental</option>
+                                            <option value="Zone 12, Bulua, Cagayan de Oro">Zone 12, Bulua, Cagayan de
+                                                Oro, Misamis Oriental</option>
+
+                                            >>>>>>> 458a32dc304e5d7b0f4054593f2c414e31aa4e52
+                                            <!-- Add more address options as needed -->
                                     </select>
                                     <div id="EditAddress_error" class="error"></div>
                                 </div>

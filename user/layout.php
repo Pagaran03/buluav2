@@ -442,8 +442,7 @@ processFormSubmission($conn);
                                             Misamis Oriental</option>
                                         <option value="Zone 12, Bulua, Cagayan de Oro">Zone 12, Bulua, Cagayan de Oro,
                                             Misamis Oriental</option>
-                                        <option value="Zone 13, Bulua, Cagayan de Oro">Zone 13, Bulua, Cagayan de Oro,
-                                            Misamis Oriental</option>
+                                        
                                     </select>
                                     <div id="address_error" class="error"></div>
                                 </div>
