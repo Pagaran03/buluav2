@@ -618,6 +618,7 @@ if ($result === false) {
                         <th>Patient Name</th>
                         <th>Date</th>
                         <th>Status</th>
+                        <th>Trimister</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -632,6 +633,7 @@ if ($result === false) {
                                 <td class="align-middle"><?php echo $row['full_name']; ?></td>
                                 <td class="align-middle"><?php echo $row['checkup_date']; ?></td>
                                 <td class="align-middle"><?php echo $row['status']; ?></td>
+                                <td class="align-middle"><?php echo $row['trimester']; ?></td>
                                 <td class="align-middle">
                                     <a href="history_consultation.php?id=<?php echo $row['id']; ?>"><button type="button"
                                             class="btn btn-warning ml-1">View History</button></a>
@@ -641,7 +643,7 @@ if ($result === false) {
                                         <i class="fas fa-eye"></i> View Record
                                     </button>
                                     <button type="button" class="btn btn-success editbtn2"
-                                        data-row-id="<?php echo $row['id']; ?>"><i class="fas fa-edit"></i> Add Consultation
+                                        data-row-id="<?php echo $row['id']; ?>"><i class="fas fa-edit"></i> Add Visit
                                     </button>
 
                                     <button type="button" class="btn btn-danger deletebtn" data-id="' + row.id + '"><i
@@ -657,6 +659,7 @@ if ($result === false) {
                             <td class="align-middle">No Prental Found</td>
                             <td class="align-middle">
                             <td>
+                            <td class="align-middle"></td>
                             <td class="align-middle"></td>
                             <td class="align-middle"></td>
                             <td class="align-middle"></td>
@@ -686,8 +689,6 @@ if ($result === false) {
             <div class="modal-body">
                 <form id="editForm">
                     <div class="row">
-
-
                         <div class="col-4">
                             <div class="form-group">
 
@@ -718,10 +719,7 @@ if ($result === false) {
                                     
                                     ?>
                                 </select>
-
                             </div>
-
-
                         </div>
                         <div class="col-4">
                             <div class="form-group">
@@ -1205,7 +1203,7 @@ if ($result === false) {
 
 <div class="modal fade" id="editModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Prenatal Consultation</h5>
@@ -1220,31 +1218,98 @@ if ($result === false) {
                     <!-- Form fields go here -->
 
 
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="editstatus">Select Status</label>
+                                <select class="form-control" name="status" id="editstatus" required>
+                                    <option value="" disabled selected hidden>Select a Status</option>
+                                    <option value="Complete">Complete</option>
+                                    <option value="Pending">Pending</option>
+                                    <option value="Progress">Progress</option>
+                                </select>
+                                <!-- <div id="editStatus_error" class="error"></div> -->
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group">
+                                <label for="selecttrimester">Select Trimester</label>
+                                <select class="form-control" name="trimester" id="trimester" required>
+                                    <option value="" disabled selected hidden>Select a Trimester</option>
+                                    <option value="1st Trimister">1st Trimester</option>
+                                    <option value="2nd Trimister">2nd Trimester</option>
+                                    <option value="3rd Trimister">3rd Trimester</option>
+                                </select>
+                                <!-- <div id="selecttrimester_error" class="error"></div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <label for="">Subjective/Objective</label>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="wt">WT (kg)</label>
+                                <input type="text" class="form-control" id="wt" name="wt" required>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="pr1">PR (bpm)</label>
+                                <input type="text" class="form-control" id="pr1" name="pr1" required>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="rr1">RR (breaths/min)</label>
+                                <input type="text" class="form-control" id="rr1" name="rr1" required>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="bp1">BP (mmHg)</label>
+                                <input type="text" class="form-control" id="bp1" name="bp1" required>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="temp1">Temp (°C)</label>
+                                <input type="text" class="form-control" id="temp1" name="temp1" required>
+                            </div>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="">Select Status</label>
-                        <select class="form-control" name="status" id="editstatus" required>
-                            <option value="" disabled selected hidden>Select a Status</option>
-                            <option value="Complete">Complete</option>
-                            <option value="Pending">Pending</option>
-                            <option value="Progress">Progress</option>
-                        </select>
-                        <!-- <div id="editStatus_error" class="error"></div> -->
+
+                    </div>
+                    <label for="">Assessment/Diagnosis</label>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="aog1">AOG (weeks)</label>
+                                <input type="text" class="form-control" id="aog1" name="aog1" required>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="fh1">FH (cm)</label>
+                                <input type="text" class="form-control" id="fh1" name="fh1" required>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="fhb1">FHB (bpm)</label>
+                                <input type="text" class="form-control" id="fhb1" name="fhb1" required>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="pres1">Pres (mmHg)</label>
+                                <input type="text" class="form-control" id="pres1" name="pres1" required>
+                            </div>
+                        </div>
                     </div>
 
-
                     <div class="form-group">
-                        <label for="">Description</label>
-                        <textarea class="form-control" id="editDescription" name="description" rows="3"
-                            required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Diagnosis</label>
-                        <textarea class="form-control" id="editDiagnosis" name="diagnosis" rows="3" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Prescription</label>
-                        <textarea class="form-control" id="editMedicine" name="medicine" rows="3" required></textarea>
+                        <label for="">Plan</label>
+                        <textarea class="form-control" id="plan" name="plan" rows="3" required></textarea>
                     </div>
                 </form>
             </div>
@@ -1279,14 +1344,15 @@ if ($result === false) {
                     { targets: 2, data: 'full_name' },
                     { targets: 3, data: 'checkup_date' },
                     { targets: 4, data: 'status' },
+                    { targets: 5, data: 'trimester' },
                     {
-                        targets: 5,
+                        targets: 6,
                         searchable: false,
                         data: null,
                         render: function (data, type, row) {
                             var viewRec = '<a href="history_consultation.php?id=' + row.id + '"><button type="button" class="btn btn-warning ml-1">View History</button></a>';
                             var editButton = '<button type="button" class="btn btn-info editbtn" data-row-id="' + row.id + '"><i class="fas fa-eye"></i> View Record</button>';
-                            var addButton = '<button type="button" class="btn btn-success editbtn2" data-row-id="' + row.id + '"><i class="fas fa-edit"></i> Add Consultation </button>';
+                            var addButton = '<button type="button" class="btn btn-success editbtn2" data-row-id="' + row.id + '"><i class="fas fa-edit"></i>  Add Visit</button>';
                             var deleteButton = '<button type="button" class="btn btn-danger deletebtn" data-id="' + row.id + '"><i class="fas fa-trash"></i> Delete</button>';
                             return viewRec + ' ' + editButton + ' ' + addButton + ' ' + deleteButton;
                         }
@@ -1306,6 +1372,7 @@ if ($result === false) {
                     { targets: 2, data: 'full_name' },
                     { targets: 3, data: 'checkup_date' },
                     { targets: 4, data: 'status' },
+                    { targets: 5, data: 'trimester' },
                 ],
                 // Set the default ordering to 'id' column in descending order
                 order: [[0, 'desc']]
@@ -1323,14 +1390,15 @@ if ($result === false) {
                     { targets: 2, data: 'full_name' },
                     { targets: 3, data: 'checkup_date' },
                     { targets: 4, data: 'status' },
+                    { targets: 5, data: 'trimester' },
                     {
-                        targets: 5,
+                        targets: 6,
                         searchable: false,
                         data: null,
                         render: function (data, type, row) {
                             var viewRec = '<a href="history_consultation.php?id=' + row.id + '"><button type="button" class="btn btn-warning ml-1">View History</button></a>';
                             var editButton = '<button type="button" class="btn btn-info editbtn" data-row-id="' + row.id + '"><i class="fas fa-eye"></i> View Record</button>';
-                            var addButton = '<button type="button" class="btn btn-success editbtn2" data-row-id="' + row.id + '"><i class="fas fa-edit"></i> Add Consultation </button>';
+                            var addButton = '<button type="button" class="btn btn-success editbtn2" data-row-id="' + row.id + '"><i class="fas fa-edit"></i> Add Visit </button>';
                             var deleteButton = '<button type="button" class="btn btn-danger deletebtn" data-id="' + row.id + '"><i class="fas fa-trash"></i> Delete</button>';
                             return viewRec + ' ' + editButton + ' ' + addButton + ' ' + deleteButton;
                         }
@@ -1894,6 +1962,7 @@ if ($result === false) {
 
                     $('#editModal2 #editdataId').val(editGetData.id);
                     $('#editModal2 #editstatus').val(editGetData.status);
+                    $('#editModal2 #trimester').val(editGetData.trimester);
                     $('#editModal2 #editDescription').val(editGetData.description);
                     $('#editModal2 #editDiagnosis').val(editGetData.diagnosis);
                     $('#editModal2 #editMedicine').val(editGetData.medicine);
@@ -1913,6 +1982,7 @@ if ($result === false) {
             var editId = $('#editdataId').val();
             console.log(editId);
             var status = $('#editstatus').val();
+            var trimester = $('#trimester').val();
             var description = $('#editDescription').val();
             var diagnosis = $('#editDiagnosis').val();
             var medicine = $('#editMedicine').val();
@@ -1924,6 +1994,7 @@ if ($result === false) {
                 data: {
                     primary_id: editId,
                     status: status,
+                    trimester: trimester,
                     description: description,
                     diagnosis: diagnosis,
                     medicine: medicine,
