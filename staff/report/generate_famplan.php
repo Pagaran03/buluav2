@@ -23,6 +23,8 @@ $fromDate = mysqli_real_escape_string($conn, $fromDate);
 $toDate = mysqli_real_escape_string($conn, $toDate);
 
 include("report_queries/famplan_report_queries.php");
+include("report_queries/totalCurrentUser.php");
+
 $conn->close();
 
 $pdf = new Dompdf();

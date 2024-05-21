@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 include_once('./../../config.php');
 
 // ANAPM = Acceptors New Acceptors Previous Month - BTL QUERY
@@ -236,7 +236,8 @@ INNER JOIN
 INNER JOIN 
     fp_information ON fp_information.patient_id = patients.id
 WHERE 
-    fp_information.client_type = 'ChangingMethod'
+(fp_information.client_type = 'ChangingMethod' 
+OR fp_information.client_type = 'ChangingClinic')
     AND fp_consultation.checkup_date <> '0000-00-00'
     AND fp_consultation.checkup_date BETWEEN ? AND ?";
 
@@ -826,9 +827,10 @@ $nfpsdmCUMBTotal10to14 = $nfpsdmCUEOMTotal10to14;
 $nfpsdmCUMBTotal15to19 = $nfpsdmCUEOMTotal15to19;
 $nfpsdmCUMBTotal20to49 = $nfpsdmCUEOMTotal20to49;
 $nfpsdmCUMBTotal = $nfpsdmCUMBTotal10to14 + $nfpsdmCUMBTotal15to19 + $nfpsdmCUMBTotal20to49;
-    
+
+
 // final calc for current user
-$fbtlCUEOMTotal10to14 = max(0, $btlCUMBTotal10to14 + $btlANAPMCount_count10to14 + $btlOAPMCount_count10to14 - $btlDOPMCount_count10to14);
+$fbtlCUEOMTotal10to14 = max(0, $btlTotal10to14 + $btlANAPMCount_count10to14 + $btlOAPMCount_count10to14 - $btlDOPMCount_count10to14);
 $fbtlCUEOMTotal15to19 = max(0, $btlCUMBTotal15to19 + $btlANAPMCount_count15to19 + $btlOAPMCount_count15to19 - $btlDOPMCount_count15to19);
 $fbtlCUEOMTotal20to49 = max(0, $btlCUMBTotal20to49 + $btlANAPMCount_count20to49 + $btlOAPMCount_count20to49 - $btlDOPMCount_count20to49);
 $fbtlCUEOMTotal = $fbtlCUEOMTotal10to14 + $fbtlCUEOMTotal15to19 + $fbtlCUEOMTotal20to49;

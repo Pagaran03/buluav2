@@ -1,11 +1,14 @@
 <?php
 session_start();
 
+require 'vendor/autoload.php';
+require 'config.php';
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require 'vendor/autoload.php'; // Path to autoload.php of PHPMailer
-
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
 // Function to generate a random string
 function generateRandomString($length = 10)
 {
@@ -14,6 +17,7 @@ function generateRandomString($length = 10)
     for ($i = 0; $i < $length; $i++) {
         $randomString .= $characters[rand(0, strlen($characters) - 1)];
     }
+    
     return $randomString;
 }
 
@@ -21,20 +25,6 @@ function generateRandomString($length = 10)
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get the username from the form
     $username = $_POST["username"];
-
-    // Connect to your database
-    $servername = "localhost";
-    $username_db = "root";
-    $password_db = "";
-    $dbname = "brgy_db";
-
-    // Create connection
-    $conn = new mysqli($servername, $username_db, $password_db, $dbname);
-
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
 
     // Prepare and execute SQL query to fetch email and role associated with the username
     $sql = "SELECT email, role FROM users WHERE username = ?";
@@ -66,28 +56,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mail = new PHPMailer(true);
 
         try {
-            //Server settings
+            // Server settings
             $mail->isSMTP();                                            // Send using SMTP
             $mail->Host = 'smtp.gmail.com';                       // Set the SMTP server to send through
             $mail->SMTPAuth = true;                                   // Enable SMTP authentication
-            $mail->Username = 'buluahealthc@gmail.com';              // SMTP username
-            $mail->Password = 'ooef yhpe fqkg rmyg';                     // SMTP password
-            $mail->SMTPSecure = 'tls';                                  // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-            $mail->Port = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+            $mail->Username = $_ENV['SMTP_USERNAME'];              // SMTP username from environment variable
+            $mail->Password = $_ENV['SMTP_PASSWORD'];              // SMTP password from environment variable
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;    // Enable TLS encryption
+            $mail->Port = 587;                                    // TCP port to connect to
 
             // Recipients
             $mail->setFrom('buluahealthc@gmail.com', 'Brgy Bulua Health Center'); // Set From address and name
-            $mail->addAddress($email, 'Recipient Name');  // Add a recipient
+            $mail->addAddress($email);  // Add a recipient
 
             // Content
             $mail->isHTML(true);                                  // Set email format to HTML
             $mail->Subject = 'Password Reset';
             $mail->Body = "
-            <p><b>Dear! $role </b></p>
-                    <p>You are receiving this email because we received a password reset request for your account.</p>
-                    <br>
-            Your temporary password is: $temp_password <br>
-           Please use this password to log into your account.<br>
+            <p><b>Dear $role,</b></p>
+            <p>You are receiving this email because we received a password reset request for your account.</p>
+            <br>
+            Your temporary password is: <b>$temp_password</b><br>
+            Please use this password to log into your account.<br>
             ";
 
             $mail->send();
@@ -156,7 +146,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <?php endif; ?>
 
     function redirectToIndex() {
-      window.location.href = 'index.php'; // Change 'index.php' to the desired location
+      window.location.href = 'index.php';
     }
   </script>
 </body>
