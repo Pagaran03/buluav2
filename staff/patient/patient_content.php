@@ -256,8 +256,6 @@ if ($result2->num_rows > 0) {
                                             Misamis Oriental</option>
                                         <option value="Zone 12, Bulua, Cagayan de Oro">Zone 12, Bulua, Cagayan de Oro,
                                             Misamis Oriental</option>
-                                        <option value="Zone 13, Bulua, Cagayan de Oro">Zone 13, Bulua, Cagayan de Oro,
-                                            Misamis Oriental</option>
                                         <!-- Add more address options as needed -->
                                     </select>
                                     <div id="address_error" class="error"></div>
