@@ -1149,7 +1149,7 @@ if ($result === false) {
 
 <div class="modal fade" id="editModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Prenatal Consultation</h5>
@@ -1192,51 +1192,71 @@ if ($result === false) {
                     </div>
                     <label for="">Subjective/Objective</label>
                     <div class="row">
-                        <div class="col">
+                        <div class="col-sm">
                             <div class="form-group">
                                 <label for="wt">WT (kg)</label>
                                 <input type="text" class="form-control" id="wt" name="wt" required>
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col-sm">
                             <div class="form-group">
                                 <label for="pr1">PR (bpm)</label>
                                 <input type="text" class="form-control" id="pr1" name="pr1" required>
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col-sm">
                             <div class="form-group">
                                 <label for="rr1">RR (breaths/min)</label>
                                 <input type="text" class="form-control" id="rr1" name="rr1" required>
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col-sm">
                             <div class="form-group">
                                 <label for="bp1">BP (mmHg)</label>
                                 <input type="text" class="form-control" id="bp1" name="bp1" required>
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col-sm">
                             <div class="form-group">
                                 <label for="temp1">Temp (°C)</label>
                                 <input type="text" class="form-control" id="temp1" name="temp1" required>
                             </div>
                         </div>
-
+                    </div>
+                    <label for="">Assessment/Diagnosis</label>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group">
+                                <label for="wt">AOG</label>
+                                <input type="text" class="form-control" id="wt" name="wt" required>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group">
+                                <label for="pr1">FH</label>
+                                <input type="text" class="form-control" id="pr1" name="pr1" required>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group">
+                                <label for="rr1">FHB</label>
+                                <input type="text" class="form-control" id="rr1" name="rr1" required>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group">
+                                <label for="bp1">Pres</label>
+                                <input type="text" class="form-control" id="bp1" name="bp1" required>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="form-group">
-                        <label for="">Description</label>
+                        <label for="">Plan/Recommend</label>
                         <textarea class="form-control" id="editDescription" name="description" rows="3"
                             required></textarea>
                     </div>
-                    <div class="form-group">
-                        <label for="">Diagnosis</label>
-                        <textarea class="form-control" id="editDiagnosis" name="diagnosis" rows="3" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Prescription</label>
-                        <textarea class="form-control" id="editMedicine" name="medicine" rows="3" required></textarea>
-                    </div>
+                  
                 </form>
             </div>
             <div class="modal-footer">

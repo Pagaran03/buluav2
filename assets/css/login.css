@@ -52,6 +52,7 @@ i{
   align-items: center;
   position: relative;
   background-color: #0e2358;
+  border-radius: 0px 10px 10px 0px;
 }
 .input-box{
   width: 330px;
