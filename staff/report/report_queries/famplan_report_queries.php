@@ -1,544 +1,148 @@
 <?php
-
+session_start();
 include_once('./../../config.php');
 
 // ANAPM = Acceptors New Acceptors Previous Month - BTL QUERY
-$btlANAPMCount = "
+$combinedANAPMCount = "
     SELECT
-        COALESCE(SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS btlANAPMCount_10_to_14,
-        COALESCE(SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END), 0) AS btlANAPMCount_15_to_19,
-        COALESCE(SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END), 0) AS btlANAPMCount_20_to_49
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'BTL' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS btlANAPMCount_10_to_14,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'BTL' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END), 0) AS btlANAPMCount_15_to_19,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'BTL' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END), 0) AS btlANAPMCount_20_to_49,
+    
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'NSV' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS nsvANAPMCount_10_to_14,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'NSV' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END), 0) AS nsvANAPMCount_15_to_19,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'NSV' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END), 0) AS nsvANAPMCount_20_to_49,
+    
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'Condom' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS condomANAPMCount_10_to_14,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'Condom' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END), 0) AS condomANAPMCount_15_to_19,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'Condom' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END), 0) AS condomANAPMCount_20_to_49,
+
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'Pills' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS pillsANAPMCount_10_to_14,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'Pills' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END), 0) AS pillsANAPMCount_15_to_19,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'Pills' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END), 0) AS pillsANAPMCount_20_to_49,
+
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'Pills-POP' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS pillspopANAPMCount_10_to_14,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'Pills-POP' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END), 0) AS pillspopANAPMCount_15_to_19,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'Pills-POP' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END), 0) AS pillspopANAPMCount_20_to_49,
+
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'Pills-COC' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS pillscocANAPMCount_10_to_14,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'Pills-COC' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END), 0) AS pillscocANAPMCount_15_to_19,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'Pills-COC' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END), 0) AS pillscocANAPMCount_20_to_49,
+
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'Injectables (DMPA/POI)' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS injectablesANAPMCount_10_to_14,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'Injectables (DMPA/POI)' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END), 0) AS injectablesANAPMCount_15_to_19,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'Injectables (DMPA/POI)' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END), 0) AS injectablesANAPMCount_20_to_49,
+
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'Implant' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS implantANAPMCount_10_to_14,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'Implant' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END), 0) AS implantANAPMCount_15_to_19,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'Implant' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END), 0) AS implantANAPMCount_20_to_49,
+    
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'IUD' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS iudANAPMCount_10_to_14,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'IUD' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END), 0) AS iudANAPMCount_15_to_19,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'IUD' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END), 0) AS iudANAPMCount_20_to_49,
+
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'IUD-I' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS iudiANAPMCount_10_to_14,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'IUD-I' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END), 0) AS iudiANAPMCount_15_to_19,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'IUD-I' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END), 0) AS iudiANAPMCount_20_to_49,
+
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'IUD-PP' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS iudppANAPMCount_10_to_14,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'IUD-PP' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END), 0) AS iudppANAPMCount_15_to_19,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'IUD-PP' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END), 0) AS iudppANAPMCount_20_to_49,
+
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'NFP-LAM' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS nfplamANAPMCount_10_to_14,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'NFP-LAM' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END), 0) AS nfplamANAPMCount_15_to_19,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'NFP-LAM' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END), 0) AS nfplamANAPMCount_20_to_49,
+
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'NFP-BBT' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS nfpbbtANAPMCount_10_to_14,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'NFP-BBT' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END), 0) AS nfpbbtANAPMCount_15_to_19,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'NFP-BBT' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END), 0) AS nfpbbtANAPMCount_20_to_49,
+
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'NFP-CMM' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS nfpcmmANAPMCount_10_to_14,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'NFP-CMM' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END), 0) AS nfpcmmANAPMCount_15_to_19,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'NFP-CMM' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END), 0) AS nfpcmmANAPMCount_20_to_49,
+
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'NFP-STM' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS nfpstmANAPMCount_10_to_14,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'NFP-STM' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END), 0) AS nfpstmANAPMCount_15_to_19,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'NFP-STM' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END), 0) AS nfpstmANAPMCount_20_to_49,
+
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'NFP-SDM' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS nfpsdmANAPMCount_10_to_14,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'NFP-SDM' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END), 0) AS nfpsdmANAPMCount_15_to_19,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'NFP-SDM' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END), 0) AS nfpsdmANAPMCount_20_to_49
+        
     FROM 
         fp_consultation
-    INNER JOIN 
+        INNER JOIN 
         patients ON fp_consultation.patient_id = patients.id
-    INNER JOIN (
-        SELECT 
-            patient_id
-        FROM 
-            fp_information
+        INNER JOIN 
+        fp_information ON fp_information.patient_id = patients.id
         WHERE 
-            client_type = 'New Acceptor'
-        GROUP BY 
-            patient_id
-    ) AS fp_info ON fp_consultation.patient_id = fp_info.patient_id
-    WHERE 
-        fp_consultation.method = 'BTL'
+        fp_information.client_type = 'New Acceptor'
         AND fp_consultation.checkup_date <> '0000-00-00'
         AND MONTH(fp_consultation.checkup_date) = MONTH(? - INTERVAL 1 MONTH)
         AND YEAR(fp_consultation.checkup_date) = YEAR(? - INTERVAL 1 MONTH)
 ";
 
-$stmt = $conn->prepare($btlANAPMCount);
-$stmt->bind_param("ss", $toDate, $toDate);
-$stmt->execute();
-$stmt->bind_result($btlANAPMCount_count10to14, $btlANAPMCount_count15to19, $btlANAPMCount_count20to49);
-$stmt->fetch();
-$stmt->close();
+try {
+    // Prepare and execute the statement
+    $combinedANAPM_stmt = $conn->prepare($combinedANAPMCount);
+    $combinedANAPM_stmt->bind_param("ss", $fromDate, $toDate);
+    $combinedANAPM_stmt->execute();
+    $combinedANAPM_stmt->bind_result(
+        $btlANAPMCount_count10to14,
+        $btlANAPMCount_count15to19,
+        $btlANAPMCount_count20to49,
+        $nsvANAPMCount_count10to14,
+        $nsvANAPMCount_count15to19,
+        $nsvANAPMCount_count20to49,
+        $condomANAPMCount_count10to14,
+        $condomANAPMCount_count15to19,
+        $condomANAPMCount_count20to49,
+        $pillsANAPMCount_count10to14,
+        $pillsANAPMCount_count15to19,
+        $pillsANAPMCount_count20to49,
+        $pillspopANAPMCount_count10to14,
+        $pillspopANAPMCount_count15to19,
+        $pillspopANAPMCount_count20to49,
+        $pillscocANAPMCount_count10to14,
+        $pillscocANAPMCount_count15to19,
+        $pillscocANAPMCount_count20to49,
+        $injectablesANAPMCount_count10to14,
+        $injectablesANAPMCount_count15to19,
+        $injectablesANAPMCount_count20to49,
+        $implantANAPMCount_count10to14,
+        $implantANAPMCount_count15to19,
+        $implantANAPMCount_count20to49,
+        $iudANAPMCount_count10to14,
+        $iudANAPMCount_count15to19,
+        $iudANAPMCount_count20to49,
+        $iudI_ANAPMCount_count10to14,
+        $iudI_ANAPMCount_count15to19,
+        $iudI_ANAPMCount_count20to49,
+        $iudPP_ANAPMCount_count10to14,
+        $iudPP_ANAPMCount_count15to19,
+        $iudPP_ANAPMCount_count20to49,
+        $nfplamANAPMCount_count10to14,
+        $nfplamANAPMCount_count15to19,
+        $nfplamANAPMCount_count20to49,
+        $nfpbbtANAPMCount_count10to14,
+        $nfpbbtANAPMCount_count15to19,
+        $nfpbbtANAPMCount_count20to49,
+        $nfpcmmANAPMCount_count10to14,
+        $nfpcmmANAPMCount_count15to19,
+        $nfpcmmANAPMCount_count20to49,
+        $nfpstmANAPMCount_count10to14,
+        $nfpstmANAPMCount_count15to19,
+        $nfpstmANAPMCount_count20to49,
+        $nfpsdmANAPMCount_count10to14,
+        $nfpsdmANAPMCount_count15to19,
+        $nfpsdmANAPMCount_count20to49
+    );
 
-
-
-// ANAPM = Acceptors New Acceptors Previous Month - NSV QUERY
-$nsvANAPMCount = "
-        SELECT
-        COALESCE(SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS nsvANAPMCount_10_to_14,
-        COALESCE(SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END), 0) AS nsvANAPMCount_15_to_19,
-        COALESCE(SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END), 0) AS nsvANAPMCount_20_to_49
-        FROM 
-        fp_consultation
-        INNER JOIN 
-        patients ON fp_consultation.patient_id = patients.id
-        INNER JOIN (
-        SELECT 
-            patient_id
-        FROM 
-            fp_information
-        WHERE 
-            client_type = 'New Acceptor'
-        GROUP BY 
-            patient_id
-        ) AS fp_info ON fp_consultation.patient_id = fp_info.patient_id
-        WHERE 
-        fp_consultation.method = 'NSV'
-        AND fp_consultation.checkup_date <> '0000-00-00'
-        AND MONTH(fp_consultation.checkup_date) = MONTH(? - INTERVAL 1 MONTH)
-        AND YEAR(fp_consultation.checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
-
-$nsv_stmt = $conn->prepare($nsvANAPMCount);
-$nsv_stmt->bind_param("ss", $fromDate, $toDate);
-$nsv_stmt->execute();
-$nsv_stmt->bind_result($nsvANAPMCount_count10to14, $nsvANAPMCount_count15to19, $nsvANAPMCount_count20to49);
-$nsv_stmt->fetch();
-$nsv_stmt->close();
-
-// ANAPM = Acceptors New Acceptors Previous Month - CONDOM QUERY
-$condomANAPMCount = "
-    SELECT
-    COALESCE(SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS condomANAPMCount_10_to_14,
-    COALESCE(SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END), 0) AS condomANAPMCount_15_to_19,
-    COALESCE(SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END), 0) AS condomANAPMCount_20_to_49
-    FROM 
-    fp_consultation
-    INNER JOIN 
-    patients ON fp_consultation.patient_id = patients.id
-    INNER JOIN (
-    SELECT 
-        patient_id
-    FROM 
-        fp_information
-    WHERE 
-        client_type = 'New Acceptor'
-    GROUP BY 
-        patient_id
-    ) AS fp_info ON fp_consultation.patient_id = fp_info.patient_id
-    WHERE 
-    fp_consultation.method = 'Condom'
-    AND fp_consultation.checkup_date <> '0000-00-00'
-    AND MONTH(fp_consultation.checkup_date) = MONTH(? - INTERVAL 1 MONTH)
-    AND YEAR(fp_consultation.checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
-
-$condom_stmt = $conn->prepare($condomANAPMCount);
-$condom_stmt->bind_param("ss", $fromDate, $toDate);
-$condom_stmt->execute();
-$condom_stmt->bind_result($condomANAPMCount_count10to14, $condomANAPMCount_count15to19, $condomANAPMCount_count20to49);
-$condom_stmt->fetch();
-$condom_stmt->close();
-
-
-// ANAPM = Acceptors New Acceptors Previous Month - PILLS QUERY
-$pillsANAPMCount = "
-    SELECT
-    COALESCE(SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS pillsANAPMCount_10_to_14,
-    COALESCE(SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END), 0) AS pillsANAPMCount_20_to_49,
-    COALESCE(SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END), 0) AS pillsANAPMCount_15_to_19
-    FROM 
-    fp_consultation
-    INNER JOIN 
-    patients ON fp_consultation.patient_id = patients.id
-    INNER JOIN (
-    SELECT 
-        patient_id
-    FROM 
-        fp_information
-    WHERE 
-        client_type = 'New Acceptor'
-    GROUP BY 
-        patient_id
-    ) AS fp_info ON fp_consultation.patient_id = fp_info.patient_id
-    WHERE 
-    fp_consultation.method = 'Pills'
-    AND fp_consultation.checkup_date <> '0000-00-00'
-    AND MONTH(fp_consultation.checkup_date) = MONTH(? - INTERVAL 1 MONTH)
-    AND YEAR(fp_consultation.checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
-
-$pills_stmt = $conn->prepare($pillsANAPMCount);
-$pills_stmt->bind_param("ss", $fromDate, $toDate);
-$pills_stmt->execute();
-$pills_stmt->bind_result($pillsANAPMCount_count10to14, $pillsANAPMCount_count15to19, $pillsANAPMCount_count20to49);
-$pills_stmt->fetch();
-$pills_stmt->close();
-
-
-// ANAPM = Acceptors New Acceptors Previous Month - PILLS POP QUERY
-$pillspopANAPMCount = "
-    SELECT
-    COALESCE(SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS ppopANAPMCount_10_to_14,
-    COALESCE(SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END), 0) AS ppopANAPMCount_15_to_19,
-    COALESCE(SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END), 0) AS ppopANAPMCount_20_to_49
-    FROM 
-    fp_consultation
-    INNER JOIN 
-    patients ON fp_consultation.patient_id = patients.id
-    INNER JOIN (
-    SELECT 
-        patient_id
-    FROM 
-        fp_information
-    WHERE 
-        client_type = 'New Acceptor'
-    GROUP BY 
-        patient_id
-    ) AS fp_info ON fp_consultation.patient_id = fp_info.patient_id
-    WHERE 
-    fp_consultation.method = 'Pills-POP'
-    AND fp_consultation.checkup_date <> '0000-00-00'
-    AND MONTH(fp_consultation.checkup_date) = MONTH(? - INTERVAL 1 MONTH)
-    AND YEAR(fp_consultation.checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
-
-$pillspop_stmt = $conn->prepare($pillspopANAPMCount);
-$pillspop_stmt->bind_param("ss", $fromDate, $toDate);
-$pillspop_stmt->execute();
-$pillspop_stmt->bind_result($pillspopANAPMCount_count10to14, $pillspopANAPMCount_count15to19, $pillspopANAPMCount_count20to49);
-$pillspop_stmt->fetch();
-$pillspop_stmt->close();
-
-
-// ANAPM = Acceptors New Acceptors Previous Month - PILLS COC QUERY
-$pillscocANAPMCount = "
-    SELECT
-    COALESCE(SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS pcocANAPMCount_10_to_14,
-    COALESCE(SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END), 0) AS pcocANAPMCount_15_to_19,
-    COALESCE(SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END), 0) AS pcocANAPMCount_20_to_49
-    FROM 
-    fp_consultation
-    INNER JOIN 
-    patients ON fp_consultation.patient_id = patients.id
-    INNER JOIN (
-    SELECT 
-        patient_id
-    FROM 
-        fp_information
-    WHERE 
-        client_type = 'New Acceptor'
-    GROUP BY 
-        patient_id
-    ) AS fp_info ON fp_consultation.patient_id = fp_info.patient_id
-    WHERE 
-    fp_consultation.method = 'Pills-COC'
-    AND fp_consultation.checkup_date <> '0000-00-00'
-    AND MONTH(fp_consultation.checkup_date) = MONTH(? - INTERVAL 1 MONTH)
-    AND YEAR(fp_consultation.checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
-
-$pillscoc_stmt = $conn->prepare($pillscocANAPMCount);
-$pillscoc_stmt->bind_param("ss", $fromDate, $toDate);
-$pillscoc_stmt->execute();
-$pillscoc_stmt->bind_result($pillscocANAPMCount_count10to14, $pillscocANAPMCount_count15to19, $pillscocANAPMCount_count20to49);
-$pillscoc_stmt->fetch();
-$pillscoc_stmt->close();
-
-// ANAPM = Acceptors New Acceptors Previous Month - INJECTABLES(DMPA/POI) QUERY
-$injectablesANAPMCount = "
-    SELECT
-    COALESCE(SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS injectablesANAPMCount_10_to_14,
-    COALESCE(SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END), 0) AS injectablesANAPMCount_15_to_19,
-    COALESCE(SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END), 0) AS injectablesANAPMCount_20_to_49
-    FROM 
-    fp_consultation
-    INNER JOIN 
-    patients ON fp_consultation.patient_id = patients.id
-    INNER JOIN (
-    SELECT 
-        patient_id
-    FROM 
-        fp_information
-    WHERE 
-        client_type = 'New Acceptor'
-    GROUP BY 
-        patient_id
-    ) AS fp_info ON fp_consultation.patient_id = fp_info.patient_id
-    WHERE 
-    fp_consultation.method = 'Injectables (DMPA/POI)'
-    AND fp_consultation.checkup_date <> '0000-00-00'
-    AND MONTH(fp_consultation.checkup_date) = MONTH(? - INTERVAL 1 MONTH)
-    AND YEAR(fp_consultation.checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
-
-$injectables_stmt = $conn->prepare($injectablesANAPMCount);
-$injectables_stmt->bind_param("ss", $fromDate, $toDate);
-$injectables_stmt->execute();
-$injectables_stmt->bind_result($injectablesANAPMCount_count10to14, $injectablesANAPMCount_count15to19, $injectablesANAPMCount_count20to49);
-$injectables_stmt->fetch();
-$injectables_stmt->close();
-
-// ANAPM = Acceptors New Acceptors Previous Month - IUD QUERY
-$iudANAPMCount = "
-    SELECT
-    COALESCE(SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS iudANAPMCount_10_to_14,
-    COALESCE(SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END), 0) AS iudANAPMCount_15_to_19,
-    COALESCE(SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END), 0) AS iudANAPMCount_20_to_49
-    FROM 
-    fp_consultation
-    INNER JOIN 
-    patients ON fp_consultation.patient_id = patients.id
-    INNER JOIN (
-    SELECT 
-        patient_id
-    FROM 
-        fp_information
-    WHERE 
-        client_type = 'New Acceptor'
-    GROUP BY 
-        patient_id
-    ) AS fp_info ON fp_consultation.patient_id = fp_info.patient_id
-    WHERE 
-    fp_consultation.method = 'IUD'
-    AND fp_consultation.checkup_date <> '0000-00-00'
-    AND MONTH(fp_consultation.checkup_date) = MONTH(? - INTERVAL 1 MONTH)
-    AND YEAR(fp_consultation.checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
-
-$iud_stmt = $conn->prepare($iudANAPMCount);
-$iud_stmt->bind_param("ss", $fromDate, $toDate);
-$iud_stmt->execute();
-$iud_stmt->bind_result($iudANAPMCount_count10to14, $iudANAPMCount_count15to19, $iudANAPMCount_count20to49);
-$iud_stmt->fetch();
-$iud_stmt->close();
-
-
-// ANAPM = Acceptors New Acceptors Previous Month - IUD-I QUERY
-$iudI_ANAPMCount = "
-    SELECT
-    COALESCE(SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS iudiANAPMCount_10_to_14,
-    COALESCE(SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END), 0) AS iudiANAPMCount_15_to_19,
-    COALESCE(SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END), 0) AS iudiANAPMCount_20_to_49
-    FROM 
-    fp_consultation
-    INNER JOIN 
-    patients ON fp_consultation.patient_id = patients.id
-    INNER JOIN (
-    SELECT 
-        patient_id
-    FROM 
-        fp_information
-    WHERE 
-        client_type = 'New Acceptor'
-    GROUP BY 
-        patient_id
-    ) AS fp_info ON fp_consultation.patient_id = fp_info.patient_id
-    WHERE 
-    fp_consultation.method = 'IUD-I'
-    AND fp_consultation.checkup_date <> '0000-00-00'
-    AND MONTH(fp_consultation.checkup_date) = MONTH(? - INTERVAL 1 MONTH)
-    AND YEAR(fp_consultation.checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
-
-$iudI_stmt = $conn->prepare($iudI_ANAPMCount);
-$iudI_stmt->bind_param("ss", $fromDate, $toDate);
-$iudI_stmt->execute();
-$iudI_stmt->bind_result($iudI_ANAPMCount_count10to14, $iudI_ANAPMCount_count15to19, $iudI_ANAPMCount_count20to49);
-$iudI_stmt->fetch();
-$iudI_stmt->close();
-
-
-// ANAPM = Acceptors New Acceptors Previous Month - IUD-PP QUERY
-$iudPP_ANAPMCount = "
-    SELECT
-    COALESCE(SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS iudppANAPMCount_10_to_14,
-    COALESCE(SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END), 0) AS injectablesANAPMCount_15_to_19,
-    COALESCE(SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END), 0) AS iudppANAPMCount_20_to_49
-    FROM 
-    fp_consultation
-    INNER JOIN 
-    patients ON fp_consultation.patient_id = patients.id
-    INNER JOIN (
-    SELECT 
-        patient_id
-    FROM 
-        fp_information
-    WHERE 
-        client_type = 'New Acceptor'
-    GROUP BY 
-        patient_id
-    ) AS fp_info ON fp_consultation.patient_id = fp_info.patient_id
-    WHERE 
-    fp_consultation.method = 'IUD-PP'
-    AND fp_consultation.checkup_date <> '0000-00-00'
-    AND MONTH(fp_consultation.checkup_date) = MONTH(? - INTERVAL 1 MONTH)
-    AND YEAR(fp_consultation.checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
-
-$iudPP_stmt = $conn->prepare($iudPP_ANAPMCount);
-$iudPP_stmt->bind_param("ss", $fromDate, $toDate);
-$iudPP_stmt->execute();
-$iudPP_stmt->bind_result($iudPP_ANAPMCount_count10to14, $iudPP_ANAPMCount_count15to19, $iudPP_ANAPMCount_count20to49);
-$iudPP_stmt->fetch();
-$iudPP_stmt->close();
-
-// ANAPM = Acceptors New Acceptors Previous Month - IMPLANT QUERY
-$implantANAPMCount = "
-    SELECT
-    COALESCE(SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS implantANAPMCount_10_to_14,
-    COALESCE(SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END), 0) AS implantANAPMCount_15_to_19,
-    COALESCE(SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END), 0) AS implantANAPMCount_20_to_49
-    FROM 
-    fp_consultation
-    INNER JOIN 
-    patients ON fp_consultation.patient_id = patients.id
-    INNER JOIN (
-    SELECT 
-        patient_id
-    FROM 
-        fp_information
-    WHERE 
-        client_type = 'New Acceptor'
-    GROUP BY 
-        patient_id
-    ) AS fp_info ON fp_consultation.patient_id = fp_info.patient_id
-    WHERE 
-    fp_consultation.method = 'Implant'
-    AND fp_consultation.checkup_date <> '0000-00-00'
-    AND MONTH(fp_consultation.checkup_date) = MONTH(? - INTERVAL 1 MONTH)
-    AND YEAR(fp_consultation.checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
-
-$implant_stmt = $conn->prepare($implantANAPMCount);
-$implant_stmt->bind_param("ss", $fromDate, $toDate);
-$implant_stmt->execute();
-$implant_stmt->bind_result($implantANAPMCount_count10to14, $implantANAPMCount_count15to19, $implantANAPMCount_count20to49);
-$implant_stmt->fetch();
-$implant_stmt->close();
-
-
-// ANAPM = Acceptors New Acceptors Previous Month - NFP-LAM QUERY
-$nfplamANAPMCount = "
-    SELECT
-    COALESCE(SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS nfplamANAPMCount_10_to_14,
-    COALESCE(SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END), 0) AS nfplamANAPMCount_15_to_19,
-    COALESCE(SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END), 0) AS nfplamANAPMCount_20_to_49
-    FROM 
-    fp_consultation
-    INNER JOIN 
-    patients ON fp_consultation.patient_id = patients.id
-    INNER JOIN (
-    SELECT 
-        patient_id
-    FROM 
-        fp_information
-    WHERE 
-        client_type = 'New Acceptor'
-    GROUP BY 
-        patient_id
-    ) AS fp_info ON fp_consultation.patient_id = fp_info.patient_id
-    WHERE 
-    fp_consultation.method = 'NFP-LAM'
-    AND fp_consultation.checkup_date <> '0000-00-00'
-    AND MONTH(fp_consultation.checkup_date) = MONTH(? - INTERVAL 1 MONTH)
-    AND YEAR(fp_consultation.checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
-
-$nfplam_stmt = $conn->prepare($nfplamANAPMCount);
-$nfplam_stmt->bind_param("ss", $fromDate, $toDate);
-$nfplam_stmt->execute();
-$nfplam_stmt->bind_result($nfplamANAPMCount_count10to14, $nfplamANAPMCount_count15to19, $nfplamANAPMCount_count20to49);
-$nfplam_stmt->fetch();
-$nfplam_stmt->close();
-
-// ANAPM = Acceptors New Acceptors Previous Month - NFP-BBT QUERY
-$nfpbbtANAPMCount = "
-    SELECT
-    COALESCE(SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS nfpbbtANAPMCount_10_to_14,
-    COALESCE(SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END), 0) AS nfpbbtANAPMCount_15_to_19,
-    COALESCE(SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END), 0) AS nfpbbtANAPMCount_20_to_49
-    FROM 
-    fp_consultation
-    INNER JOIN 
-    patients ON fp_consultation.patient_id = patients.id
-    INNER JOIN (
-    SELECT 
-        patient_id
-    FROM 
-        fp_information
-    WHERE 
-        client_type = 'New Acceptor'
-    GROUP BY 
-        patient_id
-    ) AS fp_info ON fp_consultation.patient_id = fp_info.patient_id
-    WHERE 
-    fp_consultation.method = 'NFP-BBT'
-    AND fp_consultation.checkup_date <> '0000-00-00'
-    AND MONTH(fp_consultation.checkup_date) = MONTH(? - INTERVAL 1 MONTH)
-    AND YEAR(fp_consultation.checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
-
-$nfpbbt_stmt = $conn->prepare($nfpbbtANAPMCount);
-$nfpbbt_stmt->bind_param("ss", $fromDate, $toDate);
-$nfpbbt_stmt->execute();
-$nfpbbt_stmt->bind_result($nfpbbtANAPMCount_count10to14, $nfpbbtANAPMCount_count15to19, $nfpbbtANAPMCount_count20to49);
-$nfpbbt_stmt->fetch();
-$nfpbbt_stmt->close();
-
-// ANAPM = Acceptors New Acceptors Previous Month - NFP-CMM QUERY
-$nfpcmmANAPMCount = "
-    SELECT
-    COALESCE(SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS nfpcmmANAPMCount_10_to_14,
-    COALESCE(SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END), 0) AS nfpcmmANAPMCount_15_to_19,
-    COALESCE(SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END), 0) AS nfpcmmANAPMCount_20_to_49
-    FROM 
-    fp_consultation
-    INNER JOIN 
-    patients ON fp_consultation.patient_id = patients.id
-    INNER JOIN (
-    SELECT 
-        patient_id
-    FROM 
-        fp_information
-    WHERE 
-        client_type = 'New Acceptor'
-    GROUP BY 
-        patient_id
-    ) AS fp_info ON fp_consultation.patient_id = fp_info.patient_id
-    WHERE 
-    fp_consultation.method = 'NFP-CMM'
-    AND fp_consultation.checkup_date <> '0000-00-00'
-    AND MONTH(fp_consultation.checkup_date) = MONTH(? - INTERVAL 1 MONTH)
-    AND YEAR(fp_consultation.checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
-
-$nfpcmm_stmt = $conn->prepare($nfpcmmANAPMCount);
-$nfpcmm_stmt->bind_param("ss", $fromDate, $toDate);
-$nfpcmm_stmt->execute();
-$nfpcmm_stmt->bind_result($nfpcmmANAPMCount_count10to14, $nfpcmmANAPMCount_count15to19, $nfpcmmANAPMCount_count20to49);
-$nfpcmm_stmt->fetch();
-$nfpcmm_stmt->close();
-
-// ANAPM = Acceptors New Acceptors Previous Month - NFP-STM QUERY
-$nfpstmANAPMCount = "
-    SELECT
-    COALESCE(SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS nfpstmANAPMCount_10_to_14,
-    COALESCE(SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END), 0) AS nfpstmANAPMCount_15_to_19,
-    COALESCE(SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END), 0) AS nfpstmANAPMCount_20_to_49
-    FROM 
-    fp_consultation
-    INNER JOIN 
-    patients ON fp_consultation.patient_id = patients.id
-    INNER JOIN (
-    SELECT 
-        patient_id
-    FROM 
-        fp_information
-    WHERE 
-        client_type = 'New Acceptor'
-    GROUP BY 
-        patient_id
-    ) AS fp_info ON fp_consultation.patient_id = fp_info.patient_id
-    WHERE 
-    fp_consultation.method = 'NFP-STM'
-    AND fp_consultation.checkup_date <> '0000-00-00'
-    AND MONTH(fp_consultation.checkup_date) = MONTH(? - INTERVAL 1 MONTH)
-    AND YEAR(fp_consultation.checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
-
-$nfpstm_stmt = $conn->prepare($nfpstmANAPMCount);
-$nfpstm_stmt->bind_param("ss", $fromDate, $toDate);
-$nfpstm_stmt->execute();
-$nfpstm_stmt->bind_result($nfpstmANAPMCount_count10to14, $nfpstmANAPMCount_count15to19, $nfpstmANAPMCount_count20to49);
-$nfpstm_stmt->fetch();
-$nfpstm_stmt->close();
-
-// ANAPM = Acceptors New Acceptors Previous Month - NFP-SDM QUERY
-$nfpsdmANAPMCount = "
-    SELECT
-    COALESCE(SUM(CASE WHEN patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS nfpsdmANAPMCount_10_to_14,
-    COALESCE(SUM(CASE WHEN patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END), 0) AS nfpsdmANAPMCount_15_to_19,
-    COALESCE(SUM(CASE WHEN patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END), 0) AS nfpsdmANAPMCount_20_to_49
-    FROM 
-    fp_consultation
-    INNER JOIN 
-    patients ON fp_consultation.patient_id = patients.id
-    INNER JOIN (
-    SELECT 
-        patient_id
-    FROM 
-        fp_information
-    WHERE 
-        client_type = 'New Acceptor'
-    GROUP BY 
-        patient_id
-    ) AS fp_info ON fp_consultation.patient_id = fp_info.patient_id
-    WHERE 
-    fp_consultation.method = 'NFP-SDM'
-    AND fp_consultation.checkup_date <> '0000-00-00'
-    AND MONTH(fp_consultation.checkup_date) = MONTH(? - INTERVAL 1 MONTH)
-    AND YEAR(fp_consultation.checkup_date) = YEAR(? - INTERVAL 1 MONTH)";
-
-$nfpsdm_stmt = $conn->prepare($nfpsdmANAPMCount);
-$nfpsdm_stmt->bind_param("ss", $fromDate, $toDate);
-$nfpsdm_stmt->execute();
-$nfpsdm_stmt->bind_result($nfpsdmANAPMCount_count10to14, $nfpsdmANAPMCount_count15to19, $nfpsdmANAPMCount_count20to49);
-$nfpsdm_stmt->fetch();
-$nfpsdm_stmt->close();
-
+    $combinedANAPM_stmt->fetch();
+    $combinedANAPM_stmt->close();
+} catch (Exception $e) {
+    $err =  $e->getMessage();
+}
 
 
 $btlANAPMCount_countTotal = $btlANAPMCount_count10to14 + $btlANAPMCount_count15to19 + $btlANAPMCount_count20to49;
@@ -961,8 +565,9 @@ $nfpsdmCUEOMTotal15to19 = max(0, $nfpsdmANAPMCount_count15to19 + $nfpsdmOAPMCoun
 $nfpsdmCUEOMTotal20to49 = max(0, $nfpsdmANAPMCount_count20to49 + $nfpsdmOAPMCount_count20to49 - $nfpsdmDOPMCount_count20to49);
 $nfpsdmCUEOMTotal = $nfpsdmCUEOMTotal10to14 + $nfpsdmCUEOMTotal15to19 + $nfpsdmCUEOMTotal20to49;
 
-// NAPM = New Acceptors Present Month
 
+
+// NAPM = New Acceptors Present Month
 $combinedNAPMCount = "
     SELECT 
     COALESCE(SUM(CASE WHEN fp_consultation.method = 'BTL' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS btlNAPMCount_10_to_14,
@@ -1047,7 +652,7 @@ try {
     if (!$combinedNAPM_stmt) {
         throw new Exception("Prepare failed: " . $conn->error);
     }
-    
+
     $combinedNAPM_stmt->bind_param("ss", $fromDate, $toDate);
     if (!$combinedNAPM_stmt->execute()) {
         throw new Exception("Execute failed: " . $combinedNAPM_stmt->error);
@@ -1105,7 +710,7 @@ try {
     );
 
     if (!$combinedNAPM_stmt->fetch()) {
-        echo "No data found for the given date range.";
+        echo "<script>alert('No data found for the given date range.')</script>";
     }
     $combinedNAPM_stmt->close();
 } catch (Exception $e) {
@@ -1132,8 +737,174 @@ $nfpsdmNAPMCount_totalCount = $nfpsdmNAPMCount_count10to14 + $nfpsdmNAPMCount_co
 
 
 
-//CUBM = Current User Beginning of Month
+// CUMB = Current User Month Beninging
 
-$btlCUMBTotal10to14 += $btlCUEOMTotal10to14;
-$btlCUMBTotal15to19 += $btlCUEOMTotal15to19;
-$btlCUMBTotal20to49 += $btlCUEOMTotal20to49;
+$btlCUMBTotal10to14 = $btlCUEOMTotal10to14;
+$btlCUMBTotal15to19 = $btlCUEOMTotal15to19;
+$btlCUMBTotal20to49 = $btlCUEOMTotal20to49;
+$btlCUMBTotal = $btlCUMBTotal10to14 + $btlCUMBTotal15to19 + $btlCUMBTotal20to49;
+
+$nsvCUMBTotal10to14 = $nsvCUEOMTotal10to14;
+$nsvCUMBTotal15to19 = $nsvCUEOMTotal15to19;
+$nsvCUMBTotal20to49 = $nsvCUEOMTotal20to49;
+$nsvCUMBTotal = $nsvCUMBTotal10to14 +
+    $nsvCUMBTotal15to19 +
+    $nsvCUMBTotal20to49;
+
+$condomCUMBTotal15to19 = $condomCUEOMTotal10to14;
+$condomCUMBTotal10to14 = $condomCUEOMTotal10to14;
+$condomCUMBTotal20to49 = $condomCUEOMTotal20to49;
+$condomCUMBTotal = $condomCUMBTotal15to19 +
+    $condomCUMBTotal10to14 +
+    $condomCUMBTotal20to49;
+
+$pillsCUMBTotal10to14 = $pillsCUEOMTotal10to14;
+$pillsCUMBTotal15to19 = $pillsCUEOMTotal15to19;
+$pillsCUMBTotal20to49 = $pillsCUEOMTotal20to49;
+$pillsCUMBTotal = $pillsCUMBTotal10to14 +
+    $pillsCUMBTotal15to19 +
+    $pillsCUMBTotal20to49;
+
+$pillspopCUMBTotal10to14 = $pillspopCUEOMTotal10to14;
+$pillspopCUMBTotal15to19 = $pillspopCUEOMTotal15to19;
+$pillspopCUMBTotal20to49 = $pillspopCUEOMTotal20to49;
+$pillspopCUMBTotal = $pillspopCUMBTotal10to14 +
+    $pillspopCUMBTotal15to19 +
+    $pillspopCUMBTotal20to49;
+
+$pillscocCUMBTotal10to14 = $pillscocCUEOMTotal10to14;
+$pillscocCUMBTotal15to19 = $pillscocCUEOMTotal15to19;
+$pillscocCUMBTotal20to49 = $pillscocCUEOMTotal20to49;
+$pillscocCUMBTotal = $pillscocCUMBTotal10to14 + $pillscocCUMBTotal15to19 + $pillscocCUMBTotal20to49;
+
+$injectablesCUMBTotal10to14 = $injectablesCUEOMTotal10to14;
+$injectablesCUMBTotal15to19 = $injectablesCUEOMTotal15to19;
+$injectablesCUMBTotal20to49 = $injectablesCUEOMTotal20to49;
+$injectablesCUMBTotal = $injectablesCUMBTotal10to14 + $injectablesCUMBTotal15to19 + $injectablesCUMBTotal20to49;
+
+$implantCUMBTotal10to14 = $implantCUEOMTotal10to14;
+$implantCUMBTotal15to19 = $implantCUEOMTotal15to19;
+$implantCUMBTotal20to49 = $implantCUEOMTotal20to49;
+$implantCUMBTotal = $implantCUMBTotal10to14 + $implantCUMBTotal15to19 + $implantCUMBTotal20to49;
+
+$iudCUMBTotal10to14 = $iudCUEOMTotal10to14;
+$iudCUMBTotal15to19 = $iudCUEOMTotal15to19;
+$iudCUMBTotal20to49 = $iudCUEOMTotal20to49;
+$iudCUMBTotal = $iudCUMBTotal10to14 + $iudCUMBTotal15to19 + $iudCUMBTotal20to49;
+
+$iudiCUMBTotal10to14 = $iudiCUEOMTotal10to14;
+$iudiCUMBTotal15to19 = $iudiCUEOMTotal15to19;
+$iudiCUMBTotal20to49 = $iudiCUEOMTotal20to49;
+$iudiCUMBTotal = $iudiCUMBTotal10to14 + $iudiCUMBTotal15to19 + $iudiCUMBTotal20to49;
+
+$iudppCUMBTotal10to14 = $iudppCUEOMTotal10to14;
+$iudppCUMBTotal15to19 = $iudppCUEOMTotal15to19;
+$iudppCUMBTotal20to49 = $iudppCUEOMTotal20to49;
+$iudppCUMBTotal = $iudppCUMBTotal10to14 + $iudppCUMBTotal15to19 + $iudppCUMBTotal20to49;
+
+$nfplamCUMBTotal10to14 = $nfplamCUEOMTotal10to14;
+$nfplamCUMBTotal15to19 = $nfplamCUEOMTotal15to19;
+$nfplamCUMBTotal20to49 = $nfplamCUEOMTotal20to49;
+$nfplamCUMBTotal = $nfplamCUMBTotal10to14 + $nfplamCUMBTotal15to19 + $nfplamCUMBTotal20to49;
+
+$nfpbbtCUMBTotal10to14 = $nfpbbtCUEOMTotal10to14;
+$nfpbbtCUMBTotal15to19 = $nfpbbtCUEOMTotal15to19;
+$nfpbbtCUMBTotal20to49 = $nfpbbtCUEOMTotal20to49;
+$nfpbbtCUMBTotal = $nfpbbtCUMBTotal10to14 + $nfpbbtCUMBTotal15to19 + $nfpbbtCUMBTotal20to49;
+
+$nfpcmmCUMBTotal10to14 = $nfpcmmCUEOMTotal10to14;
+$nfpcmmCUMBTotal15to19 = $nfpcmmCUEOMTotal15to19;
+$nfpcmmCUMBTotal20to49 = $nfpcmmCUEOMTotal20to49;
+$nfpcmmCUMBTotal = $nfpcmmCUMBTotal10to14 + $nfpcmmCUMBTotal15to19 + $nfpcmmCUMBTotal20to49;
+
+$nfpstmCUMBTotal10to14 = $nfpstmCUEOMTotal10to14;
+$nfpstmCUMBTotal15to19 = $nfpstmCUEOMTotal15to19;
+$nfpstmCUMBTotal20to49 = $nfpstmCUEOMTotal20to49;
+$nfpstmCUMBTotal = $nfpstmCUMBTotal10to14 + $nfpstmCUMBTotal15to19 + $nfpstmCUMBTotal20to49;
+
+$nfpsdmCUMBTotal10to14 = $nfpsdmCUEOMTotal10to14;
+$nfpsdmCUMBTotal15to19 = $nfpsdmCUEOMTotal15to19;
+$nfpsdmCUMBTotal20to49 = $nfpsdmCUEOMTotal20to49;
+$nfpsdmCUMBTotal = $nfpsdmCUMBTotal10to14 + $nfpsdmCUMBTotal15to19 + $nfpsdmCUMBTotal20to49;
+    
+// final calc for current user
+$fbtlCUEOMTotal10to14 = max(0, $btlCUMBTotal10to14 + $btlANAPMCount_count10to14 + $btlOAPMCount_count10to14 - $btlDOPMCount_count10to14);
+$fbtlCUEOMTotal15to19 = max(0, $btlCUMBTotal15to19 + $btlANAPMCount_count15to19 + $btlOAPMCount_count15to19 - $btlDOPMCount_count15to19);
+$fbtlCUEOMTotal20to49 = max(0, $btlCUMBTotal20to49 + $btlANAPMCount_count20to49 + $btlOAPMCount_count20to49 - $btlDOPMCount_count20to49);
+$fbtlCUEOMTotal = $fbtlCUEOMTotal10to14 + $fbtlCUEOMTotal15to19 + $fbtlCUEOMTotal20to49;
+
+$fnsvCUEOMTotal10to14 = max(0, $nsvANAPMCount_count10to14 + $nsvOAPMCount_count10to14 - $nsvDOPMCount_count10to14);
+$fnsvCUEOMTotal15to19 = max(0, $nsvANAPMCount_count15to19 + $nsvOAPMCount_count15to19 - $nsvDOPMCount_count15to19);
+$fnsvCUEOMTotal20to49 = max(0, $nsvANAPMCount_count20to49 + $nsvOAPMCount_count20to49 - $nsvDOPMCount_count20to49);
+$fnsvCUEOMTotal = $fnsvCUEOMTotal10to14 + $fnsvCUEOMTotal15to19 + $fnsvCUEOMTotal20to49;
+
+$fcondomCUEOMTotal10to14 = max(0, $condomANAPMCount_count10to14 + $condomOAPMCount_count10to14 - $condomDOPMCount_count10to14);
+$fcondomCUEOMTotal15to19 = max(0, $condomANAPMCount_count15to19 + $condomOAPMCount_count15to19 - $condomDOPMCount_count15to19);
+$fcondomCUEOMTotal20to49 = max(0, $condomANAPMCount_count20to49 + $condomOAPMCount_count20to49 - $condomDOPMCount_count20to49);
+$fcondomCUEOMTotal = $condomCUEOMTotal10to14 + $condomCUEOMTotal15to19 + $condomCUEOMTotal20to49;
+
+$fpillsCUEOMTotal10to14 = max(0, $pillsANAPMCount_count10to14 + $pillsOAPMCount_count10to14 - $pillsDOPMCount_count10to14);
+$fpillsCUEOMTotal15to19 = max(0, $pillsANAPMCount_count15to19 + $pillsOAPMCount_count15to19 - $pillsDOPMCount_count15to19);
+$fpillsCUEOMTotal20to49 = max(0, $pillsANAPMCount_count20to49 + $pillsOAPMCount_count20to49 - $pillsDOPMCount_count20to49);
+$fpillsCUEOMTotal = $pillsCUEOMTotal10to14 + $pillsCUEOMTotal15to19 + $pillsCUEOMTotal20to49;
+
+$fpillspopCUEOMTotal10to14 = max(0, $pillspopANAPMCount_count10to14 + $pillspopOAPMCount_count10to14 - $pillspopDOPMCount_count10to14);
+$fpillspopCUEOMTotal15to19 = max(0, $pillspopANAPMCount_count15to19 + $pillspopOAPMCount_count15to19 - $pillspopDOPMCount_count15to19);
+$fpillspopCUEOMTotal20to49 = max(0, $pillspopANAPMCount_count20to49 + $pillspopOAPMCount_count20to49 - $pillspopDOPMCount_count20to49);
+$fpillspopCUEOMTotal = $pillspopCUEOMTotal10to14 + $pillspopCUEOMTotal15to19 + $pillspopCUEOMTotal20to49;
+
+$fpillscocCUEOMTotal10to14 = max(0, $pillscocANAPMCount_count10to14 + $pillscocOAPMCount_count10to14 - $pillscocDOPMCount_count10to14);
+$fpillscocCUEOMTotal15to19 = max(0, $pillscocANAPMCount_count15to19 + $pillscocOAPMCount_count15to19 - $pillscocDOPMCount_count15to19);
+$fpillscocCUEOMTotal20to49 = max(0, $pillscocANAPMCount_count20to49 + $pillscocOAPMCount_count20to49 - $pillscocDOPMCount_count20to49);
+$fpillscocCUEOMTotal = $pillscocCUEOMTotal10to14 + $pillscocCUEOMTotal15to19 + $pillscocCUEOMTotal20to49;
+
+$finjectablesCUEOMTotal10to14 = max(0, $injectablesANAPMCount_count10to14 + $injectablesOAPMCount_count10to14 - $injectablesDOPMCount_count10to14);
+$finjectablesCUEOMTotal15to19 = max(0, $injectablesANAPMCount_count15to19 + $injectablesOAPMCount_count15to19 - $injectablesDOPMCount_count15to19);
+$finjectablesCUEOMTotal20to49 = max(0, $injectablesANAPMCount_count20to49 + $injectablesOAPMCount_count20to49 - $injectablesDOPMCount_count20to49);
+$finjectablesCUEOMTotal = $injectablesCUEOMTotal10to14 + $injectablesCUEOMTotal15to19 + $injectablesCUEOMTotal20to49;
+
+$fimplantCUEOMTotal10to14 = max(0, $implantANAPMCount_count10to14 + $implantOAPMCount_count10to14 - $implantDOPMCount_count10to14);
+$fimplantCUEOMTotal15to19 = max(0, $implantANAPMCount_count15to19 + $implantOAPMCount_count15to19 - $implantDOPMCount_count15to19);
+$fimplantCUEOMTotal20to49 = max(0, $implantANAPMCount_count20to49 + $implantOAPMCount_count20to49 - $implantDOPMCount_count20to49);
+$fimplantCUEOMTotal = $implantCUEOMTotal10to14 + $implantCUEOMTotal15to19 + $implantCUEOMTotal20to49;
+
+$fiudCUEOMTotal10to14 = max(0, $iudANAPMCount_count10to14 + $iudOAPMCount_count10to14 - $iudDOPMCount_count10to14);
+$fiudCUEOMTotal15to19 = max(0, $iudANAPMCount_count15to19 + $iudOAPMCount_count15to19 - $iudDOPMCount_count15to19);
+$fiudCUEOMTotal20to49 = max(0, $iudANAPMCount_count20to49 + $iudOAPMCount_count20to49 - $iudDOPMCount_count20to49);
+$fiudCUEOMTotal = $iudCUEOMTotal10to14 + $iudCUEOMTotal15to19 + $iudCUEOMTotal20to49;
+
+$fiudiCUEOMTotal10to14 = max(0, $iudI_ANAPMCount_count10to14 + $iudiOAPMCount_count10to14 - $iudiDOPMCount_count10to14);
+$fiudiCUEOMTotal15to19 = max(0, $iudI_ANAPMCount_count15to19 + $iudiOAPMCount_count15to19 - $iudiDOPMCount_count15to19);
+$fiudiCUEOMTotal20to49 = max(0, $iudI_ANAPMCount_count20to49 + $iudiOAPMCount_count20to49 - $iudiDOPMCount_count20to49);
+$fiudiCUEOMTotal = $iudiCUEOMTotal10to14 + $iudiCUEOMTotal15to19 + $iudiCUEOMTotal20to49;
+
+$fiudppCUEOMTotal10to14 = max(0, $iudPP_ANAPMCount_count10to14 + $iudppOAPMCount_count10to14 - $iudppDOPMCount_count10to14);
+$fiudppCUEOMTotal15to19 = max(0, $iudPP_ANAPMCount_count15to19 + $iudppOAPMCount_count15to19 - $iudppDOPMCount_count15to19);
+$fiudppCUEOMTotal20to49 = max(0, $iudPP_ANAPMCount_count20to49 + $iudppOAPMCount_count20to49 - $iudppDOPMCount_count20to49);
+$fiudppCUEOMTotal = $iudppCUEOMTotal10to14 + $iudppCUEOMTotal15to19 + $iudppCUEOMTotal20to49;
+
+$fnfplamCUEOMTotal10to14 = max(0, $nfplamANAPMCount_count10to14 + $nfplamOAPMCount_count10to14 - $nfplamDOPMCount_count10to14);
+$fnfplamCUEOMTotal15to19 = max(0, $nfplamANAPMCount_count15to19 + $nfplamOAPMCount_count15to19 - $nfplamDOPMCount_count15to19);
+$fnfplamCUEOMTotal20to49 = max(0, $nfplamANAPMCount_count20to49 + $nfplamOAPMCount_count20to49 - $nfplamDOPMCount_count20to49);
+$fnfplamCUEOMTotal = $nfplamCUEOMTotal10to14 + $nfplamCUEOMTotal15to19 + $nfplamCUEOMTotal20to49;
+
+$fnfpbbtCUEOMTotal10to14 = max(0, $nfpbbtANAPMCount_count10to14 + $nfpbbtOAPMCount_count10to14 - $nfpbbtDOPMCount_count10to14);
+$fnfpbbtCUEOMTotal15to19 = max(0, $nfpbbtANAPMCount_count15to19 + $nfpbbtOAPMCount_count15to19 - $nfpbbtDOPMCount_count15to19);
+$fnfpbbtCUEOMTotal20to49 = max(0, $nfpbbtANAPMCount_count20to49 + $nfpbbtOAPMCount_count20to49 - $nfpbbtDOPMCount_count20to49);
+$fnfpbbtCUEOMTotal = $nfpbbtCUEOMTotal10to14 + $nfpbbtCUEOMTotal15to19 + $nfpbbtCUEOMTotal20to49;
+
+$fnfpcmmCUEOMTotal10to14 = max(0, $nfpcmmANAPMCount_count10to14 + $nfpcmmOAPMCount_count10to14 - $nfpcmmDOPMCount_count10to14);
+$fnfpcmmCUEOMTotal15to19 = max(0, $nfpcmmANAPMCount_count15to19 + $nfpcmmOAPMCount_count15to19 - $nfpcmmDOPMCount_count15to19);
+$fnfpcmmCUEOMTotal20to49 = max(0, $nfpcmmANAPMCount_count20to49 + $nfpcmmOAPMCount_count20to49 - $nfpcmmDOPMCount_count20to49);
+$fnfpcmmCUEOMTotal = $nfpcmmCUEOMTotal10to14 + $nfpcmmCUEOMTotal15to19 + $nfpcmmCUEOMTotal20to49;
+
+$fnfpstmCUEOMTotal10to14 = max(0, $nfpstmANAPMCount_count10to14 + $nfpstmOAPMCount_count10to14 - $nfpstmDOPMCount_count10to14);
+$fnfpstmCUEOMTotal15to19 = max(0, $nfpstmANAPMCount_count15to19 + $nfpstmOAPMCount_count15to19 - $nfpstmDOPMCount_count15to19);
+$fnfpstmCUEOMTotal20to49 = max(0, $nfpstmANAPMCount_count20to49 + $nfpstmOAPMCount_count20to49 - $nfpstmDOPMCount_count20to49);
+$fnfpstmCUEOMTotal = $nfpstmCUEOMTotal10to14 + $nfpstmCUEOMTotal15to19 + $nfpstmCUEOMTotal20to49;
+
+$fnfpsdmCUEOMTotal10to14 = max(0, $nfpsdmANAPMCount_count10to14 + $nfpsdmOAPMCount_count10to14 - $nfpsdmDOPMCount_count10to14);
+$fnfpsdmCUEOMTotal15to19 = max(0, $nfpsdmANAPMCount_count15to19 + $nfpsdmOAPMCount_count15to19 - $nfpsdmDOPMCount_count15to19);
+$fnfpsdmCUEOMTotal20to49 = max(0, $nfpsdmANAPMCount_count20to49 + $nfpsdmOAPMCount_count20to49 - $nfpsdmDOPMCount_count20to49);
+$fnfpsdmCUEOMTotal = $nfpsdmCUEOMTotal10to14 + $nfpsdmCUEOMTotal15to19 + $nfpsdmCUEOMTotal20to49;
+
