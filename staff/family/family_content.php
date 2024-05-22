@@ -793,7 +793,7 @@ if ($result === false) {
                     <thead class="thead-light">
                         <tr>
                             <th class="tago">No.</th>
-                            <th>Serial No</th>
+                            <th>Family Number</th>
                             <th>Patient Name</th>
                             <th>Date Of Last Delivery</th>
                             <th>Check up Date</th>
