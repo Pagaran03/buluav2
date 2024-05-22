@@ -28,7 +28,7 @@ function sanitizeInput($input)
     // Remove File Path injection characters
     $input = preg_replace("/[\/\\\\\.\.]/", "", $input);
     // Remove control characters and whitespace
-    $input = preg_replace("/[\x00-\x1F\s]+/", "", $input);
+    // $input = preg_replace("/[\x00-\x1F\s]+/", "", $input);
     // Remove script and content characters
     $input = preg_replace("/<script[^>]*>(.*?)<\/script>/is", "", $input);
     return $input;

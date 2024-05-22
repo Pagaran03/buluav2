@@ -54,7 +54,8 @@ if ($result === false) {
                         <div class="row">
                             <div class="col-4">
                                 <div class="form-group">
-                                    <label for="patient">Select Patient</label><span style="color: red; font-size: 22px;">*</span>
+                                    <label for="patient">Select Patient</label><span
+                                        style="color: red; font-size: 22px;">*</span>
                                     <input list="patients" class="form-control" name="patient_id" id="patient_id"
                                         required>
                                     <datalist id="patients">
@@ -98,7 +99,8 @@ if ($result === false) {
 
                             <div class="col-4">
                                 <div class="form-group">
-                                    <label for="">Select Midwife</label><span style="color: red; font-size: 22px;">*</span>
+                                    <label for="">Select Midwife</label><span
+                                        style="color: red; font-size: 22px;">*</span>
                                     <select class="form-control" name="nurse_id" id="nurse_id" required>
                                         <option value="" disabled selected hidden>Select a Midwife</option>
                                         <?php
@@ -175,7 +177,8 @@ if ($result === false) {
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="height">Height</label><span style="color: red; font-size: 22px;">*</span>
+                                    <label for="height">Height</label><span
+                                        style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="height" name="height" required>
                                         <div class="input-group-append">
@@ -187,7 +190,8 @@ if ($result === false) {
 
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="weight">Weight</label><span style="color: red; font-size: 22px;">*</span>
+                                    <label for="weight">Weight</label><span
+                                        style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="weight" name="weight" required>
                                         <div class="input-group-append">
@@ -199,7 +203,8 @@ if ($result === false) {
 
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="temperature">Temperature</label><span style="color: red; font-size: 22px;">*</span>
+                                    <label for="temperature">Temperature</label><span
+                                        style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="temperature" name="temperature"
                                             required>
@@ -252,7 +257,8 @@ if ($result === false) {
 
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="menarche">Menarche</label><span style="color: red; font-size: 22px;">*</span>
+                                    <label for="menarche">Menarche</label><span
+                                        style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="menarche" name="menarche" required>
                                         <div class="input-group-append">
@@ -295,7 +301,8 @@ if ($result === false) {
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="gravida">Gravida</label><span style="color: red; font-size: 22px;">*</span>
+                                    <label for="gravida">Gravida</label><span
+                                        style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="gravida" name="gravida" required>
                                         <div class="input-group-append">
@@ -319,7 +326,8 @@ if ($result === false) {
 
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="fullterm">Fullterm</label><span style="color: red; font-size: 22px;">*</span>
+                                    <label for="fullterm">Fullterm</label><span
+                                        style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="fullterm" name="fullterm" required>
                                         <div class="input-group-append">
@@ -331,7 +339,8 @@ if ($result === false) {
 
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="preterm">Preterm</label><span style="color: red; font-size: 22px;">*</span>
+                                    <label for="preterm">Preterm</label><span
+                                        style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="preterm" name="preterm" required>
                                         <div class="input-group-append">
@@ -348,7 +357,8 @@ if ($result === false) {
                         <div class="row">
                             <div class="col-3">
                                 <div class="form-group">
-                                    <label for="abortion">Abortion</label><span style="color: red; font-size: 22px;">*</span>
+                                    <label for="abortion">Abortion</label><span
+                                        style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="abortion" name="abortion" required>
                                         <div class="input-group-append">
@@ -360,7 +370,8 @@ if ($result === false) {
 
                             <div class="col-3">
                                 <div class="form-group">
-                                    <label for="stillbirth">Stillbirth</label><span style="color: red; font-size: 22px;">*</span>
+                                    <label for="stillbirth">Stillbirth</label><span
+                                        style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="stillbirth" name="stillbirth"
                                             required>
@@ -394,7 +405,8 @@ if ($result === false) {
 
                             <div class="col-3">
                                 <div class="form-group">
-                                    <label for="hgb">HGB (+/-)</label><span style="color: red; font-size: 22px;">*</span>
+                                    <label for="hgb">HGB (+/-)</label><span
+                                        style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="hgb" name="hgb" required
                                             oninput="checkHgbValue()">
@@ -420,7 +432,8 @@ if ($result === false) {
 
                             <div class="col-3">
                                 <div class="form-group">
-                                    <label for="vdrl">VDRL/RPR</label><span style="color: red; font-size: 22px;">*</span>
+                                    <label for="vdrl">VDRL/RPR</label><span
+                                        style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="vdrl" name="vdrl" required>
                                         <div class="input-group-append">
@@ -451,6 +464,7 @@ if ($result === false) {
                             <div class="col-3">
                                 <div class="form-group">
                                     <label for="rbs_fbs">RBS/FBS</label>
+                                    <span style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="rbs_fbs" name="rbs_fbs" required>
                                         <div class="input-group-append">
@@ -461,7 +475,8 @@ if ($result === false) {
                             </div>
                             <div class="col-3">
                                 <div class="form-group">
-                                    <label for="blood_type">Blood Type</label>
+                                    <label for="blood_type">Blood Type</label><span
+                                        style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
                                         <select class="form-control" id="blood_type" name="blood_type" required>
                                             <option value="" disabled selected hidden>Select your Blood Type</option>
@@ -599,7 +614,8 @@ if ($result === false) {
 
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="">Date of Last Delivery</label><span style="color: red; font-size: 22px;">*</span>
+                                    <label for="">Date of Last Delivery</label><span
+                                        style="color: red; font-size: 22px;">*</span>
                                     <input type="date" class="form-control" id="date_of_last_delivery"
                                         name="date_of_last_delivery" required>
                                 </div>
@@ -607,7 +623,8 @@ if ($result === false) {
 
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="">Place of Last Delivery</label><span style="color: red; font-size: 22px;">*</span>
+                                    <label for="">Place of Last Delivery</label><span
+                                        style="color: red; font-size: 22px;">*</span>
                                     <input type="text" class="form-control" id="place_of_last_delivery"
                                         name="place_of_last_delivery" required>
                                 </div>
@@ -782,53 +799,7 @@ if ($result === false) {
                                 </div>
                             </div>
                         </div>
-                        <label for="">OB History Including Abortion:</label>
-                        <div class="row">
-                            <div class="col-3">
-                                <div class="form-group">
-                                    <label for="rbs_fbs">Gravida</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" id="rbs_fbs" name="rbs_fbs" required>
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">mg/dL</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-3">
-                                <div class="form-group">
-                                    <label for="rbs_fbs">Date</label>
-                                    <div class="input-group">
-                                        <input type="date" class="form-control" id="rbs_fbs" name="rbs_fbs" required>
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">mg/dL</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-3">
-                                <div class="form-group">
-                                    <label for="rbs_fbs">Outcome</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" id="rbs_fbs" name="rbs_fbs" required>
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">mg/dL</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-3">
-                                <div class="form-group">
-                                    <label for="rbs_fbs">Gender</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" id="rbs_fbs" name="rbs_fbs" required>
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">mg/dL</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
 
                 </div>
                 </form>

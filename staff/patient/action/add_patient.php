@@ -31,7 +31,7 @@ $middle_name = validateAndSanitizeInput($_POST['middle_name']);
 $suffix = validateAndSanitizeInput($_POST['suffix']);
 $gender = validateAndSanitizeInput($_POST['gender']);
 $age = validateAndSanitizeInput($_POST['age']);
-$contact_no = "+63".validateAndSanitizeInput($_POST['contact_no']);
+$contact_no = "+63" . validateAndSanitizeInput($_POST['contact_no']);
 $civil_status = validateAndSanitizeInput($_POST['civil_status']);
 $religion = validateAndSanitizeInput($_POST['religion']);
 $serial_no = validateAndSanitizeInput($_POST['serial_no']);
@@ -52,9 +52,9 @@ $interval = $currentDateObj->diff($birthDateObj);
 $age = $interval->y;
 
 // Check if a patient with the same first_name, last_name, and middle_name already exists
-$checkSql = "SELECT COUNT(*) FROM patients WHERE first_name = ? AND last_name = ? AND middle_name = ?";
+$checkSql = "SELECT COUNT(*) FROM patients WHERE first_name = ? AND last_name = ? AND middle_name = ? AND suffix = ?";
 $checkStmt = $conn->prepare($checkSql);
-$checkStmt->bind_param("sss", $first_name, $last_name, $middle_name);
+$checkStmt->bind_param("ssss", $first_name, $last_name, $middle_name, $suffix);
 $checkStmt->execute();
 $checkStmt->bind_result($count);
 $checkStmt->fetch();
