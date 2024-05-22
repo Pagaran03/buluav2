@@ -40,8 +40,6 @@ while ($row = $result->fetch_assoc()) {
   );
 }
 
-
-
 // Create an array of table names
 $tables = ['fp_information', 'immunization', 'prenatal', 'consultations'];
 
@@ -59,6 +57,30 @@ foreach ($tables as $table) {
   $row = $result->fetch_assoc();
   $counts[] = $row['count'];
 }
+
+
+// // Create an array of column names for immunization table
+// $columns = ['bgc_date', 'bgc_remarks', 'hepa_date', 'pentavalent_date1'];
+
+// // Initialize an array to store the counts for each column
+// $counts = array();
+
+// // Loop through each column
+// foreach ($columns as $column) {
+//   // Construct the SQL query to count non-null entries for the current column in the immunization table
+//   $sql = "SELECT COUNT(*) as count FROM immunization WHERE $column IS NOT NULL";
+//   $result = $conn->query($sql);
+
+//   if ($result === false) {
+//     die("Query failed: " . $conn->error);
+//   }
+
+//   // Fetch the count and store it in the counts array
+//   $row = $result->fetch_assoc();
+//   $counts[$column] = $row['count'];
+// }
+
+
 ?>
 
 <!-- Button trigger modal -->
@@ -324,14 +346,56 @@ foreach ($tables as $table) {
             <div class="icon">
               <i class="ion ion-person-add"></i>
             </div>
-            <a href="../immunization/immunization.php" class="small-box-footer">More info <i
+            <a href="#" class="small-box-footer" data-toggle="modal" data-target="#immunizationModal">More info <i
                 class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
       </div>
       <!--  -->
+      <!-- Modal -->
+      <div class="modal fade" id="immunizationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Immunization Details</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <canvas id="kindOfCheckupss"></canvas>
+              <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                  var columnNames = <?php echo json_encode($columns); ?>; // Change variable name to columnNames
+                  var data = <?php echo json_encode(array_values($counts)); ?>; // Use counts instead of tables
+                  var ctx = document.getElementById('kindOfCheckupss').getContext('2d');
 
+                  var chart = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                      labels: columnNames,
+                      datasets: [{
+                        data: data,
+                        backgroundColor: [
+                          'rgba(255, 99, 132, 0.6)',
+                          'rgba(54, 162, 235, 0.6)',
+                          'rgba(255, 206, 86, 0.6)',
+                          'rgba(75, 192, 192, 0.6)',
+                        ],
+                      }],
+                    },
+                  });
+                });
+              </script>
 
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
       <!--  -->
 
       <div class="row">

@@ -435,6 +435,47 @@ if ($result === false) {
                                 </div>
                             </div>
                         </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <p>Measles Containing Vaccine</p>
+                                </div>
+                            </div>
+
+                            <div class="col-1">
+                                <div class="form-group">
+                                    <p>1 - 2 Months</p>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm">
+                                            <!-- <label for="">MCV 1</label> -->
+                                            <input type="date" class="form-control" id="mcv_date1" name="mcv_date1"
+                                                required>
+                                            <label for="">MCV 1</label>
+                                        </div>
+                                        <div class="col-sm">
+                                            <!-- <label for="">MCV 2</label> -->
+                                            <input type="date" class="form-control" id="mcv_date2" name="mcv_date2"
+                                                required>
+                                            <label for="">MCV 2</label>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="mcv_remarks2" name="mcv_remarks2"
+                                        required>
+                                </div>
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -599,6 +640,9 @@ if ($result === false) {
                     mmr_date1: mmr_date1,
                     mmr_date2: mmr_date2,
                     mmr_remarks: mmr_remarks,
+                    mcv_1: mcv_1,
+                    mcv_2: mcv_2,
+                    mcv_remarks: mcv_remarks
                 },
                 success: function (response) {
                     if (response.trim() === 'Success') {
@@ -626,6 +670,9 @@ if ($result === false) {
                         $('#mmr_date1').val('');
                         $('#mmr_date2').val('');
                         $('#mmr_remarks').val('');
+                        $('#mcv_date1').val('');
+                        $('#mcv_date2').val('');
+                        $('#mcv_remarks2').val('');
 
 
                         updateData();
@@ -767,8 +814,9 @@ if ($result === false) {
                     $('#editModal #mmr_date22').val(editGetData.mmr_date2);
                     $('#editModal #mmr_remarks2').val(editGetData.mmr_remarks);
 
-
-
+                    $('#editModal #mcv_date1').val(editGetData.mcv_1);
+                    $('#editModal #mcv_date2').val(editGetData.mcv_2);
+                    $('#editModal #mcv_remarks2').val(editGetData.mcv_remarks);
 
 
                     $('#editModal').modal('show');
@@ -805,6 +853,9 @@ if ($result === false) {
             var mmr_date1 = $('#mmr_date12').val();
             var mmr_date2 = $('#mmr_date22').val();
             var mmr_remarks = $('#mmr_remarks2').val();
+            var mcv_1 = $('#mcv_date1').val();
+            var mcv_2 = $('#mcv_date2').val();
+            var mcv_remarks = $('#mcv_remarks2').val();
 
             $.ajax({
                 url: 'action/update_family.php',
@@ -835,6 +886,9 @@ if ($result === false) {
                     mmr_date1: mmr_date1,
                     mmr_date2: mmr_date2,
                     mmr_remarks: mmr_remarks,
+                    mcv_1: mcv_1,
+                    mcv_2: mcv_2,
+                    mcv_remarks: mcv_remarks
                 },
                 success: function (response) {
                     // Handle the response

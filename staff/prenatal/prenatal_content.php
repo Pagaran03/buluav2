@@ -261,8 +261,19 @@ if ($result === false) {
                                     </div>
                                 </div>
                             </div>
-
                             <div class="col">
+                                <div class="form-group">
+                                    <label for="lmp">LMP</label>
+                                    <div class="input-group">
+                                        <input type="date" class="form-control" id="lmp" name="lmp" required>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">date</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- <div class="col">
                                 <div class="form-group">
                                     <label for="lmp">LMP</label>
                                     <div class="input-group">
@@ -272,7 +283,7 @@ if ($result === false) {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
 
                         </div>
@@ -420,10 +431,54 @@ if ($result === false) {
                             </div>
 
                             <div class="col-3">
+                                <div class="form-group">
+                                    <label for="hbsag">HBsAG</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="hbsag" name="hbsag" required>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">units/mL</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-3">
 
                             </div>
 
                         </div>
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label for="rbs_fbs">RBS/FBS</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="rbs_fbs" name="rbs_fbs" required>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">mg/dL</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label for="blood_type">Blood Type</label>
+                                    <div class="input-group">
+                                        <select class="form-control" id="blood_type" name="blood_type" required>
+                                            <option value="" disabled selected hidden>Select your Blood Type</option>
+                                            <option value="A+">A+</option>
+                                            <option value="A-">A-</option>
+                                            <option value="B+">B+</option>
+                                            <option value="B-">B-</option>
+                                            <option value="AB+">AB+</option>
+                                            <option value="AB-">AB-</option>
+                                            <option value="O+">O+</option>
+                                            <option value="O-">O-</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
 
 
                         <div class="row">
@@ -727,6 +782,54 @@ if ($result === false) {
                                 </div>
                             </div>
                         </div>
+                        <label for="">OB History Including Abortion:</label>
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label for="rbs_fbs">Gravida</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="rbs_fbs" name="rbs_fbs" required>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">mg/dL</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label for="rbs_fbs">Date</label>
+                                    <div class="input-group">
+                                        <input type="date" class="form-control" id="rbs_fbs" name="rbs_fbs" required>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">mg/dL</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label for="rbs_fbs">Outcome</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="rbs_fbs" name="rbs_fbs" required>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">mg/dL</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label for="rbs_fbs">Gender</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="rbs_fbs" name="rbs_fbs" required>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">mg/dL</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                 </div>
                 </form>
                 <div class="modal-footer">
