@@ -208,28 +208,29 @@ if ($result === false) {
 
                                 <div class="form-group">
                                     <label for="">Subjective</label><span style="color: red; font-size: 22px;">*</span>
-                                    <textarea class="form-control" id="subjective" name="subjective" rows="3" placeholder="Patient's verbal " required></textarea>
+                                    <textarea class="form-control" id="subjective" name="subjective" rows="3" placeholder="e.g., sakit ng tiyan (stomach pain), headache, patient's verbal report" required></textarea>
                                 </div>
                             </div>
                             <div class="col-sm">
 
                                 <div class="form-group">
                                     <label for="">Objective</label><span style="color: red; font-size: 22px;">*</span>
-                                    <textarea class="form-control" id="objective" name="objective" rows="3" required></textarea>
+                                    <textarea class="form-control" id="objective" name="objective" rows="3" placeholder="vital signs - temperature, pulse rate, bp, respiration.
+assessment: diagnosis" required></textarea>
                                 </div>
                             </div>
                             <div class="col-sm">
 
                                 <div class="form-group">
                                     <label for="">Assessment</label><span style="color: red; font-size: 22px;">*</span>
-                                    <textarea class="form-control" id="assessment" name="assessment" rows="3" required></textarea>
+                                    <textarea class="form-control" id="assessment" name="assessment" rows="3" placeholder="Patient's diagnosis " required></textarea>
                                 </div>
                             </div>
                             <div class="col-sm">
 
                                 <div class="form-group">
                                     <label for="">Plan</label><span style="color: red; font-size: 22px;">*</span>
-                                    <textarea class="form-control" id="plan" name="plan" rows="3" required></textarea>
+                                    <textarea class="form-control" id="plan" name="plan" rows="3" placeholder="Prescribed medicine or the Doctor's plan for the patient" required></textarea>
                                 </div>
                             </div>
                         </div>
@@ -704,21 +705,23 @@ if ($result === false) {
 
                                 <div class="form-group">
                                     <label for="">Subjective</label>
-                                    <textarea class="form-control" id="subjective2" name="subjective2" rows="3" required></textarea>
+                                    <textarea style="white-space: normal;" id="subjective2" name="subjective2" rows="3" columns="3" placeholder="e.g., sakit ng tiyan (stomach pain), headache, patient's verbal report" required></textarea>
+
                                 </div>
                             </div>
                             <div class="col-sm">
 
                                 <div class="form-group">
                                     <label for="">Objective</label>
-                                    <textarea class="form-control" id="objective2" name="objective2" rows="3" required></textarea>
+                                    <textarea class="form-control" id="objective2" name="objective2" rows="3" placeholder="vital signs - temperature, pulse rate, bp, respiration.
+assessment: diagnosis" required></textarea>
                                 </div>
                             </div>
                             <div class="col-sm">
 
                                 <div class="form-group">
                                     <label for="">Assessment</label>
-                                    <textarea class="form-control" id="assessment2" name="assessment2" rows="3" required></textarea>
+                                    <textarea class="form-control" id="assessment2" name="assessment2" rows="3" placeholder="Prescribed medicine or the Doctor's plan for the patient" required></textarea>
                                 </div>
                             </div>
                             <div class="col-sm">
