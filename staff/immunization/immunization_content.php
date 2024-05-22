@@ -318,7 +318,7 @@ if ($result === false) {
                 <thead class="thead-light">
                     <tr>
                         <th class="hidden">ID</th>
-                        <th>Serial Number</th>
+                        <th>Family Number</th>
                         <th>Patient Name</th>
                         <th>Description</th>
                         <th>Date</th>

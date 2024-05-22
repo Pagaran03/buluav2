@@ -32,7 +32,7 @@ if ($result === false) {
                     <thead class="thead-light">
                         <tr>
                             <th class="tago">ID</th>
-                            <th>Serial Number</th>
+                            <th>Family Number</th>
                             <th>Patient Name</th>
                             <th>Date</th>
                             <th>Status</th>
@@ -110,7 +110,7 @@ if ($result === false) {
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="">Family Planning Method</label>
+                                    <label for="">Family Planning Method</label><span style="color: red; font-size: 22px;">*</span>
                                     <select class="form-control" id="editMethod" name="method" id="method" required>
                                         <option value="" disabled selected hidden>Select a Method</option>
                                         <option value="BTL">BTL</option>
@@ -143,7 +143,7 @@ if ($result === false) {
 
                             <div class="col-4">
                                 <div class="form-group">
-                                    <label for="">Select Status</label>
+                                    <label for="">Select Status</label><span style="color: red; font-size: 22px;">*</span>
                                     <select class="form-control" name="status2" id="status2" required>
                                         <option value="" disabled selected hidden>Select a Status</option>
                                         <option value="Complete">Complete</option>
@@ -174,15 +174,15 @@ if ($result === false) {
 
 
                         <div class="form-group">
-                            <label for="">Description</label>
+                            <label for="">Description</label><span style="color: red; font-size: 22px;">*</span>
                             <textarea class="form-control" id="editDescription" name="description" rows="3" required></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="">Diagnosis</label>
+                            <label for="">Diagnosis</label><span style="color: red; font-size: 22px;">*</span>
                             <textarea class="form-control" id="editDiagnosis" name="diagnosis" rows="3" required></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="">Prescription</label>
+                            <label for="">Prescription</label><span style="color: red; font-size: 22px;">*</span>
                             <textarea class="form-control" id="editMedicine" name="medicine" rows="3" required></textarea>
                         </div>
                     </form>
