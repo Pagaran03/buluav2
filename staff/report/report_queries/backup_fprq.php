@@ -877,7 +877,6 @@ $row = $btlresult->fetch_assoc();
 $btlTotal10to14 = $row['btlTotal10to14'];
 $stmt->close();
 
-
 $btlCUBMTotal15to19 = "SELECT 
 SUM(count_of_btl_patients) AS btlTotal15to19
 FROM (
@@ -926,58 +925,11 @@ $btlTotal15to19 = $row['btlTotal15to19'];
 $stmt->close();
 
 
-$btlCUBMTotal20to49 = "SELECT 
-SUM(count_of_btl_patients) AS btlTotal20to49
-FROM (
-SELECT 
-    COUNT(
-        CASE 
-            WHEN fp_consultation.method = 'BTL' AND patients.age BETWEEN 20 AND 49
-                AND fp_information.client_type = 'New Acceptor'
-            THEN 1 
-            ELSE NULL 
-        END
-    ) AS count_of_btl_patients
-FROM fp_consultation
-INNER JOIN patients ON fp_consultation.patient_id = patients.id
-INNER JOIN fp_information ON fp_information.patient_id = patients.id
-WHERE fp_information.client_type = 'New Acceptor'
-AND YEAR(fp_consultation.checkup_date) = ?
-AND MONTH(fp_consultation.checkup_date) BETWEEN 1 AND ? - 1
-UNION ALL
-SELECT 
-    COUNT(
-        CASE 
-            WHEN fp_consultation.method = 'BTL' AND patients.age BETWEEN 20 AND 49
-                AND (fp_information.client_type = 'ChangingClinic' OR fp_information.client_type = 'ChangingMethod')
-            THEN 1 
-            ELSE NULL 
-        END
-    ) AS count_of_btl_patients
-FROM fp_consultation
-INNER JOIN patients ON fp_consultation.patient_id = patients.id
-INNER JOIN fp_information ON fp_information.patient_id = patients.id
-WHERE fp_information.client_type IN ('ChangingClinic', 'ChangingMethod')
-AND YEAR(fp_consultation.checkup_date) = ?
-AND MONTH(fp_consultation.checkup_date) BETWEEN 1 AND ? - 1
-) AS btlCounts20to49;
-";
-$month = date('m', strtotime($fromDate));
-$year = date('Y', strtotime($toDate));
-
-$stmt = $conn->prepare($btlCUBMTotal20to49);
-$stmt->bind_param("iiii", $year, $month, $year, $month);
-$stmt->execute();
-$btlresult = $stmt->get_result();
-$row = $btlresult->fetch_assoc();
-$btlTotal20to49 = $row['btlTotal20to49'];
-$stmt->close();
-
 
 // final calc for current user
 $fbtlCUEOMTotal10to14 = max(0, $btlTotal10to14 + $btlANAPMCount_count10to14 + $btlOAPMCount_count10to14 - $btlDOPMCount_count10to14);
 $fbtlCUEOMTotal15to19 = max(0, $btlTotal15to19 + $btlANAPMCount_count15to19 + $btlOAPMCount_count15to19 - $btlDOPMCount_count15to19);
-$fbtlCUEOMTotal20to49 = max(0, $btlTotal20to49 + $btlANAPMCount_count20to49 + $btlOAPMCount_count20to49 - $btlDOPMCount_count20to49);
+$fbtlCUEOMTotal20to49 = max(0, $btlCUMBTotal20to49 + $btlANAPMCount_count20to49 + $btlOAPMCount_count20to49 - $btlDOPMCount_count20to49);
 $fbtlCUEOMTotal = $fbtlCUEOMTotal10to14 + $fbtlCUEOMTotal15to19 + $fbtlCUEOMTotal20to49;
 
 $fnsvCUEOMTotal10to14 = max(0, $nsvANAPMCount_count10to14 + $nsvOAPMCount_count10to14 - $nsvDOPMCount_count10to14);
@@ -1054,3 +1006,4 @@ $fnfpsdmCUEOMTotal10to14 = max(0, $nfpsdmANAPMCount_count10to14 + $nfpsdmOAPMCou
 $fnfpsdmCUEOMTotal15to19 = max(0, $nfpsdmANAPMCount_count15to19 + $nfpsdmOAPMCount_count15to19 - $nfpsdmDOPMCount_count15to19);
 $fnfpsdmCUEOMTotal20to49 = max(0, $nfpsdmANAPMCount_count20to49 + $nfpsdmOAPMCount_count20to49 - $nfpsdmDOPMCount_count20to49);
 $fnfpsdmCUEOMTotal = $nfpsdmCUEOMTotal10to14 + $nfpsdmCUEOMTotal15to19 + $nfpsdmCUEOMTotal20to49;
+

@@ -90,7 +90,7 @@ if ($result === false) {
                         <div class="row">
                             <div class="col-sm">
                                 <div class="form-group">
-                                    <label for="patient">Select Patient</label>
+                                    <label for="patient">Select Patient</label><span style="color: red; font-size: 22px;">*</span>
                                     <input list="patients" class="form-control" name="patient_id" id="patient_id" required>
                                     <datalist id="patients">
                                         <?php
@@ -133,7 +133,7 @@ if ($result === false) {
                             </div>
                             <div class="col-sm">
                                 <div class="form-group">
-                                    <label for="">Select Doctor</label>
+                                    <label for="">Select Doctor</label><span style="color: red; font-size: 22px;">*</span>
                                     <select class="form-control" name="doctor_id" id="doctor_id" required>
                                         <option value="" disabled selected hidden>Select Doctor</option>
                                         <?php
@@ -182,7 +182,7 @@ if ($result === false) {
 
                             <div class="col-sm">
                                 <div class="form-group">
-                                    <label for="">Checkup Date</label>
+                                    <label for="">Checkup Date</label><span style="color: red; font-size: 22px;">*</span>
                                     <input type="date" class="form-control" id="checkup_date" name="checkup_date" required>
                                 </div>
                             </div>
@@ -207,28 +207,28 @@ if ($result === false) {
                             <div class="col-sm">
 
                                 <div class="form-group">
-                                    <label for="">Subjective</label>
-                                    <textarea class="form-control" id="subjective" name="subjective" rows="3" required></textarea>
+                                    <label for="">Subjective</label><span style="color: red; font-size: 22px;">*</span>
+                                    <textarea class="form-control" id="subjective" name="subjective" rows="3" placeholder="Patient's verbal " required></textarea>
                                 </div>
                             </div>
                             <div class="col-sm">
 
                                 <div class="form-group">
-                                    <label for="">Objective</label>
+                                    <label for="">Objective</label><span style="color: red; font-size: 22px;">*</span>
                                     <textarea class="form-control" id="objective" name="objective" rows="3" required></textarea>
                                 </div>
                             </div>
                             <div class="col-sm">
 
                                 <div class="form-group">
-                                    <label for="">Assessment</label>
+                                    <label for="">Assessment</label><span style="color: red; font-size: 22px;">*</span>
                                     <textarea class="form-control" id="assessment" name="assessment" rows="3" required></textarea>
                                 </div>
                             </div>
                             <div class="col-sm">
 
                                 <div class="form-group">
-                                    <label for="">Plan</label>
+                                    <label for="">Plan</label><span style="color: red; font-size: 22px;">*</span>
                                     <textarea class="form-control" id="plan" name="plan" rows="3" required></textarea>
                                 </div>
                             </div>
@@ -242,7 +242,7 @@ if ($result === false) {
                                 <div class="row">
                                     <div class="col">
                                         <div class="form-group">
-                                            <label for="weight">Weight</label>
+                                            <label for="weight">Weight</label><span style="color: red; font-size: 22px;">*</span>
                                             <div class="input-group">
                                                 <input type="number" class="form-control" id="weight" name="weight" required>
                                                 <div class="input-group-append">
@@ -255,7 +255,7 @@ if ($result === false) {
 
                                     <div class="col">
                                         <div class="form-group">
-                                            <label for="bp">Blood Pressure</label>
+                                            <label for="bp">Blood Pressure</label><span style="color: red; font-size: 22px;">*</span>
                                             <div class="input-group">
                                                 <input type="text" class="form-control" id="bp" name="bp" required>
                                                 <div class="input-group-append">
@@ -270,7 +270,7 @@ if ($result === false) {
                                 <div class="row">
                                     <div class="col">
                                         <div class="form-group">
-                                            <label for="height">Height</label>
+                                            <label for="height">Height</label><span style="color: red; font-size: 22px;">*</span>
                                             <div class="input-group">
                                                 <input type="text" class="form-control" id="height" name="height" required>
                                                 <div class="input-group-append">
@@ -283,7 +283,7 @@ if ($result === false) {
 
                                     <div class="col">
                                         <div class="form-group">
-                                            <label for="pulse">Pulse Rate</label>
+                                            <label for="pulse">Pulse Rate</label><span style="color: red; font-size: 22px;">*</span>
                                             <div class="input-group">
                                                 <input type="text" class="form-control" id="pulse" name="pulse" required>
                                                 <div class="input-group-append">
@@ -298,7 +298,7 @@ if ($result === false) {
                                 <div class="row">
                                     <div class="col">
                                         <div class="form-group">
-                                            <label for="">Skin</label>
+                                            <label for="">Skin</label><span style="color: red; font-size: 22px;">*</span>
                                             <br>
                                             <div style="display: inline-block;" class="mt-1">
                                                 <input type="radio" id="normalSkinRadio" name="skin" value="Normal" class="radio-input" required>
@@ -321,7 +321,7 @@ if ($result === false) {
 
                                     <div class="col">
                                         <div class="form-group">
-                                            <label for="">Extremities</label>
+                                            <label for="">Extremities</label><span style="color: red; font-size: 22px;">*</span>
                                             <br>
                                             <div style="display: inline-block;" class="mt-1">
                                                 <input type="radio" id="normalRadio" name="extremities" value="Normal" class="radio-input" required>
@@ -344,7 +344,7 @@ if ($result === false) {
                                 <div class="row">
                                     <div class="col">
                                         <div class="form-group">
-                                            <label for="">Conjunctiva</label>
+                                            <label for="">Conjunctiva</label><span style="color: red; font-size: 22px;">*</span>
                                             <br>
                                             <div style="display: inline-block;" class="mt-1">
                                                 <input type="radio" id="normalConjunctivaRadio" name="conjunctiva" value="Normal" class="radio-input" required>
@@ -363,7 +363,7 @@ if ($result === false) {
 
                                     <div class="col">
                                         <div class="form-group">
-                                            <label for="">Neck</label>
+                                            <label for="">Neck</label><span style="color: red; font-size: 22px;">*</span>
                                             <br>
                                             <div style="display: inline-block;" class="mt-1">
                                                 <input type="radio" id="normalNeckRadio" name="neck" value="Normal" class="radio-input" required>
