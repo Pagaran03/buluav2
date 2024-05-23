@@ -1,6 +1,6 @@
 <?php
 // Include your database configuration file
-include_once ('../../config.php');
+include_once('../../config.php');
 
 
 $sql = "SELECT *,immunization.id as id,CONCAT(patients.last_name,',',patients.first_name) AS full_name
@@ -47,7 +47,7 @@ if ($result === false) {
                         <?php
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
-                                ?>
+                        ?>
                                 <tr>
                                     <td class="align-middle class"><?php echo $row['id']; ?></td>
                                     <td class="align-middle"><?php echo $row['serial_no']; ?></td>
@@ -55,15 +55,13 @@ if ($result === false) {
                                     <td class="align-middle"><?php echo $row['checkup_date']; ?></td>
                                     <td class="align-middle"><?php echo $row['status']; ?></td>
                                     <td class="align-middle"><?php echo $row['steps']; ?></td>
-                                    <td class="align-middle"> <button type="button" class="btn btn-success editbtn"
-                                            data-row-id="<?php echo $row['id']; ?>">
+                                    <td class="align-middle"> <button type="button" class="btn btn-success editbtn" data-row-id="<?php echo $row['id']; ?>">
                                             <i class="fas fa-edit"></i> Update Immunization Record
                                         </button>
-                                        <button type="button" class="btn btn-danger deletebtn" data-id="' + row.id + '"><i
-                                                class="fas fa-trash"></i> Delete</button>
+                                        <button type="button" class="btn btn-danger deletebtn" data-id="' + row.id + '"><i class="fas fa-trash"></i> Delete</button>
                                     </td>
                                 </tr>
-                                <?php
+                            <?php
                             }
                         } else {
                             ?>
@@ -77,7 +75,7 @@ if ($result === false) {
                                 <td>
 
                             </tr>
-                            <?php
+                        <?php
                         }
                         ?>
                     </tbody>
@@ -88,8 +86,7 @@ if ($result === false) {
 
     <!-- modal edit -->
 
-    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -132,7 +129,7 @@ if ($result === false) {
                                         }
 
                                         // Close the database connection
-                                        
+
                                         ?>
                                     </select>
 
@@ -211,20 +208,19 @@ if ($result === false) {
 
                             <div class="col-2">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="bgc_remarks2" name="bgc_remarks2"
-                                        required>
+                                    <input type="text" class="form-control" id="bgc_remarks2" name="bgc_remarks2" required>
                                 </div>
                             </div>
                         </div>
                         <hr>
                         <div class="row">
-                            <div class="col-3">
-                                <div class="form-group">
+                            <div class="col-3 mt-4">
+                                <div class="for m-group">
                                     <p>Hepatitis B Vaccine</p>
                                 </div>
                             </div>
 
-                            <div class="col-1">
+                            <div class="col-1 mt-4">
                                 <div class="form-group">
                                     <p>At Birth</p>
                                 </div>
@@ -232,26 +228,27 @@ if ($result === false) {
 
                             <div class="col-6">
                                 <div class="form-group">
+                                <label for="">Hepatitis B Dose</label>
                                     <input type="date" class="form-control" id="hepa_date2" name="hepa_date2" required>
                                 </div>
                             </div>
 
                             <div class="col-2">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="hepa_remarks2" name="hepa_remarks2"
-                                        required>
+                                <label for="">Remarks</label>
+                                    <input type="text" class="form-control" id="hepa_remarks2" name="hepa_remarks2" required>
                                 </div>
                             </div>
                         </div>
                         <hr>
                         <div class="row">
-                            <div class="col-3">
+                            <div class="col-3 mt-4">
                                 <div class="form-group">
                                     <p>Pentavalent Vaccine (DPT-Hep B-HIB)</p>
                                 </div>
                             </div>
 
-                            <div class="col-1">
+                            <div class="col-1 mt-4">
                                 <div class="form-group">
                                     <p>At Birth</p>
                                 </div>
@@ -261,16 +258,16 @@ if ($result === false) {
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col">
-                                            <input type="date" class="form-control" id="pentavalent_date12"
-                                                name="pentavalent_date12" required>
+                                        <label for="">Pentavalent 1st Dose</label>
+                                            <input type="date" class="form-control" id="pentavalent_date12" name="pentavalent_date12" required>
                                         </div>
                                         <div class="col">
-                                            <input type="date" class="form-control" id="pentavalent_date22"
-                                                name="pentavalent_date22" required>
+                                        <label for="">Pentavalent 2nd Dose</label>
+                                            <input type="date" class="form-control" id="pentavalent_date22" name="pentavalent_date22" required>
                                         </div>
                                         <div class="col">
-                                            <input type="date" class="form-control" id="pentavalent_date32"
-                                                name="pentavalent_date32" required>
+                                        <label for="">Pentavalent 3rd Dose</label>
+                                            <input type="date" class="form-control" id="pentavalent_date32" name="pentavalent_date32" required>
                                         </div>
                                     </div>
                                 </div>
@@ -278,20 +275,20 @@ if ($result === false) {
 
                             <div class="col-2">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="pentavalent_remarks2"
-                                        name="pentavalent_remarks2" required>
+                                <label for="">Remarks</label>
+                                    <input type="text" class="form-control" id="pentavalent_remarks2" name="pentavalent_remarks2" required>
                                 </div>
                             </div>
                         </div>
                         <hr>
                         <div class="row">
-                            <div class="col-3">
+                            <div class="col-3 mt-4">
                                 <div class="form-group">
                                     <p>Oral Polio Vaccine (OPV)</p>
                                 </div>
                             </div>
 
-                            <div class="col-1">
+                            <div class="col-1 mt-3">
                                 <div class="form-group">
                                     <p>1½,2½,3½ Months</p>
                                 </div>
@@ -301,16 +298,16 @@ if ($result === false) {
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col">
-                                            <input type="date" class="form-control" id="oral_date12" name="oral_date12"
-                                                required>
+                                        <label for="">OPV 1st Dose</label>
+                                            <input type="date" class="form-control" id="oral_date12" name="oral_date12" required>
                                         </div>
                                         <div class="col">
-                                            <input type="date" class="form-control" id="oral_date22" name="oral_date22"
-                                                required>
+                                        <label for="">OPV 2nd Dose</label>
+                                            <input type="date" class="form-control" id="oral_date22" name="oral_date22" required>
                                         </div>
                                         <div class="col">
-                                            <input type="date" class="form-control" id="oral_date32" name="oral_date32"
-                                                required>
+                                        <label for="">OPV 3rd Dose</label>
+                                            <input type="date" class="form-control" id="oral_date32" name="oral_date32" required>
                                         </div>
                                     </div>
                                 </div>
@@ -318,20 +315,22 @@ if ($result === false) {
 
                             <div class="col-2">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="oral_remarks2" name="oral_remarks2"
-                                        required>
+                                <label for="">Remarks</label>
+                                    <input type="text" class="form-control" id="oral_remarks2" name="oral_remarks2" required>
                                 </div>
                             </div>
                         </div>
                         <hr>
+
+
                         <div class="row">
-                            <div class="col-3">
+                            <div class="col-3 mt-4">
                                 <div class="form-group">
                                     <p>Inactivated Polio Vaccine (IPV)</p>
                                 </div>
                             </div>
 
-                            <div class="col-1">
+                            <div class="col-1 mt-3">
                                 <div class="form-group">
                                     <p>3½ and 9 Months</p>
                                 </div>
@@ -341,138 +340,137 @@ if ($result === false) {
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col">
-                                            <input type="date" class="form-control" id="ipv_date12" name="ipv_date12"
-                                                required>
+                                            <label for="">IPV 1st Dose</label>
+                                            <input type="date" class="form-control" id="ipv_date12" name="ipv_date12" required>
                                         </div>
                                         <div class="col">
-                                            <input type="date" class="form-control" id="ipv_date22" name="ipv_date22"
-                                                required>
+                                            <label for="">IPV 2nd Dose</label>
+                                            <input type="date" class="form-control" id="ipv_date22" name="ipv_date22" required>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-2">
+                            <div class="col-2 ">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="ipv_remarks2" name="ipv_remarks2"
-                                        required>
+                                    <label for="">Remarks</label>
+                                    <input type="text" class="form-control" id="ipv_remarks2" name="ipv_remarks2" required>
                                 </div>
                             </div>
                         </div>
+
+
                         <hr>
                         <div class="row">
-                            <div class="col-3">
+                            <div class="col-3 mt-4">
                                 <div class="form-group">
                                     <p>Pneumococcal Conjugate Vaccine (PCV)</p>
                                 </div>
                             </div>
 
-                            <div class="col-1">
+                            <div class="col-1 mt-3">
                                 <div class="form-group">
                                     <p>1½,2½,3½ Months</p>
                                 </div>
                             </div>
 
-                            <div class="col-6">
+                            <div class="col-6 mt-3">
                                 <div class="form-group">
                                     <div class="row">
+
                                         <div class="col">
-                                            <input type="date" class="form-control" id="pcv_date12" name="pcv_date12"
-                                                required>
+                                            <label for="">PCV 1st Dose</label>
+                                            <input type="date" class="form-control" id="pcv_date12" name="pcv_date12" required>
                                         </div>
                                         <div class="col">
-                                            <input type="date" class="form-control" id="pcv_date22" name="pcv_date22"
-                                                required>
+                                            <label for="">PCV 2nd Dose</label>
+                                            <input type="date" class="form-control" id="pcv_date22" name="pcv_date22" required>
                                         </div>
                                         <div class="col">
-                                            <input type="date" class="form-control" id="pcv_date32" name="pcv_date32"
-                                                required>
+                                            <label for="">PCV 3rd Dose</label>
+                                            <input type="date" class="form-control" id="pcv_date32" name="pcv_date32" required>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-2">
+                            <div class="col-2 mt-3">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="pcv_remarks2" name="pcv_remarks2"
-                                        required>
+                                    <label for="">Remarks</label>
+                                    <input type="text" class="form-control" id="pcv_remarks2" name="pcv_remarks2" required>
                                 </div>
                             </div>
                         </div>
                         <hr>
                         <div class="row">
-                            <div class="col-3">
+                            <div class="col-3 mt-4">
                                 <div class="form-group">
                                     <p>Measles,Mumps,Rubella Vaccine (MMR)</p>
                                 </div>
                             </div>
 
-                            <div class="col-1">
+                            <div class="col-1 mt-3">
                                 <div class="form-group">
                                     <p>1½,2½,3½ Months</p>
                                 </div>
                             </div>
 
-                            <div class="col-6">
+                            <div class="col-6 mt-2">
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col">
-                                            <input type="date" class="form-control" id="mmr_date12" name="mmr_date12"
-                                                required>
+                                            <label for="">MMR 1st Dose</label>
+                                            <input type="date" class="form-control" id="mmr_date12" name="mmr_date12" required>
                                         </div>
                                         <div class="col">
-                                            <input type="date" class="form-control" id="mmr_date22" name="mmr_date22"
-                                                required>
+                                            <label for="">MMR 1st Dose</label>
+                                            <input type="date" class="form-control" id="mmr_date22" name="mmr_date22" required>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-2">
+                            <div class="col-2 mt-2">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="mmr_remarks2" name="mmr_remarks2"
-                                        required>
+                                    <label for="">Remarks</label>
+                                    <input type="text" class="form-control" id="mmr_remarks2" name="mmr_remarks2" required>
                                 </div>
                             </div>
                         </div>
                         <hr>
                         <div class="row">
-                            <div class="col-3">
+                            <div class="col-3 mt-4">
                                 <div class="form-group">
-                                    <p>Measles Containing Vaccine</p>
+                                    <p>Meningococcal Vaccine</p>
                                 </div>
                             </div>
 
-                            <div class="col-1">
+                            <div class="col-1 mt-3">
                                 <div class="form-group">
                                     <p>1 - 2 Months</p>
                                 </div>
                             </div>
 
-                            <div class="col-6">
+                            <div class="col-6 mt-1">
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm">
-                                            <!-- <label for="">MCV 1</label> -->
-                                            <input type="date" class="form-control" id="mcv_date1" name="mcv_date1"
-                                                required>
-                                            <label for="">MCV 1</label>
+                                            <label for="">MCV 1st Dose</label>
+                                            <input type="date" class="form-control" id="mcv_date1" name="mcv_date1" required>
                                         </div>
                                         <div class="col-sm">
-                                            <!-- <label for="">MCV 2</label> -->
-                                            <input type="date" class="form-control" id="mcv_date2" name="mcv_date2"
-                                                required>
-                                            <label for="">MCV 2</label>
+                                            <label for="">MCV 2nd Dose</label>
+                                            <input type="date" class="form-control" id="mcv_date2" name="mcv_date2" required>
                                         </div>
                                     </div>
 
                                 </div>
                             </div>
 
-                            <div class="col-2">
+                            <div class="col-2 mt-1">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="mcv_remarks2" name="mcv_remarks2"
-                                        required>
+                                    <label for="">Remarks</label>
+                                    <input type="text" class="form-control" id="mcv_remarks2" name="mcv_remarks2" required>
                                 </div>
                             </div>
                         </div>
@@ -487,7 +485,7 @@ if ($result === false) {
     </div>
     <script>
         // Add an event listener to the Save button
-        document.getElementById('updateButton').addEventListener('click', function () {
+        document.getElementById('updateButton').addEventListener('click', function() {
             // Assuming you have a variable `completedStep` that holds the completed step value, e.g., "Step1", "Step2", etc.
             var completedStep = "Already Nurse"; // Example completed step
 
@@ -502,7 +500,6 @@ if ($result === false) {
                 }
             }
         });
-
     </script>
 
     <!-- modal edit -->
@@ -513,25 +510,43 @@ if ($result === false) {
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
 
 
 
 
-        <?php if ($result->num_rows > 0): ?>
+        <?php if ($result->num_rows > 0) : ?>
             var table = $('#tablebod').DataTable({
-                columnDefs: [
-                    { targets: 0, data: 'id', visible: false },
-                    { targets: 1, data: 'serial_no' },
-                    { targets: 2, data: 'full_name' },
-                    { targets: 3, data: 'checkup_date' },
-                    { targets: 4, data: 'status' },
-                    { targets: 5, data: 'steps' },
+                columnDefs: [{
+                        targets: 0,
+                        data: 'id',
+                        visible: false
+                    },
+                    {
+                        targets: 1,
+                        data: 'serial_no'
+                    },
+                    {
+                        targets: 2,
+                        data: 'full_name'
+                    },
+                    {
+                        targets: 3,
+                        data: 'checkup_date'
+                    },
+                    {
+                        targets: 4,
+                        data: 'status'
+                    },
+                    {
+                        targets: 5,
+                        data: 'steps'
+                    },
                     {
                         targets: 6,
                         searchable: false,
                         data: null,
-                        render: function (data, type, row) {
+                        render: function(data, type, row) {
                             var editButton = '<button type="button" class="btn btn-success editbtn" data-row-id="' + row.id + '"><i class="fas fa-edit"></i> Update Immunization Record</button>';
                             var deleteButton = '<button type="button" class="btn btn-danger deletebtn" data-id="' + row.id + '"><i class="fas fa-trash"></i> Delete</button>';
                             return editButton + ' ' + deleteButton;
@@ -539,42 +554,82 @@ if ($result === false) {
                     } // Action column
                 ],
                 // Set the default ordering to 'id' column in descending order
-                order: [[0, 'desc']]
+                order: [
+                    [0, 'desc']
+                ]
             });
 
-        <?php else: ?>
+        <?php else : ?>
             // Initialize DataTable without the "Action" column when no rows are found
             var table = $('#tablebod').DataTable({
-                columnDefs: [
-                    { targets: 0, data: 'id', visible: false },
-                    { targets: 1, data: 'serial_no' },
-                    { targets: 2, data: 'full_name' },
-                    { targets: 3, data: 'checkup_date' },
-                    { targets: 4, data: 'status' },
-                    { targets: 5, data: 'steps' },
+                columnDefs: [{
+                        targets: 0,
+                        data: 'id',
+                        visible: false
+                    },
+                    {
+                        targets: 1,
+                        data: 'serial_no'
+                    },
+                    {
+                        targets: 2,
+                        data: 'full_name'
+                    },
+                    {
+                        targets: 3,
+                        data: 'checkup_date'
+                    },
+                    {
+                        targets: 4,
+                        data: 'status'
+                    },
+                    {
+                        targets: 5,
+                        data: 'steps'
+                    },
                 ],
                 // Set the default ordering to 'id' column in descending order
-                order: [[0, 'desc']]
+                order: [
+                    [0, 'desc']
+                ]
             });
         <?php endif; ?>
 
 
-        $('#addButton').click(function () {
+        $('#addButton').click(function() {
 
             table.destroy(); // Destroy the existing DataTable
             table = $('#tablebod').DataTable({
-                columnDefs: [
-                    { targets: 0, data: 'id', visible: false },
-                    { targets: 1, data: 'serial_no' },
-                    { targets: 2, data: 'full_name' },
-                    { targets: 3, data: 'checkup_date' },
-                    { targets: 4, data: 'status' },
-                    { targets: 5, data: 'steps' },
+                columnDefs: [{
+                        targets: 0,
+                        data: 'id',
+                        visible: false
+                    },
+                    {
+                        targets: 1,
+                        data: 'serial_no'
+                    },
+                    {
+                        targets: 2,
+                        data: 'full_name'
+                    },
+                    {
+                        targets: 3,
+                        data: 'checkup_date'
+                    },
+                    {
+                        targets: 4,
+                        data: 'status'
+                    },
+                    {
+                        targets: 5,
+                        data: 'steps'
+                    },
                     {
                         targets: 6,
                         searchable: false,
                         data: null,
-                        render: function (data, type, row) {
+                        render: function(data, type, row) {
                             var editButton = '<button type="button" class="btn btn-success editbtn" data-row-id="' + row.id + '"><i class="fas fa-edit"></i> Update Immunization Record</button>';
                             var deleteButton = '<button type="button" class="btn btn-danger deletebtn" data-id="' + row.id + '"><i class="fas fa-trash"></i> Delete</button>';
                             return editButton + ' ' + deleteButton;
@@ -582,7 +637,9 @@ if ($result === false) {
                     } // Action column
                 ],
                 // Set the default ordering to 'id' column in descending order
-                order: [[0, 'desc']]
+                order: [
+                    [0, 'desc']
+                ]
             });
 
 
@@ -644,7 +701,7 @@ if ($result === false) {
                     mcv_2: mcv_2,
                     mcv_remarks: mcv_remarks
                 },
-                success: function (response) {
+                success: function(response) {
                     if (response.trim() === 'Success') {
                         // Clear the form fields
                         $('#patient_id').val('');
@@ -697,7 +754,7 @@ if ($result === false) {
                         });
                     }
                 },
-                error: function (error) {
+                error: function(error) {
                     // Handle errors
                     Swal.fire({
                         icon: 'error',
@@ -714,14 +771,14 @@ if ($result === false) {
             $.ajax({
                 url: 'action/get_family.php',
                 method: 'GET',
-                success: function (data) {
+                success: function(data) {
                     // Assuming the server returns JSON data, parse it
                     var get_data = JSON.parse(data);
 
                     // Clear the DataTable and redraw with new data
                     table.clear().rows.add(get_data).draw();
                 },
-                error: function (error) {
+                error: function(error) {
                     // Handle errors
                     console.error('Error retrieving data: ' + error);
                 }
@@ -729,7 +786,7 @@ if ($result === false) {
         }
 
         // Delete button click event
-        $('#tablebod').on('click', '.deletebtn', function () {
+        $('#tablebod').on('click', '.deletebtn', function() {
             var deletedataId = $(this).data('id');
 
             // Confirm the deletion with a SweetAlert dialog
@@ -746,8 +803,10 @@ if ($result === false) {
                     $.ajax({
                         url: 'action/delete_family.php',
                         method: 'POST',
-                        data: { primary_id: deletedataId },
-                        success: function (response) {
+                        data: {
+                            primary_id: deletedataId
+                        },
+                        success: function(response) {
                             if (response === 'Success') {
 
                                 updateData();
@@ -756,7 +815,7 @@ if ($result === false) {
                                 Swal.fire('Error', 'Error deleting data: ' + response, 'error');
                             }
                         },
-                        error: function (error) {
+                        error: function(error) {
                             Swal.fire('Error', 'Error deleting data: ' + error, 'error');
                         }
                     });
@@ -768,14 +827,16 @@ if ($result === false) {
 
 
         // Edit button click event
-        $('#tablebod').on('click', '.editbtn', function () {
+        $('#tablebod').on('click', '.editbtn', function() {
             var editId = $(this).data('row-id');
             console.log(editId);
             $.ajax({
                 url: 'action/get_family_by_id.php', // 
                 method: 'POST',
-                data: { primary_id: editId },
-                success: function (data) {
+                data: {
+                    primary_id: editId
+                },
+                success: function(data) {
 
                     var editGetData = data;
 
@@ -821,13 +882,13 @@ if ($result === false) {
 
                     $('#editModal').modal('show');
                 },
-                error: function (error) {
+                error: function(error) {
                     console.error('Error fetching  data: ' + error);
                 },
             });
         });
 
-        $('#updateButton').click(function () {
+        $('#updateButton').click(function() {
             var editId = $('#editdataId').val();
             var status = $('#editstatus').val();
             var steps = $('#step').val();
@@ -890,7 +951,7 @@ if ($result === false) {
                     mcv_2: mcv_2,
                     mcv_remarks: mcv_remarks
                 },
-                success: function (response) {
+                success: function(response) {
                     // Handle the response
                     if (response === 'Success') {
                         updateData();
@@ -913,7 +974,7 @@ if ($result === false) {
                         });
                     }
                 },
-                error: function (error) {
+                error: function(error) {
                     // Show an error Swal notification for AJAX errors
                     Swal.fire({
                         icon: 'error',
@@ -929,8 +990,6 @@ if ($result === false) {
 
 
     });
-
-
 </script>
 
 <script>
