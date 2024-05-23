@@ -88,7 +88,8 @@ function processFormSubmission($conn)
             if ($stmt->execute()) {
                 $response = array("status" => "success", "message" => "New record created successfully");
                 echo json_encode($response);
-                sendSMS($contact_no);
+                $fullname = $first_name.' '.$last_name;
+                sendSMS($contact_no, $fullname);
             } else {
                 // Return JSON response for error
                 $response = array("status" => "error", "message" => "Error: " . $stmt->error);
@@ -103,33 +104,57 @@ function processFormSubmission($conn)
     }
 }
 
-function sendSMS($phoneNumber)
+// function sendSMS($phoneNumber)
+// {
+//     // Load environment variables from .env file
+//     $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
+//     $dotenv->safeLoad();
+
+//     // Check if the variables are set correctly
+//     $account_sid = $_ENV['TWILIO_ACCOUNT_SID'];
+//     $auth_token = $_ENV['TWILIO_AUTH_TOKEN'];
+//     $twilio_number = $_ENV['TWILIO_PHONE_NUMBER'];
+
+//     if (!$account_sid || !$auth_token) {
+//         die('Twilio Account SID and Auth Token are not set.');
+//     }
+
+//     if (!$account_sid || !$auth_token) {
+//         die('Twilio Account SID and Auth Token are not set.');
+//     }
+
+//     $client = new Client($account_sid, $auth_token);
+//     $client->messages->create(
+//         $phoneNumber,
+//         array(
+//             'from' => $twilio_number,
+//             'body' => "Bulua Health Center Notif:\n\nYou are scheduled for tomorrow's consultation at Barangay Bulua Health Center. To verify your information, please bring the following:\n- Zone Certificate or Valid ID."
+//         )
+//     );
+// }
+
+function sendSMS($phoneNumber, $patient_name)
 {
-    // Load environment variables from .env file
-    $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
-    $dotenv->safeLoad();
-
-    // Check if the variables are set correctly
-    $account_sid = $_ENV['TWILIO_ACCOUNT_SID'];
-    $auth_token = $_ENV['TWILIO_AUTH_TOKEN'];
-    $twilio_number = $_ENV['TWILIO_PHONE_NUMBER'];
-
-    if (!$account_sid || !$auth_token) {
-        die('Twilio Account SID and Auth Token are not set.');
-    }
-
-    if (!$account_sid || !$auth_token) {
-        die('Twilio Account SID and Auth Token are not set.');
-    }
-
-    $client = new Client($account_sid, $auth_token);
-    $client->messages->create(
-        $phoneNumber,
-        array(
-            'from' => $twilio_number,
-            'body' => "Bulua Health Center Notif:\n\nYou are scheduled for tomorrow's consultation at Barangay Bulua Health Center. To verify your information, please bring the following:\n- Zone Certificate or Valid ID."
-        )
+    $ch = curl_init();
+    $parameters = array(
+        'apikey' => '92a2c5a6f73bab6ad2b179b4e81a4b53',
+        'number' => $phoneNumber,
+        'message' => 'Hello ' . $patient_name . ' this message is to notify you of your schedule tommorow for the consultation. Please don`t forget to bring the following: -Valid ID or Barangay Certificate',
+        'sendername' => 'SEMAPHORE'
     );
+    curl_setopt($ch, CURLOPT_URL, 'https://semaphore.co/api/v4/messages');
+    curl_setopt($ch, CURLOPT_POST, 1);
+
+    //Send the parameters set above with the request
+    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($parameters));
+
+    // Receive response from server
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $output = curl_exec($ch);
+    curl_close($ch);
+
+    // //Show the server response
+    // echo $output;
 }
 
 
@@ -289,14 +314,14 @@ processFormSubmission($conn);
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="first_name">First Name</label>
+                                    <label for="first_name">First Name</label><span style="color: red; font-size:22px;">*</span>
                                     <input type="text" class="form-control" id="first_name" name="first_name" required>
                                     <div id="first_name_error" class="error"></div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="last_name">Last Name</label>
+                                    <label for="last_name">Last Name</label><span style="color: red; font-size:22px;">*</span>
                                     <input type="text" class="form-control" id="last_name" name="last_name" required>
                                     <div id="last_name_error" class="error"></div>
                                 </div>
@@ -306,7 +331,7 @@ processFormSubmission($conn);
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="middle_name">Middle Name</label>
+                                    <label for="middle_name">Middle Name</label><span style="color: red; font-size:22px;">*</span>
                                     <input type="text" class="form-control" id="middle_name" name="middle_name" required>
                                     <div id="middle_name_error" class="error"></div>
                                 </div>
@@ -323,7 +348,7 @@ processFormSubmission($conn);
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="gender">Select Gender</label>
+                                    <label for="gender">Select Gender</label><span style="color: red; font-size:22px;">*</span>
                                     <select class="form-control" name="gender" id="gender" required>
                                         <option value="" disabled selected hidden>Select Gender</option>
                                         <option value="Male">Male</option>
@@ -334,7 +359,7 @@ processFormSubmission($conn);
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="contact_no">Contact No</label>
+                                    <label for="contact_no">Contact No</label><span style="color: red; font-size:22px;">*</span>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon3">+63</span>
@@ -349,7 +374,7 @@ processFormSubmission($conn);
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="civil_status">Select Civil Status</label>
+                                    <label for="civil_status">Select Civil Status</label><span style="color: red; font-size:22px;">*</span>
                                     <select class="form-control" name="civil_status" id="civil_status" required>
                                         <option value="" disabled selected hidden>Select Civil Status</option>
                                         <option value="Single">Single</option>
@@ -362,7 +387,7 @@ processFormSubmission($conn);
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="birthdate">Birthdate</label>
+                                    <label for="birthdate">Birthdate</label><span style="color: red; font-size:22px;">*</span>
                                     <input type="date" class="form-control" id="birthdate" name="birthdate" required>
                                     <div id="birthdate_error" class="error"></div>
                                 </div>
@@ -390,7 +415,7 @@ processFormSubmission($conn);
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="religion">Religion</label>
+                                    <label for="religion">Religion</label><span style="color: red; font-size:22px;">*</span>
                                     <select class="form-control" name="religion" id="religion" required>
                                         <option value="" disabled selected hidden>Select Religion</option>
                                         <option value="Roman Catholic">Roman Catholic</option>
@@ -407,7 +432,7 @@ processFormSubmission($conn);
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="address">Address</label>
+                                    <label for="address">Address</label><span style="color: red; font-size:22px;">*</span>
                                     <select class="form-control" id="address" name="address" required>
                                         <option value="" disabled selected>Select your address</option>
                                         <option value="Zone 1, Bulua, Cagayan de Oro">Zone 1, Bulua, Cagayan de Oro,
