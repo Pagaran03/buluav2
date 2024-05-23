@@ -8,3 +8,4 @@ vendor/twilio/sdk/
 vendor/vlucas/phpdotenv/
 .env
 
+.env
