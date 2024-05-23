@@ -40,6 +40,29 @@ while ($row = $result->fetch_assoc()) {
   );
 }
 
+$columns = ['bgc_date', 'hepa_date', 'pentavalent_date1', 'pentavalent_date2', 'pentavalent_date3', 'oral_date1', 'oral_date2', 'oral_date3'];
+
+// Initialize an array to store the counts
+$countss = array();
+
+foreach ($columns as $column) {
+  // Assuming $conn is your database connection
+  $sql = "SELECT COUNT($column) AS count FROM immunization"; // Replace 'your_table' with your actual table name
+  $result = $conn->query($sql);
+
+  if ($result === false) {
+    die("Query failed: " . $conn->error);
+  }
+
+  $row = $result->fetch_assoc();
+  $countss[] = $row['count'];
+}
+
+// Now $countss contains the counts for each column
+
+
+
+
 // Create an array of table names
 $tables = ['fp_information', 'immunization', 'prenatal', 'consultations'];
 
@@ -367,10 +390,12 @@ foreach ($tables as $table) {
               <canvas id="kindOfCheckupss"></canvas>
               <script>
                 document.addEventListener('DOMContentLoaded', function () {
-                  var columnNames = <?php echo json_encode($columns); ?>; // Change variable name to columnNames
-                  var data = <?php echo json_encode(array_values($counts)); ?>; // Use counts instead of tables
+                  // Ensure that the PHP variables are correctly encoded into JavaScript
+                  var columnNames = <?php echo json_encode($columns); ?>;
+                  var data = <?php echo json_encode(array_values($countss)); ?>;
                   var ctx = document.getElementById('kindOfCheckupss').getContext('2d');
 
+                  // Creating the pie chart using Chart.js
                   var chart = new Chart(ctx, {
                     type: 'pie',
                     data: {
@@ -382,13 +407,16 @@ foreach ($tables as $table) {
                           'rgba(54, 162, 235, 0.6)',
                           'rgba(255, 206, 86, 0.6)',
                           'rgba(75, 192, 192, 0.6)',
+                          'rgba(76, 132, 112, 0.6)',
+                          '	rgb(153, 255, 153, 0.6)',
+                          'rgb(153, 255, 255, 0.6)',
+                          'rgb(255, 153, 153, 0.6)',
                         ],
                       }],
                     },
                   });
                 });
               </script>
-
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -396,6 +424,7 @@ foreach ($tables as $table) {
           </div>
         </div>
       </div>
+
       <!--  -->
 
       <div class="row">
