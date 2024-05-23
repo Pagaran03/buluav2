@@ -1,6 +1,6 @@
 <?php
 // Include your database configuration file
-include_once ('../../config.php');
+include_once('../../config.php');
 
 
 $sql = "SELECT *,immunization.id as id,CONCAT(patients.last_name,',',patients.first_name) AS full_name,immunization.description as description
@@ -53,8 +53,7 @@ if ($result === false) {
     <br><br>
 
 
-    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -94,10 +93,8 @@ if ($result === false) {
                                 <div class="row">
                                     <div class="col-sm">
                                         <div class="form-group">
-                                            <label for="patient">Select Patient</label><span
-                                                style="color: red; font-size: 22px;">*</span>
-                                            <input list="patients" class="form-control" name="patient_id"
-                                                id="patient_id" required>
+                                            <label for="patient">Select Patient</label><span style="color: red; font-size: 22px;">*</span>
+                                            <input list="patients" class="form-control" name="patient_id" id="patient_id" required>
                                             <datalist id="patients">
                                                 <?php
                                                 // Query to fetch patients from the database
@@ -202,7 +199,7 @@ if ($result === false) {
                                 <script>
                                     // Add a JavaScript event listener to update the input field
                                     const patientInput = document.getElementById('patient_id');
-                                    patientInput.addEventListener('input', function () {
+                                    patientInput.addEventListener('input', function() {
                                         const selectedOption = document.querySelector('datalist#patients option[value="' + this.value + '"]');
                                         if (selectedOption) {
                                             this.value = selectedOption.innerText;
@@ -214,8 +211,7 @@ if ($result === false) {
 
 
                                 <div class="form-group">
-                                    <label for="">Select Nurse</label><span
-                                        style="color: red; font-size: 22px;">*</span>
+                                    <label for="">Select Nurse</label><span style="color: red; font-size: 22px;">*</span>
                                     <select class="form-control" name="nurse_id" id="nurse_id" required>
                                         <option value="" disabled selected hidden>Select Nurse</option>
                                         <?php
@@ -238,7 +234,7 @@ if ($result === false) {
                                         }
 
                                         // Close the database connection
-                                        
+
                                         ?>
                                     </select>
                                     <div id="nurse_id_error" class="error"></div>
@@ -255,26 +251,22 @@ if ($result === false) {
                                         <option value="Pentavalent Vaccine">Pentavalent Vaccine</option>
                                         <option value="Oral Polio Vaccine">Oral Polio Vaccine</option>
                                         <option value="Inactived Polio Vaccine">Inactived Polio Vaccine</option>
-                                        <option value="Pneumococcal Conjugate Vaccine">Pneumococcal Conjugate Vaccine
-                                        </option>
-                                        <option value="Measles, Mumps, Rubella Vaccine">Measles, Mumps, Rubella Vaccine
-                                        </option>
+                                        <option value="Pneumococcal Conjugate Vaccine">Pneumococcal Conjugate Vaccine</option>
+                                        <option value="Measles, Mumps, Rubella Vaccine">Measles, Mumps, Rubella Vaccine</option>
                                         <option value="Measles Containing Vaccine">Measles Containing Vaccine</option>
-                                        <!-- Add more vaccine options as needed -->
                                     </select>
                                     <div id="description_error" class="error"></div>
                                 </div>
+                                <div id="blank_dates"></div>
 
                                 <div class="form-group">
-                                    <label for="checkup_date">To Comeback</label><span
-                                        style="color: red; font-size: 22px;">*</span>
-                                    <input type="date" class="form-control" id="checkup_date" name="checkup_date"
-                                        required>
+                                    <label for="checkup_date">To Comeback</label><span style="color: red; font-size: 22px;">*</span>
+                                    <input type="date" class="form-control" id="checkup_date" name="checkup_date" required>
                                     <div id="checkup_date_error" class="error"></div>
                                 </div>
 
                                 <script>
-                                    document.getElementById('checkup_date').addEventListener('input', function (event) {
+                                    document.getElementById('checkup_date').addEventListener('input', function(event) {
                                         const input = event.target;
                                         const date = new Date(input.value);
                                         const day = date.getUTCDay();
@@ -288,7 +280,7 @@ if ($result === false) {
 
                                     // Disabling weekends in the calendar picker
                                     const checkupDateInput = document.getElementById('checkup_date');
-                                    checkupDateInput.addEventListener('click', function () {
+                                    checkupDateInput.addEventListener('click', function() {
                                         const dates = this.value;
                                         const date = new Date(dates);
                                         const day = date.getUTCDay();
@@ -299,7 +291,7 @@ if ($result === false) {
                                         }
                                     });
 
-                                    checkupDateInput.addEventListener('change', function () {
+                                    checkupDateInput.addEventListener('change', function() {
                                         const dates = this.value;
                                         const date = new Date(dates);
                                         const day = date.getUTCDay();
@@ -333,8 +325,7 @@ if ($result === false) {
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                        id="closeModalButton">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModalButton">Close</button>
                     <button type="submit" class="btn btn-primary" id="addButton">Save</button>
                 </div>
             </div>
@@ -343,7 +334,7 @@ if ($result === false) {
 </div>
 <script>
     // Add an event listener to the Save button
-    document.getElementById('addButton').addEventListener('click', function () {
+    document.getElementById('addButton').addEventListener('click', function() {
         // Assuming you have a variable `completedStep` that holds the completed step value, e.g., "Step1", "Step2", etc.
         var completedStep = "Immunization"; // Example completed step
 
@@ -361,18 +352,16 @@ if ($result === false) {
 </script>
 <script>
     // Add an event listener to the Save button
-    document.getElementById('addButton').addEventListener('click', function () {
+    document.getElementById('addButton').addEventListener('click', function() {
         // Assuming you have a variable `completedStep` that holds the completed step value, e.g., "Step1", "Step2", etc.
         var completedStep = "Pending"; // Example completed step
 
-        // Get the select element
         var selectStep = document.getElementById('status');
 
-        // Loop through options and set selected attribute if value matches completedStep
         for (var i = 0; i < selectStep.options.length; i++) {
             if (selectStep.options[i].value === completedStep) {
                 selectStep.options[i].setAttribute('selected', 'selected');
-                break; // Exit loop once selected option is found
+                break;
             }
         }
     });
@@ -398,7 +387,7 @@ if ($result === false) {
                     <?php
                     if ($result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {
-                            ?>
+                    ?>
                             <tr>
                                 <td class="align-middle hidden">
                                     <?php echo $row['id']; ?>
@@ -421,15 +410,13 @@ if ($result === false) {
                                 <td class="align-middle">
                                     <?php echo $row['steps']; ?>
                                 </td>
-                                <td class="align-middle"> <button type="button" class="btn btn-success editbtn"
-                                        data-row-id="<?php echo $row['id']; ?>">
+                                <td class="align-middle"> <button type="button" class="btn btn-success editbtn" data-row-id="<?php echo $row['id']; ?>">
                                         <i class="fas fa-edit"></i> Update
                                     </button>
-                                    <button type="button" class="btn btn-danger deletebtn" data-id="' + row.id + '"><i
-                                            class="fas fa-user-times"></i> Inactive</button>
+                                    <button type="button" class="btn btn-danger deletebtn" data-id="' + row.id + '"><i class="fas fa-user-times"></i> Inactive</button>
                                 </td>
                             </tr>
-                            <?php
+                        <?php
                         }
                     } else {
                         ?>
@@ -443,7 +430,7 @@ if ($result === false) {
                             <td class="align-middle"></td>
                             <td class="align-middle"></td>
                         </tr>
-                        <?php
+                    <?php
                     }
                     ?>
                 </tbody>
@@ -454,8 +441,7 @@ if ($result === false) {
 
 <!-- modal edit -->
 
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -467,121 +453,77 @@ if ($result === false) {
             <div class="modal-body">
                 <form id="editForm">
                     <input type="hidden" id="editdataId" name="primary_id">
-                    <!-- Form fields go here -->
+                    
+                    <div class="form-group">
+                        <label for="nurse_id2">Select Nurse</label>
+                        <select class="form-control" name="nurse_id2" id="nurse_id2" required>
+                            <option value="" disabled selected hidden>Select Nurse</option>
+                            <?php
+                            // Query to fetch nurses from the database
+                            $sql2 = "SELECT id, first_name, last_name FROM nurses ORDER BY id DESC";
+                            $result2 = $conn->query($sql2);
 
-
-
-                    <div class="row">
-                        <div class="col">
-
-
-                            <div class="row">
-                                <div class="col-sm">
-                                    <div class="form-group">
-                                        <label for="">Select Nurse</label>
-                                        <select class="form-control" name="nurse_id2" id="nurse_id2" required>
-                                            <option value="" disabled selected hidden>Select Nurse</option>
-                                            <?php
-
-                                            // Query to fetch patients from the database
-                                            $sql2 = "SELECT id, first_name, last_name FROM nurses ORDER BY id DESC";
-                                            $result2 = $conn->query($sql2);
-
-                                            if ($result2->num_rows > 0) {
-                                                while ($row2 = $result2->fetch_assoc()) {
-                                                    $patientId = $row2['id'];
-                                                    $firstName = $row2['first_name'];
-                                                    $lastName = $row2['last_name'];
-
-                                                    // Output an option element for each patient
-                                                    echo "<option value='$patientId'>$firstName $lastName</option>";
-                                                }
-                                            } else {
-                                                echo "<option disabled>No patients found</option>";
-                                            }
-
-                                            // Close the database connection
-                                            
-                                            ?>
-                                        </select>
-
-                                    </div>
-
-                                </div>
-                                <div class="col-sm">
-
-                                    <div class="form-group ">
-                                        <label for="">Select Status</label>
-                                        <select class="form-control" name="status2" id="status2" required>
-                                            <option value="" disabled selected hidden>Select a Status</option>
-                                            <option value="Complete">Complete</option>
-                                            <option value="Pending">Pending</option>
-                                            <option value="Progress">Progress</option>
-                                        </select>
-                                        <!-- <div id="editStatus_error" class="error"></div> -->
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Select Step</label>
-                                <select class="form-control" name="step2" id="step2" required class="">
-                                    <option value="" disabled selected hidden>Select a Step</option>
-                                    <option value="Interview Staff">Interview Staff</option>
-                                    <option value="Consultation">Consultation</option>
-                                    <option value="Immunization">Immunization</option>
-                                    <option value="Prenatal">Prenatal</option>
-                                    <option value="Family Planning">Family Planning</option>
-                                    <option value="Doctor">Doctor</option>
-                                    <option value="Already Nurse">Nurse</option>
-                                    <option value="Midwife">Midwife</option>
-                                    <option value="Head Nurse">Head Nurse</option>
-                                    <option value="Prescription">Prescription</option>
-                                </select>
-                                <!-- <div id="editStatus_error" class="error"></div> -->
-                            </div>
-
-
-
-                            <div class="form-group">
-                                <label for="vaccine">Select Vaccine</label>
-                                <select class="form-control" id="description2" name="description2" required>
-                                    <option value="" disabled selected hidden>Select a Vaccine</option>
-                                    <option value="BCG Vaccine">BCG Vaccine</option>
-                                    <option value="Hepatitis B Vaccine">Hepatitis B Vaccine</option>
-                                    <option value="Pentavalent Vaccine">Pentavalent Vaccine</option>
-                                    <option value="Oral Polio Vaccine">Oral Polio Vaccine</option>
-                                    <option value="Inactived Polio Vaccine">Inactived Polio Vaccine</option>
-                                    <option value="Pneumococcal Conjugate Vaccine">Pneumococcal Conjugate Vaccine
-                                    </option>
-                                    <option value="Measles, Mumps, Rubella Vaccine">Measles, Mumps, Rubella Vaccine
-                                    </option>
-                                    <option value="Measles Containing Vaccine">Measles Containing Vaccine</option>
-                                    <!-- Add more vaccine options as needed -->
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Checkup Date</label>
-                                <input type="date" class="form-control" id="checkup_date2" name="checkup_date2"
-                                    required>
-                            </div>
-
-                            <script>
-                                // Get the current date
-                                var today = new Date();
-
-                                // Calculate the date for tomorrow
-                                today.setDate(today.getDate() + 1);
-
-                                // Format the date to match the input type="date" format (YYYY-MM-DD)
-                                var tomorrow = today.toISOString().split('T')[0];
-
-                                // Set the minimum date for the input element
-                                document.getElementById('checkup_date2').min = tomorrow;
-                            </script>
-
-                        </div>
+                            if ($result2->num_rows > 0) {
+                                while ($row2 = $result2->fetch_assoc()) {
+                                    $nurseId = $row2['id'];
+                                    $firstName = $row2['first_name'];
+                                    $lastName = $row2['last_name'];
+                                    echo "<option value='$nurseId'>$firstName $lastName</option>";
+                                }
+                            } else {
+                                echo "<option disabled>No nurses found</option>";
+                            }
+                            ?>
+                        </select>
                     </div>
 
+                    <div class="form-group">
+                        <label for="status2">Select Status</label>
+                        <select class="form-control" name="status2" id="status2" required>
+                            <option value="" disabled selected hidden>Select a Status</option>
+                            <option value="Complete">Complete</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Progress">Progress</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="step2">Select Step</label>
+                        <select class="form-control" name="step2" id="step2" required>
+                            <option value="" disabled selected hidden>Select a Step</option>
+                            <option value="Interview Staff">Interview Staff</option>
+                            <option value="Consultation">Consultation</option>
+                            <option value="Immunization">Immunization</option>
+                            <option value="Prenatal">Prenatal</option>
+                            <option value="Family Planning">Family Planning</option>
+                            <option value="Doctor">Doctor</option>
+                            <option value="Already Nurse">Nurse</option>
+                            <option value="Midwife">Midwife</option>
+                            <option value="Head Nurse">Head Nurse</option>
+                            <option value="Prescription">Prescription</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description2">Select Vaccine</label>
+                        <select class="form-control" id="description2" name="description2" required>
+                            <option value="" disabled selected hidden>Select a Vaccine</option>
+                            <!-- Options will be populated dynamically -->
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="checkup_date2">Checkup Date</label>
+                        <input type="date" class="form-control" id="checkup_date2" name="checkup_date2" required>
+                    </div>
+
+                    <script>
+                        // Set the minimum date for the checkup_date2 input
+                        var today = new Date();
+                        today.setDate(today.getDate() + 1);
+                        var tomorrow = today.toISOString().split('T')[0];
+                        document.getElementById('checkup_date2').min = tomorrow;
+                    </script>
                 </form>
             </div>
             <div class="modal-footer">
@@ -591,6 +533,7 @@ if ($result === false) {
         </div>
     </div>
 </div>
+<div id="result"></div>
 
 <!-- modal edit -->
 </div>
@@ -600,54 +543,91 @@ if ($result === false) {
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
+        $('#tablebod').on('click', '.editbtn', function() {
 
-        document.getElementById('openModalButton').addEventListener('click', function () {
+            var patientId = $(this).data('row-id');
+            console.log("Patient ID:", patientId);
+
+            $.ajax({
+                url: 'action/get_novacc.php',
+                type: 'GET',
+                data: {
+                    patient_id: patientId
+                },
+                success: function(response) {
+                    console.log("AJAX Success:", response);
+                    var vaccines = JSON.parse(response);
+                    var vaccineSelect = $('#description2');
+                    vaccineSelect.empty(); 
+                    if (vaccines.length > 0) {
+                        vaccineSelect.append('<option value="" disabled selected hidden>Select a Vaccine</option>');
+                        vaccines.forEach(function(vaccine) {
+                            vaccineSelect.append('<option value="' + vaccine + '">' + vaccine + '</option>');
+                        });
+                    } else {
+                        vaccineSelect.append('<option value="" disabled>No applicable vaccine</option>');
+                    }
+                    $('#editModal').modal('show');
+                },
+                error: function(xhr, status, error) {
+                    console.error('AJAX Error:', status, error);
+                }
+            });
+        });
+    });
+</script>
+
+
+
+<script>
+    $(document).ready(function() {
+
+        document.getElementById('openModalButton').addEventListener('click', function() {
             $('#addModal').modal('show'); // Show the modal
         });
 
-
-        <?php if ($result->num_rows > 0): ?>
+        <?php if ($result->num_rows > 0) : ?>
             var table = $('#tablebod').DataTable({
                 columnDefs: [{
-                    targets: 0,
-                    data: 'id',
-                    visible: false
-                },
-                {
-                    targets: 1,
-                    data: 'serial_no'
-                },
-                {
-                    targets: 2,
-                    data: 'full_name'
-                },
-                {
-                    targets: 3,
-                    data: 'description'
-                },
-                {
-                    targets: 4,
-                    data: 'checkup_date'
-                },
-                {
-                    targets: 5,
-                    data: 'status'
-                },
-                {
-                    targets: 6,
-                    data: 'steps'
-                },
-                {
-                    targets: 7,
-                    searchable: false,
-                    data: null,
-                    render: function (data, type, row) {
-                        var editButton = '<button type="button" class="btn btn-success editbtn" data-row-id="' + row.id + '"><i class="fas fa-edit"></i> Update</button>';
-                        var deleteButton = '<button type="button" class="btn btn-danger deletebtn" data-id="' + row.id + '"><i class="fas fa-user-times"></i> Inactive</button>';
-                        return editButton + ' ' + deleteButton;
-                    }
-                } // Action column
+                        targets: 0,
+                        data: 'id',
+                        visible: false
+                    },
+                    {
+                        targets: 1,
+                        data: 'serial_no'
+                    },
+                    {
+                        targets: 2,
+                        data: 'full_name'
+                    },
+                    {
+                        targets: 3,
+                        data: 'description'
+                    },
+                    {
+                        targets: 4,
+                        data: 'checkup_date'
+                    },
+                    {
+                        targets: 5,
+                        data: 'status'
+                    },
+                    {
+                        targets: 6,
+                        data: 'steps'
+                    },
+                    {
+                        targets: 7,
+                        searchable: false,
+                        data: null,
+                        render: function(data, type, row) {
+                            var editButton = '<button type="button" class="btn btn-success editbtn" data-row-id="' + row.id + '"><i class="fas fa-edit"></i> Update</button>';
+                            var deleteButton = '<button type="button" class="btn btn-danger deletebtn" data-id="' + row.id + '"><i class="fas fa-user-times"></i> Inactive</button>';
+                            return editButton + ' ' + deleteButton;
+                        }
+                    } // Action column
                 ],
                 // Set the default ordering to 'id' column in descending order
                 order: [
@@ -655,38 +635,38 @@ if ($result === false) {
                 ]
             });
 
-        <?php else: ?>
+        <?php else : ?>
             // Initialize DataTable without the "Action" column when no rows are found
             var table = $('#tablebod').DataTable({
                 columnDefs: [{
-                    targets: 0,
-                    data: 'id',
-                    visible: false
-                },
-                {
-                    targets: 1,
-                    data: 'serial_no'
-                },
-                {
-                    targets: 2,
-                    data: 'full_name'
-                },
-                {
-                    targets: 3,
-                    data: 'description'
-                },
-                {
-                    targets: 4,
-                    data: 'checkup_date'
-                },
-                {
-                    targets: 5,
-                    data: 'status'
-                },
-                {
-                    targets: 6,
-                    data: 'steps'
-                },
+                        targets: 0,
+                        data: 'id',
+                        visible: false
+                    },
+                    {
+                        targets: 1,
+                        data: 'serial_no'
+                    },
+                    {
+                        targets: 2,
+                        data: 'full_name'
+                    },
+                    {
+                        targets: 3,
+                        data: 'description'
+                    },
+                    {
+                        targets: 4,
+                        data: 'checkup_date'
+                    },
+                    {
+                        targets: 5,
+                        data: 'status'
+                    },
+                    {
+                        targets: 6,
+                        data: 'steps'
+                    },
                 ],
                 // Set the default ordering to 'id' column in descending order
                 order: [
@@ -695,7 +675,7 @@ if ($result === false) {
             });
         <?php endif; ?>
 
-        $('#addButton').click(function () {
+        $('#addButton').click(function() {
             // Clear previous error messages
             $('.error').text('');
 
@@ -740,44 +720,44 @@ if ($result === false) {
                 table.destroy(); // Destroy the existing DataTable
                 table = $('#tablebod').DataTable({
                     columnDefs: [{
-                        targets: 0,
-                        data: 'id',
-                        visible: false
-                    },
-                    {
-                        targets: 1,
-                        data: 'serial_no'
-                    },
-                    {
-                        targets: 2,
-                        data: 'full_name'
-                    },
-                    {
-                        targets: 3,
-                        data: 'description'
-                    },
-                    {
-                        targets: 4,
-                        data: 'checkup_date'
-                    },
-                    {
-                        targets: 5,
-                        data: 'status'
-                    },
-                    {
-                        targets: 6,
-                        data: 'steps'
-                    },
-                    {
-                        targets: 7,
-                        searchable: false,
-                        data: null,
-                        render: function (data, type, row) {
-                            var editButton = '<button type="button" class="btn btn-success editbtn" data-row-id="' + row.id + '"><i class="fas fa-edit"></i> Update</button>';
-                            var deleteButton = '<button type="button" class="btn btn-danger deletebtn" data-id="' + row.id + '"><i class="fas fa-user-times"></i> Inactive</button>';
-                            return editButton + ' ' + deleteButton;
-                        }
-                    } // Action column
+                            targets: 0,
+                            data: 'id',
+                            visible: false
+                        },
+                        {
+                            targets: 1,
+                            data: 'serial_no'
+                        },
+                        {
+                            targets: 2,
+                            data: 'full_name'
+                        },
+                        {
+                            targets: 3,
+                            data: 'description'
+                        },
+                        {
+                            targets: 4,
+                            data: 'checkup_date'
+                        },
+                        {
+                            targets: 5,
+                            data: 'status'
+                        },
+                        {
+                            targets: 6,
+                            data: 'steps'
+                        },
+                        {
+                            targets: 7,
+                            searchable: false,
+                            data: null,
+                            render: function(data, type, row) {
+                                var editButton = '<button type="button" class="btn btn-success editbtn" data-row-id="' + row.id + '"><i class="fas fa-edit"></i> Update</button>';
+                                var deleteButton = '<button type="button" class="btn btn-danger deletebtn" data-id="' + row.id + '"><i class="fas fa-user-times"></i> Inactive</button>';
+                                return editButton + ' ' + deleteButton;
+                            }
+                        } // Action column
                     ],
                     // Set the default ordering to 'id' column in descending order
                     order: [
@@ -811,7 +791,7 @@ if ($result === false) {
                     checkup_date: checkup_date,
 
                 },
-                success: function (response) {
+                success: function(response) {
                     if (response.trim() === 'Success') {
                         // Clear the form fields
                         $('#patient_id').val('');
@@ -845,7 +825,7 @@ if ($result === false) {
                         });
                     }
                 },
-                error: function (error) {
+                error: function(error) {
                     // Handle errors
                     Swal.fire({
                         icon: 'error',
@@ -862,14 +842,14 @@ if ($result === false) {
             $.ajax({
                 url: 'action/get_family.php',
                 method: 'GET',
-                success: function (data) {
+                success: function(data) {
                     // Assuming the server returns JSON data, parse it
                     var get_data = JSON.parse(data);
 
                     // Clear the DataTable and redraw with new data
                     table.clear().rows.add(get_data).draw();
                 },
-                error: function (error) {
+                error: function(error) {
                     // Handle errors
                     console.error('Error retrieving data: ' + error);
                 }
@@ -877,7 +857,7 @@ if ($result === false) {
         }
 
         // Delete button click event
-        $('#tablebod').on('click', '.deletebtn', function () {
+        $('#tablebod').on('click', '.deletebtn', function() {
             var deletedataId = $(this).data('id');
 
             // Confirm the deletion with a SweetAlert dialog
@@ -897,7 +877,7 @@ if ($result === false) {
                         data: {
                             primary_id: deletedataId
                         },
-                        success: function (response) {
+                        success: function(response) {
                             if (response === 'Success') {
 
                                 updateData();
@@ -906,7 +886,7 @@ if ($result === false) {
                                 Swal.fire('Error', 'Error deleting data: ' + response, 'error');
                             }
                         },
-                        error: function (error) {
+                        error: function(error) {
                             Swal.fire('Error', 'Error deleting data: ' + error, 'error');
                         }
                     });
@@ -918,19 +898,19 @@ if ($result === false) {
 
 
         // Edit button click event
-        $('#tablebod').on('click', '.editbtn', function () {
+        $('#tablebod').on('click', '.editbtn', function() {
             var editId = $(this).data('row-id');
-            console.log(editId);
+            //console.log(editId);
             $.ajax({
                 url: 'action/get_family_by_id.php', // 
                 method: 'POST',
                 data: {
                     primary_id: editId
                 },
-                success: function (data) {
+                success: function(data) {
 
                     var editGetData = data;
-                    console.log(editGetData);
+                    //console.log(editGetData);
                     $('#editModal #editdataId').val(editGetData.id);
                     $('#editModal #nurse_id2').val(editGetData.nurse_id);
                     $('#editModal #status2').val(editGetData.status);
@@ -939,13 +919,13 @@ if ($result === false) {
                     $('#editModal #checkup_date2').val(editGetData.checkup_date);
                     $('#editModal').modal('show');
                 },
-                error: function (error) {
+                error: function(error) {
                     console.error('Error fetching  data: ' + error);
                 },
             });
         });
 
-        $('#updateButton').click(function () {
+        $('#updateButton').click(function() {
             var editId = $('#editdataId').val();
             var nurse_id = $('#nurse_id2').val();
             var status = $('#status2').val();
@@ -964,7 +944,7 @@ if ($result === false) {
                     description: description,
                     checkup_date: checkup_date,
                 },
-                success: function (response) {
+                success: function(response) {
                     if (response.trim() === 'Success') {
                         if (response === 'Success') {
 
@@ -980,7 +960,7 @@ if ($result === false) {
                         console.error('Error updating data: ' + response);
                     }
                 },
-                error: function (error) {
+                error: function(error) {
                     console.error('Error updating data: ' + error);
                 },
             });

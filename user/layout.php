@@ -88,7 +88,7 @@ function processFormSubmission($conn)
             if ($stmt->execute()) {
                 $response = array("status" => "success", "message" => "New record created successfully");
                 echo json_encode($response);
-                $fullname = $first_name.' '.$last_name;
+                $fullname = $first_name . ' ' . $last_name;
                 sendSMS($contact_no, $fullname);
             } else {
                 // Return JSON response for error
@@ -405,7 +405,7 @@ processFormSubmission($conn);
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="serial_no">Serial No</label>
+                                    <label for="serial_no">Family No.</label>
                                     <input type="text" class="form-control" id="serial_no" name="serial_no" value="<?php echo $newSerial; ?>" readonly>
                                     <div id="serial_error" class="error"></div>
                                 </div>
@@ -417,11 +417,16 @@ processFormSubmission($conn);
                                 <div class="form-group">
                                     <label for="religion">Religion</label><span style="color: red; font-size:22px;">*</span>
                                     <select class="form-control" name="religion" id="religion" required>
-                                        <option value="" disabled selected hidden>Select Religion</option>
                                         <option value="Roman Catholic">Roman Catholic</option>
                                         <option value="Muslim">Muslim</option>
                                         <option value="Iglesia ni Cristo">Iglesia ni Cristo</option>
                                         <option value="Protestantism">Protestantism</option>
+                                        <option value="Aglipayan">Aglipayan</option>
+                                        <option value="Buddhism">Buddhism</option>
+                                        <option value="Hinduism">Hinduism</option>
+                                        <option value="Judaism">Judaism</option>
+                                        <option value="Eastern Orthodox">Eastern Orthodox</option>
+                                        <option value="Sikhism">Sikhism</option>
                                         <option value="Other or Non-religious">Other or Non-religious</option>
                                     </select>
                                     <div id="religion_error" class="error"></div>
@@ -886,7 +891,7 @@ processFormSubmission($conn);
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="900">
+                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="1000">
                         <div class="member">
                             <div class="member-img">
                                 <img src="https://placehold.co/600x400.png" class="img-fluid" alt="">
@@ -903,7 +908,7 @@ processFormSubmission($conn);
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="900">
+                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="1100">
                         <div class="member">
                             <div class="member-img">
                                 <img src="https://placehold.co/600x400.png" class="img-fluid" alt="">
@@ -920,7 +925,7 @@ processFormSubmission($conn);
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="900">
+                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="1200">
                         <div class="member">
                             <div class="member-img">
                                 <img src="https://placehold.co/600x400.png" class="img-fluid" alt="">
@@ -951,7 +956,7 @@ processFormSubmission($conn);
 
                 <div class="section-title">
                     <h2>Frequently Asked Questions</h2>
-                    <p>Description Here.</p>
+                    <p>These are the frequently asked questions.</p>
                 </div>
 
                 <div class="faq-list">
@@ -967,51 +972,11 @@ processFormSubmission($conn);
                         <li data-aos="fade-up" data-aos-delay="100">
                             <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-2" class="collapsed">Needed to bring? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
                             <div id="faq-list-2" class="collapse" data-bs-parent=".faq-list">
-                                <p>
-                                    Valid ID
-                                </p>
+                                <h5><i class="ri-check-double-line"></i> Valid ID</h5>
                             </div>
                         </li>
 
-                        <li data-aos="fade-up" data-aos-delay="200">
-                            <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-3" class="collapsed">QUESTION 3 <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-                            <div id="faq-list-3" class="collapse" data-bs-parent=".faq-list">
-                                <p>
-                                    Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus
-                                    pulvinar elementum
-                                    integer enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum tellus
-                                    pellentesque eu tincidunt.
-                                    Lectus urna duis convallis convallis tellus. Urna molestie at elementum eu facilisis
-                                    sed odio morbi
-                                    quis
-                                </p>
-                            </div>
-                        </li>
 
-                        <li data-aos="fade-up" data-aos-delay="300">
-                            <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-4" class="collapsed">QUESTION 3 <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-                            <div id="faq-list-4" class="collapse" data-bs-parent=".faq-list">
-                                <p>
-                                    Molestie a iaculis at erat pellentesque adipiscing commodo. Dignissim suspendisse in
-                                    est ante in. Nunc
-                                    vel risus commodo viverra maecenas accumsan. Sit amet nisl suscipit adipiscing
-                                    bibendum est. Purus
-                                    gravida quis blandit turpis cursus in.
-                                </p>
-                            </div>
-                        </li>
-
-                        <li data-aos="fade-up" data-aos-delay="400">
-                            <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-5" class="collapsed">QUESTION 4 <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-                            <div id="faq-list-5" class="collapse" data-bs-parent=".faq-list">
-                                <!-- <p>
-                  Laoreet sit amet cursus sit amet dictum sit amet justo. Mauris vitae ultricies leo integer malesuada
-                  nunc vel. Tincidunt eget nullam non nisi est sit amet. Turpis nunc eget lorem dolor sed. Ut venenatis
-                  tellus in metus vulputate eu scelerisque.
-                </p> -->
-                                <img src="https://i0.wp.com/bloody-disgusting.com/wp-content/uploads/2020/03/gonjiam-2.png" alt="hehe" style="max-width: 50%; height: auto;">
-                            </div>
-                        </li>
 
                     </ul>
                 </div>
