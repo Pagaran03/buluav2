@@ -4,6 +4,8 @@ define('SUPERADMIN_DASHBOARD', './superadmin/dashboard/dashboard.php');
 define('NURSE_DASHBOARD', './nurse/dashboard/dashboard.php');
 define('MIDWIFE_DASHBOARD', './midwife/dashboard/dashboard.php');
 define('STAFF_DASHBOARD', './staff/dashboard/dashboard.php');
+
+
 if (isset($_SESSION["username"]) && isset($_SESSION["role"])) {
     switch ($_SESSION["role"]) {
         case "admin":
@@ -26,4 +28,3 @@ if (isset($_SESSION["username"]) && isset($_SESSION["role"])) {
             exit;
     }
 }
-?>

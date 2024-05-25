@@ -259,14 +259,14 @@ if (!isset($_SESSION['role'])) {
             </li> -->
 
 
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a href="../status/status.php" class="nav-link">
                 <i class="fas fa-vial fa-lg "></i>
                 <p>
                   Status
                 </p>
               </a>
-            </li>
+            </li> -->
 
 
 

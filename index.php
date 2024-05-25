@@ -1,6 +1,15 @@
 <?php
 session_start();
 include("action/redirect.php");
+
+
+if (!isset($_SESSION['redirect_done'])) {
+  $_SESSION['redirect_done'] = true;
+
+  header("Location: user/register/register.php");
+  exit();
+}
+
 ?>
 
 <!DOCTYPE html>
