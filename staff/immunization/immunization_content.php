@@ -711,7 +711,7 @@ if ($result === false) {
             var isValid = true;
 
             if (!patient_id) {
-                $('#serial_no2_error').text("Please enter the serial number.");
+                $('#serial_no2_error').text("Please select a patient.");
                 isValid = false;
             }
             if (!nurse_id) {
@@ -727,7 +727,7 @@ if ($result === false) {
                 isValid = false;
             }
             if (!description) {
-                $('#description_error').text("Please enter a description.");
+                $('#description_error').text("Please select a vaccine.");
                 isValid = false;
             }
             if (!checkup_date) {
