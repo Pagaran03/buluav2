@@ -718,26 +718,6 @@ try {
     $err =  $e->getMessage();
 }
 
-
-$btlNAPMCount_totalCount = $btlNAPMCount_count10to14 + $btlNAPMCount_count15to19 + $btlNAPMCount_count20to49;
-$nsvNAPMCount_totalCount = $nsvNAPMCount_count10to14 + $nsvNAPMCount_count15to19 + $nsvNAPMCount_count20to49;
-$condomNAPMCount_totalCount = $condomNAPMCount_count10to14 + $condomNAPMCount_count15to19 + $condomNAPMCount_count20to49;
-$pillsNAPMCount_totalCount = $pillsNAPMCount_count10to14 + $pillsNAPMCount_count15to19 + $pillsNAPMCount_count20to49;
-$pillspopNAPMCount_totalCount =  $pillspopNAPMCount_count10to14 + $pillspopNAPMCount_count15to19 + $pillspopNAPMCount_count20to49;
-$pillscocNAPMCount_totalCount =  $pillscocNAPMCount_count10to14 + $pillscocNAPMCount_count15to19 + $pillscocNAPMCount_count20to49;
-$injectablesNAPMCount_totalCount = $injectablesNAPMCount_count10to14 + $injectablesNAPMCount_count15to19 + $injectablesNAPMCount_count20to49;
-$implantNAPMCount_totalCount = $implantNAPMCount_count10to14 + $implantNAPMCount_count15to19 + $implantNAPMCount_count20to49;
-$iudNAPMCount_totalCount = $iudNAPMCount_count10to14 + $iudNAPMCount_count15to19 + $iudNAPMCount_count20to49;
-$iudiNAPMCount_totalCount = $iudiNAPMCount_count10to14 + $iudiNAPMCount_count15to19 + $iudiNAPMCount_count20to49;
-$iudppNAPMCount_totalCount = $iudppNAPMCount_count10to14 + $iudppNAPMCount_count15to19 + $iudppNAPMCount_count20to49;
-$nfplamNAPMCount_totalCount = $nfplamNAPMCount_count10to14 + $nfplamNAPMCount_count15to19 + $nfplamNAPMCount_count20to49;
-$nfpbbtNAPMCount_totalCount = $nfpbbtNAPMCount_count10to14 + $nfpbbtNAPMCount_count15to19 + $nfpbbtNAPMCount_count20to49;
-$nfpcmmNAPMCount_totalCount = $nfpcmmNAPMCount_count10to14 + $nfpcmmNAPMCount_count15to19 + $nfpcmmNAPMCount_count20to49;
-$nfpstmNAPMCount_totalCount = $nfpstmNAPMCount_count10to14 + $nfpstmNAPMCount_count15to19 + $nfpstmNAPMCount_count20to49;
-$nfpsdmNAPMCount_totalCount = $nfpsdmNAPMCount_count10to14 + $nfpsdmNAPMCount_count15to19 + $nfpsdmNAPMCount_count20to49;
-
-
-
 // CUMB = Current User Month Beninging
 
 $btlCUMBTotal10to14 = $btlCUEOMTotal10to14;
@@ -828,229 +808,169 @@ $nfpsdmCUMBTotal15to19 = $nfpsdmCUEOMTotal15to19;
 $nfpsdmCUMBTotal20to49 = $nfpsdmCUEOMTotal20to49;
 $nfpsdmCUMBTotal = $nfpsdmCUMBTotal10to14 + $nfpsdmCUMBTotal15to19 + $nfpsdmCUMBTotal20to49;
 
+// CUBM = New Acceptors Present Month
+$cubmCount = "
+    SELECT 
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'BTL' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS btlCUBMCount_10_to_14,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'BTL' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END), 0) AS btlCUBMCount_15_to_19,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'BTL' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END), 0) AS btlCUBMCount_20_to_49,
+
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'NSV' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS nsvCUBMCount_10_to_14,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'NSV' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END), 0) AS nsvCUBMCount_15_to_19,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'NSV' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END), 0) AS nsvCUBMCount_20_to_49,
+
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'Condom' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS condomCUBMCount_10_to_14,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'Condom' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END), 0) AS condomCUBMCount_15_to_19,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'Condom' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END), 0) AS condomCUBMCount_20_to_49,
+
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'Pills' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS pillsCUBMCount_10_to_14,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'Pills' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END), 0) AS pillsCUBMCount_15_to_19,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'Pills' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END), 0) AS pillsCUBMCount_20_to_49,
+
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'Pills-POP' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS pillspopCUBMCount_10_to_14,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'Pills-POP' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END), 0) AS pillspopCUBMCount_15_to_19,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'Pills-POP' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END), 0) AS pillspopCUBMCount_20_to_49,
+
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'Pills-COC' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS pillscocCUBMCount_10_to_14,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'Pills-COC' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END), 0) AS pillscocCUBMCount_15_to_19,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'Pills-COC' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END), 0) AS pillscocCUBMCount_20_to_49,
+
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'Injectables (DMPA/POI)' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS injectablesCUBMCount_10_to_14,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'Injectables (DMPA/POI)' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END), 0) AS injectablesCUBMCount_15_to_19,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'Injectables (DMPA/POI)' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END), 0) AS injectablesCUBMCount_20_to_49,
+
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'Implant' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS implantCUBMCount_10_to_14,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'Implant' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END), 0) AS implantCUBMCount_15_to_19,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'Implant' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END), 0) AS implantCUBMCount_20_to_49,
+
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'IUD' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS iudCUBMCount_10_to_14,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'IUD' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END), 0) AS iudCUBMCount_15_to_19,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'IUD' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END), 0) AS iudCUBMCount_20_to_49,
+
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'IUD-I' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS iudiCUBMCount_10_to_14,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'IUD-I' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END), 0) AS iudiCUBMCount_15_to_19,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'IUD-I' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END), 0) AS iudiCUBMCount_20_to_49,
+
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'IUD-PP' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS iudppCUBMCount_10_to_14,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'IUD-PP' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END), 0) AS iudppCUBMCount_15_to_19,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'IUD-PP' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END), 0) AS iudppCUBMCount_20_to_49,
+
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'NFP-LAM' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS nfplamCUBMCount_10_to_14,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'NFP-LAM' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END), 0) AS nfplamCUBMCount_15_to_19,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'NFP-LAM' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END), 0) AS nfplamCUBMCount_20_to_49,
+
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'NFP-BBT' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS nfpbbtCUBMCount_10_to_14,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'NFP-BBT' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END), 0) AS nfpbbtCUBMCount_15_to_19,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'NFP-BBT' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END), 0) AS nfpbbtCUBMCount_20_to_49,
+
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'NFP-CMM' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS nfpcmmCUBMCount_10_to_14,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'NFP-CMM' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END), 0) AS nfpcmmCUBMCount_15_to_19,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'NFP-CMM' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END), 0) AS nfpcmmCUBMCount_20_to_49,
+
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'NFP-STM' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS nfpstmCUBMCount_10_to_14,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'NFP-STM' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END), 0) AS nfpstmCUBMCount_15_to_19,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'NFP-STM' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END), 0) AS nfpstmCUBMCount_20_to_49,
+
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'NFP-SDM' AND patients.age BETWEEN 10 AND 14 THEN 1 ELSE 0 END), 0) AS nfpsdmCUBMCount_10_to_14,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'NFP-SDM' AND patients.age BETWEEN 15 AND 19 THEN 1 ELSE 0 END), 0) AS nfpsdmCUBMCount_15_to_19,
+    COALESCE(SUM(CASE WHEN fp_consultation.method = 'NFP-SDM' AND patients.age BETWEEN 20 AND 49 THEN 1 ELSE 0 END), 0) AS nfpsdmCUBMCount_20_to_49
+
+    FROM 
+        fp_consultation
+    INNER JOIN 
+        patients ON fp_consultation.patient_id = patients.id
+    INNER JOIN 
+        fp_information ON fp_information.patient_id = patients.id
+    WHERE  fp_consultation.checkup_date <> '0000-00-00'
+        AND DAY(fp_consultation.checkup_date) BETWEEN 1 AND 14
+        AND fp_consultation.checkup_date BETWEEN ? AND ?";
+
+try {
+    // Prepare and execute the statement
+    $combinedCUBM_stmt = $conn->prepare($cubmCount);
+    if (!$combinedCUBM_stmt) {
+        throw new Exception("Prepare failed: " . $conn->error);
+    }
+
+    $combinedCUBM_stmt->bind_param("ss", $fromDate, $toDate);
+    if (!$combinedCUBM_stmt->execute()) {
+        throw new Exception("Execute failed: " . $combinedCUBM_stmt->error);
+    }
+
+    $combinedCUBM_stmt->bind_result(
+        $btlCUBMCount_count10to14,
+        $btlCUBMCount_count15to19,
+        $btlCUBMCount_count20to49,
+        $nsvCUBMCount_count10to14,
+        $nsvCUBMCount_count15to19,
+        $nsvCUBMCount_count20to49,
+        $condomCUBMCount_count10to14,
+        $condomCUBMCount_count15to19,
+        $condomCUBMCount_count20to49,
+        $pillsCUBMCount_count10to14,
+        $pillsCUBMCount_count15to19,
+        $pillsCUBMCount_count20to49,
+        $pillspopCUBMCount_count10to14,
+        $pillspopCUBMCount_count15to19,
+        $pillspopCUBMCount_count20to49,
+        $pillscocCUBMCount_count10to14,
+        $pillscocCUBMCount_count15to19,
+        $pillscocCUBMCount_count20to49,
+        $injectablesCUBMCount_count10to14,
+        $injectablesCUBMCount_count15to19,
+        $injectablesCUBMCount_count20to49,
+        $implantCUBMCount_count10to14,
+        $implantCUBMCount_count15to19,
+        $implantCUBMCount_count20to49,
+        $iudCUBMCount_count10to14,
+        $iudCUBMCount_count15to19,
+        $iudCUBMCount_count20to49,
+        $iudiCUBMCount_count10to14,
+        $iudiCUBMCount_count15to19,
+        $iudiCUBMCount_count20to49,
+        $iudppCUBMCount_count10to14,
+        $iudppCUBMCount_count15to19,
+        $iudppCUBMCount_count20to49,
+        $nfplamCUBMCount_count10to14,
+        $nfplamCUBMCount_count15to19,
+        $nfplamCUBMCount_count20to49,
+        $nfpbbtCUBMCount_count10to14,
+        $nfpbbtCUBMCount_count15to19,
+        $nfpbbtCUBMCount_count20to49,
+        $nfpcmmCUBMCount_count10to14,
+        $nfpcmmCUBMCount_count15to19,
+        $nfpcmmCUBMCount_count20to49,
+        $nfpstmCUBMCount_count10to14,
+        $nfpstmCUBMCount_count15to19,
+        $nfpstmCUBMCount_count20to49,
+        $nfpsdmCUBMCount_count10to14,
+        $nfpsdmCUBMCount_count15to19,
+        $nfpsdmCUBMCount_count20to49
+    );
+
+    if (!$combinedCUBM_stmt->fetch()) {
+        echo "<script>console.log('No data found for the given date range.')</script>";
+    }
+    $combinedCUBM_stmt->close();
+} catch (Exception $e) {
+    $err =  $e->getMessage();
+}
 
 
-$btlCUBMTotal10to14 = "SELECT 
-SUM(count_of_btl_patients) AS btlTotal10to14
-FROM (
-SELECT 
-    COUNT(
-        CASE 
-            WHEN fp_consultation.method = 'BTL' AND patients.age BETWEEN 10 and 14
-                AND fp_information.client_type = 'New Acceptor'
-            THEN 1 
-            ELSE NULL 
-        END
-    ) AS count_of_btl_patients
-FROM fp_consultation
-INNER JOIN patients ON fp_consultation.patient_id = patients.id
-INNER JOIN fp_information ON fp_information.patient_id = patients.id
-WHERE fp_information.client_type = 'New Acceptor'
-AND YEAR(fp_consultation.checkup_date) = ?
-AND MONTH(fp_consultation.checkup_date) BETWEEN 1 AND ? - 1
-UNION ALL
-SELECT 
-    COUNT(
-        CASE 
-            WHEN fp_consultation.method = 'BTL' AND patients.age BETWEEN 10 and 14
-                AND (fp_information.client_type = 'ChangingClinic' OR fp_information.client_type = 'ChangingMethod')
-            THEN 1 
-            ELSE NULL 
-        END
-    ) AS count_of_btl_patients
-FROM fp_consultation
-INNER JOIN patients ON fp_consultation.patient_id = patients.id
-INNER JOIN fp_information ON fp_information.patient_id = patients.id
-WHERE fp_information.client_type IN ('ChangingClinic', 'ChangingMethod')
-AND YEAR(fp_consultation.checkup_date) = ?
-AND MONTH(fp_consultation.checkup_date) BETWEEN 1 AND ? - 1
-) AS btlCounts10to14;
-";
-$month = date('m', strtotime($fromDate));
-$year = date('Y', strtotime($toDate));
 
-$stmt = $conn->prepare($btlCUBMTotal10to14);
-$stmt->bind_param("iiii", $year, $month, $year, $month);
-$stmt->execute();
-$btlresult = $stmt->get_result();
-$row = $btlresult->fetch_assoc();
-$btlTotal10to14 = $row['btlTotal10to14'];
-$stmt->close();
-
-
-$btlCUBMTotal15to19 = "SELECT 
-SUM(count_of_btl_patients) AS btlTotal15to19
-FROM (
-SELECT 
-    COUNT(
-        CASE 
-            WHEN fp_consultation.method = 'BTL' AND patients.age BETWEEN 15 and 19 
-                AND fp_information.client_type = 'New Acceptor'
-            THEN 1 
-            ELSE NULL 
-        END
-    ) AS count_of_btl_patients
-FROM fp_consultation
-INNER JOIN patients ON fp_consultation.patient_id = patients.id
-INNER JOIN fp_information ON fp_information.patient_id = patients.id
-WHERE fp_information.client_type = 'New Acceptor'
-AND YEAR(fp_consultation.checkup_date) = ?
-AND MONTH(fp_consultation.checkup_date) BETWEEN 1 AND ? - 1
-UNION ALL
-SELECT 
-    COUNT(
-        CASE 
-            WHEN fp_consultation.method = 'BTL' AND patients.age BETWEEN 15 and 19 
-                AND (fp_information.client_type = 'ChangingClinic' OR fp_information.client_type = 'ChangingMethod')
-            THEN 1 
-            ELSE NULL 
-        END
-    ) AS count_of_btl_patients
-FROM fp_consultation
-INNER JOIN patients ON fp_consultation.patient_id = patients.id
-INNER JOIN fp_information ON fp_information.patient_id = patients.id
-WHERE fp_information.client_type IN ('ChangingClinic', 'ChangingMethod')
-AND YEAR(fp_consultation.checkup_date) = ?
-AND MONTH(fp_consultation.checkup_date) BETWEEN 1 AND ? - 1
-) AS btlCounts15to19;
-";
-$month = date('m', strtotime($fromDate));
-$year = date('Y', strtotime($toDate));
-
-$stmt = $conn->prepare($btlCUBMTotal15to19);
-$stmt->bind_param("iiii", $year, $month, $year, $month);
-$stmt->execute();
-$btlresult = $stmt->get_result();
-$row = $btlresult->fetch_assoc();
-$btlTotal15to19 = $row['btlTotal15to19'];
-$stmt->close();
-
-
-$btlCUBMTotal20to49 = "SELECT 
-SUM(count_of_btl_patients) AS btlTotal20to49
-FROM (
-SELECT 
-    COUNT(
-        CASE 
-            WHEN fp_consultation.method = 'BTL' AND patients.age BETWEEN 20 AND 49
-                AND fp_information.client_type = 'New Acceptor'
-            THEN 1 
-            ELSE NULL 
-        END
-    ) AS count_of_btl_patients
-FROM fp_consultation
-INNER JOIN patients ON fp_consultation.patient_id = patients.id
-INNER JOIN fp_information ON fp_information.patient_id = patients.id
-WHERE fp_information.client_type = 'New Acceptor'
-AND YEAR(fp_consultation.checkup_date) = ?
-AND MONTH(fp_consultation.checkup_date) BETWEEN 1 AND ? - 1
-UNION ALL
-SELECT 
-    COUNT(
-        CASE 
-            WHEN fp_consultation.method = 'BTL' AND patients.age BETWEEN 20 AND 49
-                AND (fp_information.client_type = 'ChangingClinic' OR fp_information.client_type = 'ChangingMethod')
-            THEN 1 
-            ELSE NULL 
-        END
-    ) AS count_of_btl_patients
-FROM fp_consultation
-INNER JOIN patients ON fp_consultation.patient_id = patients.id
-INNER JOIN fp_information ON fp_information.patient_id = patients.id
-WHERE fp_information.client_type IN ('ChangingClinic', 'ChangingMethod')
-AND YEAR(fp_consultation.checkup_date) = ?
-AND MONTH(fp_consultation.checkup_date) BETWEEN 1 AND ? - 1
-) AS btlCounts20to49;
-";
-$month = date('m', strtotime($fromDate));
-$year = date('Y', strtotime($toDate));
-
-$stmt = $conn->prepare($btlCUBMTotal20to49);
-$stmt->bind_param("iiii", $year, $month, $year, $month);
-$stmt->execute();
-$btlresult = $stmt->get_result();
-$row = $btlresult->fetch_assoc();
-$btlTotal20to49 = $row['btlTotal20to49'];
-$stmt->close();
-
-
-// final calc for current user
-$fbtlCUEOMTotal10to14 = max(0, $btlTotal10to14 + $btlANAPMCount_count10to14 + $btlOAPMCount_count10to14 - $btlDOPMCount_count10to14);
-$fbtlCUEOMTotal15to19 = max(0, $btlTotal15to19 + $btlANAPMCount_count15to19 + $btlOAPMCount_count15to19 - $btlDOPMCount_count15to19);
-$fbtlCUEOMTotal20to49 = max(0, $btlTotal20to49 + $btlANAPMCount_count20to49 + $btlOAPMCount_count20to49 - $btlDOPMCount_count20to49);
-$fbtlCUEOMTotal = $fbtlCUEOMTotal10to14 + $fbtlCUEOMTotal15to19 + $fbtlCUEOMTotal20to49;
-
-$fnsvCUEOMTotal10to14 = max(0, $nsvANAPMCount_count10to14 + $nsvOAPMCount_count10to14 - $nsvDOPMCount_count10to14);
-$fnsvCUEOMTotal15to19 = max(0, $nsvANAPMCount_count15to19 + $nsvOAPMCount_count15to19 - $nsvDOPMCount_count15to19);
-$fnsvCUEOMTotal20to49 = max(0, $nsvANAPMCount_count20to49 + $nsvOAPMCount_count20to49 - $nsvDOPMCount_count20to49);
-$fnsvCUEOMTotal = $fnsvCUEOMTotal10to14 + $fnsvCUEOMTotal15to19 + $fnsvCUEOMTotal20to49;
-
-$fcondomCUEOMTotal10to14 = max(0, $condomANAPMCount_count10to14 + $condomOAPMCount_count10to14 - $condomDOPMCount_count10to14);
-$fcondomCUEOMTotal15to19 = max(0, $condomANAPMCount_count15to19 + $condomOAPMCount_count15to19 - $condomDOPMCount_count15to19);
-$fcondomCUEOMTotal20to49 = max(0, $condomANAPMCount_count20to49 + $condomOAPMCount_count20to49 - $condomDOPMCount_count20to49);
-$fcondomCUEOMTotal = $condomCUEOMTotal10to14 + $condomCUEOMTotal15to19 + $condomCUEOMTotal20to49;
-
-$fpillsCUEOMTotal10to14 = max(0, $pillsANAPMCount_count10to14 + $pillsOAPMCount_count10to14 - $pillsDOPMCount_count10to14);
-$fpillsCUEOMTotal15to19 = max(0, $pillsANAPMCount_count15to19 + $pillsOAPMCount_count15to19 - $pillsDOPMCount_count15to19);
-$fpillsCUEOMTotal20to49 = max(0, $pillsANAPMCount_count20to49 + $pillsOAPMCount_count20to49 - $pillsDOPMCount_count20to49);
-$fpillsCUEOMTotal = $pillsCUEOMTotal10to14 + $pillsCUEOMTotal15to19 + $pillsCUEOMTotal20to49;
-
-$fpillspopCUEOMTotal10to14 = max(0, $pillspopANAPMCount_count10to14 + $pillspopOAPMCount_count10to14 - $pillspopDOPMCount_count10to14);
-$fpillspopCUEOMTotal15to19 = max(0, $pillspopANAPMCount_count15to19 + $pillspopOAPMCount_count15to19 - $pillspopDOPMCount_count15to19);
-$fpillspopCUEOMTotal20to49 = max(0, $pillspopANAPMCount_count20to49 + $pillspopOAPMCount_count20to49 - $pillspopDOPMCount_count20to49);
-$fpillspopCUEOMTotal = $pillspopCUEOMTotal10to14 + $pillspopCUEOMTotal15to19 + $pillspopCUEOMTotal20to49;
-
-$fpillscocCUEOMTotal10to14 = max(0, $pillscocANAPMCount_count10to14 + $pillscocOAPMCount_count10to14 - $pillscocDOPMCount_count10to14);
-$fpillscocCUEOMTotal15to19 = max(0, $pillscocANAPMCount_count15to19 + $pillscocOAPMCount_count15to19 - $pillscocDOPMCount_count15to19);
-$fpillscocCUEOMTotal20to49 = max(0, $pillscocANAPMCount_count20to49 + $pillscocOAPMCount_count20to49 - $pillscocDOPMCount_count20to49);
-$fpillscocCUEOMTotal = $pillscocCUEOMTotal10to14 + $pillscocCUEOMTotal15to19 + $pillscocCUEOMTotal20to49;
-
-$finjectablesCUEOMTotal10to14 = max(0, $injectablesANAPMCount_count10to14 + $injectablesOAPMCount_count10to14 - $injectablesDOPMCount_count10to14);
-$finjectablesCUEOMTotal15to19 = max(0, $injectablesANAPMCount_count15to19 + $injectablesOAPMCount_count15to19 - $injectablesDOPMCount_count15to19);
-$finjectablesCUEOMTotal20to49 = max(0, $injectablesANAPMCount_count20to49 + $injectablesOAPMCount_count20to49 - $injectablesDOPMCount_count20to49);
-$finjectablesCUEOMTotal = $injectablesCUEOMTotal10to14 + $injectablesCUEOMTotal15to19 + $injectablesCUEOMTotal20to49;
-
-$fimplantCUEOMTotal10to14 = max(0, $implantANAPMCount_count10to14 + $implantOAPMCount_count10to14 - $implantDOPMCount_count10to14);
-$fimplantCUEOMTotal15to19 = max(0, $implantANAPMCount_count15to19 + $implantOAPMCount_count15to19 - $implantDOPMCount_count15to19);
-$fimplantCUEOMTotal20to49 = max(0, $implantANAPMCount_count20to49 + $implantOAPMCount_count20to49 - $implantDOPMCount_count20to49);
-$fimplantCUEOMTotal = $implantCUEOMTotal10to14 + $implantCUEOMTotal15to19 + $implantCUEOMTotal20to49;
-
-$fiudCUEOMTotal10to14 = max(0, $iudANAPMCount_count10to14 + $iudOAPMCount_count10to14 - $iudDOPMCount_count10to14);
-$fiudCUEOMTotal15to19 = max(0, $iudANAPMCount_count15to19 + $iudOAPMCount_count15to19 - $iudDOPMCount_count15to19);
-$fiudCUEOMTotal20to49 = max(0, $iudANAPMCount_count20to49 + $iudOAPMCount_count20to49 - $iudDOPMCount_count20to49);
-$fiudCUEOMTotal = $iudCUEOMTotal10to14 + $iudCUEOMTotal15to19 + $iudCUEOMTotal20to49;
-
-$fiudiCUEOMTotal10to14 = max(0, $iudI_ANAPMCount_count10to14 + $iudiOAPMCount_count10to14 - $iudiDOPMCount_count10to14);
-$fiudiCUEOMTotal15to19 = max(0, $iudI_ANAPMCount_count15to19 + $iudiOAPMCount_count15to19 - $iudiDOPMCount_count15to19);
-$fiudiCUEOMTotal20to49 = max(0, $iudI_ANAPMCount_count20to49 + $iudiOAPMCount_count20to49 - $iudiDOPMCount_count20to49);
-$fiudiCUEOMTotal = $iudiCUEOMTotal10to14 + $iudiCUEOMTotal15to19 + $iudiCUEOMTotal20to49;
-
-$fiudppCUEOMTotal10to14 = max(0, $iudPP_ANAPMCount_count10to14 + $iudppOAPMCount_count10to14 - $iudppDOPMCount_count10to14);
-$fiudppCUEOMTotal15to19 = max(0, $iudPP_ANAPMCount_count15to19 + $iudppOAPMCount_count15to19 - $iudppDOPMCount_count15to19);
-$fiudppCUEOMTotal20to49 = max(0, $iudPP_ANAPMCount_count20to49 + $iudppOAPMCount_count20to49 - $iudppDOPMCount_count20to49);
-$fiudppCUEOMTotal = $iudppCUEOMTotal10to14 + $iudppCUEOMTotal15to19 + $iudppCUEOMTotal20to49;
-
-$fnfplamCUEOMTotal10to14 = max(0, $nfplamANAPMCount_count10to14 + $nfplamOAPMCount_count10to14 - $nfplamDOPMCount_count10to14);
-$fnfplamCUEOMTotal15to19 = max(0, $nfplamANAPMCount_count15to19 + $nfplamOAPMCount_count15to19 - $nfplamDOPMCount_count15to19);
-$fnfplamCUEOMTotal20to49 = max(0, $nfplamANAPMCount_count20to49 + $nfplamOAPMCount_count20to49 - $nfplamDOPMCount_count20to49);
-$fnfplamCUEOMTotal = $nfplamCUEOMTotal10to14 + $nfplamCUEOMTotal15to19 + $nfplamCUEOMTotal20to49;
-
-$fnfpbbtCUEOMTotal10to14 = max(0, $nfpbbtANAPMCount_count10to14 + $nfpbbtOAPMCount_count10to14 - $nfpbbtDOPMCount_count10to14);
-$fnfpbbtCUEOMTotal15to19 = max(0, $nfpbbtANAPMCount_count15to19 + $nfpbbtOAPMCount_count15to19 - $nfpbbtDOPMCount_count15to19);
-$fnfpbbtCUEOMTotal20to49 = max(0, $nfpbbtANAPMCount_count20to49 + $nfpbbtOAPMCount_count20to49 - $nfpbbtDOPMCount_count20to49);
-$fnfpbbtCUEOMTotal = $nfpbbtCUEOMTotal10to14 + $nfpbbtCUEOMTotal15to19 + $nfpbbtCUEOMTotal20to49;
-
-$fnfpcmmCUEOMTotal10to14 = max(0, $nfpcmmANAPMCount_count10to14 + $nfpcmmOAPMCount_count10to14 - $nfpcmmDOPMCount_count10to14);
-$fnfpcmmCUEOMTotal15to19 = max(0, $nfpcmmANAPMCount_count15to19 + $nfpcmmOAPMCount_count15to19 - $nfpcmmDOPMCount_count15to19);
-$fnfpcmmCUEOMTotal20to49 = max(0, $nfpcmmANAPMCount_count20to49 + $nfpcmmOAPMCount_count20to49 - $nfpcmmDOPMCount_count20to49);
-$fnfpcmmCUEOMTotal = $nfpcmmCUEOMTotal10to14 + $nfpcmmCUEOMTotal15to19 + $nfpcmmCUEOMTotal20to49;
-
-$fnfpstmCUEOMTotal10to14 = max(0, $nfpstmANAPMCount_count10to14 + $nfpstmOAPMCount_count10to14 - $nfpstmDOPMCount_count10to14);
-$fnfpstmCUEOMTotal15to19 = max(0, $nfpstmANAPMCount_count15to19 + $nfpstmOAPMCount_count15to19 - $nfpstmDOPMCount_count15to19);
-$fnfpstmCUEOMTotal20to49 = max(0, $nfpstmANAPMCount_count20to49 + $nfpstmOAPMCount_count20to49 - $nfpstmDOPMCount_count20to49);
-$fnfpstmCUEOMTotal = $nfpstmCUEOMTotal10to14 + $nfpstmCUEOMTotal15to19 + $nfpstmCUEOMTotal20to49;
-
-$fnfpsdmCUEOMTotal10to14 = max(0, $nfpsdmANAPMCount_count10to14 + $nfpsdmOAPMCount_count10to14 - $nfpsdmDOPMCount_count10to14);
-$fnfpsdmCUEOMTotal15to19 = max(0, $nfpsdmANAPMCount_count15to19 + $nfpsdmOAPMCount_count15to19 - $nfpsdmDOPMCount_count15to19);
-$fnfpsdmCUEOMTotal20to49 = max(0, $nfpsdmANAPMCount_count20to49 + $nfpsdmOAPMCount_count20to49 - $nfpsdmDOPMCount_count20to49);
-$fnfpsdmCUEOMTotal = $nfpsdmCUEOMTotal10to14 + $nfpsdmCUEOMTotal15to19 + $nfpsdmCUEOMTotal20to49;
+$btlNAPMCount_totalCount = $btlNAPMCount_count10to14 + $btlNAPMCount_count15to19 + $btlNAPMCount_count20to49;
+$nsvNAPMCount_totalCount = $nsvNAPMCount_count10to14 + $nsvNAPMCount_count15to19 + $nsvNAPMCount_count20to49;
+$condomNAPMCount_totalCount = $condomNAPMCount_count10to14 + $condomNAPMCount_count15to19 + $condomNAPMCount_count20to49;
+$pillsNAPMCount_totalCount = $pillsNAPMCount_count10to14 + $pillsNAPMCount_count15to19 + $pillsNAPMCount_count20to49;
+$pillspopNAPMCount_totalCount =  $pillspopNAPMCount_count10to14 + $pillspopNAPMCount_count15to19 + $pillspopNAPMCount_count20to49;
+$pillscocNAPMCount_totalCount =  $pillscocNAPMCount_count10to14 + $pillscocNAPMCount_count15to19 + $pillscocNAPMCount_count20to49;
+$injectablesNAPMCount_totalCount = $injectablesNAPMCount_count10to14 + $injectablesNAPMCount_count15to19 + $injectablesNAPMCount_count20to49;
+$implantNAPMCount_totalCount = $implantNAPMCount_count10to14 + $implantNAPMCount_count15to19 + $implantNAPMCount_count20to49;
+$iudNAPMCount_totalCount = $iudNAPMCount_count10to14 + $iudNAPMCount_count15to19 + $iudNAPMCount_count20to49;
+$iudiNAPMCount_totalCount = $iudiNAPMCount_count10to14 + $iudiNAPMCount_count15to19 + $iudiNAPMCount_count20to49;
+$iudppNAPMCount_totalCount = $iudppNAPMCount_count10to14 + $iudppNAPMCount_count15to19 + $iudppNAPMCount_count20to49;
+$nfplamNAPMCount_totalCount = $nfplamNAPMCount_count10to14 + $nfplamNAPMCount_count15to19 + $nfplamNAPMCount_count20to49;
+$nfpbbtNAPMCount_totalCount = $nfpbbtNAPMCount_count10to14 + $nfpbbtNAPMCount_count15to19 + $nfpbbtNAPMCount_count20to49;
+$nfpcmmNAPMCount_totalCount = $nfpcmmNAPMCount_count10to14 + $nfpcmmNAPMCount_count15to19 + $nfpcmmNAPMCount_count20to49;
+$nfpstmNAPMCount_totalCount = $nfpstmNAPMCount_count10to14 + $nfpstmNAPMCount_count15to19 + $nfpstmNAPMCount_count20to49;
+$nfpsdmNAPMCount_totalCount = $nfpsdmNAPMCount_count10to14 + $nfpsdmNAPMCount_count15to19 + $nfpsdmNAPMCount_count20to49;

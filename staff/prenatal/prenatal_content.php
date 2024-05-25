@@ -61,7 +61,7 @@ if ($result === false) {
                                     <datalist id="patients">
                                         <?php
                                         // Query to fetch patients from the database
-                                        $sql2 = "SELECT serial_no, first_name, last_name FROM patients WHERE gender = 'Female' ORDER BY id DESC";
+                                        $sql2 = "SELECT serial_no, first_name, last_name FROM patients WHERE gender = 'Female' AND age > 9 AND age < 50 ORDER BY id DESC";
                                         $result2 = $conn->query($sql2);
 
                                         if ($result2->num_rows > 0) {
@@ -636,31 +636,31 @@ if ($result === false) {
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="">TT1</label>
+                                    <label for="">TT1</label><span style="font-size: 15px;">(# of doses)</span>
                                     <input type="text" class="form-control" id="tt1" name="tt1" required>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="">TT2</label>
+                                    <label for="">TT2</label><span style="font-size: 15px;">(# of doses)</span>
                                     <input type="text" class="form-control" id="tt2" name="tt2" required>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="">TT3</label>
+                                    <label for="">TT3</label><span style="font-size: 15px;">(# of doses)</span>
                                     <input type="text" class="form-control" id="tt3" name="tt3" required>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="">TT4</label>
+                                    <label for="">TT4</label><span style="font-size: 15px;">(# of doses)</span>
                                     <input type="text" class="form-control" id="tt4" name="tt4" required>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="">TT5</label>
+                                    <label for="">TT5</label><span style="font-size: 15px;">(# of doses)</span>
                                     <input type="text" class="form-control" id="tt5" name="tt5" required>
                                 </div>
                             </div>
@@ -1328,31 +1328,31 @@ if ($result === false) {
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label for="">TT1</label>
+                                <label for="">TT1</label><span style="font-size: 15px;">(# of doses)</span>
                                 <input type="text" class="form-control" id="tt12" name="tt12" required>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
-                                <label for="">TT2</label>
+                                <label for="">TT2</label><span style="font-size: 15px;">(# of doses)</span>
                                 <input type="text" class="form-control" id="tt22" name="tt22" required>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
-                                <label for="">TT3</label>
+                                <label for="">TT3</label><span style="font-size: 15px;">(# of doses)</span>
                                 <input type="text" class="form-control" id="tt32" name="tt32" required>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
-                                <label for="">TT4</label>
+                                <label for="">TT4</label><span style="font-size: 15px;">(# of doses)</span>
                                 <input type="text" class="form-control" id="tt42" name="tt42" required>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
-                                <label for="">TT5</label>
+                                <label for="">TT5</label><span style="font-size: 15px;">(# of doses)</span>
                                 <input type="text" class="form-control" id="tt52" name="tt52" required>
                             </div>
                         </div>

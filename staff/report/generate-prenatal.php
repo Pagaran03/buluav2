@@ -2,34 +2,26 @@
 require '../../vendor/autoload.php'; // Include Dompdf's autoloader
 include_once('../../config.php');
 
-$four_prenatalCheckups_ages10to14 = "SELECT COUNT(*) as four_prenatalCheckups_ages10to14_count
-FROM (
-    SELECT p.id
-    FROM patients p
-    JOIN (
-        SELECT patient_id
-        FROM prenatal_consultation
-        GROUP BY patient_id
-        HAVING COUNT(*) = 4
-    ) pc ON p.id = pc.patient_id
-    WHERE p.age BETWEEN 10 AND 14
-) AS subquery";
-
-$result = $conn->query($four_prenatalCheckups_ages10to14);
-
-$count = 0;
-
-if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    $countForPrenatal10to14 = $row['four_prenatalCheckups_ages10to14_count'];
-}else{
-    return 0;
-}
-
-
-
 use Dompdf\Dompdf;
 use Dompdf\Options;
+
+$fromDate = $_GET['fromDate'];
+$toDate = $_GET['toDate'];
+
+$fromDate = $conn->real_escape_string($fromDate);
+$toDate = $conn->real_escape_string($toDate);
+
+$fromDateTime = new DateTime($fromDate);
+$toDateTime = new DateTime($toDate);
+
+$currentMonth = $fromDateTime->format('F');
+$currentYear = $fromDateTime->format('Y');
+
+$fromDate = mysqli_real_escape_string($conn, $fromDate);
+$toDate = mysqli_real_escape_string($conn, $toDate);
+
+
+include('report_queries/prenatal_report_query.php');
 
 // Create a new Dompdf instance
 $pdf = new Dompdf();
@@ -66,7 +58,6 @@ $htmlContent = '
     </style>
 </head>
 <body>
-
 <table>
     <thead>
         <tr>
@@ -97,13 +88,13 @@ $htmlContent = '
         <tr>
         <td>No. of pregnant women at least 4 prenatal check-ups - Total</td>
             <td>'.$countForPrenatal10to14.'</td>
-            <td></td>
-            <td>0</td>
-            <td>2</td>
-            <td>2</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
+            <td>%</td>
+            <td>'.$countForPrenatal15to19.'</td>
+            <td>%</td>
+            <td>'.$countForPrenatal20to49.'</td>
+            <td>%</td>
+            <td>'.$countForPrenatalTotal.'</td>
+            <td>%</td>
             
         </tr>
         <tr>
@@ -153,11 +144,11 @@ $htmlContent = '
         </tr>
         <tr>
             <td>No. of pregnant women for the first time given at least 2 doses of Td vaccination (Td2 Plus) - Total</td>
-            <td></td>
-            <td>0</td>
-            <td>2</td>
-            <td>9</td>
-            <td>11</td>
+            <td>'.$countFirstTimePregnantWithTd2Plus10to14.'</td>
+            <td>%</td>
+            <td>'.$countFirstTimePregnantWithTd2Plus15to19.'</td>
+            <td>%</td>
+            <td>'.$countFirstTimePregnantWithTd2Plus20to49.'</td>
             <td>0</td>
             <td>0</td>
             <td>0</td>
