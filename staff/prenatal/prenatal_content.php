@@ -133,6 +133,23 @@ if ($result === false) {
 
 
                             </div>
+                            <div class="col-4">
+                                <div class="form-group ">
+                                    <label for="">Select Progress</label>
+                                    <span style="color: red; font-size: 22px;">*</span>
+                                    <select class="form-control" name="step" id="step" required class="">
+                                        <option value="" disabled selected hidden>Select a Progress</option>
+                                        <option value="Prenatal">Prenatal</option>
+                                        <option value="Abortion">Abortion</option>
+                                        <option value="Not Pregnant">Not Pregnant</option>
+                                        <option value="Nurse">Nurse</option>
+                                        <option value="Midwife">Midwife</option>
+
+                                    </select>
+                                    <!-- <div id="editStatus_error" class="error"></div> -->
+                                </div>
+                            </div>
+
                             <div class="col-4 tago">
                                 <div class="form-group">
                                     <label for="">Select Status</label>
@@ -150,9 +167,9 @@ if ($result === false) {
                                     display: none;
                                 }
                             </style>
-                            <div class="form-group otag">
-                                <label for="">Select Step</label>
-                                <select class="form-control" name="step" id="step" required class="">
+                            <!-- <div class="form-group otag">
+                                <label for="">Select Step</label> -->
+                            <!-- <select class="form-control" name="step" id="step" required class="">
                                     <option value="" disabled selected hidden>Select a Step</option>
                                     <option value="Interview Staff">Interview Staff</option>
                                     <option value="Consultation">Consultation</option>
@@ -164,9 +181,9 @@ if ($result === false) {
                                     <option value="Midwife">Midwife</option>
                                     <option value="Head Nurse">Head Nurse</option>
                                     <option value="Prescription">Prescription</option>
-                                </select>
-                                <!-- <div id="editStatus_error" class="error"></div> -->
-                            </div>
+                                </select> -->
+                            <!-- <div id="editStatus_error" class="error"></div> -->
+                            <!-- </div> -->
                         </div>
 
 
@@ -840,7 +857,7 @@ if ($result === false) {
         }
     }
 </script>
-<script>
+<!-- <script>
     // Add an event listener to the Save button
     document.getElementById('addButton').addEventListener('click', function () {
         // Assuming you have a variable `completedStep` that holds the completed step value, e.g., "Step1", "Step2", etc.
@@ -858,7 +875,7 @@ if ($result === false) {
         }
     });
 
-</script>
+</script> -->
 <script>
     // Add an event listener to the Save button
     document.getElementById('addButton').addEventListener('click', function () {
@@ -894,7 +911,7 @@ if ($result === false) {
                         <th>Patient Name</th>
                         <th>Checkup Date</th>
                         <th>Status</th>
-                        <th>Process</th>
+                        <th>Progress</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -1600,6 +1617,7 @@ if ($result === false) {
 
             // Additional fields for prenatal_subjective
 
+            var blood_type = $('#blood_type').val();
             var status = $('#status').val();
             var steps = $('#step').val();
             var height = $('#height').val();
@@ -1678,6 +1696,7 @@ if ($result === false) {
                     method: method,
                     dm: dm,
                     // Include the additional fields for prenatal_subjective
+                    blood_type: blood_type,
                     status: status,
                     steps: steps,
                     height: height,

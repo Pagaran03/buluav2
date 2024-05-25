@@ -61,7 +61,7 @@ if ($result === false) {
                         </div>
                         <div class="form-group">
                             <label for="username">Username</label>
-                            <input type="text" class="form-control" id="username" name="username" required>
+                            <input type="text" class="form-control" id="username" name="username" required readonly>
                             <div id="username_error" class="error"></div>
                         </div>
 
@@ -98,7 +98,7 @@ if ($result === false) {
                                     if (passwordField.attr("type") == "password") {
                                         passwordField.attr("type", "text");
                                         toggleIcon.removeClass("bi-eye").addClass("bi-eye-slash");
-                                        
+
                                     } else {
                                         passwordField.attr("type", "password");
                                         toggleIcon.removeClass("bi-eye-slash").addClass("bi-eye");
@@ -263,7 +263,7 @@ if ($result === false) {
                                     if (passwordField.attr("type") == "password") {
                                         passwordField.attr("type", "text");
                                         toggleIcon.removeClass("bi-eye").addClass("bi-eye-slash");
-                                        
+
                                     } else {
                                         passwordField.attr("type", "password");
                                         toggleIcon.removeClass("bi-eye-slash").addClass("bi-eye");
@@ -290,27 +290,44 @@ if ($result === false) {
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script>
     $(document).ready(function () {
-        $('#username').on('change', function () {
+        $("#birthdate").change(function () {
+            generateUsername();
+        });
 
-            var username = $(this).val();
-            console.log(username);
+
+        function generateUsername() {
+            var birthdate = $("#birthdate").val();
+            var currentYear = new Date().getFullYear().toString().substr(-2); // Get last two digits of current year
+            var birthMonth = ('0' + (new Date(birthdate).getMonth() + 1)).slice(-2); // Format birth month as two digits
+            var birthYear = new Date(birthdate).getFullYear().toString().substr(-2); // Get last two digits of birth year
+            var username = currentYear + birthMonth + birthYear + '01'; // Combine parts to form the username
+            $("#username").val(username);
+        }
+
+        // Request the next available suffix for the base username
+        $.ajax({
+            type: "POST",
+            url: "get_username.php", // Update this with the actual URL to your PHP script
+            data: { username_prefix: usernameBase },
+            success: function (response) {
+                var username_prefix = response.trim();
+                var username = usernameBase + username_prefix;
+                $("#username").val(username);
+            }
+        });
+        $("#addbutton").click(function () {
+            var username = $("#username").val();
             $.ajax({
-                type: 'POST',
-                url: 'action/check_username.php',
-                data: {
-                    username: username
-                },
+                type: "POST",
+                url: "check_username.php", // Update this with the actual URL to your PHP script
+                data: { username: username },
                 success: function (response) {
-                    console.log("AJAX success response:", response);
-
-                    if (response === 'success') {
-                        $('#username_error').html('Username already exists. Please choose a different one.');
+                    if (response.trim() === 'valid') {
+                        $("#username_error").text("");
+                        $("#addForm").submit(); // Proceed with form submission if username is valid
                     } else {
-                        $('#username_error').html('');
+                        $("#username_error").text("Username already exists. Please choose a different one.");
                     }
-                },
-                error: function (xhr, status, error) {
-                    console.log("AJAX error:", status, error);
                 }
             });
         });
