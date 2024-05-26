@@ -5,13 +5,14 @@ include_once ('../../config.php');
 $user_id = $_GET['id'];
 
 
-$sql = "SELECT *,fp_information.id as id,patients.first_name as first_name,patients.last_name as last_name,nurses.first_name as first_name2,nurses.last_name as last_name2
+$sql = "SELECT *,fp_information.id as id,  CONCAT(patients.last_name, ' ,  ', patients.first_name) AS full_name,nurses.first_name as first_name2,nurses.last_name as last_name2
 FROM fp_information
 JOIN patients ON fp_information.patient_id = patients.id
 JOIN nurses ON fp_information.nurse_id = nurses.id
 JOIN fp_consultation ON fp_consultation.fp_information_id = fp_information.id
 JOIN  fp_physical_examination ON  fp_physical_examination.fp_information_id = fp_information.id
 WHERE fp_information.patient_id = $user_id";
+
 
 
 $result = $conn->query($sql);
@@ -167,7 +168,8 @@ if ($result === false) {
                     <thead class="thead-light">
                         <tr>
                             <th class="tago">ID</th>
-                            <th>Nurse Name</th>
+                            <th>Patient Number</th>
+                            <th>Patient Name</th>
                             <th>Description</th>
                             <th>Diagnosis</th>
                             <th>Medicine</th>
@@ -182,7 +184,8 @@ if ($result === false) {
                                 ?>
                                 <tr>
                                     <td class="align-middle tago"><?php echo $row['id']; ?></td>
-                                    <td class="align-middle"> <?php echo $row['last_name']; ?></td>
+                                    <td class="align-middle"> <?php echo $row['serial_no']; ?></td>
+                                    <td class="align-middle"> <?php echo $row['full_name']; ?></td>
                                     <td class="align-middle"><?php echo $row['description']; ?></td>
                                     <td class="align-middle"><?php echo $row['diagnosis']; ?></td>
                                     <td class="align-middle"><?php echo $row['medicine']; ?></td>
@@ -198,6 +201,7 @@ if ($result === false) {
                                 <td class="align-middle">No Consultation Found</td>
                                 <td class="align-middle">
                                 <td>
+                                <td class="align-middle"></td>
                                 <td class="align-middle"></td>
                                 <td class="align-middle"></td>
 
