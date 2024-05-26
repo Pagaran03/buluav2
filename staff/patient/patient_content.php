@@ -742,7 +742,7 @@ if ($result2->num_rows > 0) {
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="serial_no">Serial No</label>
+                                    <label for="serial_no">Family No.</label>
                                     <input type="text" class="form-control" id="editSerial_no" name="serial_no" required readonly>
                                     <div id="editSerial_error" class="error"></div>
                                 </div>

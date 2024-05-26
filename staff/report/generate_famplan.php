@@ -60,7 +60,7 @@ $htmlContent = '<html lang="en">
 </head>
 
 <body>
-<h1>' . $btlTotal10to14 . '</h1>
+<h1>'.$currentUserBTL10to14.' + '.$currentUserBTL15to19.' + '.$currentUserBTL20to49.'</h1>
     <table>
         <tr>
             <td colspan="35">
@@ -271,10 +271,10 @@ $htmlContent = '<html lang="en">
             <td>' . $btlDOPMCount_count20to49 . '</td>
             <td>' . $btlDOPMCount_totalCount . '</td>
 
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>'.$currentUserBTL10to14.'</td>
+            <td>'.$currentUserBTL15to19.'</td>
+            <td>'.$btlCUEOMTotal20to49.'</td>
+            <td>'.$currentUserBTLTotal.'</td>
 
             <td>' . $btlNAPMCount_count10to14 . '</td>
             <td>' . $btlNAPMCount_count15to19 . '</td>
@@ -318,6 +318,7 @@ $htmlContent = '<html lang="en">
             <td>' . $nsvNAPMCount_count15to19 . '</td>
             <td>' . $nsvNAPMCount_count20to49 . '</td>
             <td>' . $nsvNAPMCount_totalCount . '</td>
+            
             <td></td>
             <td></td>
             <td></td>

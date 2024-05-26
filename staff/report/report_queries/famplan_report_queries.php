@@ -808,6 +808,30 @@ $nfpsdmCUMBTotal15to19 = $nfpsdmCUEOMTotal15to19;
 $nfpsdmCUMBTotal20to49 = $nfpsdmCUEOMTotal20to49;
 $nfpsdmCUMBTotal = $nfpsdmCUMBTotal10to14 + $nfpsdmCUMBTotal15to19 + $nfpsdmCUMBTotal20to49;
 
+// NEW ACCEPTOR TOTAL
+$btlNAPMCount_totalCount = $btlNAPMCount_count10to14 + $btlNAPMCount_count15to19 + $btlNAPMCount_count20to49;
+$nsvNAPMCount_totalCount = $nsvNAPMCount_count10to14 + $nsvNAPMCount_count15to19 + $nsvNAPMCount_count20to49;
+$condomNAPMCount_totalCount = $condomNAPMCount_count10to14 + $condomNAPMCount_count15to19 + $condomNAPMCount_count20to49;
+$pillsNAPMCount_totalCount = $pillsNAPMCount_count10to14 + $pillsNAPMCount_count15to19 + $pillsNAPMCount_count20to49;
+$pillspopNAPMCount_totalCount =  $pillspopNAPMCount_count10to14 + $pillspopNAPMCount_count15to19 + $pillspopNAPMCount_count20to49;
+$pillscocNAPMCount_totalCount =  $pillscocNAPMCount_count10to14 + $pillscocNAPMCount_count15to19 + $pillscocNAPMCount_count20to49;
+$injectablesNAPMCount_totalCount = $injectablesNAPMCount_count10to14 + $injectablesNAPMCount_count15to19 + $injectablesNAPMCount_count20to49;
+$implantNAPMCount_totalCount = $implantNAPMCount_count10to14 + $implantNAPMCount_count15to19 + $implantNAPMCount_count20to49;
+$iudNAPMCount_totalCount = $iudNAPMCount_count10to14 + $iudNAPMCount_count15to19 + $iudNAPMCount_count20to49;
+$iudiNAPMCount_totalCount = $iudiNAPMCount_count10to14 + $iudiNAPMCount_count15to19 + $iudiNAPMCount_count20to49;
+$iudppNAPMCount_totalCount = $iudppNAPMCount_count10to14 + $iudppNAPMCount_count15to19 + $iudppNAPMCount_count20to49;
+$nfplamNAPMCount_totalCount = $nfplamNAPMCount_count10to14 + $nfplamNAPMCount_count15to19 + $nfplamNAPMCount_count20to49;
+$nfpbbtNAPMCount_totalCount = $nfpbbtNAPMCount_count10to14 + $nfpbbtNAPMCount_count15to19 + $nfpbbtNAPMCount_count20to49;
+$nfpcmmNAPMCount_totalCount = $nfpcmmNAPMCount_count10to14 + $nfpcmmNAPMCount_count15to19 + $nfpcmmNAPMCount_count20to49;
+$nfpstmNAPMCount_totalCount = $nfpstmNAPMCount_count10to14 + $nfpstmNAPMCount_count15to19 + $nfpstmNAPMCount_count20to49;
+$nfpsdmNAPMCount_totalCount = $nfpsdmNAPMCount_count10to14 + $nfpsdmNAPMCount_count15to19 + $nfpsdmNAPMCount_count20to49;
+
+
+
+
+
+
+
 // CUBM = New Acceptors Present Month
 $cubmCount = "
     SELECT 
@@ -956,21 +980,11 @@ try {
     $err =  $e->getMessage();
 }
 
+$currentUserBTL10to14 =  $btlCUBMCount_count10to14 + $btlNAPMCount_count10to14 + $btlOAPMCount_count10to14 - $btlDOPMCount_count10to14;
+$currentUserBTL15to19 =  $btlCUBMCount_count15to19 + $btlNAPMCount_count15to19 + $btlOAPMCount_count15to19 - $btlDOPMCount_count15to19;
+$currentUserBTL20to49 =  $btlCUBMCount_count20to49 + $btlNAPMCount_count20to49 + $btlOAPMCount_count20to49 - $btlDOPMCount_count20to49;
 
-
-$btlNAPMCount_totalCount = $btlNAPMCount_count10to14 + $btlNAPMCount_count15to19 + $btlNAPMCount_count20to49;
-$nsvNAPMCount_totalCount = $nsvNAPMCount_count10to14 + $nsvNAPMCount_count15to19 + $nsvNAPMCount_count20to49;
-$condomNAPMCount_totalCount = $condomNAPMCount_count10to14 + $condomNAPMCount_count15to19 + $condomNAPMCount_count20to49;
-$pillsNAPMCount_totalCount = $pillsNAPMCount_count10to14 + $pillsNAPMCount_count15to19 + $pillsNAPMCount_count20to49;
-$pillspopNAPMCount_totalCount =  $pillspopNAPMCount_count10to14 + $pillspopNAPMCount_count15to19 + $pillspopNAPMCount_count20to49;
-$pillscocNAPMCount_totalCount =  $pillscocNAPMCount_count10to14 + $pillscocNAPMCount_count15to19 + $pillscocNAPMCount_count20to49;
-$injectablesNAPMCount_totalCount = $injectablesNAPMCount_count10to14 + $injectablesNAPMCount_count15to19 + $injectablesNAPMCount_count20to49;
-$implantNAPMCount_totalCount = $implantNAPMCount_count10to14 + $implantNAPMCount_count15to19 + $implantNAPMCount_count20to49;
-$iudNAPMCount_totalCount = $iudNAPMCount_count10to14 + $iudNAPMCount_count15to19 + $iudNAPMCount_count20to49;
-$iudiNAPMCount_totalCount = $iudiNAPMCount_count10to14 + $iudiNAPMCount_count15to19 + $iudiNAPMCount_count20to49;
-$iudppNAPMCount_totalCount = $iudppNAPMCount_count10to14 + $iudppNAPMCount_count15to19 + $iudppNAPMCount_count20to49;
-$nfplamNAPMCount_totalCount = $nfplamNAPMCount_count10to14 + $nfplamNAPMCount_count15to19 + $nfplamNAPMCount_count20to49;
-$nfpbbtNAPMCount_totalCount = $nfpbbtNAPMCount_count10to14 + $nfpbbtNAPMCount_count15to19 + $nfpbbtNAPMCount_count20to49;
-$nfpcmmNAPMCount_totalCount = $nfpcmmNAPMCount_count10to14 + $nfpcmmNAPMCount_count15to19 + $nfpcmmNAPMCount_count20to49;
-$nfpstmNAPMCount_totalCount = $nfpstmNAPMCount_count10to14 + $nfpstmNAPMCount_count15to19 + $nfpstmNAPMCount_count20to49;
-$nfpsdmNAPMCount_totalCount = $nfpsdmNAPMCount_count10to14 + $nfpsdmNAPMCount_count15to19 + $nfpsdmNAPMCount_count20to49;
+$currentUserBTLTotal =
+    $currentUserBTL10to14 +
+    $currentUserBTL15to19 +
+    $currentUserBTL20to49;
