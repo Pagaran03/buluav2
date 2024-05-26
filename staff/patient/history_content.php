@@ -10,6 +10,7 @@ FROM fp_information
 JOIN patients ON fp_information.patient_id = patients.id
 JOIN nurses ON fp_information.nurse_id = nurses.id
 JOIN fp_consultation ON fp_consultation.fp_information_id = fp_information.id
+JOIN  fp_physical_examination ON  fp_physical_examination.fp_information_id = fp_information.id
 WHERE fp_information.patient_id = $user_id";
 
 
@@ -35,7 +36,7 @@ if ($result === false) {
     <br><br>
 
 
-    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <!-- <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -46,9 +47,9 @@ if ($result === false) {
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="addForm">
-                        <!-- Form fields go here -->
-                        <div class="form-group">
+                    <form id="addForm"> -->
+    <!-- Form fields go here -->
+    <!-- <div class="form-group">
                             <label for="patient">Select Patient</label>
                             <input list="patients" class="form-control" name="patient_id" id="patient_id" required>
                             <datalist id="patients">
@@ -74,9 +75,9 @@ if ($result === false) {
                             <input type="hidden" name="serial_no2" id="serial_no2">
 
 
-                        </div>
+                        </div> -->
 
-                        <script>
+    <!-- <script>
                             // Add a JavaScript event listener to update the input field
                             const patientInput = document.getElementById('patient_id');
                             patientInput.addEventListener('input', function () {
@@ -118,8 +119,8 @@ if ($result === false) {
                                 ?>
                             </select>
 
-                        </div>
-                        <div class="form-group">
+                        </div> -->
+    <!-- <div class="form-group">
                             <label for="">Description</label>
                             <textarea class="form-control" id="description" name="description" rows="3"
                                 required></textarea>
@@ -153,15 +154,19 @@ if ($result === false) {
                 </div>
             </div>
         </div>
-    </div>
-
+    </div> -->
+    <style>
+        .tago {
+            display: none;
+        }
+    </style>
     <div class="row">
         <div class="col-12">
             <div class="card-body table-responsive p-0" style="z-index: -99999">
                 <table id="tablebod" class="table table-head-fixed text-nowrap table-striped">
                     <thead class="thead-light">
                         <tr>
-                            <th>ID</th>
+                            <th class="tago">ID</th>
                             <th>Nurse Name</th>
                             <th>Description</th>
                             <th>Diagnosis</th>
@@ -176,7 +181,7 @@ if ($result === false) {
                             while ($row = $result->fetch_assoc()) {
                                 ?>
                                 <tr>
-                                    <td class="align-middle"><?php echo $row['id']; ?></td>
+                                    <td class="align-middle tago"><?php echo $row['id']; ?></td>
                                     <td class="align-middle"> <?php echo $row['last_name']; ?></td>
                                     <td class="align-middle"><?php echo $row['description']; ?></td>
                                     <td class="align-middle"><?php echo $row['diagnosis']; ?></td>
@@ -189,8 +194,8 @@ if ($result === false) {
                         } else {
                             ?>
                             <tr>
-                                <td class="align-middle">No Consultation Found</td>
                                 <td class="align-middle"></td>
+                                <td class="align-middle">No Consultation Found</td>
                                 <td class="align-middle">
                                 <td>
                                 <td class="align-middle"></td>
@@ -601,62 +606,61 @@ if ($result === false) {
 
                             </div>
                             <hr>
-                            <h5>IV RISK FOR SEXUALITY TRANSMITTED INFECTIONS</h5>
-                            <hr>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="medical_conditions">Does the client have any of the
-                                            following?</label>
-                                        <br>
-                                        <div class="checkbox-list">
-                                            <div class="checkbox-item">
-                                                <input type="checkbox" id="abnormal_discharge2"
-                                                    name="abnormal_discharge2" value="abnormal_discharge" disabled>
-                                                <label class="checkbox-label">abnormal discharge from the
-                                                    genital
-                                                    area</label>
-                                            </div>
-                                            <div class="checkbox-item">
-                                                <input type="checkbox" id="genital_sores_ulcers2"
-                                                    name="genital_sores_ulcers2" value="genital_sores_ulcers" disabled>
-                                                <label class="checkbox-label">sores or ulcers in the genital
-                                                    area</label>
-                                            </div>
-                                            <div class="checkbox-item">
-                                                <input type="checkbox" id="genital_pain_burning_sensation2"
-                                                    name="genital_pain_burning_sensation2"
-                                                    value="genital_pain_burning_sensation" disabled>
-                                                <label class="checkbox-label">pain or burning sensation in the
-                                                    genital
-                                                    area</label>
-                                            </div>
+
+                        </div>
+                        <h5>IV RISK FOR SEXUALITY TRANSMITTED INFECTIONS</h5>
+                        <hr>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="medical_conditions">Does the client have any of the
+                                        following?</label>
+                                    <br>
+                                    <div class="checkbox-list">
+                                        <div class="checkbox-item">
+                                            <input type="checkbox" id="abnormal_discharge2" name="abnormal_discharge2"
+                                                value="abnormal_discharge" disabled>
+                                            <label class="checkbox-label">abnormal discharge from the
+                                                genital
+                                                area</label>
+                                        </div>
+                                        <div class="checkbox-item">
+                                            <input type="checkbox" id="genital_sores_ulcers2"
+                                                name="genital_sores_ulcers2" value="genital_sores_ulcers" disabled>
+                                            <label class="checkbox-label">sores or ulcers in the genital
+                                                area</label>
+                                        </div>
+                                        <div class="checkbox-item">
+                                            <input type="checkbox" id="genital_pain_burning_sensation2"
+                                                name="genital_pain_burning_sensation2"
+                                                value="genital_pain_burning_sensation" disabled>
+                                            <label class="checkbox-label">pain or burning sensation in the
+                                                genital
+                                                area</label>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-
-                                        <br>
-                                        <div class="checkbox-list">
-                                            <div class="checkbox-item">
-                                                <input type="checkbox" id="treatment_for_sti2" name="treatment_for_sti2"
-                                                    value="treatment_for_sti" disabled>
-                                                <label class="checkbox-label">history of treatment for sexually
-                                                    transmitted infections</label>
-                                            </div>
-                                            <div class="checkbox-item">
-                                                <input type="checkbox" id="hiv_aids_pid2" name="hiv_aids_pid2"
-                                                    value="hiv_aids_pid" disabled>
-                                                <label class="checkbox-label">HIV/AIDS/Pelvic inflammatory
-                                                    disease</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
                             </div>
+                            <div class="col-6">
+                                <div class="form-group">
 
+                                    <br>
+                                    <div class="checkbox-list">
+                                        <div class="checkbox-item">
+                                            <input type="checkbox" id="treatment_for_sti2" name="treatment_for_sti2"
+                                                value="treatment_for_sti" disabled>
+                                            <label class="checkbox-label">history of treatment for sexually
+                                                transmitted infections</label>
+                                        </div>
+                                        <div class="checkbox-item">
+                                            <input type="checkbox" id="hiv_aids_pid2" name="hiv_aids_pid2"
+                                                value="hiv_aids_pid" disabled>
+                                            <label class="checkbox-label">HIV/AIDS/Pelvic inflammatory
+                                                disease</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
                         </div>
 
@@ -717,8 +721,7 @@ if ($result === false) {
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="">Weight</label>
-                                        <input type="nutextmber" class="form-control" id="weight2" name="weight2"
-                                            disabled>
+                                        <input type="text" class="form-control" id="weight" name="weight" disabled>
                                     </div>
                                 </div>
 
@@ -1228,6 +1231,10 @@ if ($result === false) {
                 $('#editModal2 #no_of_pregnancies2').val(editGetData.no_of_pregnancies);
                 $('#editModal2 #date_of_last_delivery2').val(editGetData.date_of_last_delivery);
                 $('#editModal2 #last_period2').val(editGetData.last_period);
+                $('#editModal2 #weight').val(editGetData.weight);
+                $('#editModal2 #bp2').val(editGetData.bp);
+                $('#editModal2 #height2').val(editGetData.height);
+                $('#editModal2 #pulse2').val(editGetData.pulse);
 
 
                 // Assuming editGetData.plan_to_have_more_children contains the value "Yes" or "No"
@@ -1405,13 +1412,6 @@ if ($result === false) {
                 } else {
                     $('#domestic_violence2').prop('checked', false);
                 }
-
-
-                $('#editModal #weight2').val(editGetData.weight);
-                $('#editModal #bp2').val(editGetData.bp);
-                $('#editModal #height2').val(editGetData.height);
-                $('#editModal #pulse2').val(editGetData.pulse);
-
                 // Check the appropriate radio button based on the value
                 if (editGetData.extremities === "Normal") {
                     $('#normalRadio').prop('checked', true);
