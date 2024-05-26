@@ -6,7 +6,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] !== "midwife") {
 }
 
 
-if(!isset($_SESSION['role'])){
+if (!isset($_SESSION['role'])) {
   header("location: ../../index.php");
 }
 ?>
@@ -188,7 +188,7 @@ if(!isset($_SESSION['role'])){
               </ul>
             </li> -->
 
-
+            <!-- 
             <li class="nav-item">
               <a href="../status/status.php" class="nav-link">
                 <i class="fas fa-vial fa-lg "></i>
@@ -196,7 +196,7 @@ if(!isset($_SESSION['role'])){
                   Status
                 </p>
               </a>
-            </li>
+            </li> -->
 
 
 

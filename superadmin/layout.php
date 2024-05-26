@@ -103,12 +103,12 @@ if (!isset($_SESSION['role'])) {
 
             if ($result) {
               ?>
-                                                                    <div class="info">
-                                                                                                                                                                                   <a href="#" class="d-block">
-                                                                                                                                                                                     <?php echo $result['first_name'] . ' ' . $result['last_name']; ?><br />Doctor
-                                                                                                                                                                                   </a>
-                                                                                                                                                                                 </div>
-                                                                                                                                                                                 <?php
+                                                                          <div class="info">
+                                                                                                                                                                                         <a href="#" class="d-block">
+                                                                                                                                                                                           <?php echo $result['first_name'] . ' ' . $result['last_name']; ?><br />Doctor
+                                                                                                                                                                                         </a>
+                                                                                                                                                                                       </div>
+                                                                                                                                                                                       <?php
             } else {
               echo "No users found";
             }
@@ -246,7 +246,7 @@ if (
 
          
 
-                  
+<!--                   
           <li class="nav-item">
             <a href="../status/status.php" class="nav-link">
               <i class="fas fa-vial fa-lg "></i>
@@ -254,7 +254,7 @@ if (
               Status
               </p>
             </a>
-          </li>
+          </li> -->
 
            
           <li class="nav-item <?php
