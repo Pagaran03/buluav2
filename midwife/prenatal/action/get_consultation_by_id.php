@@ -9,6 +9,7 @@ try {
 
     $sql = "SELECT *,prenatal_consultation.id as id
     FROM prenatal_consultation
+    JOIN prenatal_diagnosis ON prenatal_consultation.prenatal_subjective_id = prenatal_diagnosis.id
     JOIN prenatal_subjective ON prenatal_consultation.prenatal_subjective_id = prenatal_subjective.id
     WHERE prenatal_consultation.prenatal_subjective_id = ?";
 

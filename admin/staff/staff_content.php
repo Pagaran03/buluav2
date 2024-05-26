@@ -9,7 +9,7 @@ $sql = "SELECT * FROM staffs WHERE is_active = 0 ORDER BY id DESC";
 $result = $conn->query($sql);
 
 if ($result === false) {
-    die ("Query failed: " . $conn->error);
+    die("Query failed: " . $conn->error);
 }
 
 ?>
@@ -55,6 +55,11 @@ if ($result === false) {
                             <div id="address_error" class="error"></div>
                         </div>
                         <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                            <div id="email_error" class="error"></div>
+                        </div>
+                        <div class="form-group">
                             <label for="username">Username</label>
                             <input type="text" class="form-control" id="username" name="username" required>
                             <div id="username_error" class="error"></div>
@@ -94,12 +99,12 @@ if ($result === false) {
                                         toggleIcon.removeClass("bi-eye").addClass("bi-eye-slash");
                                     } else {
                                         passwordField.attr("type", "password");
-                                     
+
                                         toggleIcon.removeClass("bi-eye-slash").addClass("bi-eye");
                                     }
                                 });
                             });
-                            </script>
+                        </script>
                     </form>
 
                 </div>
@@ -165,8 +170,8 @@ if ($result === false) {
                         } else {
                             ?>
                             <tr>
-                                <td class="align-middle">No Staff Found</td>
                                 <td class="align-middle"></td>
+                                <td class="align-middle">No Staff Found</td>
                                 <td class="align-middle">
                                 <td>
                                 <td class="align-middle"></td>
@@ -218,6 +223,11 @@ if ($result === false) {
                             <div id="editAddress_error" class="error"></div>
                         </div>
                         <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                            <div id="editemail_error" class="error"></div>
+                        </div>
+                        <div class="form-group">
                             <label for="ediuser">Username</label>
                             <input type="text" class="form-control" id="ediuser" name="username" required>
                             <div id="ediuser_error" class="error"></div>
@@ -257,12 +267,12 @@ if ($result === false) {
                                         toggleIcon.removeClass("bi-eye").addClass("bi-eye-slash");
                                     } else {
                                         passwordField.attr("type", "password");
-                                     
+
                                         toggleIcon.removeClass("bi-eye-slash").addClass("bi-eye");
                                     }
                                 });
                             });
-                            </script>
+                        </script>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -408,6 +418,7 @@ if ($result === false) {
             var last_name = $('#last_name').val();
             var birthdate = $('#birthdate').val();
             var address = $('#address').val();
+            var email = $('#email').val();
             var username = $('#username').val();
             var password = $('#password').val();
             // Validate input fields
@@ -441,6 +452,10 @@ if ($result === false) {
                 $('#address_error').text('Field is required');
                 isValid = false;
             }
+            if (email.trim() == '') {
+                $('#email_error').text('Field is required');
+                isValid = false;
+            }
             if (username.trim() === '') {
                 $('#username_error').text('Field is required');
                 isValid = false;
@@ -462,6 +477,7 @@ if ($result === false) {
                         last_name: last_name,
                         birthdate: birthdate,
                         address: address,
+                        email: email,
                         username: username,
                         password: password
                     },
@@ -473,6 +489,7 @@ if ($result === false) {
                             $('#last_name').val('');
                             $('#birthdate').val('');
                             $('#address').val('');
+                            $('email').val('');
                             $('#username').val('');
                             $('#password').val('');
 

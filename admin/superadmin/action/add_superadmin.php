@@ -11,23 +11,23 @@ function sanitize_input($input)
 {
     //   // Remove all HTML tags using preg_replace
     //   $input = preg_replace("/<[^>]*>/", "", trim($input));
-      // Use regular expression to remove potentially harmful characters
-      $input = preg_replace("/[^a-zA-Z0-9\s]/", "", $input);
-      // Remove SQL injection characters
-      $input = preg_replace("/[;#\*--]/", "", $input);
-      // Remove Javascript injection characters
-      $input = preg_replace("/[<>\"\']/", "", $input);
-      // Remove Shell injection characters
-      $input = preg_replace("/[|&\$\>\<'`\"]/", "", $input);
-      // Remove URL injection characters
-      $input = preg_replace("/[&\?=]/", "", $input);
-      // Remove File Path injection characters
-      $input = preg_replace("/[\/\\\\\.\.]/", "", $input);
-      // Remove control characters and whitespace
-      $input = preg_replace("/[\x00-\x1F\s]+/", "", $input);
-      //Remove script and content characters
-      $input = preg_replace("/<script[^>]*>(.*?)<\/script>/is", "", $input);
-      return $input;
+    // Use regular expression to remove potentially harmful characters
+    $input = preg_replace("/[^a-zA-Z0-9\s]/", "", $input);
+    // Remove SQL injection characters
+    $input = preg_replace("/[;#\*--]/", "", $input);
+    // Remove Javascript injection characters
+    $input = preg_replace("/[<>\"\']/", "", $input);
+    // Remove Shell injection characters
+    $input = preg_replace("/[|&\$\>\<'`\"]/", "", $input);
+    // Remove URL injection characters
+    $input = preg_replace("/[&\?=]/", "", $input);
+    // Remove File Path injection characters
+    $input = preg_replace("/[\/\\\\\.\.]/", "", $input);
+    // Remove control characters and whitespace
+    $input = preg_replace("/[\x00-\x1F\s]+/", "", $input);
+    //Remove script and content characters
+    $input = preg_replace("/<script[^>]*>(.*?)<\/script>/is", "", $input);
+    return $input;
 }
 
 try {
@@ -36,6 +36,7 @@ try {
     $last_name = sanitize_input($_POST['last_name']);
     $birthdate = sanitize_input($_POST['birthdate']);
     $address = sanitize_input($_POST['address']);
+    $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
     $username = sanitize_input($_POST['username']);
     $password = sanitize_input($_POST['password']);
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
@@ -58,9 +59,9 @@ try {
     }
 
     // Insert data into the "users" table
-    $user_sql = "INSERT INTO users (username, password, role) VALUES (?, ?, ?)";
+    $user_sql = "INSERT INTO users (username, password, email, role) VALUES (?, ?, ?,? )";
     $user_stmt = $conn->prepare($user_sql);
-    $user_stmt->bind_param("sss", $username, $hashed_password, $role);
+    $user_stmt->bind_param("ssss", $username, $hashed_password, $email, $role);
 
     if ($user_stmt->execute()) {
         // Get the last inserted user ID
