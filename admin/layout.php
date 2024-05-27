@@ -244,14 +244,14 @@ echo "<script>console.log('{$_SESSION['user_id']}')</script>";
 
 
 
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a href="../status/status.php" class="nav-link">
                 <i class="fas fa-vial fa-lg "></i>
                 <p>
                   Status
                 </p>
               </a>
-            </li>
+            </li> -->
 
 
 
@@ -324,7 +324,7 @@ echo "<script>console.log('{$_SESSION['user_id']}')</script>";
                   <a href="../superadmin/superadmin.php" class="nav-link <?php if ($_SERVER['REQUEST_URI'] === '/brgyv2/superadmin/superadmin.php')
                     echo 'active'; ?>">
                     <i class="fas fa-user-edit fa-lg nav-icon"></i>
-                    <p>Superadmin</p>
+                    <p>Doctor</p>
                   </a>
                 </li>
                 <li class="nav-item">

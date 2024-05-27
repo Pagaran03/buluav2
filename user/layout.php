@@ -339,9 +339,18 @@ processFormSubmission($conn);
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="suffix">Suffix</label>
-                                    <input type="text" class="form-control" id="suffix" name="suffix">
+                                    <select class="form-control" id="suffix" name="suffix">
+                                        <option value="" selected>Choose a suffix</option>
+                                        <option value="Jr.">Jr.</option>
+                                        <option value="Sr.">Sr.</option>
+                                        <option value="II">II</option>
+                                        <option value="III">III</option>
+                                        <option value="IV">IV</option>
+                                        <option value="V">V</option>
+                                    </select>
                                     <div id="suffix_error" class="error"></div>
                                 </div>
+
                             </div>
                         </div>
 
@@ -1307,7 +1316,6 @@ processFormSubmission($conn);
     </script>
 
     <script>
-
         (function() {
             "use strict";
 
