@@ -1162,7 +1162,8 @@ if ($result === false) {
 
 <script>
     // Set the timeout duration (in milliseconds)
-    var inactivityTimeout = 360000; // 10 seconds
+    var inactivityTimeout = 1200000; // 20 minutes
+
 
     // Track user activity
     var activityTimer;

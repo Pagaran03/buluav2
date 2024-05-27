@@ -58,6 +58,133 @@ foreach ($columns as $column) {
   $countss[] = $row['count'];
 }
 
+
+$consults = ['subjective', 'objective', 'assessment', 'plan'];
+
+// Initialize an array to store the counts
+$countsss = array();
+
+foreach ($consults as $consult) {
+  // Assuming $conn is your database connection
+  $sql = "SELECT COUNT($consult) AS count FROM consultations"; // Replace 'your_table' with your actual table name
+  $result = $conn->query($sql);
+
+  if ($result === false) {
+    die("Query failed: " . $conn->error);
+  }
+
+  $row = $result->fetch_assoc();
+  $countsss[] = $row['count'];
+}
+
+
+$fams = ['checkup_date', 'no_of_children', 'client_type', 'reason_for_fp'];
+
+// Initialize an array to store the counts
+$countssss = array();
+
+foreach ($fams as $fam) {
+  // Assuming $conn is your database connection
+  $sql = "SELECT COUNT($fam) AS count FROM fP_information"; // Replace 'your_table' with your actual table name
+  $result = $conn->query($sql);
+
+  if ($result === false) {
+    die("Query failed: " . $conn->error);
+  }
+
+  $row = $result->fetch_assoc();
+  $countssss[] = $row['count'];
+}
+
+$patients = ['gender', 'age'];
+$male = 'male';
+$female = 'female';
+
+// Initialize an associative array to store the counts
+$counter = array();
+
+// Query to count the number of males
+$sqlMale = "SELECT COUNT(*) AS count FROM patients WHERE gender = '$male'";
+$resultMale = $conn->query($sqlMale);
+
+if ($resultMale === false) {
+  die("Query failed: " . $conn->error);
+}
+
+$rowMale = $resultMale->fetch_assoc();
+$counter['male'] = $rowMale['count'];
+
+// Query to count the number of females
+$sqlFemale = "SELECT COUNT(*) AS count FROM patients WHERE gender = '$female'";
+$resultFemale = $conn->query($sqlFemale);
+
+if ($resultFemale === false) {
+  die("Query failed: " . $conn->error);
+}
+
+$rowFemale = $resultFemale->fetch_assoc();
+$counter['female'] = $rowFemale['count'];
+
+// Query to count the number of children (age below 5)
+$sqlChildren = "SELECT COUNT(*) AS count FROM patients WHERE age < 5";
+$resultChildren = $conn->query($sqlChildren);
+
+if ($resultChildren === false) {
+  die("Query failed: " . $conn->error);
+}
+
+$rowChildren = $resultChildren->fetch_assoc();
+$counter['children'] = $rowChildren['count'];
+
+// Query to count the number of male children (age below 5)
+$sqlMaleChildren = "SELECT COUNT(*) AS count FROM patients WHERE age < 5 AND gender = '$male'";
+$resultMaleChildren = $conn->query($sqlMaleChildren);
+
+if ($resultMaleChildren === false) {
+  die("Query failed: " . $conn->error);
+}
+
+$rowMaleChildren = $resultMaleChildren->fetch_assoc();
+$counter['male_children'] = $rowMaleChildren['count'];
+
+// Query to count the number of female children (age below 5)
+$sqlFemaleChildren = "SELECT COUNT(*) AS count FROM patients WHERE age < 5 AND gender = '$female'";
+$resultFemaleChildren = $conn->query($sqlFemaleChildren);
+
+if ($resultFemaleChildren === false) {
+  die("Query failed: " . $conn->error);
+}
+
+$rowFemaleChildren = $resultFemaleChildren->fetch_assoc();
+$counter['female_children'] = $rowFemaleChildren['count'];
+
+// Query to count the number of males aged 5 and above
+$sqlMaleAbove5 = "SELECT COUNT(*) AS count FROM patients WHERE gender = '$male' AND age >= 5";
+$resultMaleAbove5 = $conn->query($sqlMaleAbove5);
+
+if ($resultMaleAbove5 === false) {
+  die("Query failed: " . $conn->error);
+}
+
+$rowMaleAbove5 = $resultMaleAbove5->fetch_assoc();
+$counter['Male 5 and Above'] = $rowMaleAbove5['count'];
+
+// Query to count the number of females aged 5 and above
+$sqlFemaleAbove5 = "SELECT COUNT(*) AS count FROM patients WHERE gender = '$female' AND age >= 5";
+$resultFemaleAbove5 = $conn->query($sqlFemaleAbove5);
+
+if ($resultFemaleAbove5 === false) {
+  die("Query failed: " . $conn->error);
+}
+
+$rowFemaleAbove5 = $resultFemaleAbove5->fetch_assoc();
+$counter['Female 5 and Above'] = $rowFemaleAbove5['count'];
+
+// Now $counter contains the counts for males, females, and children
+
+
+// You can use the $counts array as needed
+
 // Now $countss contains the counts for each column
 
 
@@ -293,8 +420,58 @@ foreach ($tables as $table) {
             <div class="icon">
               <i class="ion ion-person-add"></i>
             </div>
-            <a href="../patient/patient.php" class="small-box-footer">More info <i
+            <a href="#" class="small-box-footer" data-toggle="modal" data-target="#patientmodal">More info <i
                 class="fas fa-arrow-circle-right"></i></a>
+          </div>
+
+          <!-- Modal -->
+          <div class="modal fade" id="patientmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Patient Details</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <canvas id="patient"></canvas>
+                  <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                      // Ensure that the PHP variables are correctly encoded into JavaScript
+                      var columnNames = ['Male', 'Female', 'Children', 'Male 5 and Above', 'Female 5 and Above', 'male_children', 'female_children']; // Explicitly define the column names
+                      var data = <?php echo json_encode(array_values($counter)); ?>;
+                      var ctx = document.getElementById('patient').getContext('2d');
+
+                      // Creating the pie chart using Chart.js
+                      var chart = new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                          labels: columnNames,
+                          datasets: [{
+                            data: data,
+                            backgroundColor: [
+                              'rgba(255, 99, 132, 0.6)', // Color for Male
+                              'rgba(54, 162, 235, 0.6)', // Color for Female
+                              'rgba(255, 206, 86, 0.6)', // Color for Children
+                              'rgba(75, 192, 192, 0.6)', // Color for Male 5 and Above
+                              'rgba(153, 102, 255, 0.6)', // Color for Female 5 and Above
+                              'rgb(153, 255, 255, 0.6)',
+                              'rgb(255, 153, 153, 0.6)',
+                            ],
+                          }],
+                        },
+                      });
+                    });
+                  </script>
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -464,9 +641,62 @@ JOIN nurses ON fp_information.nurse_id = nurses.id";
             <div class="icon">
               <i class="ion ion-bag"></i>
             </div>
-            <a href="../family/family.php" class="small-box-footer">More info <i
+            <a href="#" class="small-box-footer" data-toggle="modal" data-target="#famplanmodal">More info <i
                 class="fas fa-arrow-circle-right"></i></a>
           </div>
+
+
+          <!-- Modal -->
+          <div class="modal fade" id="famplanmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Family Planning Details</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <canvas id="fam"></canvas>
+                  <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                      // Ensure that the PHP variables are correctly encoded into JavaScript
+                      var columnNames = <?php echo json_encode($fams); ?>;
+                      var data = <?php echo json_encode(array_values($countssss)); ?>;
+                      var ctx = document.getElementById('fam').getContext('2d');
+
+                      // Creating the pie chart using Chart.js
+                      var chart = new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                          labels: columnNames,
+                          datasets: [{
+                            data: data,
+                            backgroundColor: [
+                              'rgba(255, 99, 132, 0.6)',
+                              'rgba(54, 162, 235, 0.6)',
+                              'rgba(255, 206, 86, 0.6)',
+                              'rgba(75, 192, 192, 0.6)',
+                              'rgba(76, 132, 112, 0.6)',
+                              '	rgb(153, 255, 153, 0.6)',
+                              'rgb(153, 255, 255, 0.6)',
+                              'rgb(255, 153, 153, 0.6)',
+                            ],
+                          }],
+                        },
+                      });
+                    });
+                  </script>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
         </div>
 
 
@@ -503,10 +733,61 @@ JOIN nurses ON fp_information.nurse_id = nurses.id";
             <div class="icon">
               <i class="ion ion-bag"></i>
             </div>
-            <a href="../consultation/consultation.php" class="small-box-footer">More info <i
+            <a href="#" class="small-box-footer" data-toggle="modal" data-target="#consultationmodal">More info <i
                 class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="consultationmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Consult Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <canvas id="consult"></canvas>
+                <script>
+                  document.addEventListener('DOMContentLoaded', function () {
+                    // Ensure that the PHP variables are correctly encoded into JavaScript
+                    var columnNames = <?php echo json_encode($consults); ?>;
+                    var data = <?php echo json_encode(array_values($countsss)); ?>;
+                    var ctx = document.getElementById('consult').getContext('2d');
+
+                    // Creating the pie chart using Chart.js
+                    var chart = new Chart(ctx, {
+                      type: 'pie',
+                      data: {
+                        labels: columnNames,
+                        datasets: [{
+                          data: data,
+                          backgroundColor: [
+                            'rgba(255, 99, 132, 0.6)',
+                            'rgba(54, 162, 235, 0.6)',
+                            'rgba(255, 206, 86, 0.6)',
+                            'rgba(75, 192, 192, 0.6)',
+                            'rgba(76, 132, 112, 0.6)',
+                            '	rgb(153, 255, 153, 0.6)',
+                            'rgb(153, 255, 255, 0.6)',
+                            'rgb(255, 153, 153, 0.6)',
+                          ],
+                        }],
+                      },
+                    });
+                  });
+                </script>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
       <!--  -->
 
@@ -612,7 +893,8 @@ JOIN nurses ON fp_information.nurse_id = nurses.id";
 <!-- Include this script in your HTML file -->
 <script>
   // Set the timeout duration (in milliseconds)
-  var inactivityTimeout = 360000; // 10 seconds
+  var inactivityTimeout = 1200000; // 20 minutes
+
 
   // Track user activity
   var activityTimer;
