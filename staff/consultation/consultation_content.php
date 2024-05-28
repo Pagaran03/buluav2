@@ -9,9 +9,10 @@ if (isset($_GET['date'])) {
     $date = $selected_date;
 }
 
-$sql = "SELECT *, consultations.id AS id, CONCAT(patients.last_name, ',', patients.first_name) AS full_name
+$sql = "SELECT *, consultations.id AS id, CONCAT(patients.last_name, ', ', patients.first_name) AS full_name
         FROM consultations
         JOIN patients ON consultations.patient_id = patients.id
+        JOIN fp_physical_examination ON consultations.id = fp_physical_examination.id
         WHERE consultations.is_active = 0 AND consultations.is_deleted = 0 AND checkup_date = '$date'";
 
 $result = $conn->query($sql);
@@ -528,10 +529,10 @@ assessment: diagnosis" required></textarea>
                             <th class="tago">No.</th>
                             <th>Family Number</th>
                             <th>Patient Name</th>
-                            <th>Subjective</th>
-                            <th>Objective</th>
-                            <th>Assessment</th>
-                            <th>Plan</th>
+                            <th>Skin</th>
+                            <th>Extremities</th>
+                            <th>Neck</th>
+                            <th>Conjunctiva</th>
                             <th>Date</th>
                             <th>Status</th>
                             <th>Progress</th>
@@ -555,16 +556,16 @@ assessment: diagnosis" required></textarea>
                                         <?php echo $row['full_name']; ?>
                                     </td>
                                     <td class="align-middle">
-                                        <?php echo $row['subjective']; ?>
+                                        <?php echo $row['skin']; ?>
                                     </td>
                                     <td class="align-middle">
-                                        <?php echo $row['objective']; ?>
+                                        <?php echo $row['extremities']; ?>
                                     </td>
                                     <td class="align-middle">
-                                        <?php echo $row['assessment']; ?>
+                                        <?php echo $row['neck']; ?>
                                     </td>
                                     <td class="align-middle">
-                                        <?php echo $row['plan']; ?>
+                                        <?php echo $row['conjunctiva']; ?>
                                     </td>
                                     <td class="align-middle">
                                         <?php echo $row['checkup_date']; ?>
@@ -705,8 +706,7 @@ assessment: diagnosis" required></textarea>
 
                                 <div class="form-group">
                                     <label for="">Subjective</label>
-                                    <textarea style="white-space: normal;" id="subjective2" name="subjective2" rows="3" columns="3" placeholder="e.g., sakit ng tiyan (stomach pain), headache, patient's verbal report" required></textarea>
-
+                                    <textarea class="form-control" style="white-space: normal;" id="subjective2" name="subjective2" rows="3"  placeholder="e.g., sakit ng tiyan (stomach pain), headache, patient's verbal report" required></textarea>
                                 </div>
                             </div>
                             <div class="col-sm">
@@ -1008,19 +1008,19 @@ assessment: diagnosis" required></textarea>
                         },
                         {
                             targets: 3,
-                            data: 'subjective'
+                            data: 'skin'
                         },
                         {
                             targets: 4,
-                            data: 'objective'
+                            data: 'extremities'
                         },
                         {
                             targets: 5,
-                            data: 'assessment'
+                            data: 'neck'
                         },
                         {
                             targets: 6,
-                            data: 'plan'
+                            data: 'conjunctiva'
                         },
                         {
                             targets: 7,
@@ -1069,19 +1069,19 @@ assessment: diagnosis" required></textarea>
                         },
                         {
                             targets: 3,
-                            data: 'subjective'
+                            data: 'skin'
                         },
                         {
                             targets: 4,
-                            data: 'objective'
+                            data: 'extremities'
                         },
                         {
                             targets: 5,
-                            data: 'assessment'
+                            data: 'neck'
                         },
                         {
                             targets: 6,
-                            data: 'plan'
+                            data: 'conjunctiva'
                         },
                         {
                             targets: 7,
@@ -1123,19 +1123,19 @@ assessment: diagnosis" required></textarea>
                         },
                         {
                             targets: 3,
-                            data: 'subjective'
+                            data: 'skin'
                         },
                         {
                             targets: 4,
-                            data: 'objective'
+                            data: 'extremities'
                         },
                         {
                             targets: 5,
-                            data: 'assessment'
+                            data: 'neck'
                         },
                         {
                             targets: 6,
-                            data: 'plan'
+                            data: 'conjunctiva'
                         },
                         {
                             targets: 7,

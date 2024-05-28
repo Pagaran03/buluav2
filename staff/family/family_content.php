@@ -35,11 +35,11 @@ if ($result === false) {
         </button>
     </a>
 
-    <a href="history_consultation.php">
+    <!-- <a href="history_consultation.php">
         <button type="button" id="openModalButton" class="btn btn-warning ml-1">
             View History
         </button>
-    </a>
+    </a> -->
     <br><br>
 
 

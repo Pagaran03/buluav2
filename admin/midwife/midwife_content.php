@@ -116,13 +116,18 @@ if ($result === false) {
             </div>
         </div>
     </div>
+    <style>
+        .tago{
+            display: none;
+        }
+    </style>
     <div class="row">
         <div class="col-12">
             <div class="card-body table-responsive p-0" style="z-index: -99999">
                 <table id="tablebod" class="table table-head-fixed text-nowrap table-striped">
                     <thead class="thead-light">
                         <tr>
-                            <th>ID</th>
+                            <th class="tago">ID</th>
                             <th>First Name</th>
                             <th>Last Name</th>
                             <th>Birthdate</th>
@@ -136,7 +141,7 @@ if ($result === false) {
                             while ($row = $result->fetch_assoc()) {
                                 ?>
                                 <tr>
-                                    <td class="align-middle">
+                                    <td class="align-middle tago">
                                         <?php echo $row['id']; ?>
                                     </td>
                                     <td class="align-middle">
@@ -165,8 +170,8 @@ if ($result === false) {
                         } else {
                             ?>
                             <tr>
-                                <td class="align-middle">No Midwife Found</td>
                                 <td class="align-middle"></td>
+                                <td class="align-middle">No Midwife Found</td>
                                 <td class="align-middle">
                                 <td>
                                 <td class="align-middle"></td>
@@ -352,7 +357,7 @@ if ($result === false) {
         <?php if ($result->num_rows > 0): ?>
             var table = $('#tablebod').DataTable({
                 columnDefs: [
-                    { targets: 0, data: 'id' },
+                    { targets: 0, data: 'id', visible:false },
                     { targets: 1, data: 'first_name' },
                     { targets: 2, data: 'last_name' },
                     { targets: 3, data: 'birthdate' },
@@ -375,7 +380,7 @@ if ($result === false) {
             // Initialize DataTable without the "Action" column when no rows are found
             var table = $('#tablebod').DataTable({
                 columnDefs: [
-                    { targets: 0, data: 'id' },
+                    { targets: 0, data: 'id', visible:false },
                     { targets: 1, data: 'first_name' },
                     { targets: 2, data: 'last_name' },
                     { targets: 3, data: 'birthdate' },
@@ -392,7 +397,7 @@ if ($result === false) {
             table.destroy(); // Destroy the existing DataTable
             table = $('#tablebod').DataTable({
                 columnDefs: [
-                    { targets: 0, data: 'id' },
+                    { targets: 0, data: 'id', visible:false },
                     { targets: 1, data: 'first_name' },
                     { targets: 2, data: 'last_name' },
                     { targets: 3, data: 'birthdate' },

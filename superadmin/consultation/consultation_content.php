@@ -8,7 +8,7 @@ $sql = "SELECT *,consultations.id as id,CONCAT(patients.first_name, ' ', patient
 FROM consultations
 JOIN patients ON consultations.patient_id = patients.id
 JOIN superadmins ON superadmins.id = consultations.doctor_id
-WHERE consultations.is_active = 0 AND consultations.is_deleted = 0 AND superadmins.user_id = $user_id AND consultations.is_print = 0";
+WHERE consultations.is_active = 0 AND consultations.is_deleted = 0 AND superadmins.user_id = $user_id";
 
 
 $result = $conn->query($sql);
@@ -247,10 +247,16 @@ if ($result === false) {
                             <label for="">Select Step</label>
                             <select class="form-control" name="step" id="editstep" required class="" disabled>
                                 <option value="" disabled selected hidden>Select a Step</option>
-                                <option value="Step 1 Interview Staff">Step 1 Interview Staff</option>
-                                <option value="Step 2 Consultation">Step 2 Consultation</option>
-                                <option value="Step 3 Doctor">Step 3 Doctor</option>
-                                <option value="Step 4 Prescription">Step 4 Prescription</option>
+                                <option value="Interview Staff">Interview Staff</option>
+                                <option value="Consultation">Consultation</option>
+                                <option value="Immunization">Immunization</option>
+                                <option value="Prenatal">Prenatal</option>
+                                <option value="Family Planning">Family Planning</option>
+                                <option value="Doctor">Doctor</option>
+                                <option value="Nurse">Nurse</option>
+                                <option value="Midwife">Midwife</option>
+                                <option value="Head Nurse">Head Nurse</option>
+                                <option value="Prescription">Prescription</option>
                             </select>
                             <!-- <div id="editStatus_error" class="error"></div> -->
                         </div>
@@ -366,10 +372,16 @@ if ($result === false) {
                                 <label for="">Select Step</label>
                                 <select class="form-control" name="step" id="step" required>
                                     <option value="" disabled selected hidden>Select a Step</option>
-                                    <option value="Step 1 Interview Staff">Step 1 Interview Staff</option>
-                                    <option value="Step 2 Consultation">Step 2 Consultation</option>
-                                    <option value="Step 3 Doctor">Step 3 Doctor</option>
-                                    <option value="Step 4 Prescription">Step 4 Prescription</option>
+                                    <option value="Interview Staff">Interview Staff</option>
+                                <option value="Consultation">Consultation</option>
+                                <option value="Immunization">Immunization</option>
+                                <option value="Prenatal">Prenatal</option>
+                                <option value="Family Planning">Family Planning</option>
+                                <option value="Doctor">Doctor</option>
+                                <option value="Nurse">Nurse</option>
+                                <option value="Midwife">Midwife</option>
+                                <option value="Head Nurse">Head Nurse</option>
+                                <option value="Prescription">Prescription</option>
                                 </select>
                                 <!-- <div id="editStatus_error" class="error"></div> -->
                             </div>

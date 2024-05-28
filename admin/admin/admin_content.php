@@ -61,7 +61,7 @@ if ($result === false) {
                         </div>
                         <div class="form-group">
                             <label for="username">Username</label>
-                            <input type="text" class="form-control" id="username" name="username" required readonly>
+                            <input type="text" class="form-control" id="username" name="username" required >
                             <div id="username_error" class="error"></div>
                         </div>
 
@@ -290,31 +290,31 @@ if ($result === false) {
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script>
     $(document).ready(function () {
-        $("#birthdate").change(function () {
-            generateUsername();
-        });
+            // $("#birthdate").change(function () {
+            //     generateUsername();
+            // });
 
 
-        function generateUsername() {
-            var birthdate = $("#birthdate").val();
-            var currentYear = new Date().getFullYear().toString().substr(-2); // Get last two digits of current year
-            var birthMonth = ('0' + (new Date(birthdate).getMonth() + 1)).slice(-2); // Format birth month as two digits
-            var birthYear = new Date(birthdate).getFullYear().toString().substr(-2); // Get last two digits of birth year
-            var username = currentYear + birthMonth + birthYear + '01'; // Combine parts to form the username
-            $("#username").val(username);
-        }
+            // function generateUsername() {
+            //     var birthdate = $("#birthdate").val();
+            //     var currentYear = new Date().getFullYear().toString().substr(-2); // Get last two digits of current year
+            //     var birthMonth = ('0' + (new Date(birthdate).getMonth() + 1)).slice(-2); // Format birth month as two digits
+            //     var birthYear = new Date(birthdate).getFullYear().toString().substr(-2); // Get last two digits of birth year
+            //     var username = currentYear + birthMonth + birthYear + '01'; // Combine parts to form the username
+            //     $("#username").val(username);
+            // }
 
-        // Request the next available suffix for the base username
-        $.ajax({
-            type: "POST",
-            url: "get_username.php", // Update this with the actual URL to your PHP script
-            data: { username_prefix: usernameBase },
-            success: function (response) {
-                var username_prefix = response.trim();
-                var username = usernameBase + username_prefix;
-                $("#username").val(username);
-            }
-        });
+            // // Request the next available suffix for the base username
+            // $.ajax({
+            //     type: "POST",
+            //     url: "get_username.php", // Update this with the actual URL to your PHP script
+            //     data: { username_prefix: usernameBase },
+            //     success: function (response) {
+            //         var username_prefix = response.trim();
+            //         var username = usernameBase + username_prefix;
+            //         $("#username").val(username);
+            //     }
+            // });
         $("#addbutton").click(function () {
             var username = $("#username").val();
             $.ajax({

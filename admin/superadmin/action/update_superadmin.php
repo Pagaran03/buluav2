@@ -35,7 +35,7 @@ function sanitize_input($input)
 
 try {
     // Check if all required POST variables are set
-    if (!isset ($_POST['primary_id'], $_POST['first_name'], $_POST['last_name'], $_POST['birthdate'], $_POST['address'], $_POST['username'], $_POST['password'])) {
+    if (!isset ($_POST['primary_id'], $_POST['first_name'], $_POST['last_name'], $_POST['birthdate'], $_POST['address'],$_POST['email'], $_POST['username'], $_POST['password'])) {
         throw new Exception('Incomplete form data');
     }
 
@@ -45,6 +45,7 @@ try {
     $lastName = sanitize_input($_POST['last_name']);
     $birthdate = sanitize_input($_POST['birthdate']);
     $address = sanitize_input($_POST['address']);
+    $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
     $username = sanitize_input($_POST['username']);
     $password = ($_POST['password']);
 
@@ -80,26 +81,27 @@ try {
     $usersUpdateSuccess = false;
 
     // Check if password is provided
-    if (isset ($password) && $password !== '') {
+    if (isset($password) && $password !== '') {
         // If password is provided, update the users table with username and password
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        $usersUpdateSql = "UPDATE users SET username=?, password=? WHERE id=(SELECT user_id FROM superadmins WHERE id=?)";
+        $usersUpdateSql = "UPDATE users SET username=?, password=?, email=? WHERE id=(SELECT user_id FROM superadmins WHERE id=?)";
         $usersStmt = $conn->prepare($usersUpdateSql);
         if (!$usersStmt) {
             throw new Exception("Failed to prepare statement: " . $conn->error);
         }
-        $usersStmt->bind_param("ssi", $username, $hashed_password, $primary_id);
+        $usersStmt->bind_param("sssi", $username, $hashed_password, $email, $primary_id);
         $usersUpdateSuccess = $usersStmt->execute();
     } else {
         // If password is not provided, update the users table with username only
-        $usersUpdateSql = "UPDATE users SET username=? WHERE id=(SELECT user_id FROM superadmins WHERE id=?)";
+        $usersUpdateSql = "UPDATE users SET username=?, email=? WHERE id=(SELECT user_id FROM superadmins WHERE id=?)";
         $usersStmt = $conn->prepare($usersUpdateSql);
         if (!$usersStmt) {
             throw new Exception("Failed to prepare statement: " . $conn->error);
         }
-        $usersStmt->bind_param("si", $username, $primary_id);
+        $usersStmt->bind_param("ssi", $username, $email, $primary_id);
         $usersUpdateSuccess = $usersStmt->execute();
     }
+
 
     // Execute the admins update statement
     $adminsUpdateSuccess = $adminsStmt->execute();

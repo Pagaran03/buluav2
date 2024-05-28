@@ -3,11 +3,13 @@
 include_once('../../../config.php');
 
 
+
 $sql = "SELECT *,consultations.id as id,CONCAT(patients.first_name, ' ', patients.last_name) AS full_name
 FROM consultations
 JOIN patients ON consultations.patient_id = patients.id
 JOIN superadmins ON superadmins.id = consultations.doctor_id
-WHERE consultations.is_deleted = 0" ;
+WHERE consultations.is_active = 0 AND consultations.is_deleted = 0 AND superadmins.user_id = $user_id";
+
 
 $result = $conn->query($sql);
 

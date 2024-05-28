@@ -224,7 +224,7 @@ if ($result === false) {
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
+                            <input type="email" class="form-control" id="editemail" name="email" required>
                             <div id="editemail_error" class="error"></div>
                         </div>
                         <div class="form-group">
@@ -603,6 +603,7 @@ if ($result === false) {
                     $('#editModal #editLastName').val(editGetData.last_name);
                     $('#editModal #editBirthdate').val(editGetData.birthdate);
                     $('#editModal #editAddress').val(editGetData.address);
+                    $('#editModal #editemail').val(editGetData.email);
                     $('#editModal #ediuser').val(editGetData.username);
                     // $('#editModal #editPassword').val(editGetData.password);
 
@@ -623,6 +624,7 @@ if ($result === false) {
             var lastName = $('#editLastName').val();
             var birthdate = $('#editBirthdate').val();
             var address = $('#editAddress').val();
+            var email = $('#editemail').val();
             var username = $('#ediuser').val();
             var password = $('#editPassword').val();
 
@@ -646,6 +648,10 @@ if ($result === false) {
 
             if (address.trim() === '') {
                 $('#editAddress_error').text('Field is required');
+                isValid = false;
+            }
+            if (email.trim() === '') {
+                $('#editemail_error').text('Field is required');
                 isValid = false;
             }
 
@@ -672,6 +678,7 @@ if ($result === false) {
                         last_name: lastName,
                         birthdate: birthdate,
                         address: address,
+                        email: email,
                         username: username,
                         password: password
                     },
