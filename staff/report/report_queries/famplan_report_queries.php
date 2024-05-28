@@ -829,9 +829,6 @@ $nfpsdmNAPMCount_totalCount = $nfpsdmNAPMCount_count10to14 + $nfpsdmNAPMCount_co
 
 
 
-
-
-
 // CUBM = New Acceptors Present Month
 $cubmCount = "
     SELECT 
@@ -980,11 +977,30 @@ try {
     $err =  $e->getMessage();
 }
 
-$currentUserBTL10to14 =  $btlCUBMCount_count10to14 + $btlNAPMCount_count10to14 + $btlOAPMCount_count10to14 - $btlDOPMCount_count10to14;
-$currentUserBTL15to19 =  $btlCUBMCount_count15to19 + $btlNAPMCount_count15to19 + $btlOAPMCount_count15to19 - $btlDOPMCount_count15to19;
-$currentUserBTL20to49 =  $btlCUBMCount_count20to49 + $btlNAPMCount_count20to49 + $btlOAPMCount_count20to49 - $btlDOPMCount_count20to49;
+$currentUserBTL10to14 =  $btlCUBMCount_count10to14 + $btlANAPMCount_count10to14 + $btlOAPMCount_count10to14 - $btlDOPMCount_count10to14;
+$currentUserBTL15to19 =  $btlCUBMCount_count15to19 + $btlANAPMCount_count15to19 + $btlOAPMCount_count15to19 - $btlDOPMCount_count15to19;
+$currentUserBTL20to49 =  $btlCUBMCount_count20to49 + $btlANAPMCount_count20to49 + $btlOAPMCount_count20to49 - $btlDOPMCount_count20to49;
 
 $currentUserBTLTotal =
     $currentUserBTL10to14 +
     $currentUserBTL15to19 +
     $currentUserBTL20to49;
+
+$currentUserNVSTotal10to14 = $nsvCUBMCount_count10to14 + $nsvCUBMCount_count10to14 + $nsvOAPMCount_count10to14 - $nsvDOPMCount_count10to14;
+$currentUserNVSTotal15to19 = $nsvCUBMCount_count15to19 + $nsvCUBMCount_count15to19 + $nsvOAPMCount_count10to14 - $nsvDOPMCount_count15to19;
+$currentUserNVSTotal20to49 = $nsvCUBMCount_count20to49 + $nsvCUBMCount_count20to49 + $nsvOAPMCount_count20to49 - $nsvDOPMCount_count20to49;
+
+$currentUserNSVTotal =
+    $currentUserNVSTotal10to14 +
+    $currentUserNVSTotal15to19 +
+    $currentUserNVSTotal20to49;
+
+$currentUserCondom10to14 = $condomCUBMCount_count10to14 + $condomANAPMCount_count10to14 + $condomOAPMCount_count10to14 - $condomDOPMCount_count10to14;
+$currentUserCondom10to14 = $condomCUBMCount_count15to19 + $condomANAPMCount_count15to19 + $condomOAPMCount_count15to19 - $condomDOPMCount_count15to19;
+$currentUserCondom10to14 = $condomCUBMCount_count20to49 + $condomANAPMCount_count20to49 + $condomOAPMCount_count20to49 - $condomDOPMCount_count20to49;
+
+$currentUserCondomTotal =
+    $currentUserCondom10to14 +
+    $currentUserCondom10to14 +
+    $currentUserCondom10to14;
+

@@ -222,15 +222,15 @@ assessment: diagnosis" required></textarea>
                             <div class="col-sm">
 
                                 <div class="form-group">
-                                    <label for="">Assessment</label><span style="color: red; font-size: 22px;">*</span>
-                                    <textarea class="form-control" id="assessment" name="assessment" rows="3" placeholder="Patient's diagnosis " required></textarea>
+                                    <label for="">Assessment</label>
+                                    <textarea class="form-control" id="assessment" name="assessment" rows="3" placeholder="Patient's diagnosis " ></textarea>
                                 </div>
                             </div>
                             <div class="col-sm">
 
                                 <div class="form-group">
-                                    <label for="">Plan</label><span style="color: red; font-size: 22px;">*</span>
-                                    <textarea class="form-control" id="plan" name="plan" rows="3" placeholder="Prescribed medicine or the Doctor's plan for the patient" required></textarea>
+                                    <label for="">Plan</label>
+                                    <textarea class="form-control" id="plan" name="plan" rows="3" placeholder="Prescribed medicine or the Doctor's plan for the patient" ></textarea>
                                 </div>
                             </div>
                         </div>
