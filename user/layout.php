@@ -451,31 +451,34 @@ processFormSubmission($conn);
                                     <label for="address">Address</label><span style="color: red; font-size:22px;">*</span>
                                     <select class="form-control" id="address" name="address" required>
                                         <option value="" disabled selected>Select your address</option>
-                                        <option value="Zone 1, Bulua, Cagayan de Oro">Zone 1, Bulua, Cagayan de Oro,
+                                        <option value="Zone 1">Zone 1, Bulua,
+                                            Cagayan de Oro,
                                             Misamis Oriental</option>
-                                        <option value="Zone 2, Bulua, Cagayan de Oro">Zone 2, Bulua, Cagayan de Oro,
+                                        <option value="Zone 2">Zone 2, Bulua, Cagayan de Oro,
                                             Misamis Oriental</option>
-                                        <option value="Zone 3, Bulua, Cagayan de Oro">Zone 3, Bulua, Cagayan de Oro,
+                                        <option value="Zone 3">Zone 3, Bulua, Cagayan de Oro,
                                             Misamis Oriental</option>
-                                        <option value="Zone 4, Bulua, Cagayan de Oro">Zone 4, Bulua, Cagayan de Oro,
+                                        <option value="Zone 4">Zone 4, Bulua, Cagayan de Oro,
                                             Misamis Oriental</option>
-                                        <option value="Zone 5, Bulua, Cagayan de Oro">Zone 5, Bulua, Cagayan de Oro,
+                                        <option value="Zone 5">Zone 5, Bulua, Cagayan de Oro,
                                             Misamis Oriental</option>
-                                        <option value="Zone 6, Bulua, Cagayan de Oro">Zone 6, Bulua, Cagayan de Oro,
+                                        <option value="Zone 6">Zone 6, Bulua, Cagayan de Oro,
                                             Misamis Oriental</option>
-                                        <option value="Zone 7, Bulua, Cagayan de Oro">Zone 7, Bulua, Cagayan de Oro,
+                                        <option value="Zone 7">Zone 7, Bulua, Cagayan de Oro,
                                             Misamis Oriental</option>
-                                        <option value="Zone 8, Bulua, Cagayan de Oro">Zone 8, Bulua, Cagayan de Oro,
+                                        <option value="Zone 8">Zone 8, Bulua, Cagayan de Oro,
                                             Misamis Oriental</option>
-                                        <option value="Zone 9, Bulua, Cagayan de Oro">Zone 9, Bulua, Cagayan de Oro,
+                                        <option value="Zone 9">Zone 9, Bulua, Cagayan de Oro,
                                             Misamis Oriental</option>
-                                        <option value="Zone 10, Bulua, Cagayan de Oro">Zone 10, Bulua, Cagayan de Oro,
+                                        <option value="Zone 10">Zone 10, Bulua, Cagayan de
+                                            Oro,
                                             Misamis Oriental</option>
-                                        <option value="Zone 11, Bulua, Cagayan de Oro">Zone 11, Bulua, Cagayan de Oro,
+                                        <option value="Zone 11">Zone 11, Bulua, Cagayan de
+                                            Oro,
                                             Misamis Oriental</option>
-                                        <option value="Zone 12, Bulua, Cagayan de Oro">Zone 12, Bulua, Cagayan de Oro,
+                                        <option value="Zone 12">Zone 12, Bulua, Cagayan de
+                                            Oro,
                                             Misamis Oriental</option>
-
                                     </select>
                                     <div id="address_error" class="error"></div>
                                 </div>
