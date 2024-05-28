@@ -40,14 +40,14 @@ while ($row = $result->fetch_assoc()) {
   );
 }
 
-$columns = ['bgc_date', 'hepa_date', 'pentavalent_date1', 'pentavalent_date2', 'pentavalent_date3', 'oral_date1', 'oral_date2', 'oral_date3'];
+$columns = ['bgc_date', 'hepa_date', 'pentavalent_date1', 'pentavalent_date2', 'pentavalent_date3', 'oral_date1', 'oral_date2', 'oral_date3', 'ipv_date1', 'ipv_date2', 'pcv_date1', 'pcv_date2', 'pcv_date3', 'mmr_date1', 'mmr_date2', 'mcv_1', 'mcv_2'];
 
 // Initialize an array to store the counts
 $countss = array();
 
 foreach ($columns as $column) {
   // Assuming $conn is your database connection
-  $sql = "SELECT COUNT($column) AS count FROM immunization"; // Replace 'your_table' with your actual table name
+  $sql = "SELECT COUNT(*) AS count FROM immunization WHERE $column IS NOT NULL AND $column <> '0000-00-00'"; // Corrected query to exclude '0000-00-00' dates
   $result = $conn->query($sql);
 
   if ($result === false) {
@@ -601,6 +601,15 @@ foreach ($tables as $table) {
                           '	rgb(153, 255, 153, 0.6)',
                           'rgb(153, 255, 255, 0.6)',
                           'rgb(255, 153, 153, 0.6)',
+                          'rgb(215, 143, 103, 0.6)',
+                          'rgb(268, 103, 53, 0.6)',
+                          'rgb(255, 85, 157, 0.6)',
+                          'rgb(215, 183, 113, 0.6)',
+                          'rgb(251, 159, 173, 0.6)',
+                          'rgb(152, 153, 153, 0.6)',
+                          'rgb(255, 255, 153, 0.6)',
+                          'rgb(200, 162, 19, 0.6)',
+                          'rgb(190, 113, 132, 0.6)',
                         ],
                       }],
                     },
