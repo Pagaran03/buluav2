@@ -1,8 +1,12 @@
  <?php
 
     $query = "SELECT address, gender, COUNT(*) AS count 
-FROM patients 
-GROUP BY address, gender";
+    FROM patients 
+    GROUP BY address, gender
+    ORDER BY 
+      CAST(SUBSTRING(address, 6) AS UNSIGNED), -- Extract the numeric part and convert to number
+      gender;
+    ";
     $result = $conn->query($query);
 
     $male_data = [];
@@ -23,10 +27,6 @@ GROUP BY address, gender";
     } else {
         echo "0 results";
     }
-
-    echo "<script>console.log('Male Data: " . json_encode($male_data) . "');</script>";
-    echo "<script>console.log('Female Data: " . json_encode($female_data) . "');</script>";
-
 
 
     $queryAge = "SELECT address, age, COUNT(*) AS count 
@@ -55,7 +55,7 @@ GROUP BY address, age";
 
     $queryZone1 = "SELECT COUNT(*) AS zone1_count FROM immunization
     INNER JOIN patients ON immunization.patient_id = patients.id
-    WHERE patients.address = 'Zone 1, Bulua, Cagayan de Oro'";
+    WHERE patients.address = 'Zone 1'";
     $result = $conn->query($queryZone1);
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
@@ -66,7 +66,7 @@ GROUP BY address, age";
 
     $queryZone1Con = "SELECT COUNT(*) AS zone1_count FROM consultations
      INNER JOIN patients ON consultations.patient_id = patients.id
-     WHERE patients.address = 'Zone 1, Bulua, Cagayan de Oro'";
+     WHERE patients.address = 'Zone 1'";
     $result = $conn->query($queryZone1Con);
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
@@ -77,7 +77,7 @@ GROUP BY address, age";
 
     $queryZone1Prenatal = "SELECT COUNT(*) AS zone1_count FROM prenatal_subjective
      INNER JOIN patients ON prenatal_subjective.patient_id = patients.id
-     WHERE patients.address = 'Zone 1, Bulua, Cagayan de Oro'";
+     WHERE patients.address = 'Zone 1'";
     $result = $conn->query($queryZone1Prenatal);
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
@@ -88,13 +88,516 @@ GROUP BY address, age";
 
     $queryZone1fp = "SELECT COUNT(*) AS zone1_count_fp FROM fp_information
      INNER JOIN patients ON fp_information.patient_id = patients.id
-     WHERE patients.address = 'Zone 1, Bulua, Cagayan de Oro'";
+     WHERE patients.address = 'Zone 1'";
     $result = $conn->query($queryZone1fp);
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
         $zone1_count_fp = $row['zone1_count_fp'];
     } else {
         $zone1_count_fp = 0;
+    }
+
+    // zone 2
+
+    $queryZone2 = "SELECT COUNT(*) AS zone2_count FROM immunization
+    INNER JOIN patients ON immunization.patient_id = patients.id
+    WHERE patients.address = 'Zone 2'";
+    $result = $conn->query($queryZone2);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $zone2_count = $row['zone2_count'];
+    } else {
+        $zone2_count = 0;
+    }
+
+    $queryZone2Con = "SELECT COUNT(*) AS zone2_count FROM consultations
+     INNER JOIN patients ON consultations.patient_id = patients.id
+     WHERE patients.address = 'Zone 2'";
+    $result = $conn->query($queryZone2Con);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $zone2_count_consult = $row['zone2_count'];
+    } else {
+        $zone2_count_consult = 0;
+    }
+
+    $queryZone2Prenatal = "SELECT COUNT(*) AS zone2_count FROM prenatal_subjective
+     INNER JOIN patients ON prenatal_subjective.patient_id = patients.id
+     WHERE patients.address = 'Zone 2'";
+    $result = $conn->query($queryZone2Prenatal);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $zone2_count_prenatal = $row['zone2_count'];
+    } else {
+        $zone2_count_prenatal = 0;
+    }
+
+    $queryZone2fp = "SELECT COUNT(*) AS zone2_count_fp FROM fp_information
+     INNER JOIN patients ON fp_information.patient_id = patients.id
+     WHERE patients.address = 'Zone 2'";
+    $result = $conn->query($queryZone2fp);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $zone2_count_fp = $row['zone2_count_fp'];
+    } else {
+        $zone2_count_fp = 0;
+    }
+
+    // zone 3
+
+
+    $queryZone3 = "SELECT COUNT(*) AS zone3_count FROM immunization
+    INNER JOIN patients ON immunization.patient_id = patients.id
+    WHERE patients.address = 'Zone 3'";
+    $result = $conn->query($queryZone3);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $zone3_count = $row['zone3_count'];
+    } else {
+        $zone3_count = 0;
+    }
+
+    $queryZone3Con = "SELECT COUNT(*) AS zone3_count FROM consultations
+     INNER JOIN patients ON consultations.patient_id = patients.id
+     WHERE patients.address = 'Zone 3'";
+    $result = $conn->query($queryZone3Con);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $zone3_count_consult = $row['zone3_count'];
+    } else {
+        $zone3_count_consult = 0;
+    }
+
+    $queryZone3Prenatal = "SELECT COUNT(*) AS zone3_count FROM prenatal_subjective
+     INNER JOIN patients ON prenatal_subjective.patient_id = patients.id
+     WHERE patients.address = 'Zone 3'";
+    $result = $conn->query($queryZone3Prenatal);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $zone3_count_prenatal = $row['zone3_count'];
+    } else {
+        $zone3_count_prenatal = 0;
+    }
+
+    $queryZone3fp = "SELECT COUNT(*) AS zone3_count_fp FROM fp_information
+     INNER JOIN patients ON fp_information.patient_id = patients.id
+     WHERE patients.address = 'Zone 3'";
+    $result = $conn->query($queryZone3fp);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $zone3_count_fp = $row['zone3_count_fp'];
+    } else {
+        $zone3_count_fp = 0;
+    }
+
+    //zone 4
+
+
+    $queryZone4 = "SELECT COUNT(*) AS zone4_count FROM immunization
+    INNER JOIN patients ON immunization.patient_id = patients.id
+    WHERE patients.address = 'Zone 4'";
+    $result = $conn->query($queryZone4);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $zone4_count = $row['zone4_count'];
+    } else {
+        $zone4_count = 0;
+    }
+
+    $queryZone4Con = "SELECT COUNT(*) AS zone4_count FROM consultations
+     INNER JOIN patients ON consultations.patient_id = patients.id
+     WHERE patients.address = 'Zone 4'";
+    $result = $conn->query($queryZone4Con);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $zone4_count_consult = $row['zone4_count'];
+    } else {
+        $zone4_count_consult = 0;
+    }
+
+    $queryZone4Prenatal = "SELECT COUNT(*) AS zone4_count FROM prenatal_subjective
+     INNER JOIN patients ON prenatal_subjective.patient_id = patients.id
+     WHERE patients.address = 'Zone 4'";
+    $result = $conn->query($queryZone4Prenatal);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $zone4_count_prenatal = $row['zone4_count'];
+    } else {
+        $zone4_count_prenatal = 0;
+    }
+
+    $queryZone4fp = "SELECT COUNT(*) AS zone4_count_fp FROM fp_information
+     INNER JOIN patients ON fp_information.patient_id = patients.id
+     WHERE patients.address = 'Zone 4'";
+    $result = $conn->query($queryZone4fp);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $zone4_count_fp = $row['zone4_count_fp'];
+    } else {
+        $zone4_count_fp = 0;
+    }
+
+    //zone 5
+
+    $queryZone5 = "SELECT COUNT(*) AS zone5_count FROM immunization
+    INNER JOIN patients ON immunization.patient_id = patients.id
+    WHERE patients.address = 'Zone 5'";
+    $result = $conn->query($queryZone5);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $zone5_count = $row['zone5_count'];
+    } else {
+        $zone5_count = 0;
+    }
+
+    $queryZone5Con = "SELECT COUNT(*) AS zone5_count FROM consultations
+     INNER JOIN patients ON consultations.patient_id = patients.id
+     WHERE patients.address = 'Zone 5'";
+    $result = $conn->query($queryZone5Con);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $zone5_count_consult = $row['zone5_count'];
+    } else {
+        $zone5_count_consult = 0;
+    }
+
+    $queryZone5Prenatal = "SELECT COUNT(*) AS zone5_count FROM prenatal_subjective
+     INNER JOIN patients ON prenatal_subjective.patient_id = patients.id
+     WHERE patients.address = 'Zone 5'";
+    $result = $conn->query($queryZone5Prenatal);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $zone5_count_prenatal = $row['zone5_count'];
+    } else {
+        $zone5_count_prenatal = 0;
+    }
+
+    $queryZone5fp = "SELECT COUNT(*) AS zone5_count_fp FROM fp_information
+     INNER JOIN patients ON fp_information.patient_id = patients.id
+     WHERE patients.address = 'Zone 5'";
+    $result = $conn->query($queryZone5fp);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $zone5_count_fp = $row['zone5_count_fp'];
+    } else {
+        $zone5_count_fp = 0;
+    }
+
+    //zone 6
+
+    $queryZone6 = "SELECT COUNT(*) AS zone6_count FROM immunization
+    INNER JOIN patients ON immunization.patient_id = patients.id
+    WHERE patients.address = 'Zone 6'";
+    $result = $conn->query($queryZone6);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $zone6_count = $row['zone6_count'];
+    } else {
+        $zone6_count = 0;
+    }
+
+    $queryZone6Con = "SELECT COUNT(*) AS zone6_count FROM consultations
+     INNER JOIN patients ON consultations.patient_id = patients.id
+     WHERE patients.address = 'Zone 6'";
+    $result = $conn->query($queryZone6Con);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $zone6_count_consult = $row['zone6_count'];
+    } else {
+        $zone6_count_consult = 0;
+    }
+
+    $queryZone6Prenatal = "SELECT COUNT(*) AS zone6_count FROM prenatal_subjective
+     INNER JOIN patients ON prenatal_subjective.patient_id = patients.id
+     WHERE patients.address = 'Zone 6'";
+    $result = $conn->query($queryZone6Prenatal);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $zone6_count_prenatal = $row['zone6_count'];
+    } else {
+        $zone6_count_prenatal = 0;
+    }
+
+    $queryZone6fp = "SELECT COUNT(*) AS zone6_count_fp FROM fp_information
+     INNER JOIN patients ON fp_information.patient_id = patients.id
+     WHERE patients.address = 'Zone 6'";
+    $result = $conn->query($queryZone6fp);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $zone6_count_fp = $row['zone6_count_fp'];
+    } else {
+        $zone6_count_fp = 0;
+    }
+
+    //zone 7
+
+    $queryZone7 = "SELECT COUNT(*) AS zone7_count FROM immunization
+    INNER JOIN patients ON immunization.patient_id = patients.id
+    WHERE patients.address = 'Zone 7'";
+    $result = $conn->query($queryZone7);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $zone7_count = $row['zone7_count'];
+    } else {
+        $zone7_count = 0;
+    }
+
+    $queryZone7Con = "SELECT COUNT(*) AS zone7_count FROM consultations
+     INNER JOIN patients ON consultations.patient_id = patients.id
+     WHERE patients.address = 'Zone 7'";
+    $result = $conn->query($queryZone7Con);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $zone7_count_consult = $row['zone7_count'];
+    } else {
+        $zone7_count_consult = 0;
+    }
+
+    $queryZone7Prenatal = "SELECT COUNT(*) AS zone7_count FROM prenatal_subjective
+     INNER JOIN patients ON prenatal_subjective.patient_id = patients.id
+     WHERE patients.address = 'Zone 7'";
+    $result = $conn->query($queryZone7Prenatal);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $zone7_count_prenatal = $row['zone7_count'];
+    } else {
+        $zone7_count_prenatal = 0;
+    }
+
+    $queryZone7fp = "SELECT COUNT(*) AS zone7_count_fp FROM fp_information
+     INNER JOIN patients ON fp_information.patient_id = patients.id
+     WHERE patients.address = 'Zone 7'";
+    $result = $conn->query($queryZone7fp);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $zone7_count_fp = $row['zone7_count_fp'];
+    } else {
+        $zone7_count_fp = 0;
+    }
+
+    // zone 8
+    $queryZone8 = "SELECT COUNT(*) AS zone8_count FROM immunization
+    INNER JOIN patients ON immunization.patient_id = patients.id
+    WHERE patients.address = 'Zone 8'";
+    $result = $conn->query($queryZone8);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $zone8_count = $row['zone8_count'];
+    } else {
+        $zone8_count = 0;
+    }
+
+    $queryZone8Con = "SELECT COUNT(*) AS zone8_count FROM consultations
+     INNER JOIN patients ON consultations.patient_id = patients.id
+     WHERE patients.address = 'Zone 8'";
+    $result = $conn->query($queryZone8Con);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $zone8_count_consult = $row['zone8_count'];
+    } else {
+        $zone8_count_consult = 0;
+    }
+
+    $queryZone8Prenatal = "SELECT COUNT(*) AS zone8_count FROM prenatal_subjective
+     INNER JOIN patients ON prenatal_subjective.patient_id = patients.id
+     WHERE patients.address = 'Zone 8'";
+    $result = $conn->query($queryZone8Prenatal);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $zone8_count_prenatal = $row['zone8_count'];
+    } else {
+        $zone8_count_prenatal = 0;
+    }
+
+    $queryZone8fp = "SELECT COUNT(*) AS zone8_count_fp FROM fp_information
+     INNER JOIN patients ON fp_information.patient_id = patients.id
+     WHERE patients.address = 'Zone 8'";
+    $result = $conn->query($queryZone8fp);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $zone8_count_fp = $row['zone8_count_fp'];
+    } else {
+        $zone8_count_fp = 0;
+    }
+
+    //zone 9
+    $queryZone9 = "SELECT COUNT(*) AS zone9_count FROM immunization
+    INNER JOIN patients ON immunization.patient_id = patients.id
+    WHERE patients.address = 'Zone 9'";
+    $result = $conn->query($queryZone9);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $zone9_count = $row['zone9_count'];
+    } else {
+        $zone9_count = 0;
+    }
+
+    $queryZone9Con = "SELECT COUNT(*) AS zone9_count FROM consultations
+     INNER JOIN patients ON consultations.patient_id = patients.id
+     WHERE patients.address = 'Zone 9'";
+    $result = $conn->query($queryZone9Con);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $zone9_count_consult = $row['zone9_count'];
+    } else {
+        $zone9_count_consult = 0;
+    }
+
+    $queryZone9Prenatal = "SELECT COUNT(*) AS zone9_count FROM prenatal_subjective
+     INNER JOIN patients ON prenatal_subjective.patient_id = patients.id
+     WHERE patients.address = 'Zone 9'";
+    $result = $conn->query($queryZone9Prenatal);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $zone9_count_prenatal = $row['zone9_count'];
+    } else {
+        $zone9_count_prenatal = 0;
+    }
+
+    $queryZone9fp = "SELECT COUNT(*) AS zone9_count_fp FROM fp_information
+     INNER JOIN patients ON fp_information.patient_id = patients.id
+     WHERE patients.address = 'Zone 9'";
+    $result = $conn->query($queryZone9fp);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $zone9_count_fp = $row['zone9_count_fp'];
+    } else {
+        $zone9_count_fp = 0;
+    }
+
+    //zone 10
+    $queryZone10 = "SELECT COUNT(*) AS zone10_count FROM immunization
+    INNER JOIN patients ON immunization.patient_id = patients.id
+    WHERE patients.address = 'Zone 10'";
+    $result = $conn->query($queryZone10);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $zone10_count = $row['zone10_count'];
+    } else {
+        $zone10_count = 0;
+    }
+
+    $queryZone10Con = "SELECT COUNT(*) AS zone10_count FROM consultations
+     INNER JOIN patients ON consultations.patient_id = patients.id
+     WHERE patients.address = 'Zone 10'";
+    $result = $conn->query($queryZone10Con);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $zone10_count_consult = $row['zone10_count'];
+    } else {
+        $zone10_count_consult = 0;
+    }
+
+    $queryZone10Prenatal = "SELECT COUNT(*) AS zone10_count FROM prenatal_subjective
+     INNER JOIN patients ON prenatal_subjective.patient_id = patients.id
+     WHERE patients.address = 'Zone 10'";
+    $result = $conn->query($queryZone10Prenatal);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $zone10_count_prenatal = $row['zone10_count'];
+    } else {
+        $zone10_count_prenatal = 0;
+    }
+
+    $queryZone10fp = "SELECT COUNT(*) AS zone10_count_fp FROM fp_information
+     INNER JOIN patients ON fp_information.patient_id = patients.id
+     WHERE patients.address = 'Zone 10'";
+    $result = $conn->query($queryZone10fp);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $zone10_count_fp = $row['zone10_count_fp'];
+    } else {
+        $zone10_count_fp = 0;
+    }
+
+    //zone 11
+    $queryZone11 = "SELECT COUNT(*) AS zone11_count FROM immunization
+    INNER JOIN patients ON immunization.patient_id = patients.id
+    WHERE patients.address = 'Zone 11'";
+    $result = $conn->query($queryZone11);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $zone11_count = $row['zone11_count'];
+    } else {
+        $zone11_count = 0;
+    }
+
+    $queryZone11Con = "SELECT COUNT(*) AS zone11_count FROM consultations
+     INNER JOIN patients ON consultations.patient_id = patients.id
+     WHERE patients.address = 'Zone 11'";
+    $result = $conn->query($queryZone11Con);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $zone11_count_consult = $row['zone11_count'];
+    } else {
+        $zone11_count_consult = 0;
+    }
+
+    $queryZone11Prenatal = "SELECT COUNT(*) AS zone11_count FROM prenatal_subjective
+     INNER JOIN patients ON prenatal_subjective.patient_id = patients.id
+     WHERE patients.address = 'Zone 11'";
+    $result = $conn->query($queryZone11Prenatal);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $zone11_count_prenatal = $row['zone11_count'];
+    } else {
+        $zone11_count_prenatal = 0;
+    }
+
+    $queryZone11fp = "SELECT COUNT(*) AS zone11_count_fp FROM fp_information
+     INNER JOIN patients ON fp_information.patient_id = patients.id
+     WHERE patients.address = 'Zone 11'";
+    $result = $conn->query($queryZone11fp);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $zone11_count_fp = $row['zone11_count_fp'];
+    } else {
+        $zone11_count_fp = 0;
+    }
+
+    //zone 12
+    $queryZone12 = "SELECT COUNT(*) AS zone12_count FROM immunization
+    INNER JOIN patients ON immunization.patient_id = patients.id
+    WHERE patients.address = 'Zone 12'";
+    $result = $conn->query($queryZone12);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $zone12_count = $row['zone12_count'];
+    } else {
+        $zone12_count = 0;
+    }
+
+    $queryZone12Con = "SELECT COUNT(*) AS zone12_count FROM consultations
+     INNER JOIN patients ON consultations.patient_id = patients.id
+     WHERE patients.address = 'Zone 12'";
+    $result = $conn->query($queryZone12Con);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $zone12_count_consult = $row['zone12_count'];
+    } else {
+        $zone12_count_consult = 0;
+    }
+
+    $queryZone12Prenatal = "SELECT COUNT(*) AS zone12_count FROM prenatal_subjective
+     INNER JOIN patients ON prenatal_subjective.patient_id = patients.id
+     WHERE patients.address = 'Zone 12'";
+    $result = $conn->query($queryZone12Prenatal);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $zone12_count_prenatal = $row['zone12_count'];
+    } else {
+        $zone12_count_prenatal = 0;
+    }
+
+    $queryZone12fp = "SELECT COUNT(*) AS zone12_count_fp FROM fp_information
+     INNER JOIN patients ON fp_information.patient_id = patients.id
+     WHERE patients.address = 'Zone 12'";
+    $result = $conn->query($queryZone12fp);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $zone12_count_fp = $row['zone12_count_fp'];
+    } else {
+        $zone12_count_fp = 0;
     }
     ?>
  <!-- Modal -->
@@ -115,7 +618,7 @@ GROUP BY address, age";
                      <option value="Age">Age</option>
                      <option value="Services">Services</option>
                  </select>
-                 <select name="" id="zonalSelect" hidden>
+                 <select name="" id="zonalSelect" onchange="changeChart()" hidden>
                      <option value="Zone 1">Zone 1</option>
                      <option value="Zone 2">Zone 2</option>
                      <option value="Zone 3">Zone 3</option>
@@ -143,6 +646,8 @@ GROUP BY address, age";
                          var ctx = document.getElementById("myChart").getContext('2d');
 
                          if (opt == "Gender") {
+                             document.getElementById("zonalSelect").setAttribute("hidden", "hidden");
+
                              myChart = new Chart(ctx, {
                                  type: 'bar',
                                  data: {
@@ -187,6 +692,7 @@ GROUP BY address, age";
                              });
                          } else if (opt == "Services") {
                              document.getElementById("zonalSelect").removeAttribute("hidden");
+
                              if (zon == "Zone 1") {
                                  myChart = new Chart(ctx, {
                                      type: 'bar',
@@ -222,22 +728,302 @@ GROUP BY address, age";
                                          labels: ["Consultation, Immunization, Prenatal, Family Planning"],
                                          datasets: [{
                                                  label: 'Consultation',
-                                                 data: 0,
+                                                 data: [<?php echo json_encode($zone2_count_consult); ?>],
                                                  backgroundColor: "rgba(153,255,51,1)"
                                              },
                                              {
                                                  label: 'Immunization',
-                                                 data: [<?php echo json_encode($zone1_count); ?>],
+                                                 data: [<?php echo json_encode($zone2_count); ?>],
                                                  backgroundColor: "rgba(255,153,0,1)"
                                              },
                                              {
                                                  label: 'Prenatal',
-                                                 data: [<?php echo json_encode($zone1_count_prenatal); ?>],
+                                                 data: [<?php echo json_encode($zone2_count_prenatal); ?>],
                                                  backgroundColor: "rgba(69, 219, 255, 0.8)"
                                              },
                                              {
                                                  label: 'Family Planning',
-                                                 data: [<?php echo json_encode($zone1_count_fp); ?>],
+                                                 data: [<?php echo json_encode($zone2_count_fp); ?>],
+                                                 backgroundColor: "rgba(69, 55, 255, 0.66)"
+                                             },
+                                         ]
+                                     }
+                                 });
+                             } else if (zon == "Zone 3") {
+                                 myChart = new Chart(ctx, {
+                                     type: 'bar',
+                                     data: {
+                                         labels: ["Consultation, Immunization, Prenatal, Family Planning"],
+                                         datasets: [{
+                                                 label: 'Consultation',
+                                                 data: [<?php echo json_encode($zone3_count_consult); ?>],
+                                                 backgroundColor: "rgba(153,255,51,1)"
+                                             },
+                                             {
+                                                 label: 'Immunization',
+                                                 data: [<?php echo json_encode($zone3_count); ?>],
+                                                 backgroundColor: "rgba(255,153,0,1)"
+                                             },
+                                             {
+                                                 label: 'Prenatal',
+                                                 data: [<?php echo json_encode($zone3_count_prenatal); ?>],
+                                                 backgroundColor: "rgba(69, 219, 355, 0.8)"
+                                             },
+                                             {
+                                                 label: 'Family Planning',
+                                                 data: [<?php echo json_encode($zone3_count_fp); ?>],
+                                                 backgroundColor: "rgba(69, 55, 255, 0.66)"
+                                             },
+                                         ]
+                                     }
+                                 });
+                             } else if (zon == "Zone 4") {
+                                 myChart = new Chart(ctx, {
+                                     type: 'bar',
+                                     data: {
+                                         labels: ["Consultation, Immunization, Prenatal, Family Planning"],
+                                         datasets: [{
+                                                 label: 'Consultation',
+                                                 data: [<?php echo json_encode($zone4_count_consult); ?>],
+                                                 backgroundColor: "rgba(153,255,51,1)"
+                                             },
+                                             {
+                                                 label: 'Immunization',
+                                                 data: [<?php echo json_encode($zone4_count); ?>],
+                                                 backgroundColor: "rgba(255,153,0,1)"
+                                             },
+                                             {
+                                                 label: 'Prenatal',
+                                                 data: [<?php echo json_encode($zone4_count_prenatal); ?>],
+                                                 backgroundColor: "rgba(69, 219, 355, 0.8)"
+                                             },
+                                             {
+                                                 label: 'Family Planning',
+                                                 data: [<?php echo json_encode($zone4_count_fp); ?>],
+                                                 backgroundColor: "rgba(69, 55, 255, 0.66)"
+                                             },
+                                         ]
+                                     }
+                                 });
+                             } else if (zon == "Zone 5") {
+                                 myChart = new Chart(ctx, {
+                                     type: 'bar',
+                                     data: {
+                                         labels: ["Consultation, Immunization, Prenatal, Family Planning"],
+                                         datasets: [{
+                                                 label: 'Consultation',
+                                                 data: [<?php echo json_encode($zone5_count_consult); ?>],
+                                                 backgroundColor: "rgba(153,255,51,1)"
+                                             },
+                                             {
+                                                 label: 'Immunization',
+                                                 data: [<?php echo json_encode($zone5_count); ?>],
+                                                 backgroundColor: "rgba(255,153,0,1)"
+                                             },
+                                             {
+                                                 label: 'Prenatal',
+                                                 data: [<?php echo json_encode($zone5_count_prenatal); ?>],
+                                                 backgroundColor: "rgba(69, 219, 355, 0.8)"
+                                             },
+                                             {
+                                                 label: 'Family Planning',
+                                                 data: [<?php echo json_encode($zone5_count_fp); ?>],
+                                                 backgroundColor: "rgba(69, 55, 255, 0.66)"
+                                             },
+                                         ]
+                                     }
+                                 });
+                             } else if (zon == "Zone 6") {
+                                 myChart = new Chart(ctx, {
+                                     type: 'bar',
+                                     data: {
+                                         labels: ["Consultation, Immunization, Prenatal, Family Planning"],
+                                         datasets: [{
+                                                 label: 'Consultation',
+                                                 data: [<?php echo json_encode($zone6_count_consult); ?>],
+                                                 backgroundColor: "rgba(153,255,51,1)"
+                                             },
+                                             {
+                                                 label: 'Immunization',
+                                                 data: [<?php echo json_encode($zone6_count); ?>],
+                                                 backgroundColor: "rgba(255,153,0,1)"
+                                             },
+                                             {
+                                                 label: 'Prenatal',
+                                                 data: [<?php echo json_encode($zone6_count_prenatal); ?>],
+                                                 backgroundColor: "rgba(69, 219, 355, 0.8)"
+                                             },
+                                             {
+                                                 label: 'Family Planning',
+                                                 data: [<?php echo json_encode($zone6_count_fp); ?>],
+                                                 backgroundColor: "rgba(69, 55, 255, 0.66)"
+                                             },
+                                         ]
+                                     }
+                                 });
+                             } else if (zon == "Zone 7") {
+                                 myChart = new Chart(ctx, {
+                                     type: 'bar',
+                                     data: {
+                                         labels: ["Consultation, Immunization, Prenatal, Family Planning"],
+                                         datasets: [{
+                                                 label: 'Consultation',
+                                                 data: [<?php echo json_encode($zone7_count_consult); ?>],
+                                                 backgroundColor: "rgba(153,255,51,1)"
+                                             },
+                                             {
+                                                 label: 'Immunization',
+                                                 data: [<?php echo json_encode($zone7_count); ?>],
+                                                 backgroundColor: "rgba(255,153,0,1)"
+                                             },
+                                             {
+                                                 label: 'Prenatal',
+                                                 data: [<?php echo json_encode($zone7_count_prenatal); ?>],
+                                                 backgroundColor: "rgba(69, 219, 355, 0.8)"
+                                             },
+                                             {
+                                                 label: 'Family Planning',
+                                                 data: [<?php echo json_encode($zone7_count_fp); ?>],
+                                                 backgroundColor: "rgba(69, 55, 255, 0.66)"
+                                             },
+                                         ]
+                                     }
+                                 });
+                             } else if (zon == "Zone 8") {
+                                 myChart = new Chart(ctx, {
+                                     type: 'bar',
+                                     data: {
+                                         labels: ["Consultation, Immunization, Prenatal, Family Planning"],
+                                         datasets: [{
+                                                 label: 'Consultation',
+                                                 data: [<?php echo json_encode($zone8_count_consult); ?>],
+                                                 backgroundColor: "rgba(153,255,51,1)"
+                                             },
+                                             {
+                                                 label: 'Immunization',
+                                                 data: [<?php echo json_encode($zone8_count); ?>],
+                                                 backgroundColor: "rgba(255,153,0,1)"
+                                             },
+                                             {
+                                                 label: 'Prenatal',
+                                                 data: [<?php echo json_encode($zone8_count_prenatal); ?>],
+                                                 backgroundColor: "rgba(69, 219, 355, 0.8)"
+                                             },
+                                             {
+                                                 label: 'Family Planning',
+                                                 data: [<?php echo json_encode($zone8_count_fp); ?>],
+                                                 backgroundColor: "rgba(69, 55, 255, 0.66)"
+                                             },
+                                         ]
+                                     }
+                                 });
+                             } else if (zon == "Zone 9") {
+                                 myChart = new Chart(ctx, {
+                                     type: 'bar',
+                                     data: {
+                                         labels: ["Consultation, Immunization, Prenatal, Family Planning"],
+                                         datasets: [{
+                                                 label: 'Consultation',
+                                                 data: [<?php echo json_encode($zone9_count_consult); ?>],
+                                                 backgroundColor: "rgba(153,255,51,1)"
+                                             },
+                                             {
+                                                 label: 'Immunization',
+                                                 data: [<?php echo json_encode($zone9_count); ?>],
+                                                 backgroundColor: "rgba(255,153,0,1)"
+                                             },
+                                             {
+                                                 label: 'Prenatal',
+                                                 data: [<?php echo json_encode($zone9_count_prenatal); ?>],
+                                                 backgroundColor: "rgba(69, 219, 355, 0.8)"
+                                             },
+                                             {
+                                                 label: 'Family Planning',
+                                                 data: [<?php echo json_encode($zone9_count_fp); ?>],
+                                                 backgroundColor: "rgba(69, 55, 255, 0.66)"
+                                             },
+                                         ]
+                                     }
+                                 });
+                             } else if (zon == "Zone 10") {
+                                 myChart = new Chart(ctx, {
+                                     type: 'bar',
+                                     data: {
+                                         labels: ["Consultation, Immunization, Prenatal, Family Planning"],
+                                         datasets: [{
+                                                 label: 'Consultation',
+                                                 data: [<?php echo json_encode($zone10_count_consult); ?>],
+                                                 backgroundColor: "rgba(153,255,51,1)"
+                                             },
+                                             {
+                                                 label: 'Immunization',
+                                                 data: [<?php echo json_encode($zone10_count); ?>],
+                                                 backgroundColor: "rgba(255,153,0,1)"
+                                             },
+                                             {
+                                                 label: 'Prenatal',
+                                                 data: [<?php echo json_encode($zone10_count_prenatal); ?>],
+                                                 backgroundColor: "rgba(69, 219, 355, 0.8)"
+                                             },
+                                             {
+                                                 label: 'Family Planning',
+                                                 data: [<?php echo json_encode($zone10_count_fp); ?>],
+                                                 backgroundColor: "rgba(69, 55, 255, 0.66)"
+                                             },
+                                         ]
+                                     }
+                                 });
+                             } else if (zon == "Zone 11") {
+                                 myChart = new Chart(ctx, {
+                                     type: 'bar',
+                                     data: {
+                                         labels: ["Consultation, Immunization, Prenatal, Family Planning"],
+                                         datasets: [{
+                                                 label: 'Consultation',
+                                                 data: [<?php echo json_encode($zone11_count_consult); ?>],
+                                                 backgroundColor: "rgba(153,255,51,1)"
+                                             },
+                                             {
+                                                 label: 'Immunization',
+                                                 data: [<?php echo json_encode($zone11_count); ?>],
+                                                 backgroundColor: "rgba(255,153,0,1)"
+                                             },
+                                             {
+                                                 label: 'Prenatal',
+                                                 data: [<?php echo json_encode($zone11_count_prenatal); ?>],
+                                                 backgroundColor: "rgba(69, 219, 355, 0.8)"
+                                             },
+                                             {
+                                                 label: 'Family Planning',
+                                                 data: [<?php echo json_encode($zone11_count_fp); ?>],
+                                                 backgroundColor: "rgba(69, 55, 255, 0.66)"
+                                             },
+                                         ]
+                                     }
+                                 });
+                             } else if (zon == "Zone 12") {
+                                 myChart = new Chart(ctx, {
+                                     type: 'bar',
+                                     data: {
+                                         labels: ["Consultation, Immunization, Prenatal, Family Planning"],
+                                         datasets: [{
+                                                 label: 'Consultation',
+                                                 data: [<?php echo json_encode($zone12_count_consult); ?>],
+                                                 backgroundColor: "rgba(153,255,51,1)"
+                                             },
+                                             {
+                                                 label: 'Immunization',
+                                                 data: [<?php echo json_encode($zone12_count); ?>],
+                                                 backgroundColor: "rgba(255,153,0,1)"
+                                             },
+                                             {
+                                                 label: 'Prenatal',
+                                                 data: [<?php echo json_encode($zone12_count_prenatal); ?>],
+                                                 backgroundColor: "rgba(69, 219, 355, 0.8)"
+                                             },
+                                             {
+                                                 label: 'Family Planning',
+                                                 data: [<?php echo json_encode($zone12_count_fp); ?>],
                                                  backgroundColor: "rgba(69, 55, 255, 0.66)"
                                              },
                                          ]
@@ -247,7 +1033,6 @@ GROUP BY address, age";
                          }
                      }
                  </script>
-
              </div>
              <div class="modal-footer">
                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

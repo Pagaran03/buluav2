@@ -1035,5 +1035,93 @@ $currentUserPillsCocTotal =
     
     
 $currentUserInjectablesTotal10to14 =  $injectablesCUBMCount_count10to14 + $injectablesANAPMCount_count10to14 + $injectablesOAPMCount_count10to14 - $injectablesDOPMCount_count10to14;
-$currentUserInjectablesTotal10to14 =  $injectablesCUBMCount_count10to14 + $injectablesANAPMCount_count10to14 + $injectablesOAPMCount_count10to14 - $injectablesDOPMCount_count10to14;
-$currentUserInjectablesTotal10to14 =  $injectablesCUBMCount_count10to14 + $injectablesANAPMCount_count10to14 + $injectablesOAPMCount_count10to14 - $injectablesDOPMCount_count10to14;
+$currentUserInjectablesTotal15to19 =  $injectablesCUBMCount_count15to19 + $injectablesANAPMCount_count15to19 + $injectablesOAPMCount_count15to19 - $injectablesDOPMCount_count15to19;
+$currentUserInjectablesTotal20to49 =  $injectablesCUBMCount_count20to49 + $injectablesANAPMCount_count20to49 + $injectablesOAPMCount_count20to49 - $injectablesDOPMCount_count20to49;
+
+$currentUserInjectablesTotal =
+    $currentUserInjectablesTotal10to14 +
+    $currentUserInjectablesTotal15to19 +
+    $currentUserInjectablesTotal20to49;
+
+
+$currentUserImplantTotal10to14 =  $implantCUBMCount_count10to14 + $implantANAPMCount_count10to14 + $implantOAPMCount_count10to14 - $implantDOPMCount_count10to14;
+$currentUserImplantTotal15to19 =  $implantCUBMCount_count15to19 + $implantANAPMCount_count15to19 + $implantOAPMCount_count15to19 - $implantDOPMCount_count15to19;
+$currentUserImplantTotal20to49 =  $implantCUBMCount_count20to49 + $implantANAPMCount_count20to49 + $implantOAPMCount_count20to49 - $implantDOPMCount_count20to49;
+    
+$currentUserImplantTotal =
+    $currentUserImplantTotal10to14 +
+    $currentUserImplantTotal15to19 +
+    $currentUserImplantTotal20to49;
+
+$currentUserIudTotal10to14 =  $iudCUBMCount_count10to14 + $iudANAPMCount_count10to14 + $iudOAPMCount_count10to14 - $iudDOPMCount_count10to14;
+$currentUserIudTotal15to19 =  $iudCUBMCount_count15to19 + $iudANAPMCount_count15to19 + $iudOAPMCount_count15to19 - $iudDOPMCount_count15to19;
+$currentUserIudTotal20to49 =  $iudCUBMCount_count20to49 + $iudANAPMCount_count20to49 + $iudOAPMCount_count20to49 - $iudDOPMCount_count20to49;
+        
+$currentUserIudTotal =
+    $currentUserIudTotal10to14 +
+    $currentUserIudTotal15to19 +
+    $currentUserIudTotal20to49;
+
+$currentUserIudiTotal10to14 =  $iudiCUBMCount_count10to14 + $iudI_ANAPMCount_count10to14 + $iudiOAPMCount_count10to14 - $iudiDOPMCount_count10to14;
+$currentUserIudiTotal15to19 =  $iudiCUBMCount_count15to19 + $iudI_ANAPMCount_count15to19 + $iudiOAPMCount_count15to19 - $iudiDOPMCount_count15to19;
+$currentUserIudiTotal20to49 =  $iudiCUBMCount_count20to49 + $iudI_ANAPMCount_count20to49 + $iudiOAPMCount_count20to49 - $iudiDOPMCount_count20to49;
+            
+$currentUserIud1Total =
+    $currentUserIudiTotal10to14 +
+    $currentUserIudiTotal15to19 +
+    $currentUserIudiTotal20to49;
+
+$currentUserIudppTotal10to14 =  $iudppCUBMCount_count10to14 + $iudPP_ANAPMCount_count10to14 + $iudppOAPMCount_count10to14 - $iudppDOPMCount_count10to14;
+$currentUserIudppTotal15to19 =  $iudppCUBMCount_count15to19 + $iudPP_ANAPMCount_count15to19 + $iudppOAPMCount_count15to19 - $iudppDOPMCount_count15to19;
+$currentUserIudppTotal20to49 =  $iudppCUBMCount_count20to49 + $iudPP_ANAPMCount_count20to49 + $iudppOAPMCount_count20to49 - $iudppDOPMCount_count20to49;
+                
+$currentUserIudppTotal =
+    $currentUserIudppTotal10to14 +
+    $currentUserIudppTotal15to19 +
+    $currentUserIudppTotal20to49;
+
+$currentUserNfplamTotal10to14 =  $nfplamCUBMCount_count10to14 + $nfplamANAPMCount_count10to14 + $nfplamOAPMCount_count10to14 - $nfplamDOPMCount_count10to14;
+$currentUserNfplamTotal15to19 =  $nfplamCUBMCount_count15to19 + $nfplamANAPMCount_count15to19 + $nfplamOAPMCount_count15to19 - $nfplamDOPMCount_count15to19;
+$currentUserNfplamTotal20to49 =  $nfplamCUBMCount_count20to49 + $nfplamANAPMCount_count20to49 + $nfplamOAPMCount_count20to49 - $nfplamDOPMCount_count20to49;
+                    
+$currentUserNfplamTotal =
+    $currentUserNfplamTotal10to14 +
+    $currentUserNfplamTotal15to19 +
+    $currentUserNfplamTotal20to49;
+
+$currentUserNfpbbtTotal10to14 =  $nfpbbtCUBMCount_count10to14 + $nfpbbtANAPMCount_count10to14 + $nfpbbtOAPMCount_count10to14 - $nfpbbtDOPMCount_count10to14;
+$currentUserNfpbbtTotal15to19 =  $nfpbbtCUBMCount_count15to19 + $nfpbbtANAPMCount_count15to19 + $nfpbbtOAPMCount_count15to19 - $nfpbbtDOPMCount_count15to19;
+$currentUserNfpbbtTotal20to49 =  $nfpbbtCUBMCount_count20to49 + $nfpbbtANAPMCount_count20to49 + $nfpbbtOAPMCount_count20to49 - $nfpbbtDOPMCount_count20to49;
+                        
+$currentUserNfpbbtTotal =
+    $currentUserNfpbbtTotal10to14 +
+    $currentUserNfpbbtTotal15to19 +
+    $currentUserNfpbbtTotal20to49;
+
+$currentUserNfpcmmTotal10to14 =  $nfpcmmCUBMCount_count10to14 + $nfpcmmANAPMCount_count10to14 + $nfpcmmOAPMCount_count10to14 - $nfpcmmDOPMCount_count10to14;
+$currentUserNfpcmmTotal15to19 =  $nfpcmmCUBMCount_count15to19 + $nfpcmmANAPMCount_count15to19 + $nfpcmmOAPMCount_count15to19 - $nfpcmmDOPMCount_count15to19;
+$currentUserNfpcmmTotal20to49 =  $nfpcmmCUBMCount_count20to49 + $nfpcmmANAPMCount_count20to49 + $nfpcmmOAPMCount_count20to49 - $nfpcmmDOPMCount_count20to49;
+                            
+$currentUserNfpcmmTotal =
+    $currentUserNfpcmmTotal10to14 +
+    $currentUserNfpcmmTotal15to19 +
+    $currentUserNfpcmmTotal20to49;
+
+$currentUserNfpstmTotal10to14 =  $nfpstmCUBMCount_count10to14 + $nfpstmANAPMCount_count10to14 + $nfpstmOAPMCount_count10to14 - $nfpstmDOPMCount_count10to14;
+$currentUserNfpstmTotal15to19 =  $nfpstmCUBMCount_count15to19 + $nfpstmANAPMCount_count15to19 + $nfpstmOAPMCount_count15to19 - $nfpstmDOPMCount_count15to19;
+$currentUserNfpstmTotal20to49 =  $nfpstmCUBMCount_count20to49 + $nfpstmANAPMCount_count20to49 + $nfpstmOAPMCount_count20to49 - $nfpstmDOPMCount_count20to49;
+                                
+$currentUserNfpstmTotal =
+    $currentUserNfpstmTotal10to14 +
+    $currentUserNfpstmTotal15to19 +
+    $currentUserNfpstmTotal20to49;
+
+$currentUserNfpsdmTotal10to14 =  $nfpsdmCUBMCount_count10to14 + $nfpsdmANAPMCount_count10to14 + $nfpsdmOAPMCount_count10to14 - $nfpsdmDOPMCount_count10to14;
+$currentUserNfpsdmTotal15to19 =  $nfpsdmCUBMCount_count15to19 + $nfpsdmANAPMCount_count15to19 + $nfpsdmOAPMCount_count15to19 - $nfpsdmDOPMCount_count15to19;
+$currentUserNfpsdmTotal20to49 =  $nfpsdmCUBMCount_count20to49 + $nfpsdmANAPMCount_count20to49 + $nfpsdmOAPMCount_count20to49 - $nfpsdmDOPMCount_count20to49;
+                                    
+$currentUserNfpsdmTotal =
+    $currentUserNfpsdmTotal10to14 +
+    $currentUserNfpsdmTotal15to19 +
+    $currentUserNfpsdmTotal20to49;
+
