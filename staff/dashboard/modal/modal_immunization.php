@@ -15,7 +15,7 @@
           <option value="Date">Date</option>
           <option value="Gender">Gender</option>
           <option value="MAV">Most availed Vaccine</option>
-          <option value="LAV">Least availed Vaccine</option>
+          <!-- <option value="LAV">Least availed Vaccine</option> -->
         </select>
         <!-- Date range inputs -->
         <label for="frmDate" id="lbl1">From:</label>
@@ -24,8 +24,8 @@
         <input type="date" id="toDate" name="toDate">
 
         <!-- ZONE PICKER -->
-        <label for="zonalSelect" id="zid"> | Select Zone: </label>
-        <select name="" id="zonalSelect" hidden>
+        <label for="zonalSelects" id="zid" hidden> | Select Zone: </label>
+        <select name="" id="zonalSelects" name="zone" hidden>
           <option value="Zone 1">Zone 1</option>
           <option value="Zone 2">Zone 2</option>
           <option value="Zone 3">Zone 3</option>
@@ -50,17 +50,19 @@
   </div>
 </div>
 
+
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     var ctx = document.getElementById("myCharts").getContext('2d');
     var myCharts;
 
     // Function to fetch data based on selected option and date range using AJAX
-    function fetchData(selectOption, frmDate, toDate) {
+    function fetchData(selectOption, frmDate, toDate, zone) {
       // Construct URL for AJAX request to immu_query.php
       var url = 'modal/immu_query.php?selectOption=' + encodeURIComponent(selectOption) +
         '&frmDate=' + encodeURIComponent(frmDate) +
-        '&toDate=' + encodeURIComponent(toDate);
+        '&toDate=' + encodeURIComponent(toDate) +
+        '&zone=' + encodeURIComponent(zone); // Include zone in the URL
 
       // Make AJAX request
       fetch(url)
@@ -76,10 +78,72 @@
             throw new Error(data.error);
           }
 
-          // Update chart data
+          // Update chart data based on selected option
           if (myCharts) {
-            myCharts.data.datasets[0].data = data;
-            myCharts.update();
+            myCharts.destroy(); // Destroy existing chart if it exists
+          }
+
+          if (selectOption === "Date") {
+            myCharts = new Chart(ctx, {
+              type: 'bar',
+              data: {
+                labels: [
+                  'BCG', 'Hepatitis A', 'Pentavalent 1', 'Pentavalent 2', 'Pentavalent 3',
+                  'Oral Polio 1', 'Oral Polio 2', 'Oral Polio 3', 'IPV 1', 'IPV 2',
+                  'PCV 1', 'PCV 2', 'PCV 3', 'MMR 1', 'MMR 2',
+                  'MCV 1', 'MCV 2'
+                ],
+                datasets: [{
+                  label: 'Immunization Counts',
+                  data: data,
+                  backgroundColor: "rgba(153,255,51,1)"
+                }]
+              }
+            });
+          } else if (selectOption === "Gender") {
+            myCharts = new Chart(ctx, {
+              type: 'bar',
+              data: {
+                labels: ["Male", "Female"],
+                datasets: [{
+                  label: 'Immunization Counts',
+                  data: data,
+                  backgroundColor: ["rgba(54, 162, 235, 1)", "rgba(255, 99, 132, 1)"], // Separate colors for Male and Female
+                  borderColor: ["rgba(54, 162, 235, 1)", "rgba(255, 99, 132, 1)"], // Border colors for better visualization
+                  borderWidth: 1
+                }]
+              },
+              options: {
+                scales: {
+                  y: {
+                    beginAtZero: true
+                  }
+                }
+              }
+            });
+          } else if (selectOption === "MAV" || selectOption === "LAV") {
+            // Here you would handle MAV and LAV options, including zone selection
+            myCharts = new Chart(ctx, {
+              type: 'bar',
+              data: {
+                labels: data.labels,
+                datasets: [{
+                  label: 'Immunization Counts',
+                  data: data.data,
+                  backgroundColor: "rgba(75, 192, 192, 1)",
+                  borderColor: "rgba(75, 192, 192, 1)",
+                  borderWidth: 1
+                }]
+              },
+              options: {
+                scales: {
+                  y: {
+                    beginAtZero: true
+                  }
+                }
+              }
+            });
+
           }
         })
         .catch(error => {
@@ -91,16 +155,12 @@
     function updateChart() {
       var selectOption = document.getElementById("selectOption").value;
 
-      if (myCharts) {
-        myCharts.destroy(); // Destroy existing chart if it exists
-      }
-
       if (selectOption === "Date") {
         document.getElementById("frmDate").removeAttribute("hidden");
         document.getElementById("toDate").removeAttribute("hidden");
         document.getElementById("lbl1").removeAttribute("hidden");
         document.getElementById("lbl2").removeAttribute("hidden");
-        document.getElementById("zonalSelect").setAttribute("hidden", "hidden");
+        document.getElementById("zonalSelects").setAttribute("hidden", "hidden");
         document.getElementById("zid").setAttribute("hidden", "hidden");
 
         var frmDate = document.getElementById("frmDate").value;
@@ -108,63 +168,28 @@
 
         // Call function to fetch data
         fetchData(selectOption, frmDate, toDate);
-
-        // Initialize chart with empty data (data will be updated after AJAX call)
-        myCharts = new Chart(ctx, {
-          type: 'bar',
-          data: {
-            labels: [
-              'BCG', 'Hepatitis A', 'Pentavalent 1', 'Pentavalent 2', 'Pentavalent 3',
-              'Oral Polio 1', 'Oral Polio 2', 'Oral Polio 3', 'IPV 1', 'IPV 2',
-              'PCV 1', 'PCV 2', 'PCV 3', 'MMR 1', 'MMR 2',
-              'MCV 1', 'MCV 2'
-            ],
-            datasets: [{
-              label: 'Immunization Counts',
-              data: [],
-              backgroundColor: "rgba(153,255,51,1)"
-            }]
-          }
-        });
       } else if (selectOption === "Gender") {
         document.getElementById("frmDate").setAttribute("hidden", "hidden");
         document.getElementById("toDate").setAttribute("hidden", "hidden");
         document.getElementById("lbl1").setAttribute("hidden", "hidden");
         document.getElementById("lbl2").setAttribute("hidden", "hidden");
-        document.getElementById("zonalSelect").setAttribute("hidden", "hidden");
+        document.getElementById("zonalSelects").setAttribute("hidden", "hidden");
         document.getElementById("zid").setAttribute("hidden", "hidden");
 
         // Call function to fetch data
         fetchData(selectOption);
-
-        // Initialize chart with empty data (data will be updated after AJAX call)
-        myCharts = new Chart(ctx, {
-          type: 'bar',
-          data: {
-            labels: ["Male", "Female"],
-            datasets: [{
-              label: 'Immunization Counts',
-              data: [], // Data will be filled after fetchData call
-              backgroundColor: ["rgba(54, 162, 235, 1)", "rgba(255, 99, 132, 1)"], // Separate colors for Male and Female
-              borderColor: ["rgba(54, 162, 235, 1)", "rgba(255, 99, 132, 1)"], // Border colors for better visualization
-              borderWidth: 1
-            }]
-          },
-          options: {
-            scales: {
-              y: {
-                beginAtZero: true
-              }
-            }
-          }
-        });
       } else if (selectOption === "MAV" || selectOption === "LAV") {
         document.getElementById("frmDate").setAttribute("hidden", "hidden");
         document.getElementById("toDate").setAttribute("hidden", "hidden");
         document.getElementById("lbl1").setAttribute("hidden", "hidden");
         document.getElementById("lbl2").setAttribute("hidden", "hidden");
-        document.getElementById("zonalSelect").removeAttribute("hidden");
+        document.getElementById("zonalSelects").removeAttribute("hidden");
         document.getElementById("zid").removeAttribute("hidden");
+
+        var zone = document.getElementById("zonalSelects").value;
+
+        // Call function to fetch data
+        fetchData(selectOption, null, null, zone);
       }
     }
 
@@ -176,5 +201,8 @@
     // Add event listeners for frmDate and toDate inputs to update chart on change
     document.getElementById("frmDate").addEventListener("change", updateChart);
     document.getElementById("toDate").addEventListener("change", updateChart);
+
+    // Add event listener for zone selection
+    document.getElementById("zonalSelects").addEventListener("change", updateChart);
   });
 </script>
