@@ -42,6 +42,10 @@ foreach ($prenatals as $prenatal) {
               </button>
             </div>
             <div class="modal-body">
+              <select name="" id="">
+                <option value="">Age</option>
+            
+              </select>
             <canvas id="prenatal" width="400" height="400"></canvas>
             <script>
   var ctx = document.getElementById("prenatal").getContext('2d');
