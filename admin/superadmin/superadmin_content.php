@@ -117,13 +117,18 @@ if ($result === false) {
             </div>
         </div>
     </div>
+    <style>
+        .tago{
+            display: none;
+        }
+    </style>
     <div class="row">
         <div class="col-12">
             <div class="card-body table-responsive p-0" style="z-index: -99999">
                 <table id="tablebod" class="table table-head-fixed text-nowrap table-striped">
                     <thead class="thead-light">
                         <tr>
-                            <th>ID</th>
+                            <th class="tago">ID</th>
                             <th>First Name</th>
                             <th>Last Name</th>
                             <th>Birthdate</th>
@@ -137,7 +142,7 @@ if ($result === false) {
                             while ($row = $result->fetch_assoc()) {
                                 ?>
                                 <tr>
-                                    <td class="align-middle">
+                                    <td class="align-middle tago">
                                         <?php echo $row['id']; ?>
                                     </td>
                                     <td class="align-middle">
@@ -166,8 +171,8 @@ if ($result === false) {
                         } else {
                             ?>
                             <tr>
-                                <td class="align-middle">No Superadmin Found</td>
                                 <td class="align-middle"></td>
+                                <td class="align-middle">No Superadmin Found</td>
                                 <td class="align-middle">
                                 <td>
                                 <td class="align-middle"></td>
@@ -220,7 +225,7 @@ if ($result === false) {
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
+                            <input type="email" class="form-control" id="editemail" name="email" required>
                             <div id="editemail_error" class="error"></div>
                         </div>
                         <div class="form-group">
@@ -348,7 +353,7 @@ if ($result === false) {
         <?php if ($result->num_rows > 0): ?>
             var table = $('#tablebod').DataTable({
                 columnDefs: [
-                    { targets: 0, data: 'id' },
+                    { targets: 0, data: 'id' , visible: false},
                     { targets: 1, data: 'first_name' },
                     { targets: 2, data: 'last_name' },
                     { targets: 3, data: 'birthdate' },
@@ -371,7 +376,7 @@ if ($result === false) {
             // Initialize DataTable without the "Action" column when no rows are found
             var table = $('#tablebod').DataTable({
                 columnDefs: [
-                    { targets: 0, data: 'id' },
+                    { targets: 0, data: 'id' , visible: false},
                     { targets: 1, data: 'first_name' },
                     { targets: 2, data: 'last_name' },
                     { targets: 3, data: 'birthdate' },
@@ -386,7 +391,7 @@ if ($result === false) {
             table.destroy(); // Destroy the existing DataTable
             table = $('#tablebod').DataTable({
                 columnDefs: [
-                    { targets: 0, data: 'id' },
+                    { targets: 0, data: 'id', visible: false },
                     { targets: 1, data: 'first_name' },
                     { targets: 2, data: 'last_name' },
                     { targets: 3, data: 'birthdate' },
@@ -600,6 +605,7 @@ if ($result === false) {
                     $('#editModal #editLastName').val(editGetData.last_name);
                     $('#editModal #editBirthdate').val(editGetData.birthdate);
                     $('#editModal #editAddress').val(editGetData.address);
+                    $('#editModal #editemail').val(editGetData.email);
                     $('#editModal #ediuser').val(editGetData.username);
                     // $('#editModal #editPassword').val(editGetData.password);
 
@@ -620,6 +626,7 @@ if ($result === false) {
             var lastName = $('#editLastName').val();
             var birthdate = $('#editBirthdate').val();
             var address = $('#editAddress').val();
+            var email = $('#editemail').val();
             var username = $('#ediuser').val();
             var password = $('#editPassword').val();
 
@@ -643,6 +650,10 @@ if ($result === false) {
 
             if (address.trim() === '') {
                 $('#editAddress_error').text('Field is required');
+                isValid = false;
+            }
+            if (email.trim() === '') {
+                $('#editemail_error').text('Field is required');
                 isValid = false;
             }
 
@@ -669,6 +680,7 @@ if ($result === false) {
                         last_name: lastName,
                         birthdate: birthdate,
                         address: address,
+                        email: email,
                         username: username,
                         password: password
                     },

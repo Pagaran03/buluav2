@@ -26,7 +26,7 @@ function sanitize_input($input)
       // Remove File Path injection characters
       $input = preg_replace("/[\/\\\\\.\.]/", "", $input);
       // Remove control characters and whitespace
-      $input = preg_replace("/[\x00-\x1F\s]+/", "", $input);
+    //   $input = preg_replace("/[\x00-\x1F\s]+/", "", $input);
       //Remove script and content characters
       $input = preg_replace("/<script[^>]*>(.*?)<\/script>/is", "", $input);
       return $input;
@@ -39,6 +39,7 @@ try {
     $lastName = sanitize_input($_POST['last_name']);
     $birthdate = sanitize_input($_POST['birthdate']);
     $address = sanitize_input($_POST['address']);
+    $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
     $username = sanitize_input($_POST['username']);
     $password = ($_POST['password']);
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
@@ -76,21 +77,21 @@ try {
     if (!empty ($password)) {
         // If password is provided, update the users table with username and password
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        $usersUpdateSql = "UPDATE users SET username=?, password=? WHERE id=(SELECT user_id FROM staffs WHERE id=?)";
+        $usersUpdateSql = "UPDATE users SET username=?, password=?, email=? WHERE id=(SELECT user_id FROM staffs WHERE id=?)";
         $usersStmt = $conn->prepare($usersUpdateSql);
         if (!$usersStmt) {
             throw new Exception("Failed to prepare statement: " . $conn->error);
         }
         $usersStmt->bind_param("ssi", $username, $hashed_password, $primary_id);
         $usersUpdateSuccess = $usersStmt->execute();
-    } else {
+    }else {
         // If password is not provided, update the users table with username only
-        $usersUpdateSql = "UPDATE users SET username=? WHERE id=(SELECT user_id FROM staffs WHERE id=?)";
+        $usersUpdateSql = "UPDATE users SET username=?, email=? WHERE id=(SELECT user_id FROM staffs WHERE id=?)";
         $usersStmt = $conn->prepare($usersUpdateSql);
         if (!$usersStmt) {
             throw new Exception("Failed to prepare statement: " . $conn->error);
         }
-        $usersStmt->bind_param("si", $username, $primary_id);
+        $usersStmt->bind_param("ssi", $username, $email, $primary_id);
         $usersUpdateSuccess = $usersStmt->execute();
     }
 

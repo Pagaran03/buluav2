@@ -42,6 +42,7 @@
                 <div class="modal-body">
                     <select name="" id="">
                         <option value="">Gender</option>
+                        <option value="">Age</option>
                     </select>
                   <canvas id="fam"></canvas>
                   <script>
