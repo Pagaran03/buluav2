@@ -77,15 +77,19 @@ foreach ($consults as $consult) {
   $countsss[] = $row['count'];
 }
 
-
-$fams = ['checkup_date', 'no_of_children', 'client_type', 'reason_for_fp'];
+$fams = ['method', 'method', 'method', 'method', 'method', 'method', 'method', 'method', 'method', 'method', 'method', 'method', 'method', 'method', 'method', 'method', 'method', 'method', 'method', 'method', 'method', 'method']; // Added 'method' twice for 'NSV' and 'condom'
 
 // Initialize an array to store the counts
 $countssss = array();
 
-foreach ($fams as $fam) {
+// Define the methods you want to count
+$methodsToCount = ['btl', 'NSV', 'condom', 'Pills-POP', 'Pills', 'Pills-COC', 'Injectables (DMPA/POI)', 'Implant', 'Hormonal IUD', 'IUD', 'IUD-I', 'IUD-PP', 'NFP-LAM', 'NFP-BBT', 'NFP-CMM', 'NFP-STM', 'NFP-SDM', 'Cervival Cap', 'Contraceptive sponge', 'Birth control ring', 'Emergency contraceptive', 'Sterilization'];
+
+// Iterate over each method
+foreach ($fams as $index => $fam) {
   // Assuming $conn is your database connection
-  $sql = "SELECT COUNT($fam) AS count FROM fP_information"; // Replace 'your_table' with your actual table name
+  $methodToCount = $methodsToCount[$index]; // Get the corresponding method to count
+  $sql = "SELECT COUNT($fam) AS count FROM fp_consultation WHERE $fam = '$methodToCount'";
   $result = $conn->query($sql);
 
   if ($result === false) {
@@ -93,8 +97,17 @@ foreach ($fams as $fam) {
   }
 
   $row = $result->fetch_assoc();
-  $countssss[] = $row['count'];
+  $countssss[ucwords($methodToCount)] = $row['count']; // Store count with method as key
 }
+
+// Now the $countssss array contains the counts for 'BTL', 'NSV', and 'Condom'
+
+
+
+// Now the $countssss array contains the counts with the alias 'btl_count'
+
+// Now the $countssss array contains the counts without printing it
+
 
 $patients = ['gender', 'age'];
 $male = 'male';
@@ -652,7 +665,7 @@ JOIN nurses ON fp_information.nurse_id = nurses.id";
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Family Planning Details</h5>
+                  <h5 class="modal-title" id="exampleModalLabel">Family Planning Method Details</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -662,7 +675,7 @@ JOIN nurses ON fp_information.nurse_id = nurses.id";
                   <script>
                     document.addEventListener('DOMContentLoaded', function () {
                       // Ensure that the PHP variables are correctly encoded into JavaScript
-                      var columnNames = <?php echo json_encode($fams); ?>;
+                      var columnNames = ['BTL', 'NSV', 'Condom', 'Pills-POP', 'Pills', 'Pills-COC', 'Injectables (DMPA/POI)', 'Implant', 'Hormonal IUD', 'IUD', 'IUD-I', 'IUD-PP', 'NFP-LAM', 'NFP-BBT', 'NFP-CMM', 'NFP-STM', 'NFP-SDM', 'Cervival Cap', 'Contraceptive sponge', 'Birth control ring', 'Emergency contraceptive', 'Sterilization'];
                       var data = <?php echo json_encode(array_values($countssss)); ?>;
                       var ctx = document.getElementById('fam').getContext('2d');
 
@@ -682,6 +695,20 @@ JOIN nurses ON fp_information.nurse_id = nurses.id";
                               '	rgb(153, 255, 153, 0.6)',
                               'rgb(153, 255, 255, 0.6)',
                               'rgb(255, 153, 153, 0.6)',
+                              'rgb(255, 140, 102, 0.6)',
+                              'rgb(255, 217, 102,0.6)',
+                              'rgb(102, 255, 217)',
+                              'rgb(153, 255, 204)',
+                              'rgb(0, 102, 51)',
+                              'rgb(0, 255, 255)',
+                              'rgb(0, 102, 102)',
+                              'rgb(204, 255, 153)',
+                              'rgb(255, 230, 128)',
+                              'rgb(153, 122, 0)',
+                              'rgb(102, 153, 255)',
+                              'rgb(0, 26, 77)',
+                              'rgb(166, 77, 255)',
+                              'rgb(179, 255, 255)'
                             ],
                           }],
                         },
