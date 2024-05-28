@@ -40,14 +40,19 @@ while ($row = $result->fetch_assoc()) {
   );
 }
 
-$columns = ['bgc_date', 'hepa_date', 'pentavalent_date1', 'pentavalent_date2', 'pentavalent_date3', 'oral_date1', 'oral_date2', 'oral_date3', 'ipv_date1', 'ipv_date2', 'pcv_date1', 'pcv_date2', 'pcv_date3', 'mmr_date1', 'mmr_date2', 'mcv_1', 'mcv_2'];
+$columns = [
+  'bgc_date', 'hepa_date', 'pentavalent_date1', 'pentavalent_date2', 'pentavalent_date3', 
+  'oral_date1', 'oral_date2', 'oral_date3', 'ipv_date1', 'ipv_date2', 
+  'pcv_date1', 'pcv_date2', 'pcv_date3', 'mmr_date1', 'mmr_date2', 
+  'mcv_1', 'mcv_2'
+];
 
 // Initialize an array to store the counts
 $countss = array();
 
 foreach ($columns as $column) {
   // Assuming $conn is your database connection
-  $sql = "SELECT COUNT(*) AS count FROM immunization WHERE $column IS NOT NULL AND $column <> '0000-00-00'"; // Corrected query to exclude '0000-00-00' dates
+  $sql = "SELECT COUNT(*) AS count FROM immunization WHERE $column IS NOT NULL AND $column <> '0000-00-00'";
   $result = $conn->query($sql);
 
   if ($result === false) {
@@ -57,7 +62,34 @@ foreach ($columns as $column) {
   $row = $result->fetch_assoc();
   $countss[] = $row['count'];
 }
+// Prenatal
+$prenatals = ['abortion', 'stillbirth', 'alive'];
+$alive = 'alive';
+$counters = array();
 
+foreach ($prenatals as $prenatal) {
+    // Count query
+    $count_sql = "SELECT COUNT(*) AS count FROM prenatal_subjective WHERE $prenatal IS NOT NULL AND $prenatal <> 0";
+    $count_result = $conn->query($count_sql);
+
+    if ($count_result === false) {
+        die("Count query failed: " . $conn->error);
+    }
+
+    $count_row = $count_result->fetch_assoc();
+    $counters[] = $count_row['count'];
+
+    // Sum query
+    $sum_sql = "SELECT SUM($alive) AS sum FROM prenatal_subjective WHERE $alive IS NOT NULL AND $alive <> 0";
+    $sum_result = $conn->query($sum_sql);
+
+    if ($sum_result === false) {
+        die("Sum query failed: " . $conn->error);
+    }
+
+    $sum_row = $sum_result->fetch_assoc();
+    $counters[] = $sum_row['sum'];
+}
 
 $consults = ['subjective', 'objective', 'assessment', 'plan'];
 
@@ -449,9 +481,49 @@ foreach ($tables as $table) {
             <div class="icon">
               <i class="ion ion-stats-bars"></i>
             </div>
-            <a href="../prenatal/prenatal.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="#" class="small-box-footer" data-toggle="modal" data-target="#prenatalModal">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
+
+              <!-- Modal -->
+      <div class="modal fade" id="prenatalModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Prenatal Details</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+            <canvas id="prenatal" width="400" height="400"></canvas>
+            <script>
+  var ctx = document.getElementById("prenatal").getContext('2d');
+  var data = <?php echo json_encode($counters); ?>;
+
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: [
+        'abortion', 'alive', 'stillbirth'
+      ],
+      datasets: [{
+        label: 'Prenatal Counts',
+        data: data,
+        backgroundColor: "rgba(153,255,51,1)"
+      }]
+    }
+  });
+</script>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
         <!-- ./col -->
         <div class="col-lg-4 col-6">
           <!-- small box -->
@@ -492,7 +564,7 @@ foreach ($tables as $table) {
       <!--  -->
       <!-- Modal -->
       <div class="modal fade" id="immunizationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-xl" role="document">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLabel">Immunization Details</h5>
@@ -501,45 +573,28 @@ foreach ($tables as $table) {
               </button>
             </div>
             <div class="modal-body">
-              <canvas id="kindOfCheckupss"></canvas>
-              <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                  // Ensure that the PHP variables are correctly encoded into JavaScript
-                  var columnNames = <?php echo json_encode($columns); ?>;
-                  var data = <?php echo json_encode(array_values($countss)); ?>;
-                  var ctx = document.getElementById('kindOfCheckupss').getContext('2d');
+            <canvas id="myCharts" width="400" height="190"></canvas>
+<script>
+  var ctx = document.getElementById("myCharts").getContext('2d');
+  var data = <?php echo json_encode($countss); ?>;
 
-                  // Creating the pie chart using Chart.js
-                  var chart = new Chart(ctx, {
-                    type: 'pie',
-                    data: {
-                      labels: columnNames,
-                      datasets: [{
-                        data: data,
-                        backgroundColor: [
-                          'rgba(255, 99, 132, 0.6)',
-                          'rgba(54, 162, 235, 0.6)',
-                          'rgba(255, 206, 86, 0.6)',
-                          'rgba(75, 192, 192, 0.6)',
-                          'rgba(76, 132, 112, 0.6)',
-                          '	rgb(153, 255, 153, 0.6)',
-                          'rgb(153, 255, 255, 0.6)',
-                          'rgb(255, 153, 153, 0.6)',
-                          'rgb(215, 143, 103, 0.6)',
-                          'rgb(268, 103, 53, 0.6)',
-                          'rgb(255, 85, 157, 0.6)',
-                          'rgb(215, 183, 113, 0.6)',
-                          'rgb(251, 159, 173, 0.6)',
-                          'rgb(152, 153, 153, 0.6)',
-                          'rgb(255, 255, 153, 0.6)',
-                          'rgb(200, 162, 19, 0.6)',
-                          'rgb(190, 113, 132, 0.6)',
-                        ],
-                      }],
-                    },
-                  });
-                });
-              </script>
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: [
+        'BCG', 'Hepatitis A', 'Pentavalent 1', 'Pentavalent 2', 'Pentavalent 3', 
+        'Oral Polio 1', 'Oral Polio 2', 'Oral Polio 3', 'IPV 1', 'IPV 2', 
+        'PCV 1', 'PCV 2', 'PCV 3', 'MMR 1', 'MMR 2', 
+        'MCV 1', 'MCV 2'
+      ],
+      datasets: [{
+        label: 'Immunization Counts',
+        data: data,
+        backgroundColor: "rgba(153,255,51,1)"
+      }]
+    }
+  });
+</script>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
