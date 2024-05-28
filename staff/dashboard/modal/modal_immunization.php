@@ -1,3 +1,30 @@
+<?php
+$columns = [
+  'bgc_date', 'hepa_date', 'pentavalent_date1', 'pentavalent_date2', 'pentavalent_date3', 
+  'oral_date1', 'oral_date2', 'oral_date3', 'ipv_date1', 'ipv_date2', 
+  'pcv_date1', 'pcv_date2', 'pcv_date3', 'mmr_date1', 'mmr_date2', 
+  'mcv_1', 'mcv_2'
+];
+
+// Initialize an array to store the counts
+$countss = array();
+
+foreach ($columns as $column) {
+  // Assuming $conn is your database connection
+  $sql = "SELECT COUNT(*) AS count FROM immunization WHERE $column IS NOT NULL AND $column <> '0000-00-00'";
+  $result = $conn->query($sql);
+
+  if ($result === false) {
+    die("Query failed: " . $conn->error);
+  }
+
+  $row = $result->fetch_assoc();
+  $countss[] = $row['count'];
+}
+?>
+
+
+
 <!-- Modal -->
 <div class="modal fade" id="immunizationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">

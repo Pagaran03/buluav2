@@ -1,3 +1,36 @@
+ <?php
+ // Prenatal
+$prenatals = ['abortion', 'stillbirth', 'alive'];
+$alive = 'alive';
+$counters = array();
+
+foreach ($prenatals as $prenatal) {
+    // Count query
+    $count_sql = "SELECT COUNT(*) AS count FROM prenatal_subjective WHERE $prenatal IS NOT NULL AND $prenatal <> 0";
+    $count_result = $conn->query($count_sql);
+
+    if ($count_result === false) {
+        die("Count query failed: " . $conn->error);
+    }
+
+    $count_row = $count_result->fetch_assoc();
+    $counters[] = $count_row['count'];
+
+    // Sum query
+    $sum_sql = "SELECT SUM($alive) AS sum FROM prenatal_subjective WHERE $alive IS NOT NULL AND $alive <> 0";
+    $sum_result = $conn->query($sum_sql);
+
+    if ($sum_result === false) {
+        die("Sum query failed: " . $conn->error);
+    }
+
+    $sum_row = $sum_result->fetch_assoc();
+    $counters[] = $sum_row['sum'];
+}
+
+ ?>
+ 
+ 
  <!-- Modal -->
  <div class="modal fade" id="prenatalModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
