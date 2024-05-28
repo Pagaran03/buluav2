@@ -121,9 +121,18 @@ if ($result2->num_rows > 0) {
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="suffix">Suffix</label><span style="font-size: 14px;">(optional)</span>
-                                    <input type="text" class="form-control" id="suffix" name="suffix" placeholder="ex. Jr. and Sr." required>
+                                    <select class="form-control" id="suffix" name="suffix">
+                                        <option value="" selected>Choose a suffix</option>
+                                        <option value="Jr.">Jr.</option>
+                                        <option value="Sr.">Sr.</option>
+                                        <option value="II">II</option>
+                                        <option value="III">III</option>
+                                        <option value="IV">IV</option>
+                                        <option value="IV">V</option>
+                                    </select>
                                     <div id="suffix_error" class="error"></div>
                                 </div>
+
                             </div>
                         </div>
 
@@ -259,9 +268,7 @@ if ($result2->num_rows > 0) {
                                         <option value="Zone 12, Bulua, Cagayan de Oro">Zone 12, Bulua, Cagayan de
                                             Oro,
                                             Misamis Oriental</option>
-                                        <option value="Zone 13, Bulua, Cagayan de Oro">Zone 13, Bulua, Cagayan de
-                                            Oro,
-                                            Misamis Oriental</option>
+                                        
 
                                         <!-- Add more address options as needed -->
                                     </select>
@@ -660,10 +667,21 @@ if ($result2->num_rows > 0) {
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="suffix">Suffix</label>
-                                    <input type="text" class="form-control" id="editSuffix" name="suffix" required>
+                                    <label for="editSuffix">Suffix</label>
+                                    <select class="form-control" id="editSuffix" name="suffix" required>
+                                        <option value="" selected>Choose a suffix</option>
+                                        <option value="Jr.">Jr.</option>
+                                        <option value="Sr.">Sr.</option>
+                                        <option value="II">II</option>
+                                        <option value="III">III</option>
+                                        <option value="IV">IV</option>
+                                        <option value="V">V</option>
+                                        
+                                    </select>
                                     <div id="editSuffixName_error" class="error"></div>
                                 </div>
+
+
                             </div>
                         </div>
 
@@ -810,37 +828,7 @@ if ($result2->num_rows > 0) {
                                             <option value="Zone 12, Bulua, Cagayan de Oro">Zone 12, Bulua, Cagayan de
                                                 Oro,
                                                 Misamis Oriental</option>
-                                            <option value="Zone 13, Bulua, Cagayan de Oro">Zone 13, Bulua, Cagayan de
-                                                Oro,
-                                                Misamis Oriental</option>
-                                            =======
-                                            <option value="Zone 1, Bulua, Cagayan de Oro">Zone 1, Bulua, Cagayan de Oro,
-                                                Misamis Oriental</option>
-                                            <option value="Zone 2, Bulua, Cagayan de Oro">Zone 2, Bulua, Cagayan de Oro,
-                                                Misamis Oriental</option>
-                                            <option value="Zone 3, Bulua, Cagayan de Oro">Zone 3, Bulua, Cagayan de Oro,
-                                                Misamis Oriental</option>
-                                            <option value="Zone 4, Bulua, Cagayan de Oro">Zone 4, Bulua, Cagayan de Oro,
-                                                Misamis Oriental</option>
-                                            <option value="Zone 5, Bulua, Cagayan de Oro">Zone 5, Bulua, Cagayan de Oro,
-                                                Misamis Oriental</option>
-                                            <option value="Zone 6, Bulua, Cagayan de Oro">Zone 6, Bulua, Cagayan de Oro,
-                                                Misamis Oriental</option>
-                                            <option value="Zone 7, Bulua, Cagayan de Oro">Zone 7, Bulua, Cagayan de Oro,
-                                                Misamis Oriental</option>
-                                            <option value="Zone 8, Bulua, Cagayan de Oro">Zone 8, Bulua, Cagayan de Oro,
-                                                Misamis Oriental</option>
-                                            <option value="Zone 9, Bulua, Cagayan de Oro">Zone 9, Bulua, Cagayan de Oro,
-                                                Misamis Oriental</option>
-                                            <option value="Zone 10, Bulua, Cagayan de Oro">Zone 10, Bulua, Cagayan de
-                                                Oro, Misamis Oriental</option>
-                                            <option value="Zone 11, Bulua, Cagayan de Oro">Zone 11, Bulua, Cagayan de
-                                                Oro, Misamis Oriental</option>
-                                            <option value="Zone 12, Bulua, Cagayan de Oro">Zone 12, Bulua, Cagayan de
-                                                Oro, Misamis Oriental</option>
-
-                                            >>>>>>> 458a32dc304e5d7b0f4054593f2c414e31aa4e52
-                                            <!-- Add more address options as needed -->
+                                          
                                     </select>
                                     <div id="EditAddress_error" class="error"></div>
                                 </div>
