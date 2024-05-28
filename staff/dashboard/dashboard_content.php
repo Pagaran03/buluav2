@@ -40,28 +40,7 @@ while ($row = $result->fetch_assoc()) {
   );
 }
 
-$columns = [
-  'bgc_date', 'hepa_date', 'pentavalent_date1', 'pentavalent_date2', 'pentavalent_date3', 
-  'oral_date1', 'oral_date2', 'oral_date3', 'ipv_date1', 'ipv_date2', 
-  'pcv_date1', 'pcv_date2', 'pcv_date3', 'mmr_date1', 'mmr_date2', 
-  'mcv_1', 'mcv_2'
-];
 
-// Initialize an array to store the counts
-$countss = array();
-
-foreach ($columns as $column) {
-  // Assuming $conn is your database connection
-  $sql = "SELECT COUNT(*) AS count FROM immunization WHERE $column IS NOT NULL AND $column <> '0000-00-00'";
-  $result = $conn->query($sql);
-
-  if ($result === false) {
-    die("Query failed: " . $conn->error);
-  }
-
-  $row = $result->fetch_assoc();
-  $countss[] = $row['count'];
-}
 // Prenatal
 $prenatals = ['abortion', 'stillbirth', 'alive'];
 $alive = 'alive';
@@ -118,18 +97,21 @@ $countssss = array();
 $methodsToCount = ['btl', 'NSV', 'condom', 'Pills-POP', 'Pills', 'Pills-COC', 'Injectables (DMPA/POI)', 'Implant', 'Hormonal IUD', 'IUD', 'IUD-I', 'IUD-PP', 'NFP-LAM', 'NFP-BBT', 'NFP-CMM', 'NFP-STM', 'NFP-SDM', 'Cervival Cap', 'Contraceptive sponge', 'Birth control ring', 'Emergency contraceptive', 'Sterilization'];
 
 // Iterate over each method
-foreach ($fams as $index => $fam) {
-  // Assuming $conn is your database connection
-  $methodToCount = $methodsToCount[$index]; // Get the corresponding method to count
-  $sql = "SELECT COUNT($fam) AS count FROM fp_consultation WHERE $fam = '$methodToCount'";
-  $result = $conn->query($sql);
+foreach ($methodsToCount as $methodToCount) {
+    // Construct the SQL query to count occurrences of the method
+    $sql = "SELECT COUNT(*) AS count FROM fp_consultation WHERE method = '$methodToCount'";
+    $result = $conn->query($sql);
 
-  if ($result === false) {
-    die("Query failed: " . $conn->error);
-  }
+    if ($result === false) {
+        die("Query failed: " . $conn->error);
+    }
 
-  $row = $result->fetch_assoc();
-  $countssss[ucwords($methodToCount)] = $row['count']; // Store count with method as key
+    // Fetch the count from the result
+    $row = $result->fetch_assoc();
+    $count = $row['count'];
+
+    // Store count with method as key
+    $countssss[ucwords($methodToCount)] = $count;
 }
 
 // Now the $countssss array contains the counts for 'BTL', 'NSV', and 'Condom'
@@ -578,7 +560,7 @@ JOIN nurses ON fp_information.nurse_id = nurses.id";
 
           <!-- Modal -->
           <div class="modal fade" id="famplanmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-xl" role="document">
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title" id="exampleModalLabel">Family Planning Method Details</h5>
@@ -589,49 +571,30 @@ JOIN nurses ON fp_information.nurse_id = nurses.id";
                 <div class="modal-body">
                   <canvas id="fam"></canvas>
                   <script>
-                    document.addEventListener('DOMContentLoaded', function() {
-                      // Ensure that the PHP variables are correctly encoded into JavaScript
-                      var columnNames = ['BTL', 'NSV', 'Condom', 'Pills-POP', 'Pills', 'Pills-COC', 'Injectables (DMPA/POI)', 'Implant', 'Hormonal IUD', 'IUD', 'IUD-I', 'IUD-PP', 'NFP-LAM', 'NFP-BBT', 'NFP-CMM', 'NFP-STM', 'NFP-SDM', 'Cervival Cap', 'Contraceptive sponge', 'Birth control ring', 'Emergency contraceptive', 'Sterilization'];
-                      var data = <?php echo json_encode(array_values($countssss)); ?>;
-                      var ctx = document.getElementById('fam').getContext('2d');
+  // Define methodsToCount array in JavaScript
+  var methodsToCount = <?php echo json_encode($methodsToCount); ?>;
 
-                      // Creating the pie chart using Chart.js
-                      var chart = new Chart(ctx, {
-                        type: 'pie',
-                        data: {
-                          labels: columnNames,
-                          datasets: [{
-                            data: data,
-                            backgroundColor: [
-                              'rgba(255, 99, 132, 0.6)',
-                              'rgba(54, 162, 235, 0.6)',
-                              'rgba(255, 206, 86, 0.6)',
-                              'rgba(75, 192, 192, 0.6)',
-                              'rgba(76, 132, 112, 0.6)',
-                              '	rgb(153, 255, 153, 0.6)',
-                              'rgb(153, 255, 255, 0.6)',
-                              'rgb(255, 153, 153, 0.6)',
-                              'rgb(255, 140, 102, 0.6)',
-                              'rgb(255, 217, 102,0.6)',
-                              'rgb(102, 255, 217)',
-                              'rgb(153, 255, 204)',
-                              'rgb(0, 102, 51)',
-                              'rgb(0, 255, 255)',
-                              'rgb(0, 102, 102)',
-                              'rgb(204, 255, 153)',
-                              'rgb(255, 230, 128)',
-                              'rgb(153, 122, 0)',
-                              'rgb(102, 153, 255)',
-                              'rgb(0, 26, 77)',
-                              'rgb(166, 77, 255)',
-                              'rgb(179, 255, 255)'
-                            ],
-                          }],
-                        },
-                      });
-                    });
-                  </script>
-                </div>
+  // PHP variables containing counts should be defined before this script block
+
+  // Ensure data is correctly fetched and available as an associative array in PHP ($countssss)
+
+  // Then, convert PHP associative array to JavaScript object using JSON encoding
+  var data = <?php echo json_encode($countssss); ?>;
+
+  // Now, create the Chart using Chart.js
+  var ctx = document.getElementById("fam").getContext('2d');
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: methodsToCount,
+      datasets: [{
+        label: 'Immunization Counts',
+        data: Object.values(data), // Use Object.values() to get data array from associative array
+        backgroundColor: "rgba(153,255,51,1)"
+      }]
+    }
+  });
+</script>      </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
