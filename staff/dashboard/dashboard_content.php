@@ -222,27 +222,6 @@ foreach ($tables as $table) {
 }
 
 
-// // Create an array of column names for immunization table
-// $columns = ['bgc_date', 'bgc_remarks', 'hepa_date', 'pentavalent_date1'];
-
-// // Initialize an array to store the counts for each column
-// $counts = array();
-
-// // Loop through each column
-// foreach ($columns as $column) {
-//   // Construct the SQL query to count non-null entries for the current column in the immunization table
-//   $sql = "SELECT COUNT(*) as count FROM immunization WHERE $column IS NOT NULL";
-//   $result = $conn->query($sql);
-
-//   if ($result === false) {
-//     die("Query failed: " . $conn->error);
-//   }
-
-//   // Fetch the count and store it in the counts array
-//   $row = $result->fetch_assoc();
-//   $counts[$column] = $row['count'];
-// }
-
 
 ?>
 
@@ -440,7 +419,7 @@ foreach ($tables as $table) {
           <!-- Modal -->
           <div class="modal fade" id="patientmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-xl" role="document">
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title" id="exampleModalLabel">Patient Details</h5>
@@ -449,7 +428,30 @@ foreach ($tables as $table) {
                   </button>
                 </div>
                 <div class="modal-body">
-                  <canvas id="patient"></canvas>
+                  <select name="" id="">
+                    <option value="">trait_exists</option>
+                  </select>
+                <canvas id="myChart" width="400" height="190"></canvas>
+    
+    <script>
+      var ctx = document.getElementById("myChart").getContext('2d');
+      var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ["M", "T", "W", "T", "F", "S", "S"],
+          datasets: [{
+            label: 'apples',
+            data: [12, 19, 3, 17, 28, 24, 7],
+            backgroundColor: "rgba(153,255,51,1)"
+          }, {
+            label: 'oranges',
+            data: [30, 29, 5, 5, 20, 3, 10],
+            backgroundColor: "rgba(255,153,0,1)"
+          }]
+        }
+      });
+    </script>
+                  <!-- <canvas id="patient"></canvas>
                   <script>
                     document.addEventListener('DOMContentLoaded', function () {
                       // Ensure that the PHP variables are correctly encoded into JavaScript
@@ -477,7 +479,7 @@ foreach ($tables as $table) {
                         },
                       });
                     });
-                  </script>
+                  </script> -->
 
                 </div>
                 <div class="modal-footer">

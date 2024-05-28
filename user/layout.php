@@ -340,7 +340,8 @@ processFormSubmission($conn);
                                 <div class="form-group">
                                     <label for="suffix">Suffix</label>
                                     <select class="form-control" id="suffix" name="suffix">
-                                        <option value="" selected>Choose a suffix</option>
+                                        <option value="" selected disabled hidden>Choose a suffix</option>
+                                        <option value="None">None</option>
                                         <option value="Jr.">Jr.</option>
                                         <option value="Sr.">Sr.</option>
                                         <option value="II">II</option>
@@ -426,6 +427,7 @@ processFormSubmission($conn);
                                 <div class="form-group">
                                     <label for="religion">Religion</label><span style="color: red; font-size:22px;">*</span>
                                     <select class="form-control" name="religion" id="religion" required>
+                                    <option value="" disabled selected>Select your Religion</option>
                                         <option value="Roman Catholic">Roman Catholic</option>
                                         <option value="Muslim">Muslim</option>
                                         <option value="Iglesia ni Cristo">Iglesia ni Cristo</option>

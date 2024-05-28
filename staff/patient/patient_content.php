@@ -122,7 +122,8 @@ if ($result2->num_rows > 0) {
                                 <div class="form-group">
                                     <label for="suffix">Suffix</label><span style="font-size: 14px;">(optional)</span>
                                     <select class="form-control" id="suffix" name="suffix">
-                                        <option value="" selected>Choose a suffix</option>
+                                    <option value="" selected disabled hidden>Choose a suffix</option>
+                                        <option value="None">None</option>
                                         <option value="Jr.">Jr.</option>
                                         <option value="Sr.">Sr.</option>
                                         <option value="II">II</option>
@@ -669,7 +670,8 @@ if ($result2->num_rows > 0) {
                                 <div class="form-group">
                                     <label for="editSuffix">Suffix</label>
                                     <select class="form-control" id="editSuffix" name="suffix" required>
-                                        <option value="" selected>Choose a suffix</option>
+                                    <option value="" selected disabled hidden>Choose a suffix</option>
+                                        <option value="None">None</option>
                                         <option value="Jr.">Jr.</option>
                                         <option value="Sr.">Sr.</option>
                                         <option value="II">II</option>
@@ -777,6 +779,12 @@ if ($result2->num_rows > 0) {
                                         <option value="Muslim">Muslim</option>
                                         <option value="Iglesia ni Cristo">Iglesia ni Cristo</option>
                                         <option value="Protestantism">Protestantism</option>
+                                        <option value="Aglipayan">Aglipayan</option>
+                                        <option value="Buddhism">Buddhism</option>
+                                        <option value="Hinduism">Hinduism</option>
+                                        <option value="Judaism">Judaism</option>
+                                        <option value="Eastern Orthodox">Eastern Orthodox</option>
+                                        <option value="Sikhism">Sikhism</option>
                                         <option value="Other or Non-religious">Other or Non-religious</option>
                                     </select>
                                     <div id="EditReligion_error" class="error"></div>
@@ -800,35 +808,30 @@ if ($result2->num_rows > 0) {
                                     <label for="address">Address</label>
                                     <select class="form-control" id="editAddress" name="address" required>
                                         <option value="" disabled selected>Select your address</option>
-                                        <<<<<<< HEAD <option value="Zone 1, Bulua, Cagayan de Oro">Zone 1, Bulua,
-                                            Cagayan de Oro,
+                                        <option value="Zone 1, Bulua, Cagayan de Oro">Zone 1, Bulua, Cagayan de Oro,
                                             Misamis Oriental</option>
-                                            <option value="Zone 2, Bulua, Cagayan de Oro">Zone 2, Bulua, Cagayan de Oro,
-                                                Misamis Oriental</option>
-                                            <option value="Zone 3, Bulua, Cagayan de Oro">Zone 3, Bulua, Cagayan de Oro,
-                                                Misamis Oriental</option>
-                                            <option value="Zone 4, Bulua, Cagayan de Oro">Zone 4, Bulua, Cagayan de Oro,
-                                                Misamis Oriental</option>
-                                            <option value="Zone 5, Bulua, Cagayan de Oro">Zone 5, Bulua, Cagayan de Oro,
-                                                Misamis Oriental</option>
-                                            <option value="Zone 6, Bulua, Cagayan de Oro">Zone 6, Bulua, Cagayan de Oro,
-                                                Misamis Oriental</option>
-                                            <option value="Zone 7, Bulua, Cagayan de Oro">Zone 7, Bulua, Cagayan de Oro,
-                                                Misamis Oriental</option>
-                                            <option value="Zone 8, Bulua, Cagayan de Oro">Zone 8, Bulua, Cagayan de Oro,
-                                                Misamis Oriental</option>
-                                            <option value="Zone 9, Bulua, Cagayan de Oro">Zone 9, Bulua, Cagayan de Oro,
-                                                Misamis Oriental</option>
-                                            <option value="Zone 10, Bulua, Cagayan de Oro">Zone 10, Bulua, Cagayan de
-                                                Oro,
-                                                Misamis Oriental</option>
-                                            <option value="Zone 11, Bulua, Cagayan de Oro">Zone 11, Bulua, Cagayan de
-                                                Oro,
-                                                Misamis Oriental</option>
-                                            <option value="Zone 12, Bulua, Cagayan de Oro">Zone 12, Bulua, Cagayan de
-                                                Oro,
-                                                Misamis Oriental</option>
-                                          
+                                        <option value="Zone 2, Bulua, Cagayan de Oro">Zone 2, Bulua, Cagayan de Oro,
+                                            Misamis Oriental</option>
+                                        <option value="Zone 3, Bulua, Cagayan de Oro">Zone 3, Bulua, Cagayan de Oro,
+                                            Misamis Oriental</option>
+                                        <option value="Zone 4, Bulua, Cagayan de Oro">Zone 4, Bulua, Cagayan de Oro,
+                                            Misamis Oriental</option>
+                                        <option value="Zone 5, Bulua, Cagayan de Oro">Zone 5, Bulua, Cagayan de Oro,
+                                            Misamis Oriental</option>
+                                        <option value="Zone 6, Bulua, Cagayan de Oro">Zone 6, Bulua, Cagayan de Oro,
+                                            Misamis Oriental</option>
+                                        <option value="Zone 7, Bulua, Cagayan de Oro">Zone 7, Bulua, Cagayan de Oro,
+                                            Misamis Oriental</option>
+                                        <option value="Zone 8, Bulua, Cagayan de Oro">Zone 8, Bulua, Cagayan de Oro,
+                                            Misamis Oriental</option>
+                                        <option value="Zone 9, Bulua, Cagayan de Oro">Zone 9, Bulua, Cagayan de Oro,
+                                            Misamis Oriental</option>
+                                        <option value="Zone 10, Bulua, Cagayan de Oro">Zone 10, Bulua, Cagayan de Oro,
+                                            Misamis Oriental</option>
+                                        <option value="Zone 11, Bulua, Cagayan de Oro">Zone 11, Bulua, Cagayan de Oro,
+                                            Misamis Oriental</option>
+                                        <option value="Zone 12, Bulua, Cagayan de Oro">Zone 12, Bulua, Cagayan de Oro,
+                                            Misamis Oriental</option>
                                     </select>
                                     <div id="EditAddress_error" class="error"></div>
                                 </div>
@@ -836,7 +839,7 @@ if ($result2->num_rows > 0) {
                         </div>
                         <!-- Add more fields here if needed -->
                         <!-- Add a button to trigger the addition of child information -->
-                        <button id="UpdateChildButton" class="btn btn-primary">Add Child Information</button>
+                        <!-- <button id="UpdateChildButton" class="btn btn-primary">Add Child Information</button> -->
 
                         <!-- Placeholder for child information -->
                         <div id="childInformationPlaceholders"></div>
