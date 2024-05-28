@@ -41,8 +41,24 @@
                 </div>
                 <div class="modal-body">
                     <select name="" id="">
-                        <option value="">Gender</option>
-                        <option value="">Age</option>
+                        <option value="gender">Gender</option>
+                        <option value="age">Age</option>
+                        <option value="MostlyAvailedMethod">Mostly Availed Method</option>
+                  
+                    </select>
+                    <select name="" id="">
+                        <option value="Zone 1">Zone 1</option>
+                        <option value="Zone 2">Zone 2</option>
+                        <option value="Zone 3">Zone 3</option>
+                        <option value="Zone 4">Zone 4</option>
+                        <option value="Zone 5">Zone 5</option>
+                        <option value="Zone 6">Zone 6</option>
+                        <option value="Zone 7">Zone 7</option>
+                        <option value="Zone 8">Zone 8</option>
+                        <option value="Zone 9">Zone 9</option>
+                        <option value="Zone 10">Zone 10</option>
+                        <option value="Zone 11">Zone 11</option>
+                        <option value="Zone 12">Zone 12</option>
                     </select>
                   <canvas id="fam"></canvas>
                   <script>
