@@ -996,11 +996,43 @@ $currentUserNSVTotal =
     $currentUserNVSTotal20to49;
 
 $currentUserCondom10to14 = $condomCUBMCount_count10to14 + $condomANAPMCount_count10to14 + $condomOAPMCount_count10to14 - $condomDOPMCount_count10to14;
-$currentUserCondom10to14 = $condomCUBMCount_count15to19 + $condomANAPMCount_count15to19 + $condomOAPMCount_count15to19 - $condomDOPMCount_count15to19;
-$currentUserCondom10to14 = $condomCUBMCount_count20to49 + $condomANAPMCount_count20to49 + $condomOAPMCount_count20to49 - $condomDOPMCount_count20to49;
+$currentUserCondom15to19 = $condomCUBMCount_count15to19 + $condomANAPMCount_count15to19 + $condomOAPMCount_count15to19 - $condomDOPMCount_count15to19;
+$currentUserCondom20to49 = $condomCUBMCount_count20to49 + $condomANAPMCount_count20to49 + $condomOAPMCount_count20to49 - $condomDOPMCount_count20to49;
 
 $currentUserCondomTotal =
     $currentUserCondom10to14 +
-    $currentUserCondom10to14 +
-    $currentUserCondom10to14;
+    $currentUserCondom15to19 +
+    $currentUserCondom20to49;
 
+$currentUserPillsTotal10to14 = $pillsCUBMCount_count10to14 + $pillsANAPMCount_count10to14 + $pillsOAPMCount_count10to14 - $pillsDOPMCount_count10to14;
+$currentUserPillsTotal15to19 =  $pillsCUBMCount_count15to19 + $pillsANAPMCount_count15to19 + $pillsOAPMCount_count15to19 - $pillsDOPMCount_count15to19;
+$currentUserPillsTotal20to49 =  $pillsCUBMCount_count20to49 + $pillsANAPMCount_count20to49 + $pillsOAPMCount_count20to49 - $pillsDOPMCount_count20to49;
+
+$currentUserPillsTotal =
+    $currentUserPillsTotal10to14 +
+    $currentUserPillsTotal15to19 +
+    $currentUserPillsTotal20to49;
+
+
+$currentUserPillsPopTotal10to14 = $pillspopCUBMCount_count10to14 + $pillspopANAPMCount_count10to14 + $pillspopOAPMCount_count10to14 - $pillspopDOPMCount_count10to14;
+$currentUserPillsPopTotal15to19 =  $pillspopCUBMCount_count15to19 + $pillspopANAPMCount_count15to19 + $pillspopOAPMCount_count15to19 - $pillspopDOPMCount_count15to19;
+$currentUserPillsPopTotal20to49 =  $pillspopCUBMCount_count20to49 + $pillspopANAPMCount_count20to49 + $pillspopOAPMCount_count20to49 - $pillspopDOPMCount_count20to49;
+
+$currentUserPillsPopTotal =
+    $currentUserPillsPopTotal10to14 +
+    $currentUserPillsPopTotal15to19 +
+    $currentUserPillsPopTotal20to49;
+
+
+$currentUserPillsCocTotal10to14 = $pillscocCUBMCount_count10to14 + $pillscocANAPMCount_count10to14 + $pillscocOAPMCount_count10to14 - $pillscocDOPMCount_count10to14;
+$currentUserPillsCocTotal15to19 =  $pillscocCUBMCount_count15to19 + $pillscocANAPMCount_count15to19 + $pillscocOAPMCount_count15to19 - $pillscocDOPMCount_count15to19;
+$currentUserPillsCocTotal20to49 =  $pillscocCUBMCount_count20to49 + $pillscocANAPMCount_count20to49 + $pillscocOAPMCount_count20to49 - $pillscocDOPMCount_count20to49;
+
+$currentUserPillsCocTotal =
+    $currentUserPillsCocTotal10to14 +
+    $currentUserPillsCocTotal15to19 +
+    $currentUserPillsCocTotal20to49;
+    
+    
+$currentUserInjectablesTotal10to14 =  $injectablesCUBMCount_count10to14 + $injectablesANAPMCount_count10to14 + $injectablesOAPMCount_count10to14 - $injectablesDOPMCount_count10to14;
+$currentUserInjectablesTotal10to14 =  $injectablesCUBMCount_count10to14 + $injectablesANAPMCount_count10to14 + $injectablesOAPMCount_count10to14 - $injectablesDOPMCount_count10to14;

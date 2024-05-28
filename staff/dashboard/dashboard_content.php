@@ -1,5 +1,5 @@
 <?php
-include_once ('../../config.php');
+include_once('../../config.php');
 $currentDate = date('M-d-Y');
 $currentMonth = date('m');
 $currentYear = date('Y');
@@ -233,8 +233,7 @@ foreach ($tables as $table) {
 </div>
 <hr class="my-4">
 <!-- Modal -->
-<div class="modal fade" id="weeklyCalendarModal" tabindex="-1" aria-labelledby="weeklyCalendarModalLabel"
-  aria-hidden="true">
+<div class="modal fade" id="weeklyCalendarModal" tabindex="-1" aria-labelledby="weeklyCalendarModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
@@ -396,29 +395,21 @@ foreach ($tables as $table) {
               if ($result->num_rows > 0) {
                 $row = $result->fetch_assoc();
                 $totalConsultations = $row['totalConsultations'];
-
-                // Display the total consultations count within an <h3> element
                 echo "<h3>$totalConsultations</h3>";
               } else {
-                // If no consultations were found for the current month, display 0
                 echo "<h3>0</h3>";
               }
-
-              // Close the database connection
-              
               ?>
               <p>Total Patient</p>
             </div>
             <div class="icon">
               <i class="ion ion-person-add"></i>
             </div>
-            <a href="#" class="small-box-footer" data-toggle="modal" data-target="#patientmodal">More info <i
-                class="fas fa-arrow-circle-right"></i></a>
+            <a href="#" class="small-box-footer" data-toggle="modal" data-target="#patientmodal">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
 
           <!-- Modal -->
-          <div class="modal fade" id="patientmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
+          <div class="modal fade" id="patientmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
               <div class="modal-content">
                 <div class="modal-header">
@@ -427,59 +418,69 @@ foreach ($tables as $table) {
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-                <div class="modal-body">
-                  <select name="" id="">
-                    <option value="">trait_exists</option>
-                  </select>
-                <canvas id="myChart" width="400" height="190"></canvas>
-    
-    <script>
-      var ctx = document.getElementById("myChart").getContext('2d');
-      var myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels: ["M", "T", "W", "T", "F", "S", "S"],
-          datasets: [{
-            label: 'apples',
-            data: [12, 19, 3, 17, 28, 24, 7],
-            backgroundColor: "rgba(153,255,51,1)"
-          }, {
-            label: 'oranges',
-            data: [30, 29, 5, 5, 20, 3, 10],
-            backgroundColor: "rgba(255,153,0,1)"
-          }]
-        }
-      });
-    </script>
-                  <!-- <canvas id="patient"></canvas>
-                  <script>
-                    document.addEventListener('DOMContentLoaded', function () {
-                      // Ensure that the PHP variables are correctly encoded into JavaScript
-                      var columnNames = ['Male', 'Female', 'Children', 'Male 5 and Above', 'Female 5 and Above', 'male_children', 'female_children']; // Explicitly define the column names
-                      var data = <?php echo json_encode(array_values($counter)); ?>;
-                      var ctx = document.getElementById('patient').getContext('2d');
 
-                      // Creating the pie chart using Chart.js
-                      var chart = new Chart(ctx, {
-                        type: 'pie',
-                        data: {
-                          labels: columnNames,
-                          datasets: [{
-                            data: data,
-                            backgroundColor: [
-                              'rgba(255, 99, 132, 0.6)', // Color for Male
-                              'rgba(54, 162, 235, 0.6)', // Color for Female
-                              'rgba(255, 206, 86, 0.6)', // Color for Children
-                              'rgba(75, 192, 192, 0.6)', // Color for Male 5 and Above
-                              'rgba(153, 102, 255, 0.6)', // Color for Female 5 and Above
-                              'rgb(153, 255, 255, 0.6)',
-                              'rgb(255, 153, 153, 0.6)',
-                            ],
-                          }],
-                        },
-                      });
+                <div class="modal-body">
+                  <span>Sort Demographic Data by:</span>
+                  <select name="" id="optionSelect" onchange="changeChart()">
+                    <option value="">Gender</option>
+                    <option value="">Age</option>
+                  </select>
+                  <script>
+                    function changeChart() {
+                      var opt = document.getElementById("optionSelect").value;
+                      if (opt == "Age") {
+                        console.log("Selected option: " + opt);
+                      }
+                    }
+                  </script>
+                  <canvas id="myChart" width="800" height="400"></canvas>
+                  <?php
+                  $query = "SELECT address, gender, COUNT(*) AS count 
+                  FROM patients 
+                  GROUP BY address, gender";
+                  $result = $conn->query($query);
+
+                  // Initialize PHP arrays to store data
+                  $male_data = [];
+                  $female_data = [];
+                  $labels = [];
+
+                  if ($result->num_rows > 0) {
+                    // Output data of each row
+                    while ($row = $result->fetch_assoc()) {
+                      // Store data in PHP arrays
+                      $labels[] = $row["address"];
+                      if ($row["gender"] == "Male") {
+                        $male_data[] = $row["count"];
+                      } else {
+                        $female_data[] = $row["count"];
+                      }
+                    }
+                  } else {
+                    echo "0 results";
+                  }
+
+                  ?>
+                  <script>
+                    var ctx = document.getElementById("myChart").getContext('2d');
+                    var myChart = new Chart(ctx, {
+                      type: 'bar',
+                      data: {
+                        labels: ["Zone 1 Bulua", "Zone 2 Bulua", "Zone 3 Bulua", "Zone 4 Bulua", "Zone 5 Bulua", "Zone 6 Bulua", "Zone 7 Bulua", "Zone 8 Bulua", "Zone 9 Bulua", "Zone 10 Bulua", "Zone 11 Bulua", "Zone 12 Bulua"],
+                        datasets: [{
+                            label: 'Male',
+                            data: <?php echo json_encode($male_data); ?>,
+                            backgroundColor: "rgba(153,255,51,1)"
+                          },
+                          {
+                            label: 'Female',
+                            data: <?php echo json_encode($female_data); ?>,
+                            backgroundColor: "rgba(255,153,0,1)"
+                          }
+                        ]
+                      }
                     });
-                  </script> -->
+                  </script>
 
                 </div>
                 <div class="modal-footer">
@@ -488,6 +489,8 @@ foreach ($tables as $table) {
               </div>
             </div>
           </div>
+
+
         </div>
 
         <!-- ./col -->
@@ -516,7 +519,7 @@ foreach ($tables as $table) {
               }
 
               // Close the database connection
-              
+
               ?>
 
               <p>Total Prenatal</p>
@@ -524,8 +527,7 @@ foreach ($tables as $table) {
             <div class="icon">
               <i class="ion ion-stats-bars"></i>
             </div>
-            <a href="../prenatal/prenatal.php" class="small-box-footer">More info <i
-                class="fas fa-arrow-circle-right"></i></a>
+            <a href="../prenatal/prenatal.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -554,22 +556,20 @@ foreach ($tables as $table) {
               }
 
               // Close the database connection
-              
+
               ?>
               <p>Total Immunization </p>
             </div>
             <div class="icon">
               <i class="ion ion-person-add"></i>
             </div>
-            <a href="#" class="small-box-footer" data-toggle="modal" data-target="#immunizationModal">More info <i
-                class="fas fa-arrow-circle-right"></i></a>
+            <a href="#" class="small-box-footer" data-toggle="modal" data-target="#immunizationModal">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
       </div>
       <!--  -->
       <!-- Modal -->
-      <div class="modal fade" id="immunizationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+      <div class="modal fade" id="immunizationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -581,7 +581,7 @@ foreach ($tables as $table) {
             <div class="modal-body">
               <canvas id="kindOfCheckupss"></canvas>
               <script>
-                document.addEventListener('DOMContentLoaded', function () {
+                document.addEventListener('DOMContentLoaded', function() {
                   // Ensure that the PHP variables are correctly encoded into JavaScript
                   var columnNames = <?php echo json_encode($columns); ?>;
                   var data = <?php echo json_encode(array_values($countss)); ?>;
@@ -657,7 +657,7 @@ JOIN nurses ON fp_information.nurse_id = nurses.id";
               }
 
               // Close the database connection
-              
+
               ?>
 
               <p>Total Family Planning</p>
@@ -665,14 +665,12 @@ JOIN nurses ON fp_information.nurse_id = nurses.id";
             <div class="icon">
               <i class="ion ion-bag"></i>
             </div>
-            <a href="#" class="small-box-footer" data-toggle="modal" data-target="#famplanmodal">More info <i
-                class="fas fa-arrow-circle-right"></i></a>
+            <a href="#" class="small-box-footer" data-toggle="modal" data-target="#famplanmodal">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
 
 
           <!-- Modal -->
-          <div class="modal fade" id="famplanmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
+          <div class="modal fade" id="famplanmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
@@ -684,7 +682,7 @@ JOIN nurses ON fp_information.nurse_id = nurses.id";
                 <div class="modal-body">
                   <canvas id="fam"></canvas>
                   <script>
-                    document.addEventListener('DOMContentLoaded', function () {
+                    document.addEventListener('DOMContentLoaded', function() {
                       // Ensure that the PHP variables are correctly encoded into JavaScript
                       var columnNames = ['BTL', 'NSV', 'Condom', 'Pills-POP', 'Pills', 'Pills-COC', 'Injectables (DMPA/POI)', 'Implant', 'Hormonal IUD', 'IUD', 'IUD-I', 'IUD-PP', 'NFP-LAM', 'NFP-BBT', 'NFP-CMM', 'NFP-STM', 'NFP-SDM', 'Cervival Cap', 'Contraceptive sponge', 'Birth control ring', 'Emergency contraceptive', 'Sterilization'];
                       var data = <?php echo json_encode(array_values($countssss)); ?>;
@@ -763,7 +761,7 @@ JOIN nurses ON fp_information.nurse_id = nurses.id";
               }
 
               // Close the database connection
-              
+
               ?>
 
               <p>Total Consultation</p>
@@ -771,14 +769,12 @@ JOIN nurses ON fp_information.nurse_id = nurses.id";
             <div class="icon">
               <i class="ion ion-bag"></i>
             </div>
-            <a href="#" class="small-box-footer" data-toggle="modal" data-target="#consultationmodal">More info <i
-                class="fas fa-arrow-circle-right"></i></a>
+            <a href="#" class="small-box-footer" data-toggle="modal" data-target="#consultationmodal">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="consultationmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-          aria-hidden="true">
+        <div class="modal fade" id="consultationmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -790,7 +786,7 @@ JOIN nurses ON fp_information.nurse_id = nurses.id";
               <div class="modal-body">
                 <canvas id="consult"></canvas>
                 <script>
-                  document.addEventListener('DOMContentLoaded', function () {
+                  document.addEventListener('DOMContentLoaded', function() {
                     // Ensure that the PHP variables are correctly encoded into JavaScript
                     var columnNames = <?php echo json_encode($consults); ?>;
                     var data = <?php echo json_encode(array_values($countsss)); ?>;
@@ -894,8 +890,7 @@ JOIN nurses ON fp_information.nurse_id = nurses.id";
     </div>
     <div class="col-sm-5 bg-gradient-blue" style="text-align: left; padding:20px;border-radius:10px;">
 
-      <div
-        style="max-width: 600px; margin: 0 auto; background-color: #f8f8f8; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); height: 600px; overflow-y: auto;">
+      <div style="max-width: 600px; margin: 0 auto; background-color: #f8f8f8; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); height: 600px; overflow-y: auto;">
         <h2 style="text-align: center; color: #333;">Announcements</h2>
 
         <?php
@@ -982,7 +977,7 @@ JOIN nurses ON fp_information.nurse_id = nurses.id";
                 </tr>
               </thead>
               <tbody>
-                <?php foreach ($dates as $date => $day): ?>
+                <?php foreach ($dates as $date => $day) : ?>
                   <tr>
                     <td><?php echo $date; ?></td>
                     <td><?php echo $day; ?></td>
