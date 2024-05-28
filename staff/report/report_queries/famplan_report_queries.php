@@ -1036,3 +1036,4 @@ $currentUserPillsCocTotal =
     
 $currentUserInjectablesTotal10to14 =  $injectablesCUBMCount_count10to14 + $injectablesANAPMCount_count10to14 + $injectablesOAPMCount_count10to14 - $injectablesDOPMCount_count10to14;
 $currentUserInjectablesTotal10to14 =  $injectablesCUBMCount_count10to14 + $injectablesANAPMCount_count10to14 + $injectablesOAPMCount_count10to14 - $injectablesDOPMCount_count10to14;
+$currentUserInjectablesTotal10to14 =  $injectablesCUBMCount_count10to14 + $injectablesANAPMCount_count10to14 + $injectablesOAPMCount_count10to14 - $injectablesDOPMCount_count10to14;
