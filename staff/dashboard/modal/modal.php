@@ -629,11 +629,20 @@ GROUP BY address, age";
                      <option value="Zone 8">Zone 8</option>
                      <option value="Zone 9">Zone 9</option>
                      <option value="Zone 10">Zone 10</option>
+                     <option value="Zone 11">Zone 11</option>
+                     <option value="Zone 12">Zone 12</option>
                  </select>
                  <canvas id="myChart" width="800" height="400"></canvas>
 
                  <script>
                      var myChart;
+
+
+                     $(document).ready(function() {
+                         $('#patientmodal').on('shown.bs.modal', function() {
+                             changeChart();
+                         });
+                     });
 
                      function changeChart() {
                          // Reset the previous chart if it exists
