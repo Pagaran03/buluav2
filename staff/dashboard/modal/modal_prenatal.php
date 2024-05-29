@@ -2,7 +2,7 @@
 // Include the database connection file
 include('../../config.php'); // Replace with your actual database connection file
 
-$prenatals = ['abortion', 'stillbirth', 'alive'];
+$prenatals = ['abortion', 'stillbirth', 'alive', 'trimester'];
 $counters = [];
 
 foreach ($prenatals as $prenatal) {
@@ -36,7 +36,7 @@ foreach ($prenatals as $prenatal) {
  <!-- Modal -->
 <!-- Modal for displaying prenatal details -->
 <div class="modal fade" id="prenatalModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Prenatal Details</h5>
@@ -61,7 +61,7 @@ foreach ($prenatals as $prenatal) {
             <input type="date" id="toDatePicker" class="form-control">
           </div>
         </div>
-        <canvas id="prenatalChart" width="400" height="400"></canvas>
+        <canvas id="prenatalChart" width="400" height="150"></canvas>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var prenatalChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['Abortion', 'Alive', 'Stillbirth'], // Labels for x-axis
+            labels: ['Abortion', 'Alive', 'Stillbirth', 'trimester'], // Labels for x-axis
             datasets: [{
                 label: 'Prenatal Counts', // Label for the dataset
                 data: <?php echo json_encode($counters); ?>, // Initial data for the chart
