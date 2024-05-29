@@ -273,7 +273,7 @@ $htmlContent = '<html lang="en">
 
             <td>'.$currentUserBTL10to14.'</td>
             <td>'.$currentUserBTL15to19.'</td>
-            <td>'.$btlCUEOMTotal20to49.'</td>
+            <td>'.$currentUserBTL20to49.'</td>
             <td>'.$currentUserBTLTotal.'</td>
 
             <td>' . $btlNAPMCount_count10to14 . '</td>
@@ -309,10 +309,10 @@ $htmlContent = '<html lang="en">
             <td>' . $nsvDOPMCount_count20to49 . '</td>
             <td>' . $nsvDOPMCount_totalCount . '</td>
 
-            <td>' . $nsvCUEOMTotal10to14 . '</td>
-            <td>' . $nsvCUEOMTotal15to19 . '</td>
-            <td>' . $nsvCUEOMTotal20to49 . '</td>
-            <td>' . $nsvCUEOMTotal . '</td>
+            <td>' . $currentUserNVSTotal10to14 . '</td>
+            <td>' . $currentUserNVSTotal15to19 . '</td>
+            <td>' . $currentUserNVSTotal20to49 . '</td>
+            <td>' . $currentUserNSVTotal . '</td>
 
             <td>' . $nsvNAPMCount_count10to14 . '</td>
             <td>' . $nsvNAPMCount_count15to19 . '</td>
@@ -348,10 +348,10 @@ $htmlContent = '<html lang="en">
             <td>' . $condomDOPMCount_count20to49 . '</td>
             <td>' . $condomDOPMCount_totalCount . '</td>
 
-            <td>' . $condomCUEOMTotal10to14 . '</td>
-            <td>' . $condomCUEOMTotal15to19 . '</td>
-            <td>' . $condomCUEOMTotal20to49 . '</td>
-            <td>' . $condomCUEOMTotal . '</td>
+            <td>' . $currentUserCondom10to14 . '</td>
+            <td>' . $currentUserCondom15to19 . '</td>
+            <td>' . $currentUserCondom20to49 . '</td>
+            <td>' . $currentUserCondomTotal . '</td>
 
             <td>' . $condomNAPMCount_count10to14 . '</td>
             <td>' . $condomNAPMCount_count15to19 . '</td>
@@ -386,10 +386,10 @@ $htmlContent = '<html lang="en">
             <td>' . $pillsDOPMCount_count20to49 . '</td>
             <td>' . $pillsDOPMCount_totalCount . '</td>
 
-            <td>' . $pillsCUEOMTotal10to14 . '</td>
-            <td>' . $pillsCUEOMTotal15to19 . '</td>
-            <td>' . $pillsCUEOMTotal20to49 . '</td>
-            <td>' . $pillsCUEOMTotal . '</td>
+            <td>' . $currentUserPillsTotal10to14 . '</td>
+            <td>' . $currentUserPillsTotal15to19 . '</td>
+            <td>' . $currentUserPillsTotal20to49 . '</td>
+            <td>' . $currentUserPillsTotal . '</td>
             
             <td>' . $pillsNAPMCount_count10to14 . '</td>
             <td>' . $pillsNAPMCount_count15to19 . '</td>
@@ -413,18 +413,22 @@ $htmlContent = '<html lang="en">
             <td>' . $pillspopANAPMCount_count15to19 . '</td>
             <td>' . $pillspopANAPMCount_count20to49 . '</td>
             <td>' . $pillspopANAPMCount_counTotal . '</td>
+
             <td>' . $pillspopOAPMCount_count10to14 . '</td>
             <td>' . $pillspopOAPMCount_count15to19 . '</td>
             <td>' . $pillspopOAPMCount_count20to49 . '</td>
             <td>' . $pillspopOAPMCount_totalCount . '</td>
+
             <td>' . $pillspopDOPMCount_count10to14 . '</td>
             <td>' . $pillspopDOPMCount_count15to19 . '</td>
             <td>' . $pillspopDOPMCount_count20to49 . '</td>
             <td>' . $pillspopDOPMCount_totalCount . '</td>
-            <td>' . $pillspopCUEOMTotal10to14 . '</td>
-            <td>' . $pillspopCUEOMTotal15to19 . '</td>
-            <td>' . $pillspopCUEOMTotal20to49 . '</td>
-            <td>' . $pillspopCUEOMTotal . '</td>
+
+            <td>' . $currentUserPillsPopTotal10to14 . '</td>
+            <td>' . $currentUserPillsPopTotal15to19 . '</td>
+            <td>' . $currentUserPillsPopTotal20to49 . '</td>
+            <td>' . $currentUserPillsPopTotal . '</td>
+
             <td>' . $pillspopNAPMCount_count10to14 . '</td>
             <td>' . $pillspopNAPMCount_count15to19 . '</td>
             <td>' . $pillspopNAPMCount_count20to49 . '</td>
@@ -458,10 +462,10 @@ $htmlContent = '<html lang="en">
             <td>' . $pillscocDOPMCount_count20to49 . '</td>
             <td>' . $pillscocDOPMCount_totalCount . '</td>
 
-            <td>' . $pillscocCUEOMTotal10to14 . '</td>
-            <td>' . $pillscocCUEOMTotal15to19 . '</td>
-            <td>' . $pillscocCUEOMTotal20to49 . '</td>
-            <td>' . $pillscocCUEOMTotal . '</td>
+            <td>' . $currentUserPillsCocTotal10to14 . '</td>
+            <td>' . $currentUserPillsCocTotal15to19 . '</td>
+            <td>' . $currentUserPillsCocTotal20to49 . '</td>
+            <td>' . $currentUserPillsCocTotal . '</td>
 
             <td>' . $pillscocNAPMCount_count10to14 . '</td>
             <td>' . $pillscocNAPMCount_count15to19 . '</td>
@@ -496,10 +500,10 @@ $htmlContent = '<html lang="en">
             <td>' . $injectablesDOPMCount_count20to49 . '</td>
             <td>' . $injectablesDOPMCount_totalCount . '</td>
 
-            <td>' . $injectablesCUEOMTotal10to14 . '</td>
-            <td>' . $injectablesCUEOMTotal15to19 . '</td>
-            <td>' . $injectablesCUEOMTotal20to49 . '</td>
-            <td>' . $injectablesCUEOMTotal . '</td>
+            <td>' . $currentUserInjectablesTotal10to14 . '</td>
+            <td>' . $currentUserInjectablesTotal15to19 . '</td>
+            <td>' . $currentUserInjectablesTotal20to49 . '</td>
+            <td>' . $currentUserInjectablesTotal . '</td>
 
             <td>' . $injectablesNAPMCount_count10to14 . '</td>
             <td>' . $injectablesNAPMCount_count15to19 . '</td>
@@ -534,10 +538,10 @@ $htmlContent = '<html lang="en">
             <td>' . $implantDOPMCount_count20to49 . '</td>
             <td>' . $implantDOPMCount_totalCount . '</td>
 
-            <td>' . $implantCUEOMTotal10to14 . '</td>
-            <td>' . $implantCUEOMTotal15to19 . '</td>
-            <td>' . $implantCUEOMTotal20to49 . '</td>
-            <td>' . $implantCUEOMTotal . '</td>
+            <td>' . $currentUserImplantTotal10to14 . '</td>
+            <td>' . $currentUserImplantTotal15to19 . '</td>
+            <td>' . $currentUserImplantTotal20to49 . '</td>
+            <td>' . $currentUserImplantTotal . '</td>
 
             <td>' . $implantNAPMCount_count10to14 . '</td>
             <td>' . $implantNAPMCount_count15to19 . '</td>
@@ -573,10 +577,10 @@ $htmlContent = '<html lang="en">
             <td>' . $iudDOPMCount_count20to49 . '</td>
             <td>' . $iudDOPMCount_totalCount . '</td>
 
-            <td>' . $iudCUEOMTotal10to14 . '</td>
-            <td>' . $iudCUEOMTotal15to19 . '</td>
-            <td>' . $iudCUEOMTotal20to49 . '</td>
-            <td>' . $iudCUEOMTotal . '</td>
+            <td>' . $currentUserIudTotal10to14 . '</td>
+            <td>' . $currentUserIudTotal15to19 . '</td>
+            <td>' . $currentUserIudTotal20to49 . '</td>
+            <td>' . $currentUserIudTotal . '</td>
 
             <td>' . $iudNAPMCount_count10to14 . '</td>
             <td>' . $iudNAPMCount_count15to19 . '</td>
@@ -611,10 +615,10 @@ $htmlContent = '<html lang="en">
             <td>' . $iudiDOPMCount_count20to49 . '</td>
             <td>' . $iudiDOPMCount_totalCount . '</td>
 
-            <td>' . $iudiCUEOMTotal10to14 . '</td>
-            <td>' . $iudiCUEOMTotal15to19 . '</td>
-            <td>' . $iudiCUEOMTotal20to49 . '</td>
-            <td>' . $iudiCUEOMTotal . '</td>
+            <td>' . $currentUserIudiTotal10to14 . '</td>
+            <td>' . $currentUserIudiTotal15to19 . '</td>
+            <td>' . $currentUserIudiTotal20to49 . '</td>
+            <td>' . $currentUserIud1Total . '</td>
 
             <td>' . $iudiNAPMCount_count10to14 . '</td>
             <td>' . $iudiNAPMCount_count15to19 . '</td>
@@ -649,10 +653,10 @@ $htmlContent = '<html lang="en">
             <td>' . $iudppDOPMCount_count20to49 . '</td>
             <td>' . $iudppDOPMCount_totalCount . '</td>
 
-            <td>' . $iudppCUEOMTotal10to14 . '</td>
-            <td>' . $iudppCUEOMTotal15to19 . '</td>
-            <td>' . $iudppCUEOMTotal20to49 . '</td>
-            <td>' . $iudppCUEOMTotal . '</td>
+            <td>' . $currentUserIudppTotal10to14 . '</td>
+            <td>' . $currentUserIudppTotal15to19 . '</td>
+            <td>' . $currentUserIudppTotal20to49 . '</td>
+            <td>' . $currentUserIudppTotal . '</td>
 
             <td>' . $iudppNAPMCount_count10to14 . '</td>
             <td>' . $iudppNAPMCount_count15to19 . '</td>
@@ -688,10 +692,10 @@ $htmlContent = '<html lang="en">
             <td>' . $nfplamDOPMCount_count20to49 . '</td>
             <td>' . $nfplamDOPMCount_totalCount . '</td>
 
-            <td>' . $nfplamCUEOMTotal10to14 . '</td>
-            <td>' . $nfplamCUEOMTotal15to19 . '</td>
-            <td>' . $nfplamCUEOMTotal20to49 . '</td>
-            <td>' . $nfplamCUEOMTotal . '</td>
+            <td>' . $currentUserNfplamTotal10to14 . '</td>
+            <td>' . $currentUserNfplamTotal15to19 . '</td>
+            <td>' . $currentUserNfplamTotal20to49 . '</td>
+            <td>' . $currentUserNfplamTotal . '</td>
 
             <td>' . $nfplamNAPMCount_count10to14 . '</td>
             <td>' . $nfplamNAPMCount_count15to19 . '</td>
@@ -728,10 +732,10 @@ $htmlContent = '<html lang="en">
             <td>' . $nfpbbtDOPMCount_count20to49 . '</td>
             <td>' . $nfpbbtDOPMCount_totalCount . '</td>
 
-            <td>' . $nfpbbtCUEOMTotal10to14 . '</td>
-            <td>' . $nfpbbtCUEOMTotal15to19 . '</td>
-            <td>' . $nfpbbtCUEOMTotal20to49 . '</td>
-            <td>' . $nfpbbtCUEOMTotal . '</td>
+            <td>' . $currentUserNfpbbtTotal10to14 . '</td>
+            <td>' . $currentUserNfpbbtTotal15to19 . '</td>
+            <td>' . $currentUserNfpbbtTotal20to49 . '</td>
+            <td>' . $currentUserNfpbbtTotal . '</td>
 
             <td>' . $nfpbbtNAPMCount_count10to14 . '</td>
             <td>' . $nfpbbtNAPMCount_count15to19 . '</td>
@@ -769,10 +773,10 @@ $htmlContent = '<html lang="en">
             <td>' . $nfpcmmDOPMCount_count20to49 . '</td>
             <td>' . $nfpcmmDOPMCount_totalCount . '</td>
 
-            <td>' . $nfpcmmCUEOMTotal10to14 . '</td>
-            <td>' . $nfpcmmCUEOMTotal15to19 . '</td>
-            <td>' . $nfpcmmCUEOMTotal20to49 . '</td>
-            <td>' . $nfpcmmCUEOMTotal . '</td>
+            <td>' . $currentUserNfpcmmTotal10to14 . '</td>
+            <td>' . $currentUserNfpcmmTotal15to19 . '</td>
+            <td>' . $currentUserNfpcmmTotal20to49 . '</td>
+            <td>' . $currentUserNfpcmmTotal . '</td>
 
             <td>' . $nfpcmmNAPMCount_count10to14 . '</td>
             <td>' . $nfpcmmNAPMCount_count15to19 . '</td>
@@ -808,10 +812,10 @@ $htmlContent = '<html lang="en">
             <td>' . $nfpstmDOPMCount_count20to49 . '</td>
             <td>' . $nfpstmDOPMCount_totalCount . '</td>
             
-            <td>' . $nfpstmCUEOMTotal10to14 . '</td>
-            <td>' . $nfpstmCUEOMTotal15to19 . '</td>
-            <td>' . $nfpstmCUEOMTotal20to49 . '</td>
-            <td>' . $nfpstmCUEOMTotal . '</td>
+            <td>' . $currentUserNfpstmTotal10to14 . '</td>
+            <td>' . $currentUserNfpstmTotal15to19 . '</td>
+            <td>' . $currentUserNfpstmTotal20to49 . '</td>
+            <td>' . $currentUserNfpstmTotal . '</td>
 
             <td>' . $nfpstmNAPMCount_count10to14 . '</td>
             <td>' . $nfpstmNAPMCount_count15to19 . '</td>
@@ -847,10 +851,10 @@ $htmlContent = '<html lang="en">
             <td>' . $nfpsdmDOPMCount_count20to49 . '</td>
             <td>' . $nfpsdmDOPMCount_totalCount . '</td>
 
-            <td>' . $nfpsdmCUEOMTotal10to14 . '</td>
-            <td>' . $nfpsdmCUEOMTotal15to19 . '</td>
-            <td>' . $nfpsdmCUEOMTotal20to49 . '</td>
-            <td>' . $nfpsdmCUEOMTotal . '</td>
+            <td>' . $currentUserNfpsdmTotal10to14 . '</td>
+            <td>' . $currentUserNfpsdmTotal15to19 . '</td>
+            <td>' . $currentUserNfpsdmTotal20to49 . '</td>
+            <td>' . $currentUserNfpsdmTotal . '</td>
 
             <td>' . $nfpsdmNAPMCount_count10to14 . '</td>
             <td>' . $nfpsdmNAPMCount_count15to19 . '</td>

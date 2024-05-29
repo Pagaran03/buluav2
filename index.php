@@ -72,7 +72,7 @@ if (!isset($_SESSION['redirect_done'])) {
             ?>
             <form action="action/login_process.php" method="POST">
               <div class="input-field">
-                <input type="text" id="username" name="username" class="input" placeholder="Username" required>
+                <input type="text" id="username" name="email" class="input" placeholder="Email" required>
               </div>
               <div class="input-field">
                 <div class="input-group">

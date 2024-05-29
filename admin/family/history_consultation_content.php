@@ -1401,10 +1401,10 @@ if ($result === false) {
                 }
 
 
-                $('#editModal #weight2').val(editGetData.weight);
-                $('#editModal #bp2').val(editGetData.bp);
-                $('#editModal #height2').val(editGetData.height);
-                $('#editModal #pulse2').val(editGetData.pulse);
+                $('#editModal2 #weight2').val(editGetData.weight);
+                $('#editModal2 #bp2').val(editGetData.bp);
+                $('#editModal2 #height2').val(editGetData.height);
+                $('#editModal2 #pulse2').val(editGetData.pulse);
 
                 // Check the appropriate radio button based on the value
                 if (editGetData.extremities === "Normal") {

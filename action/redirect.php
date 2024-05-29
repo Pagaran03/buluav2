@@ -6,7 +6,7 @@ define('MIDWIFE_DASHBOARD', './midwife/dashboard/dashboard.php');
 define('STAFF_DASHBOARD', './staff/dashboard/dashboard.php');
 
 
-if (isset($_SESSION["username"]) && isset($_SESSION["role"])) {
+if (isset($_SESSION["email"]) && isset($_SESSION["role"])) {
     switch ($_SESSION["role"]) {
         case "admin":
             header("Location: " . ADMIN_DASHBOARD);

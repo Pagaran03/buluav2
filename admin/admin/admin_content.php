@@ -59,11 +59,11 @@ if ($result === false) {
                             <input type="email" class="form-control" id="email" name="email" required>
                             <div id="email_error" class="error"></div>
                         </div>
-                        <div class="form-group">
+                        <!-- <div class="form-group tago">
                             <label for="username">Username</label>
                             <input type="text" class="form-control" id="username" name="username" required >
                             <div id="username_error" class="error"></div>
-                        </div>
+                        </div> -->
 
                         <div class="form-group">
                             <label for="password">Password</label>
@@ -78,6 +78,11 @@ if ($result === false) {
                             </div>
                             <div id="password_error" class="error"></div>
                         </div>
+                        <style>
+                            .tago{
+                                display: none;
+                            }
+                        </style>
                         <script>
                             $(document).ready(function () {
                                 $("#password").on('input', function () {
@@ -117,13 +122,18 @@ if ($result === false) {
             </div>
         </div>
     </div>
+    <style>
+        .tago{
+            display: none;
+        }
+    </style>
     <div class="row">
         <div class="col-12">
             <div class="card-body table-responsive p-0" style="z-index: -99999">
                 <table id="tablebod" class="table table-head-fixed text-nowrap table-striped">
                     <thead class="thead-light">
                         <tr>
-                            <th>ID</th>
+                            <th class="tago">ID</th>
                             <th>First Name</th>
                             <th>Last Name</th>
                             <th>Birthdate</th>
@@ -137,7 +147,7 @@ if ($result === false) {
                             while ($row = $result->fetch_assoc()) {
                                 ?>
                                 <tr>
-                                    <td class="align-middle">
+                                    <td class="align-middle tago">
                                         <?php echo $row['id']; ?>
                                     </td>
                                     <td class="align-middle">
@@ -166,8 +176,8 @@ if ($result === false) {
                         } else {
                             ?>
                             <tr>
-                                <td class="align-middle">No Admin Found</td>
                                 <td class="align-middle"></td>
+                                <td class="align-middle">No Admin Found</td>
                                 <td class="align-middle">
                                 <td>
                                 <td class="align-middle"></td>
@@ -223,11 +233,11 @@ if ($result === false) {
                             <input type="email" class="form-control" id="editEmail" name="email" required>
                             <div id="email_error" class="error"></div>
                         </div>
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="ediuser">Username</label>
                             <input type="text" class="form-control" id="ediuser" name="username" required>
                             <div id="ediuser_error" class="error"></div>
-                        </div>
+                        </div> -->
                         <div class="form-group">
                             <label for="editPassword">Password</label>
                             <div class="input-group">
@@ -289,49 +299,49 @@ if ($result === false) {
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script>
-    $(document).ready(function () {
-            // $("#birthdate").change(function () {
-            //     generateUsername();
-            // });
+    // $(document).ready(function () {
+    //         // $("#birthdate").change(function () {
+    //         //     generateUsername();
+    //         // });
 
 
-            // function generateUsername() {
-            //     var birthdate = $("#birthdate").val();
-            //     var currentYear = new Date().getFullYear().toString().substr(-2); // Get last two digits of current year
-            //     var birthMonth = ('0' + (new Date(birthdate).getMonth() + 1)).slice(-2); // Format birth month as two digits
-            //     var birthYear = new Date(birthdate).getFullYear().toString().substr(-2); // Get last two digits of birth year
-            //     var username = currentYear + birthMonth + birthYear + '01'; // Combine parts to form the username
-            //     $("#username").val(username);
-            // }
+    //         // function generateUsername() {
+    //         //     var birthdate = $("#birthdate").val();
+    //         //     var currentYear = new Date().getFullYear().toString().substr(-2); // Get last two digits of current year
+    //         //     var birthMonth = ('0' + (new Date(birthdate).getMonth() + 1)).slice(-2); // Format birth month as two digits
+    //         //     var birthYear = new Date(birthdate).getFullYear().toString().substr(-2); // Get last two digits of birth year
+    //         //     var username = currentYear + birthMonth + birthYear + '01'; // Combine parts to form the username
+    //         //     $("#username").val(username);
+    //         // }
 
-            // // Request the next available suffix for the base username
-            // $.ajax({
-            //     type: "POST",
-            //     url: "get_username.php", // Update this with the actual URL to your PHP script
-            //     data: { username_prefix: usernameBase },
-            //     success: function (response) {
-            //         var username_prefix = response.trim();
-            //         var username = usernameBase + username_prefix;
-            //         $("#username").val(username);
-            //     }
-            // });
-        $("#addbutton").click(function () {
-            var username = $("#username").val();
-            $.ajax({
-                type: "POST",
-                url: "check_username.php", // Update this with the actual URL to your PHP script
-                data: { username: username },
-                success: function (response) {
-                    if (response.trim() === 'valid') {
-                        $("#username_error").text("");
-                        $("#addForm").submit(); // Proceed with form submission if username is valid
-                    } else {
-                        $("#username_error").text("Username already exists. Please choose a different one.");
-                    }
-                }
-            });
-        });
-    });
+    //         // // Request the next available suffix for the base username
+    //         // $.ajax({
+    //         //     type: "POST",
+    //         //     url: "get_username.php", // Update this with the actual URL to your PHP script
+    //         //     data: { username_prefix: usernameBase },
+    //         //     success: function (response) {
+    //         //         var username_prefix = response.trim();
+    //         //         var username = usernameBase + username_prefix;
+    //         //         $("#username").val(username);
+    //         //     }
+    //         // });
+    //     $("#addbutton").click(function () {
+    //         var username = $("#username").val();
+    //         $.ajax({
+    //             type: "POST",
+    //             url: "check_username.php", // Update this with the actual URL to your PHP script
+    //             data: { username: username },
+    //             success: function (response) {
+    //                 if (response.trim() === 'valid') {
+    //                     $("#username_error").text("");
+    //                     $("#addForm").submit(); // Proceed with form submission if username is valid
+    //                 } else {
+    //                     $("#username_error").text("Username already exists. Please choose a different one.");
+    //                 }
+    //             }
+    //         });
+    //     });
+    // });
     // edit
     $(document).ready(function () {
         $('#ediuser').on('change', function () {
@@ -372,7 +382,7 @@ if ($result === false) {
             var table = $('#tablebod').DataTable({
                 columnDefs: [{
                     targets: 0,
-                    data: 'id'
+                    data: 'id', visible: false
                 },
                 {
                     targets: 1,
@@ -411,7 +421,7 @@ if ($result === false) {
             var table = $('#tablebod').DataTable({
                 columnDefs: [{
                     targets: 0,
-                    data: 'id'
+                    data: 'id', visible: false
                 },
                 {
                     targets: 1,
@@ -442,7 +452,7 @@ if ($result === false) {
             table = $('#tablebod').DataTable({
                 columnDefs: [{
                     targets: 0,
-                    data: 'id'
+                    data: 'id', visible: false
                 },
                 {
                     targets: 1,
@@ -487,7 +497,7 @@ if ($result === false) {
             var birthdate = $('#birthdate').val();
             var address = $('#address').val();
             var email = $('#email').val();
-            var username = $('#username').val();
+  
             var password = $('#password').val();
             // Validate input fields
             var isValid = true;
@@ -524,10 +534,10 @@ if ($result === false) {
                 $('#email_error').text('Field is required');
                 isValid = false;
             }
-            if (username.trim() === '') {
-                $('#username_error').text('Field is required');
-                isValid = false;
-            }
+            // if (username.trim() === '') {
+            //     $('#username_error').text('Field is required');
+            //     isValid = false;
+            // }
 
             if (password.trim() === '') {
                 $('#password_error').text('Field is required');
@@ -546,7 +556,7 @@ if ($result === false) {
                         birthdate: birthdate,
                         address: address,
                         email: email,
-                        username: username,
+                        // username: username,
                         password: password
                     },
                     success: function (response) {
@@ -558,7 +568,7 @@ if ($result === false) {
                             $('#birthdate').val('');
                             $('#address').val('');
                             $('#email').val('');
-                            $('#username').val('');
+                            // $('#username').val('');
                             $('#password').val('');
 
                             updateData();
@@ -676,7 +686,7 @@ if ($result === false) {
                     $('#editModal #editBirthdate').val(editGetData.birthdate);
                     $('#editModal #editAddress').val(editGetData.address);
                     $('#editModal #editEmail').val(editGetData.email);
-                    $('#editModal #ediuser').val(editGetData.username);
+                    // $('#editModal #ediuser').val(editGetData.username);
                     // $('#editModal #editPassword').val(editGetData.password);
 
                     $('#editModal').modal('show');
@@ -697,7 +707,7 @@ if ($result === false) {
             var birthdate = $('#editBirthdate').val();
             var address = $('#editAddress').val();
             var email = $('#editEmail').val();
-            var username = $('#ediuser').val();
+            // var username = $('#ediuser').val();
             var password = $('#editPassword').val();
 
             // Validate input fields
@@ -727,10 +737,10 @@ if ($result === false) {
                 isValid = false;
             }
 
-            if (username.trim() === '') {
-                $('#ediuser_error').text('Field is required');
-                isValid = false;
-            }
+            // if (username.trim() === '') {
+            //     $('#ediuser_error').text('Field is required');
+            //     isValid = false;
+            // }
 
             //if (password.trim() === '') {
             //$('#editPassword_error').text('Field is required');
@@ -751,7 +761,7 @@ if ($result === false) {
                         birthdate: birthdate,
                         address: address,
                         email: email,
-                        username: username,
+                        // username: username,
                         password: password
                     },
                     success: function (response) {

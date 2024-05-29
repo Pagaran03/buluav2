@@ -129,13 +129,13 @@ if ($result === false) {
                                         <option value="NFP-CMM">NFP-CMM</option>
                                         <option value="NFP-STM">NFP-STM</option>
                                         <option value="NFP-SDM">NFP-SDM</option>
-                                        <option value="Cervical cap">Cervical cap</option>
+                                        <!-- <option value="Cervical cap">Cervical cap</option>
                                         <option value="Contraceptive sponge">Contraceptive sponge</option>
                                         <option value="Birth control ring">Birth control ring</option>
                                         <option value="Hormonal IUD">Hormonal IUD</option>
                                         <option value="Emergency contraceptive pills">Emergency contraceptive pills
                                         </option>
-                                        <option value="Sterilization">Sterilization</option>
+                                        <option value="Sterilization">Sterilization</option> -->
                                     </select>
                                     <div id="civil_status_error" class="error"></div>
                                 </div>
