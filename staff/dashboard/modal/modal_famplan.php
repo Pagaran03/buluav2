@@ -1,78 +1,205 @@
-  <?php
-  $fams = ['method', 'method', 'method', 'method', 'method', 'method', 'method', 'method', 'method', 'method', 'method', 'method', 'method', 'method', 'method', 'method', 'method']; // Added 'method' twice for 'NSV' and 'condom'
+<!-- Modal -->
+<div class="modal fade" id="famplanmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Family Planning Method Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Select for options -->
+         <span>Sort Demographic Data by:</span>
+        <select id="selectOptionFamplan">
+          <option value="Date">Date</option>
+          <option value="Gender">Gender</option>
+          <option value="MAFP">Commonly Used Method</option>
+        </select>
 
-  // Initialize an array to store the counts
-  $countssss = array();
-  
-  // Define the methods you want to count
-  $methodsToCount = ['BTL', 'NSV', 'condom', 'Pills-POP', 'Pills', 'Pills-COC', 'Injectables (DMPA/POI)', 'Implant', 'Hormonal IUD', 'IUD', 'IUD-I', 'IUD-PP', 'NFP-LAM', 'NFP-BBT', 'NFP-CMM', 'NFP-STM', 'NFP-SDM'];
-  
-  // Iterate over each method
-  foreach ($methodsToCount as $methodToCount) {
-      // Construct the SQL query to count occurrences of the method
-      $sql = "SELECT COUNT(*) AS count FROM fp_consultation WHERE method = '$methodToCount'";
-      $result = $conn->query($sql);
-  
-      if ($result === false) {
-          die("Query failed: " . $conn->error);
-      }
-  
-      // Fetch the count from the result
-      $row = $result->fetch_assoc();
-      $count = $row['count'];
-  
-      // Store count with method as key
-      $countssss[ucwords($methodToCount)] = $count;
-  }
-  ?>
-  
-  
-  
-  
-  <!-- Modal -->
-  <div class="modal fade" id="famplanmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Family Planning Method Details</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                    <select name="" id="">
-                        <option value="">Gender</option>
-                        <option value="">Age</option>
-                    </select>
-                  <canvas id="fam"></canvas>
-                  <script>
-  // Define methodsToCount array in JavaScript
-  var methodsToCount = <?php echo json_encode($methodsToCount); ?>;
+        <!-- Date range inputs -->
+        <label id="lbl1">From Date: <input type="date" id="frmDatefp"></label>
+        <label id="lbl2">To Date: <input type="date" id="toDatefp"></label>
 
-  // PHP variables containing counts should be defined before this script block
+        <!-- Zone select for MAV -->
+<label for="zonalSelectFamplan">Zone: </label>
+        <select id="zonalSelectFamplan" hidden>
+          <option value="Zone 1">Zone 1</option>
+          <option value="Zone 2">Zone 2</option>
+          <option value="Zone 3">Zone 3</option>
+          <option value="Zone 4">Zone 4</option>
+          <option value="Zone 5">Zone 5</option>
+          <option value="Zone 6">Zone 6</option>
+          <option value="Zone 7">Zone 7</option>
+          <option value="Zone 8">Zone 8</option>
+          <option value="Zone 9">Zone 9</option>
+          <option value="Zone 10">Zone 10</option>
+          <option value="Zone 11">Zone 11</option>
+          <option value="Zone 12">Zone 12</option>
+        </select>
 
-  // Ensure data is correctly fetched and available as an associative array in PHP ($countssss)
+        <!-- Canvas for chart -->
+        <canvas id="fam"></canvas>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-  // Then, convert PHP associative array to JavaScript object using JSON encoding
-  var data = <?php echo json_encode($countssss); ?>;
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var ctx = document.getElementById("fam").getContext('2d');
+    var myChartfp;
 
-  // Now, create the Chart using Chart.js
-  var ctx = document.getElementById("fam").getContext('2d');
-  var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: methodsToCount,
-      datasets: [{
-        label: 'Immunization Counts',
-        data: Object.values(data), // Use Object.values() to get data array from associative array
-        backgroundColor: "rgba(153,255,51,1)"
-      }]
+    function fetchData(selectOption, frmDatefp, toDatefp, zone) {
+      var url = 'modal/famplan_query.php?selectOption=' + encodeURIComponent(selectOption) +
+        '&frmDatefp=' + encodeURIComponent(frmDatefp) +
+        '&toDatefp=' + encodeURIComponent(toDatefp) +
+        '&zone=' + encodeURIComponent(zone);
+
+      fetch(url)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.text(); // Get the response as text
+        })
+        .then(text => {
+          // Split the response text by the delimiter between JSON objects (assuming '\n' as a delimiter here)
+          const jsonObjects = text.split('\n').filter(Boolean); // Filter out any empty strings
+          const data = jsonObjects.map(jsonStr => {
+            try {
+              return JSON.parse(jsonStr);
+            } catch (error) {
+              console.error('Error parsing JSON:', jsonStr);
+              throw error;
+            }
+          });
+
+          if (myChartfp) {
+            myChartfp.destroy();
+          }
+
+          if (selectOption === "Date") {
+            var methods = Object.keys(data[0].methods);
+            var counts = Object.values(data[0].methods);
+            myChartfp = new Chart(ctx, {
+              type: 'bar',
+              data: {
+                labels: methods,
+                datasets: [{
+                  label: 'Method Counts',
+                  data: counts,
+                  backgroundColor: 'rgba(75, 192, 192, 0.7)',
+                  borderColor: 'rgba(75, 192, 192, 1)',
+                  borderWidth: 1
+                }]
+              },
+              options: {
+                scales: {
+                  y: {
+                    beginAtZero: true
+                  }
+                }
+              }
+            });
+          } else if (selectOption === "Gender") {
+            var methods = Object.keys(data[0].male); // Assuming male and female counts are the same for methods
+            var maleCounts = Object.values(data[0].male);
+            var femaleCounts = Object.values(data[0].female);
+
+            myChartfp = new Chart(ctx, {
+              type: 'bar',
+              data: {
+                labels: methods,
+                datasets: [{
+                  label: 'Male',
+                  data: maleCounts,
+                  backgroundColor: "rgba(54, 162, 235, 0.7)",
+                  borderColor: "rgba(54, 162, 235, 1)",
+                  borderWidth: 1
+                }, {
+                  label: 'Female',
+                  data: femaleCounts,
+                  backgroundColor: "rgba(255, 99, 132, 0.7)",
+                  borderColor: "rgba(255, 99, 132, 1)",
+                  borderWidth: 1
+                }]
+              },
+              options: {
+                scales: {
+                  y: {
+                    beginAtZero: true
+                  }
+                }
+              }
+            });
+          } else if (selectOption === "MAFP") {
+            var methods = Object.keys(data[0].count); // Assuming methods are available in data.count
+            var counts = Object.values(data[0].count);
+
+            myChartfp = new Chart(ctx, {
+              type: 'bar',
+              data: {
+                labels: methods,
+                datasets: [{
+                  label: 'Method Counts',
+                  data: counts,
+                  backgroundColor: 'rgba(75, 192, 192, 0.7)',
+                  borderColor: 'rgba(75, 192, 192, 1)',
+                  borderWidth: 1
+                }]
+              },
+              options: {
+                scales: {
+                  y: {
+                    beginAtZero: true
+                  }
+                }
+              }
+            });
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error);
+        });
     }
+
+    function updateChart() {
+      var selectOption = document.getElementById("selectOptionFamplan").value;
+      var frmDatefp = document.getElementById("frmDatefp").value;
+      var toDatefp = document.getElementById("toDatefp").value;
+      var zone = document.getElementById("zonalSelectFamplan").value;
+
+      if (selectOption === "Date") {
+        document.getElementById("zonalSelectFamplan").setAttribute("hidden", "hidden");
+      }
+      if (selectOption === "Gender") {
+        document.getElementById("zonalSelectFamplan").removeAttribute("hidden");
+        document.getElementById("frmDatefp").removeAttribute("hidden");
+        document.getElementById("toDatefp").removeAttribute("hidden");
+        document.getElementById("lbl1").removeAttribute("hidden");
+        document.getElementById("lbl2").removeAttribute("hidden");
+      }
+
+      if (selectOption === "MAFP") {
+        // document.getElementById("frmDatefp").setAttribute("hidden", "hidden");
+        // document.getElementById("toDatefp").setAttribute("hidden", "hidden");
+        // document.getElementById("lbl1").setAttribute("hidden", "hidden");
+        // document.getElementById("lbl2").setAttribute("hidden", "hidden");
+        document.getElementById("zonalSelectFamplan").removeAttribute("hidden");
+      }
+
+      fetchData(selectOption, frmDatefp, toDatefp, zone);
+    }
+
+    updateChart(); // Initial call
+
+    document.getElementById("selectOptionFamplan").addEventListener("change", updateChart);
+    document.getElementById("frmDatefp").addEventListener("change", updateChart);
+    document.getElementById("toDatefp").addEventListener("change", updateChart);
+    document.getElementById("zonalSelectFamplan").addEventListener("change", updateChart);
   });
-</script>      </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-              </div>
-            </div>
-          </div>
+</script>
