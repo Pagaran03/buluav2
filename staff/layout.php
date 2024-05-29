@@ -340,7 +340,7 @@ if (!isset($_SESSION['role'])) {
           </div>
           <div class="form-group">
             <label for="toDate">To Date:</label>
-            <input type="date" class="form-control" id="toDate" placeholder="Select To Date">
+            <input type="date" class="form-control" id="toDates" placeholder="Select To Date">
           </div>
           <div class="form-group">
             <label for="reportType">Report Type:</label>
@@ -366,7 +366,7 @@ if (!isset($_SESSION['role'])) {
   <script>
     function generateReport() {
       var fromDate = document.getElementById("fromDate").value;
-      var toDate = document.getElementById("toDate").value;
+      var toDate = document.getElementById("toDates").value;
       var reportType = document.getElementById("reportType").value;
 
       switch (reportType) {
@@ -387,7 +387,7 @@ if (!isset($_SESSION['role'])) {
           window.open(url, '_blank');
           break;
         case "Prenatal":
-          var url = "../report/generate-prenatal.php?fromDate=" + fromDate + "&toDate=" + toDate;
+          var url = "../report/generate-prenatal.php?fromDate=" + fromDate + "&toDates=" + toDate;
           window.open(url, '_blank');
           break;
       }

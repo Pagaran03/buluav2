@@ -24,10 +24,10 @@ function generateRandomString($length = 10)
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get the username from the form
-    $username = $_POST["username"];
+    $username = $_POST["email"];
 
     // Prepare and execute SQL query to fetch email and role associated with the username
-    $sql = "SELECT email, role FROM users WHERE username = ?";
+    $sql = "SELECT email, role FROM users WHERE email = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $username);
     $stmt->execute();
@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $hashed_password = password_hash($temp_password, PASSWORD_DEFAULT);
 
         // Update password in the database
-        $update_sql = "UPDATE users SET password = ? WHERE username = ?";
+        $update_sql = "UPDATE users SET password = ? WHERE email = ?";
         $update_stmt = $conn->prepare($update_sql);
         $update_stmt->bind_param("ss", $hashed_password, $username);
         $update_stmt->execute();
@@ -121,7 +121,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <h1>Forgot Password</h1>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
           <div class="form-group">
-            <input type="text" class="form-control" id="username" name="username" placeholder="Enter your Username" required>
+            <input type="text" class="form-control" id="username" name="email" placeholder="Enter your Username" required>
           </div>
           <button type="submit" name="submit" class="btn btn-primary">Reset Password</button>
         </form>

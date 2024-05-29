@@ -1,5 +1,5 @@
 <?php
-require '../../vendor/autoload.php'; // Include Dompdf's autoloader
+require '../../vendor/autoload.php';
 include_once('../../config.php');
 
 use Dompdf\Dompdf;
@@ -149,20 +149,20 @@ $htmlContent = '
             <td>'.$countFirstTimePregnantWithTd2Plus15to19.'</td>
             <td>%</td>
             <td>'.$countFirstTimePregnantWithTd2Plus20to49.'</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
+            <td>%</td>
+            <td>'.$totalCountForFirstTimePregnantWithTd2Plus.'</td>
+            <td>%</td>
         </tr>
         <tr>
             <td>No. of pregnant women for the 2nd or more times given at least 3 doses of Td vaccination (Td2 Plus) - Total</td>
-            <td></td>
-            <td>6</td>
-            <td>7</td>
-            <td>12</td>
-            <td>25</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
+            <td>'.$countSecondTimeTdVacc10to14.'</td>
+            <td>%</td>
+            <td>'.$countSecondTimeTdVacc15to19.'</td>
+            <td>%</td>
+            <td>'.$countSecondTimeTdVacc20to49.'</td>
+            <td>%</td>
+            <td>'.$countTotalSecondTime.'</td>
+            <td>'.$countTotalSecondTime.'</td>
         </tr>
         <tr>
             <td>No. of pregnant women who completed the dose of iron with folic acid supplementation - Total</td>
@@ -200,24 +200,24 @@ $htmlContent = '
         <tr>
             <td>No. of pregnant women given one dose of deworming tablet - Total</td>
             <td></td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
         </tr>
         <tr>
             <td>No. of pregnant women given two doses of deworming tablet - Total</td>
             <td></td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
         </tr>
         <tr>
             <td>No. of pregnant women screened for syphilis - Total</td>
@@ -287,25 +287,25 @@ $htmlContent = '
             </tr>
             <tr>
             <td>No. of pregnant women tested for CBC or Hgb&Hct count - Total</td>
-            <td></td>
-            <td>0</td>
-            <td>2</td>
-            <td>10</td>
-            <td>12</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
+            <td>'.$countCbc10to14.'</td>
+            <td>%</td>
+            <td>'.$countCbc15to19.'</td>
+            <td>%</td>
+            <td>'.$countCbc20to49.'</td>
+            <td>%</td>
+            <td>'.$cbcTotal .'</td>
+            <td>%</td>
             </tr>
             <tr>
             <td>No. of pregnant women tested for CBC or Hgb&Hct count diagnosed with anemia - Total</td>
-            <td></td>
-            <td>0</td>
-            <td>0</td>
-            <td>3</td>
-            <td>3</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
+            <td>'.$countAnemia10to14.'</td>
+            <td>%</td>
+            <td>'.$countAnemia15to19.'</td>
+            <td>%</td>
+            <td>'.$countAnemia20to49.'</td>
+            <td>%</td>
+            <td>'.$totalAnemiaCount.'</td>
+            <td>%</td>
             </tr>
             <tr>
             <td>No. of pregnant women screened for gestational diabetes - Total</td>
