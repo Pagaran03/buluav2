@@ -444,3 +444,4 @@ $totalAnemiaCount = $countAnemia10to14 + $countAnemia15to19 + $countAnemia20to49
 
 // GESTATIONAL DIABETES
 
+// WALA PA KO KABALO SA RANGE
