@@ -70,23 +70,7 @@ foreach ($prenatals as $prenatal) {
     $counters[] = $sum_row['sum'];
 }
 
-$consults = ['subjective', 'objective', 'assessment', 'plan'];
 
-// Initialize an array to store the counts
-$countsss = array();
-
-foreach ($consults as $consult) {
-  // Assuming $conn is your database connection
-  $sql = "SELECT COUNT($consult) AS count FROM consultations"; // Replace 'your_table' with your actual table name
-  $result = $conn->query($sql);
-
-  if ($result === false) {
-    die("Query failed: " . $conn->error);
-  }
-
-  $row = $result->fetch_assoc();
-  $countsss[] = $row['count'];
-}
 
 
 
@@ -580,54 +564,9 @@ JOIN nurses ON fp_information.nurse_id = nurses.id";
           </div>
         </div>
 
-        <!-- Modal -->
-        <div class="modal fade" id="consultationmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Consult Details</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <canvas id="consult"></canvas>
-                <script>
-                  document.addEventListener('DOMContentLoaded', function() {
-                    // Ensure that the PHP variables are correctly encoded into JavaScript
-                    var columnNames = <?php echo json_encode($consults); ?>;
-                    var data = <?php echo json_encode(array_values($countsss)); ?>;
-                    var ctx = document.getElementById('consult').getContext('2d');
-
-                    // Creating the pie chart using Chart.js
-                    var chart = new Chart(ctx, {
-                      type: 'pie',
-                      data: {
-                        labels: columnNames,
-                        datasets: [{
-                          data: data,
-                          backgroundColor: [
-                            'rgba(255, 99, 132, 0.6)',
-                            'rgba(54, 162, 235, 0.6)',
-                            'rgba(255, 206, 86, 0.6)',
-                            'rgba(75, 192, 192, 0.6)',
-                            'rgba(76, 132, 112, 0.6)',
-                            '	rgb(153, 255, 153, 0.6)',
-                            'rgb(153, 255, 255, 0.6)',
-                            'rgb(255, 153, 153, 0.6)',
-                          ],
-                        }],
-                      },
-                    });
-                  });
-                </script>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <?php
+          include('modal/modal_consult.php');
+          ?>
 
       </div>
       <!--  -->
