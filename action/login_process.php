@@ -24,11 +24,11 @@ if (isset($_SESSION['ban_timestamp']) && time() - $_SESSION['ban_timestamp'] < 2
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST["username"];
+    $username = $_POST["email"];
     $password = $_POST["password"];
 
     // Use prepared statements to prevent SQL injection
-    $sql = "SELECT id, role, password, is_deleted FROM users WHERE username = ?";
+    $sql = "SELECT id, role, password, is_deleted FROM users WHERE email = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('s', $username);
     $stmt->execute();
@@ -71,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     echo 'Success';
 
                     // Set session variables
-                    $_SESSION["username"] = $username;
+                    $_SESSION["email"] = $username;
                     $_SESSION["role"] = $row["role"];
                     $_SESSION["user_id"] = $user_id;
 
@@ -119,7 +119,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 // Authentication failed
-$_SESSION['login_error'] = "Invalid Username or Password";
+$_SESSION['login_error'] = "Invalid Email or Password";
 header("Location: ../index.php");
 exit;
 

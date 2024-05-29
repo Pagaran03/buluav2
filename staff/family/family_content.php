@@ -3,7 +3,7 @@
 include_once('../../config.php');
 
 
-$sql = "SELECT *, fp_information.id as id, CONCAT(patients.last_name,',',patients.first_name) AS full_name, nurses.first_name as first_name2, nurses.last_name as last_name2, fp_obstetrical_history.fp_information_id as fp_information_id
+$sql = "SELECT *, fp_information.id as id, CONCAT(patients.last_name,',',patients.first_name) AS full_name, fp_consultation.method as method1, patients.address as address1 ,nurses.first_name as first_name2, nurses.last_name as last_name2, fp_obstetrical_history.fp_information_id as fp_information_id
 FROM fp_information
 JOIN patients ON fp_information.patient_id = patients.id
 JOIN fp_obstetrical_history ON fp_information.id = fp_obstetrical_history.fp_information_id
@@ -797,6 +797,7 @@ if ($result === false) {
                             <th>Patient Name</th>
                             <th>Date Of Last Delivery</th>
                             <th>Check up Date</th>
+                            <th>Gender</th>
                             <th>Status</th>
                             <th>Progress</th>
                             <th>Action</th>
@@ -824,10 +825,13 @@ if ($result === false) {
                                         <?php echo $row['checkup_date']; ?>
                                     </td>
                                     <td class="align-middle">
-                                        <?php echo $row['status']; ?>
+                                        <?php echo $row['gender']; ?>
                                     </td>
                                     <td class="align-middle">
-                                        <?php echo $row['steps']; ?>
+                                        <?php echo $row['address1']; ?>
+                                    </td>
+                                    <td class="align-middle">
+                                        <?php echo $row['method1']; ?>
                                     </td>
                                     <td class="align-middle">
                                         <button type="button" class="btn btn-success editbtn" data-row-id="<?php echo $row['id']; ?>">
@@ -849,6 +853,8 @@ if ($result === false) {
                                 <td class="align-middle"></td>
                                 <td class="align-middle"></td>
                                 <td class="align-middle"></td>
+                                <td class="align-middle"></td>
+
 
 
                             </tr>
@@ -1485,14 +1491,18 @@ if ($result === false) {
                     },
                     {
                         targets: 5,
-                        data: 'status'
+                        data: 'gender'
                     },
                     {
                         targets: 6,
-                        data: 'steps'
+                        data: 'address1'
                     },
                     {
                         targets: 7,
+                        data: 'method1'
+                    },
+                    {
+                        targets: 8,
                         searchable: false,
                         data: null,
                         render: function(data, type, row) {
@@ -1534,11 +1544,15 @@ if ($result === false) {
                     },
                     {
                         targets: 5,
-                        data: 'status'
+                        data: 'gender'
                     },
                     {
                         targets: 6,
-                        data: 'steps'
+                        data: 'address1'
+                    },
+                    {
+                        targets: 7,
+                        data: 'method1'
                     },
                 ],
                 // Set the default ordering to 'id' column in descending order
@@ -1570,20 +1584,24 @@ if ($result === false) {
                         targets: 3,
                         data: 'date_of_last_delivery'
                     },
-                    {
+                  {
                         targets: 4,
                         data: 'checkup_date'
                     },
                     {
                         targets: 5,
-                        data: 'status'
+                        data: 'gender'
                     },
                     {
                         targets: 6,
-                        data: 'steps'
+                        data: 'address1'
                     },
                     {
                         targets: 7,
+                        data: 'method1'
+                    },
+                    {
+                        targets: 8,
                         searchable: false,
                         data: null,
                         render: function(data, type, row) {

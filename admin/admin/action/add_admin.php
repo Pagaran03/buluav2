@@ -26,7 +26,6 @@ $last_name = sanitize_input($_POST['last_name']);
 $birthdate = sanitize_input($_POST['birthdate']);
 $address = sanitize_input($_POST['address']);
 $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-$username = sanitize_input($_POST['username']);
 $password = sanitize_input($_POST['password']);
 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
@@ -34,23 +33,24 @@ $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 $conn->begin_transaction();
 $role = 'Admin';
 
-// Check if the username already exists
-$check_username_sql = "SELECT COUNT(*) FROM users WHERE username = ?";
-$check_username_stmt = $conn->prepare($check_username_sql);
-$check_username_stmt->bind_param("s", $username);
-$check_username_stmt->execute();
-$check_username_result = $check_username_stmt->get_result()->fetch_assoc();
+// Check if the email already exists
+$check_email_sql = "SELECT COUNT(*) FROM users WHERE email = ?";
+$check_email_stmt = $conn->prepare($check_email_sql);
+$check_email_stmt->bind_param("s", $email);
+$check_email_stmt->execute();
+$check_email_result = $check_email_stmt->get_result()->fetch_assoc();
 
-if ($check_username_result['COUNT(*)'] > 0) {
-    // Username already exists, return an error
-    echo 'Invalid Username. Please choose a different one.';
+if ($check_email_result['COUNT(*)'] > 0) {
+    // Email already exists, return an error
+    echo 'Email already exists. Please use a different one.';
+    $conn->rollback();
     exit; // Stop execution further
 }
 
 // Insert data into the "users" table
-$user_sql = "INSERT INTO users (username, password, email, role) VALUES (?, ?, ?,? )";
+$user_sql = "INSERT INTO users (password, email, role) VALUES (?, ?, ?)";
 $user_stmt = $conn->prepare($user_sql);
-$user_stmt->bind_param("ssss", $username, $hashed_password, $email, $role);
+$user_stmt->bind_param("sss",  $hashed_password, $email, $role);
 
 if ($user_stmt->execute()) {
     // Get the last inserted user ID
@@ -74,10 +74,11 @@ if ($user_stmt->execute()) {
 } else {
     // Error handling for the "users" table insert
     echo 'Error: ' . $user_stmt->error;
+    $conn->rollback();
 }
 
 // Close prepared statements and the database connection
-$check_username_stmt->close();
+$check_email_stmt->close();
 $user_stmt->close();
 $conn->close();
 ?>
