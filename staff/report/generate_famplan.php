@@ -72,7 +72,7 @@ $htmlContent = '<html lang="en">
                     <br>
                     Name of Barangay: BULUA
                     <br>
-                    Projected Population of the Year:32,376
+                    Projected Population of the Year:__________
                     <br>
                     For Submission to CHO
                 </center>
@@ -243,8 +243,8 @@ $htmlContent = '<html lang="en">
             <td>15-19</td>
             <td>20-49</td>
             <td>Total</td>
-            <td rowspan="18"></td>
-            <td rowspan="18"></td>
+            <td rowspan="17"></td>
+            <td rowspan="17"></td>
 
         </tr>
         <tr>
@@ -270,10 +270,10 @@ $htmlContent = '<html lang="en">
             <td>' . $btlDOPMCount_count20to49 . '</td>
             <td>' . $btlDOPMCount_totalCount . '</td>
 
-            <td>'.$currentUserBTL10to14.'</td>
-            <td>'.$currentUserBTL15to19.'</td>
-            <td>'.$currentUserBTL20to49.'</td>
-            <td>'.$currentUserBTLTotal.'</td>
+            <td>' . $currentUserBTL10to14 . '</td>
+            <td>' . $currentUserBTL15to19 . '</td>
+            <td>' . $currentUserBTL20to49 . '</td>
+            <td>' . $currentUserBTLTotal . '</td>
 
             <td>' . $btlNAPMCount_count10to14 . '</td>
             <td>' . $btlNAPMCount_count15to19 . '</td>
@@ -866,38 +866,7 @@ $htmlContent = '<html lang="en">
 
         </tr>
 
-        <tr>
-            <td colspan="5"> m. Total Current Users</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-
-        </tr>
+        
     </table>
 </body>
 
@@ -928,3 +897,37 @@ echo '<script>
     var url = URL.createObjectURL(blob);
     window.open(url, "_blank");
 </script>';
+
+
+// <tr>
+//             <td colspan="5"> m. Total Current Users</td>
+//             <td></td>
+//             <td></td>
+//             <td></td>
+//             <td></td>
+//             <td></td>
+//             <td></td>
+//             <td></td>
+//             <td></td>
+//             <td></td>
+//             <td></td>
+//             <td></td>
+//             <td></td>
+//             <td></td>
+//             <td></td>
+//             <td></td>
+//             <td></td>
+//             <td></td>
+//             <td></td>
+//             <td></td>
+//             <td></td>
+//             <td></td>
+//             <td></td>
+//             <td></td>
+//             <td></td>
+//             <td></td>
+//             <td></td>
+//             <td></td>
+//             <td></td>
+
+//         </tr>

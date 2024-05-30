@@ -279,19 +279,13 @@ if ($result === false) {
                 </div>
             </div>
             <script>
-                // Add an event listener to the Save button
                 document.getElementById('updateButton').addEventListener('click', function () {
-                    // Assuming you have a variable `completedStep` that holds the completed step value, e.g., "Step1", "Step2", etc.
-                    var completedStep = "Step 4 Prescription"; // Example completed step
-
-                    // Get the select element
+                    var completedStep = "Step 4 Prescription"; 
                     var selectStep = document.getElementById('editstep');
-
-                    // Loop through options and set selected attribute if value matches completedStep
                     for (var i = 0; i < selectStep.options.length; i++) {
                         if (selectStep.options[i].value === completedStep) {
                             selectStep.options[i].setAttribute('selected', 'selected');
-                            break; // Exit loop once selected option is found
+                            break;
                         }
                     }
                 });
@@ -863,11 +857,6 @@ if ($result === false) {
         }
 
         // Delete button click event
-
-
-
-
-
 
         $('#tablebod').on('click', '.deletebtn', function () {
             var deletedataId = $(this).data('id');
