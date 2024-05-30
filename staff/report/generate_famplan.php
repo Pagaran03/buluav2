@@ -60,7 +60,6 @@ $htmlContent = '<html lang="en">
 </head>
 
 <body>
-<h1>'.$currentUserBTL10to14.' + '.$currentUserBTL15to19.' + '.$currentUserBTL20to49.'</h1>
     <table>
         <tr>
             <td colspan="35">

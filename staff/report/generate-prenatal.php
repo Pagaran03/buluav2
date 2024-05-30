@@ -87,115 +87,115 @@ $htmlContent = '
         </tr>
         <tr>
         <td>No. of pregnant women at least 4 prenatal check-ups - Total</td>
-            <td>'.$countForPrenatal10to14.'</td>
-            <td>%</td>
-            <td>'.$countForPrenatal15to19.'</td>
-            <td>%</td>
-            <td>'.$countForPrenatal20to49.'</td>
-            <td>%</td>
-            <td>'.$countForPrenatalTotal.'</td>
-            <td>%</td>
+            <td>' . $countForPrenatal10to14 . '</td>
+            <td></td>
+            <td>' . $countForPrenatal15to19 . '</td>
+            <td></td>
+            <td>' . $countForPrenatal20to49 . '</td>
+            <td></td>
+            <td>' . $countForPrenatalTotal . '</td>
+            <td>' . $percentForPrenatalFormatted . '%</td>
             
         </tr>
         <tr>
             <td>No. of pregnant women assessed of their nutritional status during the 1st trimester - Total</td>
             <td></td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
             
         </tr>
         <tr>
             <td>a. No. of pregnant women seen in the first trimester who have normal BMI - Total</td>
+            <td>' . $countABMI10to14 . '</td>
             <td></td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
+            <td>' . $countABMI15to19 . '</td>
+            <td></td>
+            <td>' . $countABMI20to49 . '</td>
+            <td></td>
+            <td>' . $countTotalABMI . '</td>
+            <td>' . $percentABMIFormatted . '%</td>
         </tr>
         <tr>
             <td>b. No. of pregnant women seen in the first trimester who have low BMI - Total</td>
+            <td>' . $countBMI10to14 . '</td>
             <td></td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
+            <td>' . $countBMI15to19 . '</td>
+            <td></td>
+            <td>' . $countBMI20to49 . '</td>
+            <td></td>
+            <td>' . $totalLowBMI . '</td>
+            <td>' . $percentLowBmiFormatted . '%</td>
         </tr>
         <tr>
             <td>c. No. of pregnant women seen in the first trimester who have high BMI - Total</td>
+            <td>' . $countHighBMI10to14 . '</td>
             <td></td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
+            <td>' . $countHighBMI15to19 . '</td>
+            <td></td>
+            <td>' . $countHighBMI20to49 . '</td>
+            <td></td>
+            <td>' . $totalHighBMI . '</td>
+            <td>' . $percentHighBMIFormatted . '%</td>
         </tr>
         <tr>
             <td>No. of pregnant women for the first time given at least 2 doses of Td vaccination (Td2 Plus) - Total</td>
-            <td>'.$countFirstTimePregnantWithTd2Plus10to14.'</td>
-            <td>%</td>
-            <td>'.$countFirstTimePregnantWithTd2Plus15to19.'</td>
-            <td>%</td>
-            <td>'.$countFirstTimePregnantWithTd2Plus20to49.'</td>
-            <td>%</td>
-            <td>'.$totalCountForFirstTimePregnantWithTd2Plus.'</td>
-            <td>%</td>
+            <td>' . $countFirstTimePregnantWithTd2Plus10to14 . '</td>
+            <td></td>
+            <td>' . $countFirstTimePregnantWithTd2Plus15to19 . '</td>
+            <td></td>
+            <td>' . $countFirstTimePregnantWithTd2Plus20to49 . '</td>
+            <td></td>
+            <td>' . $totalCountForFirstTimePregnantWithTd2Plus . '</td>
+            <td>' . $percentTd2Plus1stFormatted . '%</td>
         </tr>
         <tr>
             <td>No. of pregnant women for the 2nd or more times given at least 3 doses of Td vaccination (Td2 Plus) - Total</td>
-            <td>'.$countSecondTimeTdVacc10to14.'</td>
-            <td>%</td>
-            <td>'.$countSecondTimeTdVacc15to19.'</td>
-            <td>%</td>
-            <td>'.$countSecondTimeTdVacc20to49.'</td>
-            <td>%</td>
-            <td>'.$countTotalSecondTime.'</td>
-            <td>'.$countTotalSecondTime.'</td>
+            <td>' . $countSecondTimeTdVacc10to14 . '</td>
+            <td></td>
+            <td>' . $countSecondTimeTdVacc15to19 . '</td>
+            <td></td>
+            <td>' . $countSecondTimeTdVacc20to49 . '</td>
+            <td></td>
+            <td>' . $countTotalSecondTime . '</td>
+            <td>' . $percentTotalSecondTimeFormatted . '%</td>
         </tr>
         <tr>
             <td>No. of pregnant women who completed the dose of iron with folic acid supplementation - Total</td>
             <td></td>
-            <td>0</td>
-            <td>7</td>
-            <td>40</td>
-            <td>47</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
         </tr>
         <tr>
             <td>No. of pregnant women who completed doses of calcium carbonate supplementation - Total</td>
             <td></td>
-            <td>0</td>
-            <td>7</td>
-            <td>45</td>
-            <td>52</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
         </tr>
         <tr>
             <td>No. of pregnant women given iodine capsules - Total</td>
             <td></td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
         </tr>
         <tr>
             <td>No. of pregnant women given one dose of deworming tablet - Total</td>
@@ -221,102 +221,102 @@ $htmlContent = '
         </tr>
         <tr>
             <td>No. of pregnant women screened for syphilis - Total</td>
+            <td>' . $countSyphilis10to14 . '</td>
             <td></td>
-            <td>0</td>
-            <td>2</td>
-            <td>20</td>
-            <td>22</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
+            <td>' . $countSyphilis15to19 . '</td>
+            <td></td>
+            <td>' . $countSyphilis20to49 . '</td>
+            <td></td>
+            <td>' . $totalSyphilisCount . '</td>
+            <td>' . $totalSyphilisCountPercentFormatted . '%</td>
         </tr>
         <tr>
             <td>No. of pregnant women tested positive for syphilis - Total</td>
+            <td>' . $countVDRL10to14 . '</td>
             <td></td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
+            <td>' . $countVDRL10to14 . '</td>
+            <td></td>
+            <td>' . $countVDRL10to14 . '</td>
+            <td></td>
+            <td>' . $totalVdrlCount . '</td>
+            <td>' . $totalVdrlCountPercentFormatted . '%</td>
             </tr>
             <tr>
             <td>No. of pregnant women screened for Hepatitis B - Total</td>
+            <td>' . $countHbsag10to14 . '</td>
             <td></td>
-            <td>0</td>
-            <td>2</td>
-            <td>20</td>
-            <td>22</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
+            <td>' . $countHbsag15to19 . '</td>
+            <td></td>
+            <td>' . $countHbsag20to49 . '</td>
+            <td></td>
+            <td>' . $TotalcountHbsag . '</td>
+            <td>' . $TotalcountHbsagPercentFormatted . '%</td>
             </tr>
             <tr>
             <td>No. of pregnant women tested positive for Hepatitis B - Total</td>
+            <td>'.$countHbsagPositive10to14.'</td>
             <td></td>
-            <td>0</td>
-            <td>1</td>
-            <td>0</td>
-            <td>1</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
+            <td>'.$countHbsagPositive15to19.'</td>
+            <td></td>
+            <td>'.$countHbsagPositive20to49.'</td>
+            <td></td>
+            <td>'.$totalHbsagPositive.'</td>
+            <td>'.$totalHbsagPositivePercentFormatted.'</td>
             </tr>
             <tr>
             <td>No. of pregnant women screened for HIV - Total</td>
             <td></td>
-            <td>0</td>
-            <td>2</td>
-            <td>20</td>
-            <td>22</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
             </tr>
             <tr>
             <td>No. of pregnant women tested positive for HIV - Total</td>
             <td></td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
             </tr>
             <tr>
             <td>No. of pregnant women tested for CBC or Hgb&Hct count - Total</td>
-            <td>'.$countCbc10to14.'</td>
-            <td>%</td>
-            <td>'.$countCbc15to19.'</td>
-            <td>%</td>
-            <td>'.$countCbc20to49.'</td>
-            <td>%</td>
-            <td>'.$cbcTotal .'</td>
-            <td>%</td>
+            <td>' . $countCbc10to14 . '</td>
+            <td></td>
+            <td>' . $countCbc15to19 . '</td>
+            <td></td>
+            <td>' . $countCbc20to49 . '</td>
+            <td></td>
+            <td>' . $cbcTotal . '</td>
+            <td>' . $cbcTotalPercentFormatted . '%</td>
             </tr>
             <tr>
             <td>No. of pregnant women tested for CBC or Hgb&Hct count diagnosed with anemia - Total</td>
-            <td>'.$countAnemia10to14.'</td>
-            <td>%</td>
-            <td>'.$countAnemia15to19.'</td>
-            <td>%</td>
-            <td>'.$countAnemia20to49.'</td>
-            <td>%</td>
-            <td>'.$totalAnemiaCount.'</td>
-            <td>%</td>
+            <td>' . $countAnemia10to14 . '</td>
+            <td></td>
+            <td>' . $countAnemia15to19 . '</td>
+            <td></td>
+            <td>' . $countAnemia20to49 . '</td>
+            <td></td>
+            <td>' . $totalAnemiaCount . '</td>
+            <td>' . $totalAnemiaCountPercentFormatted . '%</td>
             </tr>
             <tr>
             <td>No. of pregnant women screened for gestational diabetes - Total</td>
             <td></td>
-            <td>0</td>
-            <td>1</td>
-            <td>0</td>
-            <td>1</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
             </tr>
             </tbody>
             </table>

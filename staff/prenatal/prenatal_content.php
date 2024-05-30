@@ -454,7 +454,7 @@ if ($result === false) {
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="vdrl" name="vdrl" required>
                                         <div class="input-group-append">
-                                            <span class="input-group-text">units/mL</span>
+                                            <span class="input-group-text">tither</span>
                                         </div>
                                     </div>
                                 </div>
@@ -466,7 +466,7 @@ if ($result === false) {
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="hbsag" name="hbsag" required>
                                         <div class="input-group-append">
-                                            <span class="input-group-text">units/mL</span>
+                                            <span class="input-group-text">IU/mL</span>
                                         </div>
                                     </div>
                                 </div>
