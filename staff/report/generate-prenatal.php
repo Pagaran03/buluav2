@@ -75,7 +75,7 @@ $htmlContent = '
     <tbody>
         <tr>
             <td></td>
-            <td rowspan="22"></td>
+            <td rowspan="17"></td>
             <td>No.</td>
             <td>%</td>
             <td>No.</td>
@@ -164,61 +164,7 @@ $htmlContent = '
             <td>' . $countTotalSecondTime . '</td>
             <td>' . $percentTotalSecondTimeFormatted . '%</td>
         </tr>
-        <tr>
-            <td>No. of pregnant women who completed the dose of iron with folic acid supplementation - Total</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>No. of pregnant women who completed doses of calcium carbonate supplementation - Total</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>No. of pregnant women given iodine capsules - Total</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>No. of pregnant women given one dose of deworming tablet - Total</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>No. of pregnant women given two doses of deworming tablet - Total</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
+
         <tr>
             <td>No. of pregnant women screened for syphilis - Total</td>
             <td>' . $countSyphilis10to14 . '</td>
@@ -347,3 +293,59 @@ echo '<script>
             var url = URL.createObjectURL(blob);
             window.open(url, "_blank");
             </script>';
+
+        //     <tr>
+        //     <td>No. of pregnant women who completed the dose of iron with folic acid supplementation - Total</td>
+        //     <td></td>
+        //     <td></td>
+        //     <td></td>
+        //     <td></td>
+        //     <td></td>
+        //     <td></td>
+        //     <td></td>
+        //     <td></td>
+        // </tr>
+        // <tr>
+        //     <td>No. of pregnant women who completed doses of calcium carbonate supplementation - Total</td>
+        //     <td></td>
+        //     <td></td>
+        //     <td></td>
+        //     <td></td>
+        //     <td></td>
+        //     <td></td>
+        //     <td></td>
+        //     <td></td>
+        // </tr>
+        // <tr>
+        //     <td>No. of pregnant women given iodine capsules - Total</td>
+        //     <td></td>
+        //     <td></td>
+        //     <td></td>
+        //     <td></td>
+        //     <td></td>
+        //     <td></td>
+        //     <td></td>
+        //     <td></td>
+        // </tr>
+        // <tr>
+        //     <td>No. of pregnant women given one dose of deworming tablet - Total</td>
+        //     <td></td>
+        //     <td></td>
+        //     <td></td>
+        //     <td></td>
+        //     <td></td>
+        //     <td></td>
+        //     <td></td>
+        //     <td></td>
+        // </tr>
+        // <tr>
+        //     <td>No. of pregnant women given two doses of deworming tablet - Total</td>
+        //     <td></td>
+        //     <td></td>
+        //     <td></td>
+        //     <td></td>
+        //     <td></td>
+        //     <td></td>
+        //     <td></td>
+        //     <td></td>
+        // </tr>

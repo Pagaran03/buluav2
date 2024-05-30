@@ -445,7 +445,7 @@ $anemia10to14 = "
     INNER JOIN patients ON prenatal_subjective.patient_id = patients.id
     WHERE hgb IS NOT NULL 
       AND hgb != 0 
-      AND hgb <= 12  -- Adjust the threshold for anemia if necessary
+      AND hgb <= 12
       AND patients.age BETWEEN 10 AND 14
       AND checkup_date BETWEEN ? AND ?";
 
