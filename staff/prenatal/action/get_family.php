@@ -3,7 +3,7 @@
 include_once ('../../../config.php');
 
 
-$sql = "SELECT *,prenatal_subjective.id as id,patients.first_name as first_name,patients.last_name as last_name,patients.serial_no as serial_no
+$sql = "SELECT *,prenatal_subjective.id as id,CONCAT(patients.last_name, ' , ', patients.first_name) AS full_name,patients.serial_no as serial_no
 FROM prenatal_subjective
 JOIN patients ON prenatal_subjective.patient_id = patients.id WHERE prenatal_subjective.is_deleted = 0";
 

@@ -3,10 +3,9 @@
 include_once ('../../config.php');
 
 
-$sql = "SELECT *,prenatal_subjective.id as id,patients.first_name as first_name,patients.last_name as last_name,patients.serial_no as serial_no
+$sql = "SELECT *,prenatal_subjective.id as id,CONCAT(patients.last_name, ' , ', patients.first_name) AS full_name,patients.serial_no as serial_no
 FROM prenatal_subjective
 JOIN patients ON prenatal_subjective.patient_id = patients.id WHERE prenatal_subjective.is_deleted = 0";
-
 
 $result = $conn->query($sql);
 
@@ -483,7 +482,7 @@ if ($result === false) {
                                     <label for="rbs_fbs">RBS/FBS</label>
                                     <span style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="rbs_fbs" name="rbs_fbs" required>
+                                        <input type="text" class="form-control" id="rbsfbs" name="rbs_fbs" required>
                                         <div class="input-group-append">
                                             <span class="input-group-text">mg/dL</span>
                                         </div>
@@ -928,7 +927,7 @@ if ($result === false) {
                                     <?php echo $row['serial_no']; ?>
                                 </td>
                                 <td class="align-middle">
-                                    <?php echo $row['last_name']; ?>
+                                    <?php echo $row['full_name']; ?>
                                 </td>
                                 <td class="align-middle">
                                     <?php echo $row['checkup_date']; ?>
@@ -1211,10 +1210,52 @@ if ($result === false) {
                             </div>
                         </div>
                         <div class="col-3">
+                                <div class="form-group">
+                                    <label for="hbsag">HBsAG</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="edithbsag" name="hbsag" required>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">IU/mL</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="col-3">
 
                         </div>
 
                     </div>
+                    <div class="row">
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label for="rbs_fbs">RBS/FBS</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="editrbsfbs" name="rbs_fbs" required>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">mg/dL</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label for="blood_type">Blood Type</label>
+                                    <div class="input-group">
+                                        <select class="form-control" id="editbloodtype" name="blood_type" required>
+                                            <option value="" disabled selected hidden>Select your Blood Type</option>
+                                            <option value="A+">A+</option>
+                                            <option value="A-">A-</option>
+                                            <option value="B+">B+</option>
+                                            <option value="B-">B-</option>
+                                            <option value="AB+">AB+</option>
+                                            <option value="AB-">AB-</option>
+                                            <option value="O+">O+</option>
+                                            <option value="O-">O-</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
 
                     <div class="row">
@@ -1543,7 +1584,7 @@ if ($result === false) {
                 columnDefs: [
                     { targets: 0, data: 'id', visible: false },
                     { targets: 1, data: 'serial_no' },
-                    { targets: 2, data: 'last_name' },
+                    { targets: 2, data: 'full_name' },
                     { targets: 3, data: 'checkup_date' },
                     { targets: 4, data: 'status' },
                     { targets: 5, data: 'steps' },
@@ -1568,7 +1609,7 @@ if ($result === false) {
                 columnDefs: [
                     { targets: 0, data: 'id', visible: false },
                     { targets: 1, data: 'serial_no' },
-                    { targets: 2, data: 'last_name' },
+                    { targets: 2, data: 'full_name' },
                     { targets: 3, data: 'checkup_date' },
                     { targets: 4, data: 'status' },
                     { targets: 5, data: 'steps' },
@@ -1587,7 +1628,7 @@ if ($result === false) {
                 columnDefs: [
                     { targets: 0, data: 'id', visible: false },
                     { targets: 1, data: 'serial_no' },
-                    { targets: 2, data: 'last_name' },
+                    { targets: 2, data: 'full_name' },
                     { targets: 3, data: 'checkup_date' },
                     { targets: 4, data: 'status' },
                     { targets: 5, data: 'steps' },
@@ -1638,6 +1679,8 @@ if ($result === false) {
             var hgb = $('#hgb').val();
             var ua = $('#ua').val();
             var vdrl = $('#vdrl').val();
+            var rbs = $('#rbsfbs').val();
+            var hbsag = $('#hbsag').val();
             // Additional fields for prenatal_diagnosis
             var edc = $('#edc').val();
             var aog = $('#aog').val();
@@ -1731,6 +1774,8 @@ if ($result === false) {
                     heart_disease: heart_disease,
                     obesity: obesity,
                     goiter: goiter,
+                    hbsag: hbsag,
+                    rbs: rbs,
                     // Include the additional fields for prenatal_diagnosis
                     edc: edc,
                     aog: aog,
@@ -1790,6 +1835,8 @@ if ($result === false) {
                         $('#hgb').val('');
                         $('#ua').val('');
                         $('#vdrl').val('');
+                        $('#hbsag').val('');
+                        $('#rbsfbs').val('');
                         $('#edc').val('');
                         $('#aog').val('');
                         $('#date_of_last_delivery').val('');
@@ -1932,7 +1979,9 @@ if ($result === false) {
                     $('#editModal #hgb2').val(editGetData.hgb);
                     $('#editModal #ua2').val(editGetData.ua);
                     $('#editModal #vdrl2').val(editGetData.vdrl);
-
+                    $('#editModal #edithbsag').val(editGetData.hbsag);
+                    $('#editModal #editrbsfbs').val(editGetData.rbs);
+                    $('#editModal #editbloodtype').val(editGetData.blood_type);
 
                     if (editGetData.forceps_delivery === 'Yes') {
                         $('#forceps_delivery2').prop('checked', true);
