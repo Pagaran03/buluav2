@@ -1,6 +1,6 @@
 <?php
 // Include your database configuration file
-include_once ('../../config.php');
+include_once('../../config.php');
 
 
 $sql = "SELECT *,prenatal_subjective.id as id,patients.first_name as first_name,patients.last_name as last_name,patients.serial_no as serial_no
@@ -35,8 +35,7 @@ if ($result === false) {
     <br><br>
 
 
-    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -54,10 +53,8 @@ if ($result === false) {
                         <div class="row">
                             <div class="col-4">
                                 <div class="form-group">
-                                    <label for="patient">Select Patient</label><span
-                                        style="color: red; font-size: 22px;">*</span>
-                                    <input list="patients" class="form-control" name="patient_id" id="patient_id"
-                                        required>
+                                    <label for="patient">Select Patient</label><span style="color: red; font-size: 22px;">*</span>
+                                    <input list="patients" class="form-control" name="patient_id" id="patient_id" required>
                                     <datalist id="patients">
                                         <?php
                                         // Query to fetch patients from the database
@@ -86,7 +83,7 @@ if ($result === false) {
                                 <script>
                                     // Add a JavaScript event listener to update the input field
                                     const patientInput = document.getElementById('patient_id');
-                                    patientInput.addEventListener('input', function () {
+                                    patientInput.addEventListener('input', function() {
                                         const selectedOption = document.querySelector('datalist#patients option[value="' + this.value + '"]');
                                         if (selectedOption) {
                                             this.value = selectedOption.innerText; // Update the input text
@@ -99,8 +96,7 @@ if ($result === false) {
 
                             <div class="col-4">
                                 <div class="form-group">
-                                    <label for="">Select Midwife</label><span
-                                        style="color: red; font-size: 22px;">*</span>
+                                    <label for="">Select Midwife</label><span style="color: red; font-size: 22px;">*</span>
                                     <select class="form-control" name="nurse_id" id="nurse_id" required>
                                         <option value="" disabled selected hidden>Select a Midwife</option>
                                         <?php
@@ -124,7 +120,7 @@ if ($result === false) {
                                         }
 
                                         // Close the database connection
-                                        
+
                                         ?>
                                     </select>
 
@@ -194,8 +190,7 @@ if ($result === false) {
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="height">Height</label><span
-                                        style="color: red; font-size: 22px;">*</span>
+                                    <label for="height">Height</label><span style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="height" name="height" required>
                                         <div class="input-group-append">
@@ -207,8 +202,7 @@ if ($result === false) {
 
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="weight">Weight</label><span
-                                        style="color: red; font-size: 22px;">*</span>
+                                    <label for="weight">Weight</label><span style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="weight" name="weight" required>
                                         <div class="input-group-append">
@@ -220,11 +214,9 @@ if ($result === false) {
 
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="temperature">Temperature</label><span
-                                        style="color: red; font-size: 22px;">*</span>
+                                    <label for="temperature">Temperature</label><span style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="temperature" name="temperature"
-                                            required>
+                                        <input type="text" class="form-control" id="temperature" name="temperature" required>
                                         <div class="input-group-append">
                                             <span class="input-group-text">°C</span>
                                         </div>
@@ -274,8 +266,7 @@ if ($result === false) {
 
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="menarche">Menarche</label><span
-                                        style="color: red; font-size: 22px;">*</span>
+                                    <label for="menarche">Menarche</label><span style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="menarche" name="menarche" required>
                                         <div class="input-group-append">
@@ -318,8 +309,7 @@ if ($result === false) {
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="gravida">Gravida</label><span
-                                        style="color: red; font-size: 22px;">*</span>
+                                    <label for="gravida">Gravida</label><span style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="gravida" name="gravida" required>
                                         <div class="input-group-append">
@@ -343,8 +333,7 @@ if ($result === false) {
 
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="fullterm">Fullterm</label><span
-                                        style="color: red; font-size: 22px;">*</span>
+                                    <label for="fullterm">Fullterm</label><span style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="fullterm" name="fullterm" required>
                                         <div class="input-group-append">
@@ -356,8 +345,7 @@ if ($result === false) {
 
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="preterm">Preterm</label><span
-                                        style="color: red; font-size: 22px;">*</span>
+                                    <label for="preterm">Preterm</label><span style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="preterm" name="preterm" required>
                                         <div class="input-group-append">
@@ -374,8 +362,7 @@ if ($result === false) {
                         <div class="row">
                             <div class="col-3">
                                 <div class="form-group">
-                                    <label for="abortion">Abortion</label><span
-                                        style="color: red; font-size: 22px;">*</span>
+                                    <label for="abortion">Abortion</label><span style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="abortion" name="abortion" required>
                                         <div class="input-group-append">
@@ -387,11 +374,9 @@ if ($result === false) {
 
                             <div class="col-3">
                                 <div class="form-group">
-                                    <label for="stillbirth">Stillbirth</label><span
-                                        style="color: red; font-size: 22px;">*</span>
+                                    <label for="stillbirth">Stillbirth</label><span style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="stillbirth" name="stillbirth"
-                                            required>
+                                        <input type="text" class="form-control" id="stillbirth" name="stillbirth" required>
                                         <div class="input-group-append">
                                             <span class="input-group-text">times</span>
                                         </div>
@@ -422,11 +407,9 @@ if ($result === false) {
 
                             <div class="col-3">
                                 <div class="form-group">
-                                    <label for="hgb">HGB (+/-)</label><span
-                                        style="color: red; font-size: 22px;">*</span>
+                                    <label for="hgb">HGB (+/-)</label><span style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="hgb" name="hgb" required
-                                            oninput="checkHgbValue()">
+                                        <input type="text" class="form-control" id="hgb" name="hgb" required oninput="checkHgbValue()">
                                         <div class="input-group-append">
                                             <span class="input-group-text">g/dL</span>
                                         </div>
@@ -449,8 +432,7 @@ if ($result === false) {
 
                             <div class="col-3">
                                 <div class="form-group">
-                                    <label for="vdrl">VDRL/RPR</label><span
-                                        style="color: red; font-size: 22px;">*</span>
+                                    <label for="vdrl">VDRL/RPR</label><span style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="vdrl" name="vdrl" required>
                                         <div class="input-group-append">
@@ -492,8 +474,7 @@ if ($result === false) {
                             </div>
                             <div class="col-3">
                                 <div class="form-group">
-                                    <label for="blood_type">Blood Type</label><span
-                                        style="color: red; font-size: 22px;">*</span>
+                                    <label for="blood_type">Blood Type</label><span style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
                                         <select class="form-control" id="blood_type" name="blood_type" required>
                                             <option value="" disabled selected hidden>Select your Blood Type</option>
@@ -520,8 +501,7 @@ if ($result === false) {
                                 <div class="form-group">
                                     <div class="checkbox-list">
                                         <div class="checkbox-item">
-                                            <input type="checkbox" id="forceps_delivery" name="forceps_delivery"
-                                                value="forceps_delivery">
+                                            <input type="checkbox" id="forceps_delivery" name="forceps_delivery" value="forceps_delivery">
                                             <label class="checkbox-label">Forceps Delivery</label>
                                         </div>
                                         <div class="checkbox-item">
@@ -529,29 +509,24 @@ if ($result === false) {
                                             <label class="checkbox-label">Smoking</label>
                                         </div>
                                         <div class="checkbox-item">
-                                            <input type="checkbox" id="allergy_alcohol_intake"
-                                                name="allergy_alcohol_intake" value="allergy_alcohol_intake">
+                                            <input type="checkbox" id="allergy_alcohol_intake" name="allergy_alcohol_intake" value="allergy_alcohol_intake">
                                             <label class="checkbox-label">Allergy to Alcohol Intake</label>
                                         </div>
                                         <div class="checkbox-item">
-                                            <input type="checkbox" id="previous_cs" name="previous_cs"
-                                                value="previous_cs">
+                                            <input type="checkbox" id="previous_cs" name="previous_cs" value="previous_cs">
                                             <label class="checkbox-label">Previous Cesarean Section (CS)</label>
                                         </div>
                                         <div class="checkbox-item">
-                                            <input type="checkbox" id="consecutive_miscarriage"
-                                                name="consecutive_miscarriage" value="consecutive_miscarriage">
+                                            <input type="checkbox" id="consecutive_miscarriage" name="consecutive_miscarriage" value="consecutive_miscarriage">
                                             <label class="checkbox-label">3 Consecutive Miscarriages</label>
                                         </div>
                                         <div class="checkbox-item">
-                                            <input type="checkbox" id="ectopic_pregnancy_h_mole"
-                                                name="ectopic_pregnancy_h_mole" value="ectopic_pregnancy_h_mole">
+                                            <input type="checkbox" id="ectopic_pregnancy_h_mole" name="ectopic_pregnancy_h_mole" value="ectopic_pregnancy_h_mole">
                                             <label class="checkbox-label">Ectopic Pregnancy or Hydatidiform Mole within
                                                 the last 12 months</label>
                                         </div>
                                         <div class="checkbox-item">
-                                            <input type="checkbox" id="pp_bleeding" name="pp_bleeding"
-                                                value="pp_bleeding">
+                                            <input type="checkbox" id="pp_bleeding" name="pp_bleeding" value="pp_bleeding">
                                             <label class="checkbox-label">Postpartum Bleeding</label>
                                         </div>
                                     </div>
@@ -563,8 +538,7 @@ if ($result === false) {
                                     <div class="checkbox-list">
 
                                         <div class="checkbox-item">
-                                            <input type="checkbox" id="baby_weight_gt_4kgs" name="baby_weight_gt_4kgs"
-                                                value="baby_weight_gt_4kgs">
+                                            <input type="checkbox" id="baby_weight_gt_4kgs" name="baby_weight_gt_4kgs" value="baby_weight_gt_4kgs">
                                             <label class="checkbox-label">Baby Weight > 4kgs</label>
                                         </div>
                                         <div class="checkbox-item">
@@ -576,8 +550,7 @@ if ($result === false) {
                                             <label class="checkbox-label">Goiter</label>
                                         </div>
                                         <div class="checkbox-item">
-                                            <input type="checkbox" id="premature_contraction"
-                                                name="premature_contraction" value="premature_contraction">
+                                            <input type="checkbox" id="premature_contraction" name="premature_contraction" value="premature_contraction">
                                             <label class="checkbox-label">Premature Contractions</label>
                                         </div>
                                         <div class="checkbox-item">
@@ -585,8 +558,7 @@ if ($result === false) {
                                             <label class="checkbox-label">Diabetes Mellitus (DM)</label>
                                         </div>
                                         <div class="checkbox-item">
-                                            <input type="checkbox" id="heart_disease" name="heart_disease"
-                                                value="heart_disease">
+                                            <input type="checkbox" id="heart_disease" name="heart_disease" value="heart_disease">
                                             <label class="checkbox-label">Heart Disease</label>
                                         </div>
                                         <div class="checkbox-item">
@@ -631,19 +603,15 @@ if ($result === false) {
 
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="">Date of Last Delivery</label><span
-                                        style="color: red; font-size: 22px;">*</span>
-                                    <input type="date" class="form-control" id="date_of_last_delivery"
-                                        name="date_of_last_delivery" required>
+                                    <label for="">Date of Last Delivery</label><span style="color: red; font-size: 22px;">*</span>
+                                    <input type="date" class="form-control" id="date_of_last_delivery" name="date_of_last_delivery" required>
                                 </div>
                             </div>
 
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="">Place of Last Delivery</label><span
-                                        style="color: red; font-size: 22px;">*</span>
-                                    <input type="text" class="form-control" id="place_of_last_delivery"
-                                        name="place_of_last_delivery" required>
+                                    <label for="">Place of Last Delivery</label><span style="color: red; font-size: 22px;">*</span>
+                                    <input type="text" class="form-control" id="place_of_last_delivery" name="place_of_last_delivery" required>
                                 </div>
                             </div>
 
@@ -692,18 +660,15 @@ if ($result === false) {
                                 <div class="form-group">
                                     <div class="checkbox-list">
                                         <div class="checkbox-item">
-                                            <input type="checkbox" id="multiple_sex_partners"
-                                                name="multiple_sex_partners" value="multiple_sex_partners">
+                                            <input type="checkbox" id="multiple_sex_partners" name="multiple_sex_partners" value="multiple_sex_partners">
                                             <label class="checkbox-label">Multiple Sex Partners</label>
                                         </div>
                                         <div class="checkbox-item">
-                                            <input type="checkbox" id="unusual_discharges" name="unusual_discharges"
-                                                value="unusual_discharges">
+                                            <input type="checkbox" id="unusual_discharges" name="unusual_discharges" value="unusual_discharges">
                                             <label class="checkbox-label">Unusual Discharges from Vagina</label>
                                         </div>
                                         <div class="checkbox-item">
-                                            <input type="checkbox" id="itching_sores_around_vagina"
-                                                name="itching_sores_around_vagina" value="itching_sores_around_vagina">
+                                            <input type="checkbox" id="itching_sores_around_vagina" name="itching_sores_around_vagina" value="itching_sores_around_vagina">
                                             <label class="checkbox-label">Itching/Sores in or Around the Vagina</label>
                                         </div>
                                     </div>
@@ -716,14 +681,12 @@ if ($result === false) {
                                 <div class="form-group">
                                     <div class="checkbox-list">
                                         <div class="checkbox-item">
-                                            <input type="checkbox" id="tx_for_stis_in_the_past"
-                                                name="tx_for_stis_in_the_past" value="tx_for_stis_in_the_past">
+                                            <input type="checkbox" id="tx_for_stis_in_the_past" name="tx_for_stis_in_the_past" value="tx_for_stis_in_the_past">
                                             <label class="checkbox-label">Treatment for STI's in the Past</label>
                                         </div>
 
                                         <div class="checkbox-item">
-                                            <input type="checkbox" id="pain_burning_sensation"
-                                                name="pain_burning_sensation" value="pain_burning_sensation">
+                                            <input type="checkbox" id="pain_burning_sensation" name="pain_burning_sensation" value="pain_burning_sensation">
                                             <label class="checkbox-label">Pain/Burning Sensation</label>
                                         </div>
                                         <!-- Add more conditions here if needed -->
@@ -742,28 +705,23 @@ if ($result === false) {
                                 <div class="form-group">
                                     <div class="checkbox-list">
                                         <div class="checkbox-item">
-                                            <input type="checkbox" id="ovarian_cyst" name="ovarian_cyst"
-                                                value="ovarian_cyst">
+                                            <input type="checkbox" id="ovarian_cyst" name="ovarian_cyst" value="ovarian_cyst">
                                             <label class="checkbox-label">Ovarian Cyst</label>
                                         </div>
                                         <div class="checkbox-item">
-                                            <input type="checkbox" id="myoma_uteri" name="myoma_uteri"
-                                                value="myoma_uteri">
+                                            <input type="checkbox" id="myoma_uteri" name="myoma_uteri" value="myoma_uteri">
                                             <label class="checkbox-label">Myoma Uteri</label>
                                         </div>
                                         <div class="checkbox-item">
-                                            <input type="checkbox" id="placenta_previa" name="placenta_previa"
-                                                value="placenta_previa">
+                                            <input type="checkbox" id="placenta_previa" name="placenta_previa" value="placenta_previa">
                                             <label class="checkbox-label">Placenta Previa</label>
                                         </div>
                                         <div class="checkbox-item">
-                                            <input type="checkbox" id="still_birth" name="still_birth"
-                                                value="still_birth">
+                                            <input type="checkbox" id="still_birth" name="still_birth" value="still_birth">
                                             <label class="checkbox-label">Still Birth</label>
                                         </div>
                                         <div class="checkbox-item">
-                                            <input type="checkbox" id="pre_eclampsia" name="pre_eclampsia"
-                                                value="pre_eclampsia">
+                                            <input type="checkbox" id="pre_eclampsia" name="pre_eclampsia" value="pre_eclampsia">
                                             <label class="checkbox-label">Pre-Eclampsia</label>
                                         </div>
                                         <div class="checkbox-item">
@@ -772,8 +730,7 @@ if ($result === false) {
                                         </div>
 
                                         <div class="checkbox-item">
-                                            <input type="checkbox" id="premature_contraction"
-                                                name="premature_contraction" value="premature_contraction">
+                                            <input type="checkbox" id="premature_contraction" name="premature_contraction" value="premature_contraction">
                                             <label class="checkbox-label">Premature Contraction</label>
                                         </div>
                                     </div>
@@ -788,13 +745,11 @@ if ($result === false) {
                                             <label class="checkbox-label">Hypertension (HPN)</label>
                                         </div>
                                         <div class="checkbox-item">
-                                            <input type="checkbox" id="uterine_myomectomy" name="uterine_myomectomy"
-                                                value="uterine_myomectomy">
+                                            <input type="checkbox" id="uterine_myomectomy" name="uterine_myomectomy" value="uterine_myomectomy">
                                             <label class="checkbox-label">Uterine Myomectomy</label>
                                         </div>
                                         <div class="checkbox-item">
-                                            <input type="checkbox" id="thyroid_disorder" name="thyroid_disorder"
-                                                value="thyroid_disorder">
+                                            <input type="checkbox" id="thyroid_disorder" name="thyroid_disorder" value="thyroid_disorder">
                                             <label class="checkbox-label">Thyroid Disorder</label>
                                         </div>
                                         <div class="checkbox-item">
@@ -802,13 +757,11 @@ if ($result === false) {
                                             <label class="checkbox-label">Epilepsy</label>
                                         </div>
                                         <div class="checkbox-item">
-                                            <input type="checkbox" id="height_less_than_145cm"
-                                                name="height_less_than_145cm" value="height_less_than_145cm">
+                                            <input type="checkbox" id="height_less_than_145cm" name="height_less_than_145cm" value="height_less_than_145cm">
                                             <label class="checkbox-label">Height < 145cm</label>
                                         </div>
                                         <div class="checkbox-item">
-                                            <input type="checkbox" id="family_history_gt_36cm"
-                                                name="family_history_gt_36cm" value="family_history_gt_36cm">
+                                            <input type="checkbox" id="family_history_gt_36cm" name="family_history_gt_36cm" value="family_history_gt_36cm">
                                             <label class="checkbox-label">Family History of Gestational Diabetes
                                                 (>36cm)</label>
                                         </div>
@@ -821,8 +774,7 @@ if ($result === false) {
                 </div>
                 </form>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                        id="closeModalButton">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModalButton">Close</button>
                     <button type="submit" class="btn btn-primary" id="addButton">Save</button>
                 </div>
             </div>
@@ -878,7 +830,7 @@ if ($result === false) {
 </script> -->
 <script>
     // Add an event listener to the Save button
-    document.getElementById('addButton').addEventListener('click', function () {
+    document.getElementById('addButton').addEventListener('click', function() {
         // Assuming you have a variable `completedStep` that holds the completed step value, e.g., "Step1", "Step2", etc.
         var completedStep = "Pending"; // Example completed step
 
@@ -893,7 +845,6 @@ if ($result === false) {
             }
         }
     });
-
 </script>
 <style>
     .tago {
@@ -919,7 +870,7 @@ if ($result === false) {
                     <?php
                     if ($result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {
-                            ?>
+                    ?>
                             <tr>
                                 <td class="align-middle tago">
                                     <?php echo $row['id']; ?>
@@ -940,15 +891,13 @@ if ($result === false) {
                                     <?php echo $row['steps']; ?>
                                 </td>
                                 <td class="align-middle">
-                                    <button type="button" class="btn btn-success editbtn"
-                                        data-row-id="<?php echo $row['id']; ?>">
+                                    <button type="button" class="btn btn-success editbtn" data-row-id="<?php echo $row['id']; ?>">
                                         <i class="fas fa-edit"></i> Update
                                     </button>
-                                    <button type="button" class="btn btn-danger deletebtn" data-id="' + row.id + '"><i
-                                            class="fas fa-user-times"></i> Inactive</button>
+                                    <button type="button" class="btn btn-danger deletebtn" data-id="' + row.id + '"><i class="fas fa-user-times"></i> Inactive</button>
                                 </td>
                             </tr>
-                            <?php
+                        <?php
                         }
                     } else {
                         ?>
@@ -961,7 +910,7 @@ if ($result === false) {
                             <td class="align-middle"></td>
                             <td class="align-middle"></td>
                         </tr>
-                        <?php
+                    <?php
                     }
                     ?>
                 </tbody>
@@ -972,8 +921,7 @@ if ($result === false) {
 
 <!-- modal edit -->
 
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -1015,7 +963,7 @@ if ($result === false) {
                                     }
 
                                     // Close the database connection
-                                    
+
                                     ?>
                                 </select>
 
@@ -1224,8 +1172,7 @@ if ($result === false) {
                             <div class="form-group">
                                 <div class="checkbox-list">
                                     <div class="checkbox-item">
-                                        <input type="checkbox" id="forceps_delivery2" name="medical_condition"
-                                            value="forceps_delivery">
+                                        <input type="checkbox" id="forceps_delivery2" name="medical_condition" value="forceps_delivery">
                                         <label class="checkbox-label">Forceps Delivery</label>
                                     </div>
                                     <div class="checkbox-item">
@@ -1233,29 +1180,24 @@ if ($result === false) {
                                         <label class="checkbox-label">Smoking</label>
                                     </div>
                                     <div class="checkbox-item">
-                                        <input type="checkbox" id="allergy_alcohol_intake2" name="medical_condition"
-                                            value="allergy_alcohol_intake">
+                                        <input type="checkbox" id="allergy_alcohol_intake2" name="medical_condition" value="allergy_alcohol_intake">
                                         <label class="checkbox-label">Allergy to Alcohol Intake</label>
                                     </div>
                                     <div class="checkbox-item">
-                                        <input type="checkbox" id="previous_cs2" name="medical_condition"
-                                            value="previous_cs">
+                                        <input type="checkbox" id="previous_cs2" name="medical_condition" value="previous_cs">
                                         <label class="checkbox-label">Previous Cesarean Section (CS)</label>
                                     </div>
                                     <div class="checkbox-item">
-                                        <input type="checkbox" id="consecutive_miscarriage2" name="medical_condition"
-                                            value="consecutive_miscarriage">
+                                        <input type="checkbox" id="consecutive_miscarriage2" name="medical_condition" value="consecutive_miscarriage">
                                         <label class="checkbox-label">3 Consecutive Miscarriages</label>
                                     </div>
                                     <div class="checkbox-item">
-                                        <input type="checkbox" id="ectopic_pregnancy_h_mole2" name="medical_condition"
-                                            value="ectopic_pregnancy_h_mole">
+                                        <input type="checkbox" id="ectopic_pregnancy_h_mole2" name="medical_condition" value="ectopic_pregnancy_h_mole">
                                         <label class="checkbox-label">Ectopic Pregnancy or Hydatidiform Mole within the
                                             last 12 months</label>
                                     </div>
                                     <div class="checkbox-item">
-                                        <input type="checkbox" id="pp_bleeding2" name="medical_condition"
-                                            value="pp_bleeding">
+                                        <input type="checkbox" id="pp_bleeding2" name="medical_condition" value="pp_bleeding">
                                         <label class="checkbox-label">Postpartum Bleeding</label>
                                     </div>
                                 </div>
@@ -1268,8 +1210,7 @@ if ($result === false) {
 
 
                                     <div class="checkbox-item">
-                                        <input type="checkbox" id="baby_weight_gt_4kgs2" name="medical_condition"
-                                            value="baby_weight_gt_4kgs">
+                                        <input type="checkbox" id="baby_weight_gt_4kgs2" name="medical_condition" value="baby_weight_gt_4kgs">
                                         <label class="checkbox-label">Baby Weight > 4kgs</label>
                                     </div>
                                     <div class="checkbox-item">
@@ -1281,8 +1222,7 @@ if ($result === false) {
                                         <label class="checkbox-label">Goiter</label>
                                     </div>
                                     <div class="checkbox-item">
-                                        <input type="checkbox" id="premature_contraction2" name="medical_condition"
-                                            value="premature_contraction">
+                                        <input type="checkbox" id="premature_contraction2" name="medical_condition" value="premature_contraction">
                                         <label class="checkbox-label">Premature Contractions</label>
                                     </div>
                                     <div class="checkbox-item">
@@ -1290,8 +1230,7 @@ if ($result === false) {
                                         <label class="checkbox-label">Diabetes Mellitus (DM)</label>
                                     </div>
                                     <div class="checkbox-item">
-                                        <input type="checkbox" id="heart_disease2" name="medical_condition"
-                                            value="heart_disease">
+                                        <input type="checkbox" id="heart_disease2" name="medical_condition" value="heart_disease">
                                         <label class="checkbox-label">Heart Disease</label>
                                     </div>
                                     <div class="checkbox-item">
@@ -1326,16 +1265,14 @@ if ($result === false) {
                         <div class="col">
                             <div class="form-group">
                                 <label for="">Date of Last Delivery</label>
-                                <input type="date" class="form-control" id="date_of_last_delivery2"
-                                    name="date_of_last_delivery2" required>
+                                <input type="date" class="form-control" id="date_of_last_delivery2" name="date_of_last_delivery2" required>
                             </div>
                         </div>
 
                         <div class="col">
                             <div class="form-group">
                                 <label for="">Place of Last Delivery</label>
-                                <input type="text" class="form-control" id="place_of_last_delivery2"
-                                    name="place_of_last_delivery" required>
+                                <input type="text" class="form-control" id="place_of_last_delivery2" name="place_of_last_delivery" required>
                             </div>
                         </div>
 
@@ -1384,18 +1321,15 @@ if ($result === false) {
                             <div class="form-group">
                                 <div class="checkbox-list">
                                     <div class="checkbox-item">
-                                        <input type="checkbox" id="multiple_sex_partners2" name="medical_condition"
-                                            value="multiple_sex_partners">
+                                        <input type="checkbox" id="multiple_sex_partners2" name="medical_condition" value="multiple_sex_partners">
                                         <label class="checkbox-label">Multiple Sex Partners</label>
                                     </div>
                                     <div class="checkbox-item">
-                                        <input type="checkbox" id="unusual_discharges2" name="medical_condition"
-                                            value="unusual_discharges">
+                                        <input type="checkbox" id="unusual_discharges2" name="medical_condition" value="unusual_discharges">
                                         <label class="checkbox-label">Unusual Discharges from Vagina</label>
                                     </div>
                                     <div class="checkbox-item">
-                                        <input type="checkbox" id="itching_sores_around_vagina2"
-                                            name="medical_condition" value="itching_sores_around_vagina">
+                                        <input type="checkbox" id="itching_sores_around_vagina2" name="medical_condition" value="itching_sores_around_vagina">
                                         <label class="checkbox-label">Itching/Sores in or Around the Vagina</label>
                                     </div>
                                 </div>
@@ -1408,14 +1342,12 @@ if ($result === false) {
                             <div class="form-group">
                                 <div class="checkbox-list">
                                     <div class="checkbox-item">
-                                        <input type="checkbox" id="tx_for_stis_in_the_past2" name="medical_condition"
-                                            value="tx_for_stis_in_the_past">
+                                        <input type="checkbox" id="tx_for_stis_in_the_past2" name="medical_condition" value="tx_for_stis_in_the_past">
                                         <label class="checkbox-label">Treatment for STI's in the Past</label>
                                     </div>
 
                                     <div class="checkbox-item">
-                                        <input type="checkbox" id="pain_burning_sensation2" name="medical_condition"
-                                            value="pain_burning_sensation">
+                                        <input type="checkbox" id="pain_burning_sensation2" name="medical_condition" value="pain_burning_sensation">
                                         <label class="checkbox-label">Pain/Burning Sensation</label>
                                     </div>
                                     <!-- Add more conditions here if needed -->
@@ -1434,33 +1366,27 @@ if ($result === false) {
                             <div class="form-group">
                                 <div class="checkbox-list">
                                     <div class="checkbox-item">
-                                        <input type="checkbox" id="ovarian_cyst2" name="family_history_condition"
-                                            value="ovarian_cyst">
+                                        <input type="checkbox" id="ovarian_cyst2" name="family_history_condition" value="ovarian_cyst">
                                         <label class="checkbox-label">Ovarian Cyst</label>
                                     </div>
                                     <div class="checkbox-item">
-                                        <input type="checkbox" id="myoma_uteri2" name="family_history_condition"
-                                            value="myoma_uteri">
+                                        <input type="checkbox" id="myoma_uteri2" name="family_history_condition" value="myoma_uteri">
                                         <label class="checkbox-label">Myoma Uteri</label>
                                     </div>
                                     <div class="checkbox-item">
-                                        <input type="checkbox" id="placenta_previa2" name="family_history_condition"
-                                            value="placenta_previa">
+                                        <input type="checkbox" id="placenta_previa2" name="family_history_condition" value="placenta_previa">
                                         <label class="checkbox-label">Placenta Previa</label>
                                     </div>
                                     <div class="checkbox-item">
-                                        <input type="checkbox" id="still_birth2" name="family_history_condition"
-                                            value="still_birth">
+                                        <input type="checkbox" id="still_birth2" name="family_history_condition" value="still_birth">
                                         <label class="checkbox-label">Still Birth</label>
                                     </div>
                                     <div class="checkbox-item">
-                                        <input type="checkbox" id="pre_eclampsia2" name="family_history_condition"
-                                            value="pre_eclampsia">
+                                        <input type="checkbox" id="pre_eclampsia2" name="family_history_condition" value="pre_eclampsia">
                                         <label class="checkbox-label">Pre-Eclampsia</label>
                                     </div>
                                     <div class="checkbox-item">
-                                        <input type="checkbox" id="eclampsia2" name="family_history_condition"
-                                            value="eclampsia">
+                                        <input type="checkbox" id="eclampsia2" name="family_history_condition" value="eclampsia">
                                         <label class="checkbox-label">Eclampsia</label>
                                     </div>
 
@@ -1476,28 +1402,23 @@ if ($result === false) {
                                         <label class="checkbox-label">Hypertension (HPN)</label>
                                     </div>
                                     <div class="checkbox-item">
-                                        <input type="checkbox" id="uterine_myomectomy2" name="family_history_condition"
-                                            value="uterine_myomectomy">
+                                        <input type="checkbox" id="uterine_myomectomy2" name="family_history_condition" value="uterine_myomectomy">
                                         <label class="checkbox-label">Uterine Myomectomy</label>
                                     </div>
                                     <div class="checkbox-item">
-                                        <input type="checkbox" id="thyroid_disorder2" name="family_history_condition"
-                                            value="thyroid_disorder">
+                                        <input type="checkbox" id="thyroid_disorder2" name="family_history_condition" value="thyroid_disorder">
                                         <label class="checkbox-label">Thyroid Disorder</label>
                                     </div>
                                     <div class="checkbox-item">
-                                        <input type="checkbox" id="epilepsy2" name="family_history_condition"
-                                            value="epilepsy">
+                                        <input type="checkbox" id="epilepsy2" name="family_history_condition" value="epilepsy">
                                         <label class="checkbox-label">Epilepsy</label>
                                     </div>
                                     <div class="checkbox-item">
-                                        <input type="checkbox" id="height_less_than_145cm2"
-                                            name="family_history_condition" value="height_less_than_145cm">
+                                        <input type="checkbox" id="height_less_than_145cm2" name="family_history_condition" value="height_less_than_145cm">
                                         <label class="checkbox-label">Height < 145cm</label>
                                     </div>
                                     <div class="checkbox-item">
-                                        <input type="checkbox" id="family_history_gt_36cm2"
-                                            name="family_history_condition" value="family_history_gt_36cm">
+                                        <input type="checkbox" id="family_history_gt_36cm2" name="family_history_condition" value="family_history_gt_36cm">
                                         <label class="checkbox-label">Family History of Gestational Diabetes
                                             (>36cm)</label>
                                     </div>
@@ -1531,27 +1452,45 @@ if ($result === false) {
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
 
-        document.getElementById('openModalButton').addEventListener('click', function () {
+        document.getElementById('openModalButton').addEventListener('click', function() {
             $('#addModal').modal('show'); // Show the modal
         });
 
 
-        <?php if ($result->num_rows > 0): ?>
+        <?php if ($result->num_rows > 0) : ?>
             var table = $('#tablebod').DataTable({
-                columnDefs: [
-                    { targets: 0, data: 'id', visible: false },
-                    { targets: 1, data: 'serial_no' },
-                    { targets: 2, data: 'last_name' },
-                    { targets: 3, data: 'checkup_date' },
-                    { targets: 4, data: 'status' },
-                    { targets: 5, data: 'steps' },
+                columnDefs: [{
+                        targets: 0,
+                        data: 'id',
+                        visible: false
+                    },
+                    {
+                        targets: 1,
+                        data: 'serial_no'
+                    },
+                    {
+                        targets: 2,
+                        data: 'last_name'
+                    },
+                    {
+                        targets: 3,
+                        data: 'checkup_date'
+                    },
+                    {
+                        targets: 4,
+                        data: 'status'
+                    },
+                    {
+                        targets: 5,
+                        data: 'steps'
+                    },
                     {
                         targets: 6,
                         searchable: false,
                         data: null,
-                        render: function (data, type, row) {
+                        render: function(data, type, row) {
                             var editButton = '<button type="button" class="btn btn-success editbtn" data-row-id="' + row.id + '"><i class="fas fa-edit"></i> Update</button>';
                             var deleteButton = '<button type="button" class="btn btn-danger deletebtn" data-id="' + row.id + '"><i class="fas fa-user-times"></i> Inactive</button>';
                             return editButton + ' ' + deleteButton;
@@ -1559,44 +1498,84 @@ if ($result === false) {
                     } // Action column
                 ],
                 // Set the default ordering to 'id' column in descending order
-                order: [[0, 'desc']]
+                order: [
+                    [0, 'desc']
+                ]
             });
 
-        <?php else: ?>
+        <?php else : ?>
             // Initialize DataTable without the "Action" column when no rows are found
             var table = $('#tablebod').DataTable({
-                columnDefs: [
-                    { targets: 0, data: 'id', visible: false },
-                    { targets: 1, data: 'serial_no' },
-                    { targets: 2, data: 'last_name' },
-                    { targets: 3, data: 'checkup_date' },
-                    { targets: 4, data: 'status' },
-                    { targets: 5, data: 'steps' },
+                columnDefs: [{
+                        targets: 0,
+                        data: 'id',
+                        visible: false
+                    },
+                    {
+                        targets: 1,
+                        data: 'serial_no'
+                    },
+                    {
+                        targets: 2,
+                        data: 'last_name'
+                    },
+                    {
+                        targets: 3,
+                        data: 'checkup_date'
+                    },
+                    {
+                        targets: 4,
+                        data: 'status'
+                    },
+                    {
+                        targets: 5,
+                        data: 'steps'
+                    },
 
                 ],
                 // Set the default ordering to 'id' column in descending order
-                order: [[0, 'desc']]
+                order: [
+                    [0, 'desc']
+                ]
             });
         <?php endif; ?>
 
 
-        $('#addButton').click(function () {
+        $('#addButton').click(function() {
 
             table.destroy(); // Destroy the existing DataTable
             table = $('#tablebod').DataTable({
-                columnDefs: [
-                    { targets: 0, data: 'id', visible: false },
-                    { targets: 1, data: 'serial_no' },
-                    { targets: 2, data: 'last_name' },
-                    { targets: 3, data: 'checkup_date' },
-                    { targets: 4, data: 'status' },
-                    { targets: 5, data: 'steps' },
+                columnDefs: [{
+                        targets: 0,
+                        data: 'id',
+                        visible: false
+                    },
+                    {
+                        targets: 1,
+                        data: 'serial_no'
+                    },
+                    {
+                        targets: 2,
+                        data: 'last_name'
+                    },
+                    {
+                        targets: 3,
+                        data: 'checkup_date'
+                    },
+                    {
+                        targets: 4,
+                        data: 'status'
+                    },
+                    {
+                        targets: 5,
+                        data: 'steps'
+                    },
 
                     {
                         targets: 6,
                         searchable: false,
                         data: null,
-                        render: function (data, type, row) {
+                        render: function(data, type, row) {
                             var editButton = '<button type="button" class="btn btn-success editbtn" data-row-id="' + row.id + '"><i class="fas fa-edit"></i> Update</button>';
                             var deleteButton = '<button type="button" class="btn btn-danger deletebtn" data-id="' + row.id + '"><i class="fas fa-user-times"></i> Inactive</button>';
                             return editButton + ' ' + deleteButton;
@@ -1604,7 +1583,9 @@ if ($result === false) {
                     } // Action column
                 ],
                 // Set the default ordering to 'id' column in descending order
-                order: [[0, 'desc']]
+                order: [
+                    [0, 'desc']
+                ]
             });
 
 
@@ -1761,7 +1742,7 @@ if ($result === false) {
                     height_less_than_145cm: height_less_than_145cm,
                     family_history_gt_36cm: family_history_gt_36cm,
                 },
-                success: function (response) {
+                success: function(response) {
                     if (response.trim() === 'Success') {
                         // Clear the form fields
                         $('#patient_id').val('');
@@ -1828,7 +1809,7 @@ if ($result === false) {
                         });
                     }
                 },
-                error: function (error) {
+                error: function(error) {
                     // Handle errors
                     Swal.fire({
                         icon: 'error',
@@ -1845,14 +1826,14 @@ if ($result === false) {
             $.ajax({
                 url: 'action/get_family.php',
                 method: 'GET',
-                success: function (data) {
+                success: function(data) {
                     // Assuming the server returns JSON data, parse it
                     var get_data = JSON.parse(data);
 
                     // Clear the DataTable and redraw with new data
                     table.clear().rows.add(get_data).draw();
                 },
-                error: function (error) {
+                error: function(error) {
                     // Handle errors
                     console.error('Error retrieving data: ' + error);
                 }
@@ -1860,7 +1841,7 @@ if ($result === false) {
         }
 
         // Delete button click event
-        $('#tablebod').on('click', '.deletebtn', function () {
+        $('#tablebod').on('click', '.deletebtn', function() {
             var deletedataId = $(this).data('id');
 
             // Confirm the deletion with a SweetAlert dialog
@@ -1877,8 +1858,10 @@ if ($result === false) {
                     $.ajax({
                         url: 'action/delete_family.php',
                         method: 'POST',
-                        data: { primary_id: deletedataId },
-                        success: function (response) {
+                        data: {
+                            primary_id: deletedataId
+                        },
+                        success: function(response) {
                             if (response === 'Success') {
 
                                 updateData();
@@ -1887,7 +1870,7 @@ if ($result === false) {
                                 Swal.fire('Error', 'Error deleting data: ' + response, 'error');
                             }
                         },
-                        error: function (error) {
+                        error: function(error) {
                             Swal.fire('Error', 'Error deleting data: ' + error, 'error');
                         }
                     });
@@ -1898,14 +1881,16 @@ if ($result === false) {
 
 
         // Edit button click event
-        $('#tablebod').on('click', '.editbtn', function () {
+        $('#tablebod').on('click', '.editbtn', function() {
             var editId = $(this).data('row-id');
             console.log(editId);
             $.ajax({
                 url: 'action/get_family_by_id.php', // 
                 method: 'POST',
-                data: { primary_id: editId },
-                success: function (data) {
+                data: {
+                    primary_id: editId
+                },
+                success: function(data) {
 
                     var editGetData = data;
 
@@ -2149,13 +2134,13 @@ if ($result === false) {
 
                     $('#editModal').modal('show');
                 },
-                error: function (error) {
+                error: function(error) {
                     console.error('Error fetching  data: ' + error);
                 },
             });
         });
 
-        $('#updateButton').click(function () {
+        $('#updateButton').click(function() {
 
 
             var editId = $('#editdataId').val();
@@ -2298,22 +2283,21 @@ if ($result === false) {
                     height_less_than_145cm: height_less_than_145cm,
                     family_history_gt_36cm: family_history_gt_36cm
                 },
-                success: function (response) {
+                success: function(response) {
                     // Handle the response
                     if (response === 'Success') {
                         updateData();
+                        console.log(response);
                         $('#editModal').modal('hide');
-                        // Remove the modal backdrop manually
                         $('body').removeClass('modal-open');
                         $('.modal-backdrop').remove();
-                        // Show a success Swal notification
                         Swal.fire({
                             icon: 'success',
                             title: 'Success',
                             text: 'Prental updated successfully',
                         });
                     } else {
-                        // Show an error Swal notification
+
                         Swal.fire({
                             icon: 'error',
                             title: 'Error',
@@ -2321,7 +2305,7 @@ if ($result === false) {
                         });
                     }
                 },
-                error: function (error) {
+                error: function(error) {
                     // Show an error Swal notification for AJAX errors
                     Swal.fire({
                         icon: 'error',
@@ -2331,12 +2315,7 @@ if ($result === false) {
                 }
             });
         });
-
-
-
     });
-
-
 </script>
 
 <script>
