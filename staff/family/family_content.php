@@ -1047,6 +1047,58 @@ if ($result === false) {
                                     <!-- <div id="editStatus_error" class="error"></div> -->
                                 </div>
                             </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="patient">Patient Name</label>
+                                    <input list="patients" class="form-control" name="patient_name" id="patient_name"
+                                        disabled required>
+                                    <datalist id="patients">
+                                        <?php
+                                        // Query to fetch patients from the database
+                                        $sql2 = "SELECT serial_no, first_name, last_name, age FROM patients ORDER BY id DESC";
+                                        $result2 = $conn->query($sql2);
+
+                                        if ($result2->num_rows > 0) {
+                                            while ($row2 = $result2->fetch_assoc()) {
+                                                $patientSerialNo = $row2['serial_no'];
+                                                $firstName = $row2['first_name'];
+                                                $lastName = $row2['last_name'];
+                                                $age = $row2['age'];
+
+                                                // Only add patient to the options if they are 14 or older
+                                                if ($age >= 18) {
+                                                    // Output an option element for each patient with the serial_no as the value
+                                                    echo "<option value='$patientSerialNo'>$firstName $lastName</option>";
+                                                }
+                                            }
+                                        } else {
+                                            echo "<option disabled>No patients found</option>";
+                                        }
+                                        ?>
+                                    </datalist>
+                                    <input type="hidden" name="patient_id" id="patient_id" required>
+
+                                </div>
+                                <!-- 
+                                <script>
+                                    // Add a JavaScript event listener to update the input field
+                                    const patientNameInput = document.getElementById('patient_name');
+                                    const patientIdInput = document.getElementById('patient_id');
+
+                                    patientNameInput.addEventListener('input', function () {
+                                        const selectedOption = document.querySelector('datalist#patients option[value="' + this.value + '"]');
+                                        if (selectedOption) {
+                                            patientNameInput.value = selectedOption.innerText; // Update the input text
+                                            patientIdInput.value = selectedOption.value; // Set patient_id to the value of the selected option (serial_no)
+                                        }
+                                    });
+
+                                    document.addEventListener('DOMContentLoaded', function () {
+                                        patientNameInput.removeAttribute('disabled');
+                                    });
+                                </script> -->
+                            </div>
+
                             <div class="col-sm">
                                 <div class="form-group">
                                     <label for="">Select Step</label>
@@ -2078,6 +2130,7 @@ if ($result === false) {
                     $('#editModal #step2').val(editGetData.steps);
                     $('#editModal #no_of_children2').val(editGetData.no_of_children);
                     $('#editModal #income2').val(editGetData.income);
+                    $('#editModal #patient_name').val(editGetData.full_name);
                     $('#editModal #nurse_id2').val(editGetData.nurse_id);
                     $('#editModal #no_of_pregnancies2').val(editGetData.no_of_pregnancies);
                     $('#editModal #date_of_last_delivery2').val(editGetData.date_of_last_delivery);
@@ -2347,6 +2400,7 @@ if ($result === false) {
 
             var abnormal_discharge = $('#abnormal_discharge2').val();
             var nurse_id = $('#nurse_id2').val();
+            var patient_id = $('patient_name').val();
             var serial = $('#serial2').val();
             var method = $('#method2').val();
             var status = $('#editstatus').val();
@@ -2405,6 +2459,7 @@ if ($result === false) {
                     abnormal_discharge: abnormal_discharge,
                     primary_id: editId,
                     nurse_id: nurse_id,
+                    patient_id: patient_id,
                     serial: serial,
                     method: method,
                     status: status,
