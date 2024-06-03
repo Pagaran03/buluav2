@@ -1,108 +1,93 @@
 <?php
-include('../../../config.php'); // Include your database connection or configuration file
+include('../../../config.php');
 
-// Fetch parameters from GET request
-$selectOption = isset($_GET['selectOption']) ? $_GET['selectOption'] : null;
+// Set default values if parameters are not provided
+$selectOption = isset($_GET['selectOption']) ? $_GET['selectOption'] : 'Date';
 $frmDate = isset($_GET['frmDatefp']) ? $_GET['frmDatefp'] : null;
 $toDate = isset($_GET['toDatefp']) ? $_GET['toDatefp'] : null;
-$zone = isset($_GET['zone']) ? $_GET['zone'] : null;
+$zone = isset($_GET['zone']) ? $_GET['zone'] : 'Zone 1';
 
-// Initialize arrays to store the counts
+// Define method array
+$methods = [
+    'BTL', 'NSV', 'condom', 'Pills-POP', 'Pills', 'Pills-COC', 'Injectables (DMPA/POI)', 
+    'Implant', 'Hormonal IUD', 'IUD', 'IUD-I', 'IUD-PP', 'NFP-LAM', 'NFP-BBT', 
+    'NFP-CMM', 'NFP-STM', 'NFP-SDM'
+];
+
+// Set default date range if not provided
+if (($selectOption === "Date" || $selectOption === 'Gender') && (!$frmDate || !$toDate)) {
+    $currentMonth = date('Y-m');
+    $frmDate = $currentMonth . '-01';
+    $toDate = date('Y-m-t', strtotime($currentMonth));
+}
+
+// Prepare to collect method counts
 $methodCounts = [];
 $maleCounts = [];
 $femaleCounts = [];
 
-// Define the methods you want to count
-$methodsToCount = ['BTL', 'NSV', 'condom', 'Pills-POP', 'Pills', 'Pills-COC', 'Injectables (DMPA/POI)', 'Implant', 'Hormonal IUD', 'IUD', 'IUD-I', 'IUD-PP', 'NFP-LAM', 'NFP-BBT', 'NFP-CMM', 'NFP-STM', 'NFP-SDM'];
-
-// Check if selectOption is "Date" and set default dates to current month if not provided
-if ($selectOption === "Date" && (!$frmDate || !$toDate)) {
-    $currentMonth = date('Y-m'); // Get current year and month
-    $frmDate = $currentMonth . '-01'; // Start from the first day of the current month
-    $toDate = date('Y-m-t', strtotime($currentMonth)); // End at the last day of the current month
+// Function to execute and fetch count
+function getCount($conn, $sql, $params = []) {
+    $stmt = $conn->prepare($sql);
+    if (!empty($params)) {
+        $stmt->bind_param(str_repeat('s', count($params)), ...$params);
+    }
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($result === false) {
+        die("Query failed: " . $conn->error);
+    }
+    $row = $result->fetch_assoc();
+    return $row ? $row['count'] : 0;
 }
 
+// Handle the MAFP case
 if ($selectOption === "MAFP") {
-    $methods = [
-        "BTL", "NSV", "condom", "Pills-POP", "Pills", "Pills-COC",
-        "Injectables (DMPA/POI)", "Implant", "Hormonal IUD", "IUD",
-        "IUD-I", "IUD-PP", "NFP-LAM", "NFP-BBT", "NFP-CMM", "NFP-STM", "NFP-SDM"
-    ];
-    $methodCounts = [];
-
     foreach ($methods as $method) {
-        $sqlMethodZone = "SELECT COUNT(*) AS count 
-                          FROM fp_consultation 
-                          INNER JOIN patients ON fp_consultation.patient_id = patients.id 
-                          WHERE method = ? 
-                            AND patients.address = ? 
-                            AND fp_consultation.checkup_date BETWEEN ? AND ?";
-
-        $stmt = $conn->prepare($sqlMethodZone);
-        $stmt->bind_param("ssss", $method, $zone, $frmDate, $toDate);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($result === false) {
-            die("Query failed: " . $conn->error);
-        }
-
-        $row = $result->fetch_assoc();
-        $count = $row ? $row['count'] : 0;
-        $methodCounts[$method] = $count;
+        $sqlMethodZone = "
+            SELECT COUNT(*) AS count 
+            FROM fp_consultation 
+            INNER JOIN patients ON fp_consultation.patient_id = patients.id 
+            WHERE method = ? 
+              AND patients.address = ? 
+              AND MONTH(checkup_date) = MONTH(CURDATE() + 1) 
+              AND YEAR(checkup_date) = YEAR(CURDATE())
+        ";
+        $methodCounts[$method] = getCount($conn, $sqlMethodZone, [$method, $zone]);
     }
-
-    // Sort the methods by count in descending order and get the top 5
     arsort($methodCounts);
     $topMethods = array_slice($methodCounts, 0, 5, true);
-
     echo json_encode(['zone' => $zone, 'count' => $topMethods]);
     exit();
 }
 
-// Iterate over each method and fetch the count for Date and Gender options
-foreach ($methodsToCount as $methodToCount) {
-    // Construct the SQL query to count occurrences of the method
-    $sqlMethod = "SELECT COUNT(*) AS count FROM fp_consultation INNER JOIN patients ON fp_consultation.patient_id = patients.id WHERE method = '$methodToCount'";
+// Handle general method counting
+foreach ($methods as $methodToCount) {
+    $sqlMethod = "
+        SELECT COUNT(*) AS count 
+        FROM fp_consultation 
+        INNER JOIN patients ON fp_consultation.patient_id = patients.id 
+        WHERE method = ?
+    ";
 
     // Add additional filters based on selectOption, frmDate, toDate, and zone
+    $params = [$methodToCount];
     if ($selectOption === "Date" && $frmDate && $toDate) {
-        $sqlMethod .= " AND checkup_date BETWEEN '$frmDate' AND '$toDate'";
+        $sqlMethod .= " AND checkup_date BETWEEN ? AND ?";
+        array_push($params, $frmDate, $toDate);
     } elseif ($selectOption === 'Gender') {
         // Fetch counts based on gender and zone
-        $sqlMale = "SELECT COUNT(*) AS count FROM fp_consultation INNER JOIN patients ON fp_consultation.patient_id = patients.id WHERE patients.gender = 'Male' AND patients.address = '$zone' AND method = '$methodToCount' AND fp_consultation.checkup_date BETWEEN '$frmDate' AND '$toDate'";
-        $sqlFemale = "SELECT COUNT(*) AS count FROM fp_consultation INNER JOIN patients ON fp_consultation.patient_id = patients.id WHERE patients.gender = 'Female' AND patients.address = '$zone' AND method = '$methodToCount' AND fp_consultation.checkup_date BETWEEN '$frmDate' AND '$toDate'";
-
-        // Execute queries for male and female counts
-        $resultMale = $conn->query($sqlMale);
-        $resultFemale = $conn->query($sqlFemale);
-
-        if ($resultMale === false || $resultFemale === false) {
-            die("Query failed: " . $conn->error);
-        }
-
-        // Fetch the counts from the results
-        $rowMale = $resultMale->fetch_assoc();
-        $rowFemale = $resultFemale->fetch_assoc();
-
-        // Store male and female counts for each method
-        $maleCounts[$methodToCount] = $rowMale['count'];
-        $femaleCounts[$methodToCount] = $rowFemale['count'];
+        $sqlMale = $sqlMethod . " AND patients.gender = 'Male' AND patients.address = ? AND checkup_date BETWEEN ? AND ?";
+        $sqlFemale = $sqlMethod . " AND patients.gender = 'Female' AND patients.address = ? AND checkup_date BETWEEN ? AND ?";
+        
+        $maleCounts[$methodToCount] = getCount($conn, $sqlMale, array_merge($params, [$zone, $frmDate, $toDate]));
+        $femaleCounts[$methodToCount] = getCount($conn, $sqlFemale, array_merge($params, [$zone, $frmDate, $toDate]));
     }
 
     // Execute query for method count
-    $resultMethod = $conn->query($sqlMethod);
-
-    if ($resultMethod === false) {
-        die("Query failed: " . $conn->error);
+    if ($selectOption !== 'Gender') {
+        $methodCounts[$methodToCount] = getCount($conn, $sqlMethod, $params);
     }
-
-    // Fetch the count from the result
-    $rowMethod = $resultMethod->fetch_assoc();
-    $countMethod = $rowMethod ? $rowMethod['count'] : 0;
-
-    // Store count with method as key
-    $methodCounts[$methodToCount] = $countMethod;
 }
 
 // Prepare response array based on selectOption
@@ -116,8 +101,6 @@ if ($selectOption === "Date") {
         'male' => $maleCounts,
         'female' => $femaleCounts
     ]; // For gender option, send male and female counts
-} elseif ($selectOption === "MAFP") {
-    // The MAFP part is handled separately above
 }
 
 // Output response as JSON
