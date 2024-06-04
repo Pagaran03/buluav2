@@ -7,14 +7,15 @@ $dataId = $_POST['primary_id'];
 
 try {
 
-    $sql = "SELECT *,fp_information.id as id
+    $sql = "SELECT *,fp_information.id as id, CONCAT(patients.last_name,', ',patients.first_name) AS full_name
     FROM fp_information
+    JOIN patients ON fp_information.patient_id = patients.id
     JOIN fp_medical_history ON fp_medical_history.fp_information_id = fp_information.id
     JOIN fp_obstetrical_history ON fp_obstetrical_history.fp_information_id = fp_information.id
     JOIN fp_risk_for_sexuality ON fp_risk_for_sexuality.fp_information_id = fp_information.id
     JOIN fp_risk_for_violence_against_women ON fp_risk_for_violence_against_women.fp_information_id = fp_information.id
     JOIN fp_physical_examination ON fp_physical_examination.fp_information_id = fp_information.id
-    JOIN fp_consultation ON fp_consultation.fp_information_id = fp_information.id
+    JOIN fp_consultation ON fp_information.id = fp_consultation.id
     WHERE fp_information.id = ?";
 
     $stmt = $conn->prepare($sql);
