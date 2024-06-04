@@ -10,11 +10,12 @@
       </div>
       <div class="modal-body">
         <!-- Select for options -->
-         <span>Sort Demographic Data by:</span>
+        <span>Sort Demographic Data by:</span>
         <select id="selectOptionFamplan">
           <option value="Date">Date</option>
           <option value="Gender">Gender</option>
           <option value="MAFP">Commonly Used Method</option>
+          <option value="Zonal">Zonal Report</option>
         </select>
 
         <!-- Date range inputs -->
@@ -22,7 +23,7 @@
         <label id="lbl2">To Date: <input type="date" id="toDatefp"></label>
 
         <!-- Zone select for MAV -->
-<label for="zonalSelectFamplan">Zone: </label>
+        <label for="zonalSelectFamplan" id="zonalSelectLabel">Zone: |</label>
         <select id="zonalSelectFamplan" hidden>
           <option value="Zone 1">Zone 1</option>
           <option value="Zone 2">Zone 2</option>
@@ -106,7 +107,7 @@
               }
             });
           } else if (selectOption === "Gender") {
-            var methods = Object.keys(data[0].male); // Assuming male and female counts are the same for methods
+            var methods = Object.keys(data[0].male);
             var maleCounts = Object.values(data[0].male);
             var femaleCounts = Object.values(data[0].female);
 
@@ -137,7 +138,7 @@
               }
             });
           } else if (selectOption === "MAFP") {
-            var methods = Object.keys(data[0].count); // Assuming methods are available in data.count
+            var methods = Object.keys(data[0].count);
             var counts = Object.values(data[0].count);
 
             myChartfp = new Chart(ctx, {
@@ -175,6 +176,7 @@
 
       if (selectOption === "Date") {
         document.getElementById("zonalSelectFamplan").setAttribute("hidden", "hidden");
+        document.getElementById("zonalSelectLabel").setAttribute("hidden", "hidden");
       }
       if (selectOption === "Gender") {
         document.getElementById("zonalSelectFamplan").removeAttribute("hidden");
@@ -182,14 +184,12 @@
         document.getElementById("toDatefp").removeAttribute("hidden");
         document.getElementById("lbl1").removeAttribute("hidden");
         document.getElementById("lbl2").removeAttribute("hidden");
+        document.getElementById("zonalSelectLabel").removeAttribute("hidden");
       }
 
       if (selectOption === "MAFP") {
-        // document.getElementById("frmDatefp").setAttribute("hidden", "hidden");
-        // document.getElementById("toDatefp").setAttribute("hidden", "hidden");
-        // document.getElementById("lbl1").setAttribute("hidden", "hidden");
-        // document.getElementById("lbl2").setAttribute("hidden", "hidden");
         document.getElementById("zonalSelectFamplan").removeAttribute("hidden");
+        document.getElementById("zonalSelectLabel").removeAttribute("hidden");
       }
 
       fetchData(selectOption, frmDatefp, toDatefp, zone);
