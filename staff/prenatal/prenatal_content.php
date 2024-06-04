@@ -1022,7 +1022,7 @@ if ($result === false) {
 
 
                         </div>
-                        <div class="col-4">
+                        <div class="col-sm">
                             <div class="form-group">
                                 <label for="">Select Status</label>
                                 <select class="form-control" name="status2" id="status2" required>
@@ -1032,6 +1032,34 @@ if ($result === false) {
                                     <option value="Progress">Progress</option>
                                 </select>
                                 <!-- <div id="editStatus_error" class="error"></div> -->
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group">
+                                <label for="patient">Select Patient</label>
+                                <input list="patients" class="form-control" name="patient_name" id="patient_name"
+                                    disabled>
+                                <datalist id="patients">
+                                    <?php
+                                    // Query to fetch patients from the database
+                                    $sql2 = "SELECT serial_no, first_name, last_name FROM patients WHERE gender = 'Female' AND age >= 10 AND age < 50 ORDER BY id DESC";
+                                    $result2 = $conn->query($sql2);
+
+                                    if ($result2->num_rows > 0) {
+                                        while ($row2 = $result2->fetch_assoc()) {
+                                            $patientSerialNo = $row2['serial_no'];
+                                            $firstName = $row2['first_name'];
+                                            $lastName = $row2['last_name'];
+
+                                            // Output an option element for each patient with the serial_no as the value
+                                            echo "<option value='$patientSerialNo'>$firstName $lastName</option>";
+                                        }
+                                    } else {
+                                        echo "<option disabled>No patients found</option>";
+                                    }
+                                    ?>
+                                </datalist>
+                                <input type="hidden" name="serial_no2" id="serial_no2">
                             </div>
                         </div>
                         <div class="col-sm">
@@ -1583,7 +1611,7 @@ if ($result === false) {
                 columnDefs: [
                     { targets: 0, data: 'id', visible: false },
                     { targets: 1, data: 'serial_no' },
-                    { targets: 2, data: 'last_name' },
+                    { targets: 2, data: 'full_name' },
                     { targets: 3, data: 'checkup_date' },
                     { targets: 4, data: 'status' },
                     { targets: 5, data: 'steps' },
@@ -1610,7 +1638,7 @@ if ($result === false) {
                 columnDefs: [
                     { targets: 0, data: 'id', visible: false },
                     { targets: 1, data: 'serial_no' },
-                    { targets: 2, data: 'last_name' },
+                    { targets: 2, data: 'full_name' },
                     { targets: 3, data: 'checkup_date' },
                     { targets: 4, data: 'status' },
                     { targets: 5, data: 'steps' },
@@ -1631,7 +1659,7 @@ if ($result === false) {
                 columnDefs: [
                     { targets: 0, data: 'id', visible: false },
                     { targets: 1, data: 'serial_no' },
-                    { targets: 2, data: 'last_name' },
+                    { targets: 2, data: 'full_name' },
                     { targets: 3, data: 'checkup_date' },
                     { targets: 4, data: 'status' },
                     { targets: 5, data: 'steps' },
@@ -1968,6 +1996,7 @@ if ($result === false) {
                     console.log(editGetData);
                     $('#editModal #editdataId').val(editGetData.id);
                     $('#editModal #nurse_id2').val(editGetData.nurse_id);
+                    $('#editModal #patient_name').val(editGetData.full_name);
                     $('#editModal #status2').val(editGetData.status);
                     $('#editModal #step2').val(editGetData.steps);
                     $('#editModal #height2').val(editGetData.height);
@@ -2218,6 +2247,7 @@ if ($result === false) {
 
             var editId = $('#editdataId').val();
             var nurse_id = $('#nurse_id2').val();
+            var patient_id = $('#patient_name').val();
             var status = $('#status2').val();
             var steps = $('#step2').val();
             var height = $('#height2').val();

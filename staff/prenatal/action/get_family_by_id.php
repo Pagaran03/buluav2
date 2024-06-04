@@ -1,13 +1,13 @@
 <?php
 // Include your database configuration file
-include_once('../../../config.php');
+include_once ('../../../config.php');
 
 
 $dataId = $_POST['primary_id'];
 
 try {
- 
-    $sql = "SELECT *,prenatal_subjective.id as id
+
+    $sql = "SELECT *,prenatal_subjective.id as id, CONCAT(patients.last_name,', ',patients.first_name) AS full_name
     FROM prenatal_subjective
     JOIN patients ON prenatal_subjective.patient_id = patients.id
     JOIN nurses ON prenatal_subjective.nurse_id = nurses.id
@@ -21,7 +21,7 @@ try {
         $result = $stmt->get_result();
         $myData = $result->fetch_assoc();
 
-  
+
         header('Content-Type: application/json');
         echo json_encode($myData);
     } else {

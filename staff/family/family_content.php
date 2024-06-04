@@ -7,7 +7,7 @@ $sql = "SELECT *, fp_information.id as id, CONCAT(patients.last_name,', ',patien
 FROM fp_information
 JOIN patients ON fp_information.patient_id = patients.id
 JOIN fp_obstetrical_history ON fp_information.id = fp_obstetrical_history.fp_information_id
-JOIN fp_consultation ON fp_consultation.fp_information_id = fp_information.id
+JOIN fp_consultation ON fp_information.id = fp_consultation.id
 JOIN nurses ON fp_information.nurse_id = nurses.id WHERE fp_information.is_deleted = 0";
 
 
@@ -940,7 +940,7 @@ if ($result === false) {
                                         <?php echo $row['address1']; ?>
                                     </td>
                                     <td class="align-middle">
-                                        <?php echo $row['step']; ?>
+                                        <?php echo $row['steps']; ?>
                                     </td>
                                     <td class="align-middle">
                                         <button type="button" class="btn btn-success editbtn"
@@ -1003,53 +1003,44 @@ if ($result === false) {
                         <div class="row">
                             <div class="col-4">
                                 <div class="form-group">
-                                    <label for="">Select Nurse</label>
+                                    <label for="nurse_id2">Select Nurse</label>
                                     <select class="form-control" name="nurse_id2" id="nurse_id2" required>
                                         <option value="" disabled selected hidden>Select A Nurse</option>
                                         <?php
-
-                                        // Query to fetch patients from the database
-                                        $sql2 = "SELECT id, first_name, last_name FROM nurses
-                                WHERE is_active = 0 ORDER BY id DESC";
+                                        // Query to fetch nurses from the database
+                                        $sql2 = "SELECT id, first_name, last_name FROM nurses WHERE is_active = 0 ORDER BY id DESC";
                                         $result2 = $conn->query($sql2);
 
                                         if ($result2->num_rows > 0) {
                                             while ($row2 = $result2->fetch_assoc()) {
-                                                $patientId = $row2['id'];
+                                                $nurseId = $row2['id'];
                                                 $firstName = $row2['first_name'];
                                                 $lastName = $row2['last_name'];
 
-                                                // Output an option element for each patient
-                                                echo "<option value='$patientId'>$firstName $lastName</option>";
+                                                // Output an option element for each nurse
+                                                echo "<option value='$nurseId'>$firstName $lastName</option>";
                                             }
                                         } else {
-                                            echo "<option disabled>No patients found</option>";
+                                            echo "<option disabled>No nurses found</option>";
                                         }
-
-                                        // Close the database connection
-                                        
                                         ?>
                                     </select>
-
                                 </div>
-
-
                             </div>
                             <div class="col-4">
                                 <div class="form-group">
-                                    <label for="">Status</label>
+                                    <label for="editstatus">Status</label>
                                     <select class="form-control" name="status" id="editstatus" required>
                                         <option value="" disabled selected hidden>Select a Status</option>
                                         <option value="Complete">Complete</option>
                                         <option value="Pending">Pending</option>
                                         <option value="Progress">Progress</option>
                                     </select>
-                                    <!-- <div id="editStatus_error" class="error"></div> -->
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="form-group">
-                                    <label for="patient">Patient Name</label>
+                                    <label for="patient_name">Patient Name</label>
                                     <input list="patients" class="form-control" name="patient_name" id="patient_name"
                                         disabled required>
                                     <datalist id="patients">
@@ -1065,7 +1056,7 @@ if ($result === false) {
                                                 $lastName = $row2['last_name'];
                                                 $age = $row2['age'];
 
-                                                // Only add patient to the options if they are 14 or older
+                                                // Only add patient to the options if they are 18 or older
                                                 if ($age >= 18) {
                                                     // Output an option element for each patient with the serial_no as the value
                                                     echo "<option value='$patientSerialNo'>$firstName $lastName</option>";
@@ -1077,32 +1068,12 @@ if ($result === false) {
                                         ?>
                                     </datalist>
                                     <input type="hidden" name="patient_id" id="patient_id" required>
-
                                 </div>
-                                <!-- 
-                                <script>
-                                    // Add a JavaScript event listener to update the input field
-                                    const patientNameInput = document.getElementById('patient_name');
-                                    const patientIdInput = document.getElementById('patient_id');
-
-                                    patientNameInput.addEventListener('input', function () {
-                                        const selectedOption = document.querySelector('datalist#patients option[value="' + this.value + '"]');
-                                        if (selectedOption) {
-                                            patientNameInput.value = selectedOption.innerText; // Update the input text
-                                            patientIdInput.value = selectedOption.value; // Set patient_id to the value of the selected option (serial_no)
-                                        }
-                                    });
-
-                                    document.addEventListener('DOMContentLoaded', function () {
-                                        patientNameInput.removeAttribute('disabled');
-                                    });
-                                </script> -->
                             </div>
-
-                            <div class="col-sm">
+                            <div class="col-4">
                                 <div class="form-group">
-                                    <label for="">Select Step</label>
-                                    <select class="form-control" name="step2" id="step2" required class="">
+                                    <label for="step2">Select Step</label>
+                                    <select class="form-control" name="step2" id="step2" required>
                                         <option value="" disabled selected hidden>Select a Step</option>
                                         <option value="Interview Staff">Interview Staff</option>
                                         <option value="Consultation">Consultation</option>
@@ -1115,7 +1086,6 @@ if ($result === false) {
                                         <option value="Head Nurse">Head Nurse</option>
                                         <option value="Prescription">Prescription</option>
                                     </select>
-                                    <!-- <div id="editStatus_error" class="error"></div> -->
                                 </div>
                             </div>
                         </div>
@@ -1379,62 +1349,64 @@ if ($result === false) {
 
                             </div>
                             <hr>
-                            <h5>IV RISK FOR SEXUALITY TRANSMITTED INFECTIONS</h5>
-                            <hr>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="medical_conditions">Does the client have any of the
-                                            following?</label>
-                                        <br>
-                                        <div class="checkbox-list">
-                                            <div class="checkbox-item">
-                                                <input type="checkbox" id="abnormal_discharge2"
-                                                    name="abnormal_discharge2" value="abnormal_discharge">
-                                                <label class="checkbox-label">abnormal discharge from the genital
-                                                    area</label>
-                                            </div>
-                                            <div class="checkbox-item">
-                                                <input type="checkbox" id="genital_sores_ulcers2"
-                                                    name="genital_sores_ulcers2" value="genital_sores_ulcers">
-                                                <label class="checkbox-label">sores or ulcers in the genital
-                                                    area</label>
-                                            </div>
-                                            <div class="checkbox-item">
-                                                <input type="checkbox" id="genital_pain_burning_sensation2"
-                                                    name="genital_pain_burning_sensation2"
-                                                    value="genital_pain_burning_sensation">
-                                                <label class="checkbox-label">pain or burning sensation in the genital
-                                                    area</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-
-                                        <br>
-                                        <div class="checkbox-list">
-                                            <div class="checkbox-item">
-                                                <input type="checkbox" id="treatment_for_sti2" name="treatment_for_sti2"
-                                                    value="treatment_for_sti">
-                                                <label class="checkbox-label">history of treatment for sexually
-                                                    transmitted infections</label>
-                                            </div>
-                                            <div class="checkbox-item">
-                                                <input type="checkbox" id="hiv_aids_pid2" name="hiv_aids_pid2"
-                                                    value="hiv_aids_pid">
-                                                <label class="checkbox-label">HIV/AIDS/Pelvic inflammatory
-                                                    disease</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
 
 
                         </div>
+
+                        <h5>IV RISK FOR SEXUALITY TRANSMITTED INFECTIONS</h5>
+                        <hr>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="medical_conditions">Does the client have any of the
+                                        following?</label>
+                                    <br>
+                                    <div class="checkbox-list">
+                                        <div class="checkbox-item">
+                                            <input type="checkbox" id="abnormal_discharge2" name="abnormal_discharge2"
+                                                value="abnormal_discharge">
+                                            <label class="checkbox-label">abnormal discharge from the genital
+                                                area</label>
+                                        </div>
+                                        <div class="checkbox-item">
+                                            <input type="checkbox" id="genital_sores_ulcers2"
+                                                name="genital_sores_ulcers2" value="genital_sores_ulcers">
+                                            <label class="checkbox-label">sores or ulcers in the genital
+                                                area</label>
+                                        </div>
+                                        <div class="checkbox-item">
+                                            <input type="checkbox" id="genital_pain_burning_sensation2"
+                                                name="genital_pain_burning_sensation2"
+                                                value="genital_pain_burning_sensation">
+                                            <label class="checkbox-label">pain or burning sensation in the genital
+                                                area</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+
+                                    <br>
+                                    <div class="checkbox-list">
+                                        <div class="checkbox-item">
+                                            <input type="checkbox" id="treatment_for_sti2" name="treatment_for_sti2"
+                                                value="treatment_for_sti">
+                                            <label class="checkbox-label">history of treatment for sexually
+                                                transmitted infections</label>
+                                        </div>
+                                        <div class="checkbox-item">
+                                            <input type="checkbox" id="hiv_aids_pid2" name="hiv_aids_pid2"
+                                                value="hiv_aids_pid">
+                                            <label class="checkbox-label">HIV/AIDS/Pelvic inflammatory
+                                                disease</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
 
                         <!-- other col -->
                         <div class="col-12">
@@ -1747,7 +1719,7 @@ if ($result === false) {
                 },
                 {
                     targets: 7,
-                    data: 'step'
+                    data: 'steps'
                 },
                 {
                     targets: 8,
@@ -1800,7 +1772,7 @@ if ($result === false) {
                 },
                 {
                     targets: 7,
-                    data: 'step'
+                    data: 'steps'
                 },
                 ],
                 // Set the default ordering to 'id' column in descending order
@@ -1846,7 +1818,7 @@ if ($result === false) {
                 },
                 {
                     targets: 7,
-                    data: 'step'
+                    data: 'steps'
                 },
                 {
                     targets: 8,

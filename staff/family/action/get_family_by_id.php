@@ -15,7 +15,7 @@ try {
     JOIN fp_risk_for_sexuality ON fp_risk_for_sexuality.fp_information_id = fp_information.id
     JOIN fp_risk_for_violence_against_women ON fp_risk_for_violence_against_women.fp_information_id = fp_information.id
     JOIN fp_physical_examination ON fp_physical_examination.fp_information_id = fp_information.id
-    JOIN fp_consultation ON fp_consultation.fp_information_id = fp_information.id
+    JOIN fp_consultation ON fp_information.id = fp_consultation.id
     WHERE fp_information.id = ?";
 
     $stmt = $conn->prepare($sql);
