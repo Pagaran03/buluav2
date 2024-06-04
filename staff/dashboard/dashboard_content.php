@@ -47,27 +47,27 @@ $alive = 'alive';
 $counters = array();
 
 foreach ($prenatals as $prenatal) {
-    // Count query
-    $count_sql = "SELECT COUNT(*) AS count FROM prenatal_subjective WHERE $prenatal IS NOT NULL AND $prenatal <> 0";
-    $count_result = $conn->query($count_sql);
+  // Count query
+  $count_sql = "SELECT COUNT(*) AS count FROM prenatal_subjective WHERE $prenatal IS NOT NULL AND $prenatal <> 0";
+  $count_result = $conn->query($count_sql);
 
-    if ($count_result === false) {
-        die("Count query failed: " . $conn->error);
-    }
+  if ($count_result === false) {
+    die("Count query failed: " . $conn->error);
+  }
 
-    $count_row = $count_result->fetch_assoc();
-    $counters[] = $count_row['count'];
+  $count_row = $count_result->fetch_assoc();
+  $counters[] = $count_row['count'];
 
-    // Sum query
-    $sum_sql = "SELECT SUM($alive) AS sum FROM prenatal_subjective WHERE $alive IS NOT NULL AND $alive <> 0";
-    $sum_result = $conn->query($sum_sql);
+  // Sum query
+  $sum_sql = "SELECT SUM($alive) AS sum FROM prenatal_subjective WHERE $alive IS NOT NULL AND $alive <> 0";
+  $sum_result = $conn->query($sum_sql);
 
-    if ($sum_result === false) {
-        die("Sum query failed: " . $conn->error);
-    }
+  if ($sum_result === false) {
+    die("Sum query failed: " . $conn->error);
+  }
 
-    $sum_row = $sum_result->fetch_assoc();
-    $counters[] = $sum_row['sum'];
+  $sum_row = $sum_result->fetch_assoc();
+  $counters[] = $sum_row['sum'];
 }
 
 
@@ -382,9 +382,9 @@ foreach ($tables as $table) {
             <a href="#" class="small-box-footer" data-toggle="modal" data-target="#patientmodal">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
 
-         <?php
+          <?php
           include("modal/modal.php");
-         ?>
+          ?>
 
 
         </div>
@@ -427,9 +427,9 @@ foreach ($tables as $table) {
           </div>
         </div>
 
-             <?php
-             include('modal/modal_prenatal.php')
-             ?>
+        <?php
+        include('modal/modal_prenatal.php')
+        ?>
 
 
         <!-- ./col -->
@@ -469,11 +469,11 @@ foreach ($tables as $table) {
           </div>
           <?php
           include("modal/modal_immunization.php");
-         ?>
+          ?>
         </div>
       </div>
       <!--  -->
-      
+
 
       <!--  -->
 
@@ -484,9 +484,9 @@ foreach ($tables as $table) {
             <div class="inner">
               <?php
               $sql = "SELECT COUNT(*) AS totalConsultations
-FROM fp_information
-JOIN patients ON fp_information.patient_id = patients.id
-JOIN nurses ON fp_information.nurse_id = nurses.id";
+                  FROM fp_information
+                  JOIN patients ON fp_information.patient_id = patients.id
+                  JOIN nurses ON fp_information.nurse_id = nurses.id";
 
               $result = $conn->query($sql);
 
@@ -515,15 +515,11 @@ JOIN nurses ON fp_information.nurse_id = nurses.id";
               <i class="ion ion-bag"></i>
             </div>
             <a href="#" class="small-box-footer" data-toggle="modal" data-target="#famplanmodal">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <?php
+            include('modal/modal_famplan.php');
+            ?>
+
           </div>
-
-          <?php
-          include('modal/modal_famplan.php');
-          ?>
-
-        
-
-
         </div>
 
 
@@ -565,8 +561,8 @@ JOIN nurses ON fp_information.nurse_id = nurses.id";
         </div>
 
         <?php
-          include('modal/modal_consult.php');
-          ?>
+        include('modal/modal_consult.php');
+        ?>
 
       </div>
       <!--  -->

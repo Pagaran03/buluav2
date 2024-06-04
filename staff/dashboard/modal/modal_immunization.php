@@ -62,7 +62,7 @@
       var url = 'modal/immu_query.php?selectOption=' + encodeURIComponent(selectOption) +
         '&frmDate=' + encodeURIComponent(frmDate) +
         '&toDate=' + encodeURIComponent(toDate) +
-        '&zone=' + encodeURIComponent(zone); // Include zone in the URL
+        '&zone=' + encodeURIComponent(zone);
 
       // Make AJAX request
       fetch(url)

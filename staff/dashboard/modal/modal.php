@@ -599,6 +599,7 @@ GROUP BY address, age";
     } else {
         $zone12_count_fp = 0;
     }
+    
     ?>
  <!-- Modal -->
  <div class="modal fade" id="patientmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

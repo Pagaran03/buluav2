@@ -104,12 +104,12 @@ if ($selectOption === 'Date') {
         $chartData['data'][] = $count;
     }
 
-    // Output $chartData as JSON response
+
     header('Content-Type: application/json');
     echo json_encode($chartData);
-    exit(); // Ensure no further output
+    exit();
 }
 
-// Output $countss array as JSON for other options (Date, Gender)
 header('Content-Type: application/json');
 echo json_encode($countss);
+exit();
