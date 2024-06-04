@@ -444,7 +444,6 @@ echo "<script>console.log('{$_SESSION['user_id']}')</script>";
   </div>
 
 
-  !-- SCRIPT FOR GENERATING REPORTS -->
   <script>
     function generateReport() {
       var fromDate = document.getElementById("fromDate").value;
