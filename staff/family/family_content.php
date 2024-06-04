@@ -937,7 +937,7 @@ if ($result === false) {
                                         <?php echo $row['gender']; ?>
                                     </td>
                                     <td class="align-middle">
-                                        <?php echo $row['address1']; ?>
+                                        <?php echo $row['status']; ?>
                                     </td>
                                     <td class="align-middle">
                                         <?php echo $row['steps']; ?>
@@ -1715,7 +1715,7 @@ if ($result === false) {
                 },
                 {
                     targets: 6,
-                    data: 'address1'
+                    data: 'status'
                 },
                 {
                     targets: 7,
@@ -1768,7 +1768,7 @@ if ($result === false) {
                 },
                 {
                     targets: 6,
-                    data: 'address1'
+                    data: 'status'
                 },
                 {
                     targets: 7,
@@ -1814,7 +1814,7 @@ if ($result === false) {
                 },
                 {
                     targets: 6,
-                    data: 'address1'
+                    data: 'status'
                 },
                 {
                     targets: 7,
