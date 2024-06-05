@@ -156,7 +156,7 @@ if ($result === false) {
                                         <option value="" disabled selected hidden>Select a Status</option>
                                         <!-- <option value="Complete">Complete</option> -->
                                         <option value="Pending">Pending</option>
-                                        <option value="Progress">Progress</option>
+                                        <option value="In Progress">Progress</option>
                                     </select>
                                     <!-- <div id="editStatus_error" class="error"></div> -->
                                 </div>
@@ -294,7 +294,6 @@ if ($result === false) {
                                     </div>
                                 </div>
                             </div>
-
                             <!-- <div class="col">
                                 <div class="form-group">
                                     <label for="lmp">LMP</label>
@@ -306,14 +305,7 @@ if ($result === false) {
                                     </div>
                                 </div>
                             </div> -->
-
-
                         </div>
-
-
-
-
-
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
@@ -909,7 +901,7 @@ if ($result === false) {
                         <th>Patient Name</th>
                         <th>Checkup Date</th>
                         <th>Status</th>
-                        <th>Progress</th>
+                        <th>Process</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -1029,7 +1021,7 @@ if ($result === false) {
                                     <option value="" disabled selected hidden>Select a Status</option>
                                     <option value="Complete">Complete</option>
                                     <option value="Pending">Pending</option>
-                                    <option value="Progress">Progress</option>
+                                    <option value="In Progress">Progress</option>
                                 </select>
                                 <!-- <div id="editStatus_error" class="error"></div> -->
                             </div>
