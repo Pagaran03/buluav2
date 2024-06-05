@@ -501,9 +501,6 @@ if ($result === false) {
                                 </div>
                             </div>
                         </div>
-
-
-
                         <div class="row">
                             <div class="col">
                                 <label for="medical_conditions">Does the client have any of the following?</label>

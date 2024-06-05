@@ -748,7 +748,7 @@ assessment: diagnosis" required></textarea>
 
                         </div>
                         <div class="row">
-                            <div class="col-4">
+                            <!-- <div class="col-4">
                                 <div class="form-group">
                                     <label for="patient">Patient Name</label>
                                     <input list="patients" class="form-control" name="patient_name" id="patient_name"
@@ -778,7 +778,7 @@ assessment: diagnosis" required></textarea>
 
 
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="col-4">
                                 <div class="form-group">
                                     <label for="">Select Step</label>
@@ -1506,7 +1506,7 @@ assessment: diagnosis" required></textarea>
                         console.log(editGetData.id);
                         $('#editModal #editdataId').val(editGetData.id);
                         $('#editModal #doctor_id2').val(editGetData.doctor_id);
-                        $('#editModal #patient_name').val(editGetData.full_name);
+                        // $('#editModal #patient_name').val(editGetData.full_name);
                         $('#editModal #checkup_date2').val(editGetData.checkup_date);
                         $('#editModal #subjective2').val(editGetData.subjective);
                         $('#editModal #objective2').val(editGetData.objective);
@@ -1642,7 +1642,7 @@ assessment: diagnosis" required></textarea>
                 var assessment = $('#assessment2').val();
                 var plan = $('#plan2').val();
                 var doctor_id = $('#doctor_id2').val();
-                var full_name = $('#patient_name').val();
+                // var full_name = $('#patient_name').val();
                 var checkup_date = $('#checkup_date2').val();
                 var status = $('#status2').val();
                 var steps = $('#steps2').val();
@@ -1683,7 +1683,7 @@ assessment: diagnosis" required></textarea>
                         assessment: assessment,
                         plan: plan,
                         doctor_id: doctor_id,
-                        patient_id: patient_id,
+                        // patient_id: patient_id,
                         status: status,
                         steps: steps,
                         checkup_date: checkup_date,
