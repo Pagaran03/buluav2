@@ -558,17 +558,15 @@ if ($result === false) {
                                         <div class="form-group">
                                             <label for="">Type of Last Delivery</label>
                                             <br>
-                                            <div style="display: inline-block;" class="mt-1">
-                                                <input type="radio" id="vaginalRadio" name="type_of_last_delivery2"
-                                                    value="Vaginal" class="radio-input" disabled>
-                                                <label for="vaginalRadio" class="radio-label"
-                                                    style="margin-left: 5px;">Vaginal</label>
-                                            </div>
-                                            <div style="display: inline-block;">
-                                                <input type="radio" id="cesareanRadio" name="type_of_last_delivery2"
-                                                    value="Cesarean Section" class="radio-input" disabled>
-                                                <label for="cesareanRadio" class="radio-label">Cesarean
-                                                    Section</label>
+                                            <div class="mt-1">
+                                                <select id="type_of_last_delivery2" name="type_of_last_delivery2"
+                                                    class="form-control" disabled>
+                                                    <option value="" disabled selected>Select a Type of Last Delivery
+                                                    </option>
+                                                    <option value="None">None</option>
+                                                    <option value="Vaginal">Vaginal</option>
+                                                    <option value="Cesarean Section">Cesarean Section</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -577,89 +575,79 @@ if ($result === false) {
                                     <div class="col-4">
                                         <label for="">Menstrual Flow</label>
                                         <br>
-                                        <div style="display: inline-block;" class="mt-1">
-                                            <input type="radio" id="scantyRadio" name="mens_type2" value="Scanty"
-                                                class="radio-input" disabled>
-                                            <label for="scantyRadio" class="radio-label"
-                                                style="margin-left: 5px;">Scanty</label>
-                                        </div>
-                                        <div style="display: inline-block;" class="mt-1">
-                                            <input type="radio" id="moderateRadio" name="mens_type2" value="Moderate"
-                                                class="radio-input" disabled>
-                                            <label for="moderateRadio" class="radio-label"
-                                                style="margin-left: 5px;">Moderate</label>
-                                        </div>
-
-                                        <div style="display: inline-block;" class="mt-1">
-                                            <input type="radio" id="heavyRadio" name="mens_type2" value="Heavy"
-                                                class="radio-input" disabled>
-                                            <label for="heavyRadio" class="radio-label"
-                                                style="margin-left: 5px;">Heavy</label>
+                                        <div class="mt-1">
+                                            <select id="mens_type2" name="mens_type2" class="form-control" disabled>
+                                                <option value="" disabled selected>Select a Menstrual Flow</option>
+                                                <option value="None">None</option>
+                                                <option value="Scanty">Scanty</option>
+                                                <option value="Moderate">Moderate</option>
+                                                <option value="Heavy">Heavy</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
 
                             </div>
                             <hr>
-                            <h5>IV RISK FOR SEXUALITY TRANSMITTED INFECTIONS</h5>
-                            <hr>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="medical_conditions">Does the client have any of the
-                                            following?</label>
-                                        <br>
-                                        <div class="checkbox-list">
-                                            <div class="checkbox-item">
-                                                <input type="checkbox" id="abnormal_discharge2"
-                                                    name="abnormal_discharge2" value="abnormal_discharge" disabled>
-                                                <label class="checkbox-label">abnormal discharge from the
-                                                    genital
-                                                    area</label>
-                                            </div>
-                                            <div class="checkbox-item">
-                                                <input type="checkbox" id="genital_sores_ulcers2"
-                                                    name="genital_sores_ulcers2" value="genital_sores_ulcers" disabled>
-                                                <label class="checkbox-label">sores or ulcers in the genital
-                                                    area</label>
-                                            </div>
-                                            <div class="checkbox-item">
-                                                <input type="checkbox" id="genital_pain_burning_sensation2"
-                                                    name="genital_pain_burning_sensation2"
-                                                    value="genital_pain_burning_sensation" disabled>
-                                                <label class="checkbox-label">pain or burning sensation in the
-                                                    genital
-                                                    area</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
 
-                                        <br>
-                                        <div class="checkbox-list">
-                                            <div class="checkbox-item">
-                                                <input type="checkbox" id="treatment_for_sti2" name="treatment_for_sti2"
-                                                    value="treatment_for_sti" disabled>
-                                                <label class="checkbox-label">history of treatment for sexually
-                                                    transmitted infections</label>
-                                            </div>
-                                            <div class="checkbox-item">
-                                                <input type="checkbox" id="hiv_aids_pid2" name="hiv_aids_pid2"
-                                                    value="hiv_aids_pid" disabled>
-                                                <label class="checkbox-label">HIV/AIDS/Pelvic inflammatory
-                                                    disease</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
 
 
                         </div>
+                        <h5>IV RISK FOR SEXUALITY TRANSMITTED INFECTIONS</h5>
+                        <hr>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="medical_conditions">Does the client have any of the
+                                        following?</label>
+                                    <br>
+                                    <div class="checkbox-list">
+                                        <div class="checkbox-item">
+                                            <input type="checkbox" id="abnormal_discharge2" name="abnormal_discharge2"
+                                                value="abnormal_discharge" disabled>
+                                            <label class="checkbox-label">abnormal discharge from the
+                                                genital
+                                                area</label>
+                                        </div>
+                                        <div class="checkbox-item">
+                                            <input type="checkbox" id="genital_sores_ulcers2"
+                                                name="genital_sores_ulcers2" value="genital_sores_ulcers" disabled>
+                                            <label class="checkbox-label">sores or ulcers in the genital
+                                                area</label>
+                                        </div>
+                                        <div class="checkbox-item">
+                                            <input type="checkbox" id="genital_pain_burning_sensation2"
+                                                name="genital_pain_burning_sensation2"
+                                                value="genital_pain_burning_sensation" disabled>
+                                            <label class="checkbox-label">pain or burning sensation in the
+                                                genital
+                                                area</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
 
+                                    <br>
+                                    <div class="checkbox-list">
+                                        <div class="checkbox-item">
+                                            <input type="checkbox" id="treatment_for_sti2" name="treatment_for_sti2"
+                                                value="treatment_for_sti" disabled>
+                                            <label class="checkbox-label">history of treatment for sexually
+                                                transmitted infections</label>
+                                        </div>
+                                        <div class="checkbox-item">
+                                            <input type="checkbox" id="hiv_aids_pid2" name="hiv_aids_pid2"
+                                                value="hiv_aids_pid" disabled>
+                                            <label class="checkbox-label">HIV/AIDS/Pelvic inflammatory
+                                                disease</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                         <!-- other col -->
                         <div class="col-12">
 
@@ -1228,6 +1216,9 @@ if ($result === false) {
                 $('#editModal2 #no_of_pregnancies2').val(editGetData.no_of_pregnancies);
                 $('#editModal2 #date_of_last_delivery2').val(editGetData.date_of_last_delivery);
                 $('#editModal2 #last_period2').val(editGetData.last_period);
+                $('#editModal2 #type_of_last_delivery2').val(editGetData.type_of_last_delivery);
+                $('#editModal2 #mens_type2').val(editGetData.mens_type);
+
 
 
                 // Assuming editGetData.plan_to_have_more_children contains the value "Yes" or "No"
@@ -1329,20 +1320,20 @@ if ($result === false) {
                 }
 
                 // Check the appropriate radio button based on the value
-                if (editGetData.type_of_last_delivery === "Vaginal") {
-                    $('#vaginalRadio').prop('checked', true);
-                } else if (editGetData.type_of_last_delivery === "Cesarean Section") {
-                    $('#cesareanRadio').prop('checked', true);
-                }
+                // if (editGetData.type_of_last_delivery === "Vaginal") {
+                //     $('#vaginalRadio').prop('checked', true);
+                // } else if (editGetData.type_of_last_delivery === "Cesarean Section") {
+                //     $('#cesareanRadio').prop('checked', true);
+                // }
 
 
-                if (editGetData.mens_type === "Scanty") {
-                    $('#scantyRadio').prop('checked', true);
-                } else if (editGetData.mens_type === "Moderate") {
-                    $('#moderateRadio').prop('checked', true);
-                } else if (editGetData.mens_type === "Heavy") {
-                    $('#heavyRadio').prop('checked', true);
-                }
+                // if (editGetData.mens_type === "Scanty") {
+                //     $('#scantyRadio').prop('checked', true);
+                // } else if (editGetData.mens_type === "Moderate") {
+                //     $('#moderateRadio').prop('checked', true);
+                // } else if (editGetData.mens_type === "Heavy") {
+                //     $('#heavyRadio').prop('checked', true);
+                // }
 
                 if (editGetData.abnormal_discharge === 'Yes') {
                     $('#abnormal_discharge2').prop('checked', true);
@@ -1407,10 +1398,10 @@ if ($result === false) {
                 }
 
 
-                $('#editModal #weight2').val(editGetData.weight);
-                $('#editModal #bp2').val(editGetData.bp);
-                $('#editModal #height2').val(editGetData.height);
-                $('#editModal #pulse2').val(editGetData.pulse);
+                $('#editModal2 #weight2').val(editGetData.weight);
+                $('#editModal2 #bp2').val(editGetData.bp);
+                $('#editModal2 #height2').val(editGetData.height);
+                $('#editModal2 #pulse2').val(editGetData.pulse);
 
                 // Check the appropriate radio button based on the value
                 if (editGetData.extremities === "Normal") {

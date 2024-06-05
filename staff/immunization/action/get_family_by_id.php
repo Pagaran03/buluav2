@@ -1,13 +1,13 @@
 <?php
 // Include your database configuration file
-include_once('../../../config.php');
+include_once ('../../../config.php');
 
 
 $dataId = $_POST['primary_id'];
 
 try {
 
-    $sql = "SELECT *,immunization.id as id
+    $sql = "SELECT *,immunization.id as id, CONCAT(patients.last_name,',',patients.first_name) AS full_name
     FROM immunization
     JOIN patients ON immunization.patient_id = patients.id
     WHERE immunization.id = ?";

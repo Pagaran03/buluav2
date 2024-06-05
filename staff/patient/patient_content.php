@@ -121,7 +121,7 @@ if ($result2->num_rows > 0) {
                                     <label for="middle_name">Middle Name</label><span
                                         style="font-size: 14px;">(optional)</span>
                                     <input type="text" class="form-control" id="middle_name" name="middle_name"
-                                        placeholder="Enter your Middlename" required>
+                                        placeholder="Enter your Middlename">
                                     <div id="middle_name_error" class="error"></div>
                                 </div>
                             </div>

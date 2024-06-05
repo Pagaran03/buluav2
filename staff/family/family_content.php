@@ -402,20 +402,17 @@ if ($result === false) {
                                 <div class="row">
                                     <div class="col-4">
                                         <div class="form-group">
-                                            <label for="">Type of Last Delivery</label>
+                                            <label for="type_of_last_delivery">Type of Last Delivery</label>
                                             <br>
-                                            <div style="display: inline-block;" class="mt-1">
-                                                <input type="radio" id="type_of_last_delivery"
-                                                    name="type_of_last_delivery" value="Vaginal" class="radio-input"
-                                                    required>
-                                                <label for="" class="radio-label"
-                                                    style="margin-left: 5px;">Vaginal</label>
-                                            </div>
-                                            <div style="display: inline-block;">
-                                                <input type="radio" id="type_of_last_delivery"
-                                                    name="type_of_last_delivery" value="Cesarean Section"
-                                                    class="radio-input" required>
-                                                <label for="" class="radio-label">Cesarean Section</label>
+                                            <div class="mt-1">
+                                                <select id="type_of_last_delivery" name="type_of_last_delivery"
+                                                    class="form-control" required>
+                                                    <option value="" disabled selected>Select a Type of Last Delivery
+                                                    </option>
+                                                    <option value="None">None</option>
+                                                    <option value="Vaginal">Vaginal</option>
+                                                    <option value="Cesarean Section">Cesarean Section</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -425,24 +422,14 @@ if ($result === false) {
                                         <div class="form-group">
                                             <label for="">Menstrual Flow</label>
                                             <br>
-                                            <div style="display: inline-block;" class="mt-1">
-                                                <input type="radio" id="mens_type" name="mens_type" value="Scanty"
-                                                    class="radio-input" required>
-                                                <label for="" class="radio-label"
-                                                    style="margin-left: 5px;">Scanty</label>
-                                            </div>
-                                            <div style="display: inline-block;" class="mt-1">
-                                                <input type="radio" id="mens_type" name="mens_type" value="Moderate"
-                                                    class="radio-input" required>
-                                                <label for="" class="radio-label"
-                                                    style="margin-left: 5px;">Moderate</label>
-                                            </div>
-
-                                            <div style="display: inline-block;" class="mt-1">
-                                                <input type="radio" id="mens_type" name="mens_type" value="Heavy"
-                                                    class="radio-input" required>
-                                                <label for="" class="radio-label"
-                                                    style="margin-left: 5px;">Heavy</label>
+                                            <div class="mt-1">
+                                                <select id="mens_type" name="mens_type" class="form-control" required>
+                                                    <option value="" disabled selected>Select a Menstrual Flow</option>
+                                                    <option value="None">None</option>
+                                                    <option value="Scanty">Scanty</option>
+                                                    <option value="Moderate">Moderate</option>
+                                                    <option value="Heavy">Heavy</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -1307,16 +1294,14 @@ if ($result === false) {
                                         <div class="form-group">
                                             <label for="">Type of Last Delivery</label>
                                             <br>
-                                            <div style="display: inline-block;" class="mt-1">
-                                                <input type="radio" id="vaginalRadio" name="type_of_last_delivery2"
-                                                    value="Vaginal" class="radio-input" required>
-                                                <label for="vaginalRadio" class="radio-label"
-                                                    style="margin-left: 5px;">Vaginal</label>
-                                            </div>
-                                            <div style="display: inline-block;">
-                                                <input type="radio" id="cesareanRadio" name="type_of_last_delivery2"
-                                                    value="Cesarean Section" class="radio-input" required>
-                                                <label for="cesareanRadio" class="radio-label">Cesarean Section</label>
+                                            <div class="mt-1">
+                                                <select id="type_of_last_delivery2" name="type_of_last_delivery2"
+                                                    class="form-control" required>
+                                                    <option value="" disabled selected>Select one</option>
+                                                    <option value="None">None</option>
+                                                    <option value="Vaginal">Vaginal</option>
+                                                    <option value="Cesarean Section">Cesarean Section</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -1325,24 +1310,14 @@ if ($result === false) {
                                     <div class="col-4">
                                         <label for="">Menstrual Flow</label>
                                         <br>
-                                        <div style="display: inline-block;" class="mt-1">
-                                            <input type="radio" id="scantyRadio" name="mens_type2" value="Scanty"
-                                                class="radio-input" required>
-                                            <label for="scantyRadio" class="radio-label"
-                                                style="margin-left: 5px;">Scanty</label>
-                                        </div>
-                                        <div style="display: inline-block;" class="mt-1">
-                                            <input type="radio" id="moderateRadio" name="mens_type2" value="Moderate"
-                                                class="radio-input" required>
-                                            <label for="moderateRadio" class="radio-label"
-                                                style="margin-left: 5px;">Moderate</label>
-                                        </div>
-
-                                        <div style="display: inline-block;" class="mt-1">
-                                            <input type="radio" id="heavyRadio" name="mens_type2" value="Heavy"
-                                                class="radio-input" required>
-                                            <label for="heavyRadio" class="radio-label"
-                                                style="margin-left: 5px;">Heavy</label>
+                                        <div class="mt-1">
+                                            <select id="mens_type2" name="mens_type2" class="form-control" required>
+                                                <option value="" disabled selected>Select a Menstrual Flow</option>
+                                                <option value="None">None</option>
+                                                <option value="Scanty">Scanty</option>
+                                                <option value="Moderate">Moderate</option>
+                                                <option value="Heavy">Heavy</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -2107,6 +2082,8 @@ if ($result === false) {
                     $('#editModal #no_of_pregnancies2').val(editGetData.no_of_pregnancies);
                     $('#editModal #date_of_last_delivery2').val(editGetData.date_of_last_delivery);
                     $('#editModal #last_period2').val(editGetData.last_period);
+                    $('#editModal #type_of_last_delivery2').val(editGetData.type_of_last_delivery);
+                    $('#editModal #mens_type2').val(editGetData.mens_type);
 
 
                     // Assuming editGetData.plan_to_have_more_children contains the value "Yes" or "No"
@@ -2207,21 +2184,13 @@ if ($result === false) {
                         $('#with_disability2').prop('checked', false);
                     }
 
-                    // Check the appropriate radio button based on the value
-                    if (editGetData.type_of_last_delivery === "Vaginal") {
-                        $('#vaginalRadio').prop('checked', true);
-                    } else if (editGetData.type_of_last_delivery === "Cesarean Section") {
-                        $('#cesareanRadio').prop('checked', true);
-                    }
-
-
-                    if (editGetData.mens_type === "Scanty") {
-                        $('#scantyRadio').prop('checked', true);
-                    } else if (editGetData.mens_type === "Moderate") {
-                        $('#moderateRadio').prop('checked', true);
-                    } else if (editGetData.mens_type === "Heavy") {
-                        $('#heavyRadio').prop('checked', true);
-                    }
+                    // if (editGetData.mens_type === "Scanty") {
+                    //     $('#scantyRadio').prop('checked', true);
+                    // } else if (editGetData.mens_type === "Moderate") {
+                    //     $('#moderateRadio').prop('checked', true);
+                    // } else if (editGetData.mens_type === "Heavy") {
+                    //     $('#heavyRadio').prop('checked', true);
+                    // }
 
                     if (editGetData.abnormal_discharge === 'Yes') {
                         $('#abnormal_discharge2').prop('checked', true);
@@ -2384,8 +2353,8 @@ if ($result === false) {
             var plan_to_have_more_children = $("input[name='plan_to_have_more_children2']:checked").val();
             var client_type = $("input[name='client_type2']:checked").val();
             var reason_for_fp = $("input[name='reason_for_fp2']:checked").val();
-            var type_of_last_delivery = $("input[name='type_of_last_delivery2']:checked").val();
-            var mens_type = $("input[name='mens_type2']:checked").val();
+            var type_of_last_delivery = $('#type_of_last_delivery2').val();
+            var mens_type = $('#mens_type2').val();
             var skin = $("input[name='skin2']:checked").val();
 
 

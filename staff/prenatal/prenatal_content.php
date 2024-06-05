@@ -1325,8 +1325,6 @@ if ($result === false) {
                             <br>
                             <div class="form-group">
                                 <div class="checkbox-list">
-
-
                                     <div class="checkbox-item">
                                         <input type="checkbox" id="baby_weight_gt_4kgs2" name="medical_condition"
                                             value="baby_weight_gt_4kgs">
@@ -1362,8 +1360,6 @@ if ($result === false) {
                             </div>
                         </div>
                     </div>
-
-
                     <hr>
 
                     <h5>III ASSESSMENT/DIAGNOSIS</h5>
@@ -1564,14 +1560,6 @@ if ($result === false) {
                                 </div>
                             </div>
                         </div>
-
-
-
-
-
-
-
-
                     </div>
                 </form>
             </div>
