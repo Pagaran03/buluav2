@@ -7,18 +7,20 @@ use Dompdf\Options;
 
 // Retrieve the consultation ID from the GET request
 $id = $_GET['id'];
-
+$dateNow = date("Y/m/d");
 // Create SQL query to fetch consultation details
 $sql = "SELECT 
             *, 
             superadmins.first_name as d_first_name, 
             superadmins.last_name as d_last_name, 
             patients.first_name as p_first_name, 
-            patients.last_name as p_last_name 
+            patients.last_name as p_last_name,
+            patients.address as p_address,
+            patients.age as p_age
         FROM consultations 
         JOIN patients ON patients.id = consultations.patient_id
         JOIN superadmins ON superadmins.id = consultations.doctor_id
-        WHERE consultations.id = $id"; 
+        WHERE consultations.id = $id";
 
 // Create a new Dompdf instance
 $options = new Options();
@@ -40,13 +42,16 @@ $imageSrc = 'data:image/jpeg;base64,' . $imageData;
 $currentDate = date("Y-m-d");
 
 // Generate the HTML content for the PDF
-$htmlContent = '<html>
-<head></head>
-<body>
-<h2>Prescription</h2>
-
-<br>
-<img src="' . $imageSrc . '" width="140" height="140">
+$htmlContent = '
+<div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="bg-white shadow-lg rounded p-5">
+                    <div class="row mb-4">
+                        <img class="float-right" style="width: 100px; height: auto; margin-left: 80%;" src= ' . $imageSrc . ' alt="Doctor">
+                       
+                    </div>
+                    <h1 class="text-center mb-4">Doctor`s Prescription</h1>
 
 ';
 
@@ -55,24 +60,48 @@ $rowNumber = 1;  // Initialize the row number
 
 while ($row = $result->fetch_assoc()) {
     $rowColorStyle = $evenRow ? 'background-color: #f2f2f2;' : '';
-    $htmlContent .= '<div style="border: 1px solid #dddddd; padding: 10px; margin: 10px; ' . $rowColorStyle . '">
-    <p><strong>Patient Name:</strong> ' . $row['p_first_name'] .' ' . $row['p_last_name'] .'</p>
-    <p><strong>Patient Address:</strong> ' . $row['address'] .'</p>
-    <p><strong>Patient Serial No:</strong> ' . $row['serial_no'] .'</p>
-    <br>
-    <p><strong>Description:</strong> ' . $row['description'] . '</p>
-    <p><strong>Diagnosis:</strong> ' . $row['diagnosis'] . '</p>
-    <p><strong>Medicine:</strong> ' . $row['medicine'] . '</p>
-    <p><b>Date: ' . $currentDate . '</b></p>
-
-    
-    <div style="float: right;">
-        <p>
-    <hr style="clear: both; border: none; border-top: 2px solid #000; width: 100%;">
-        <strong>Doctor:</strong> ' . $row['d_first_name'] .' '. $row['d_last_name'] . '</p>
-    </div>
-    
-</div>';
+    $htmlContent .= '<div style=" padding: 10px; margin: 10px; ' . $rowColorStyle . '">
+    <div class="row mb-4">
+                        <div class="col-sm">
+                            <p class="text-sm"><span class="font-weight-bold">Patient Name:</span> ' . $row['p_first_name'] . ' ' . $row['p_last_name'] . '</p>
+                            <p class="text-sm"><span class="font-weight-bold">Age:</span> ' . $row['p_age'] . '</p>
+                            <p class="text-sm"><span class="font-weight-bold">Date:</span> ' . $dateNow . '</p>
+                        </div>
+                        <div class="col-sm">
+                            <p class="text-sm"><span class="font-weight-bold">Doctor Name:</span> ' . $row['d_first_name'] . ' ' . $row['d_last_name'] . '</p>
+                            <p class="text-sm"><span class="font-weight-bold">License No:</span> '. $row['license_number'] .'</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h2 class="text-center font-weight-bold mb-3">Medications:<p>'. $row['medicine'] .'</p></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </br>
+        </br>
+        </br>
+        </br>
+        </br>
+        </br>
+        </br>
+        </br>
+        </br>
+        </br>
+        </br>
+        </br>
+        </br>
+        </br>
+        </br>
+        </br>
+        </br>
+        </br>
+        </br>
+        </br>
+        </br>
+        <hr style="width: 50%; margin-top 100%;"></hr>
+        <center><label>Doctor`s Signature</label></center>
+    </div>';
 
     // Update the consultation record to mark it as printed
     $updateIsPrintSql = "UPDATE consultations SET is_print = 1 WHERE id = ?";
@@ -91,10 +120,22 @@ $pdf->loadHtml($htmlContent);
 // Render the HTML to PDF
 $pdf->render();
 
-// Generate the PDF and trigger a download
-$pdfData = $pdf->output();
-file_put_contents('prescription.pdf', $pdfData);
+// Get the PDF content
+$pdfContent = $pdf->output();
+
+// Send the appropriate headers for a PDF file
 header('Content-Type: application/pdf');
-header('Content-Disposition: attachment; filename="prescription.pdf"');
-readfile('prescription.pdf');
-?>
+header('Content-Disposition: inline; filename="patients_report.pdf"');
+
+// Output the PDF content
+echo $pdfContent;
+
+// Close the connection
+$conn->close();
+
+// Script to open PDF in a new tab
+echo '<script>
+var blob = new Blob([' . json_encode($pdfContent) . '], {type: "application/pdf"});
+var url = URL.createObjectURL(blob);
+window.open(url, "_blank");
+</script>';
