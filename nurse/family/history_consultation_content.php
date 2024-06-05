@@ -1,10 +1,10 @@
 <?php
 // Include your database configuration file
-include_once('../../config.php');
+include_once ('../../config.php');
 
 $user_id = $_GET['patient_id'];
 
-$sql = "SELECT *,fp_information.id as id,patients.first_name as first_name,patients.last_name as last_name,nurses.first_name as first_name2,nurses.last_name as last_name2
+$sql = "SELECT *,fp_information.id as id,CONCAT(patients.last_name,', ',patients.first_name) AS full_name,nurses.first_name as first_name2,nurses.last_name as last_name2
 FROM fp_information
 JOIN patients ON fp_information.patient_id = patients.id
 JOIN nurses ON fp_information.nurse_id = nurses.id
@@ -33,7 +33,8 @@ if ($result === false) {
     <br><br>
 
 
-    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -76,7 +77,7 @@ if ($result === false) {
                         <script>
                             // Add a JavaScript event listener to update the input field
                             const patientInput = document.getElementById('patient_id');
-                            patientInput.addEventListener('input', function() {
+                            patientInput.addEventListener('input', function () {
                                 const selectedOption = document.querySelector('datalist#patients option[value="' + this.value + '"]');
                                 if (selectedOption) {
                                     this.value = selectedOption.innerText; // Update the input text
@@ -111,14 +112,15 @@ if ($result === false) {
                                 }
 
                                 // Close the database connection
-
+                                
                                 ?>
                             </select>
 
                         </div>
                         <div class="form-group">
                             <label for="">Description</label>
-                            <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+                            <textarea class="form-control" id="description" name="description" rows="3"
+                                required></textarea>
                         </div>
                         <div class="form-group">
                             <label for="">Checkup Date</label>
@@ -143,7 +145,8 @@ if ($result === false) {
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModalButton">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                        id="closeModalButton">Close</button>
                     <button type="submit" class="btn btn-primary" id="addButton">Save</button>
                 </div>
             </div>
@@ -157,7 +160,7 @@ if ($result === false) {
                     <thead class="thead-light">
                         <tr>
                             <th>ID</th>
-                            <th>Nurse Name</th>
+                            <th>Patient Name</th>
                             <th>Check-up Date</th>
                             <th>Description</th>
                             <th>Diagnosis</th>
@@ -172,18 +175,19 @@ if ($result === false) {
                             while ($row = $result->fetch_assoc()) {
                                 $checkup_date = $row['checkup_date'];
                                 $formatted_date = date('F j, Y', strtotime($checkup_date));
-                        ?>
+                                ?>
 
                                 <tr>
                                     <td class="align-middle"><?php echo $row['id']; ?></td>
-                                    <td class="align-middle"> <?php echo $row['last_name2']; ?></td>
+                                    <td class="align-middle"> <?php echo $row['full_name']; ?></td>
                                     <td class="align-middle"> <?php echo $formatted_date; ?></td>
                                     <td class="align-middle"><?php echo $row['description']; ?></td>
                                     <td class="align-middle"><?php echo $row['diagnosis']; ?></td>
                                     <td class="align-middle"><?php echo $row['medicine']; ?></td>
-                                    <td><button class="btn btn-primary" onclick="recordsBtn(<?php echo $row['id']; ?>)"><i class="fas fa-eye"> View History</i></button></td>
+                                    <td><button class="btn btn-primary" onclick="recordsBtn(<?php echo $row['id']; ?>)"><i
+                                                class="fas fa-eye"> View History</i></button></td>
                                 </tr>
-                            <?php
+                                <?php
                             }
                         } else {
                             ?>
@@ -196,7 +200,7 @@ if ($result === false) {
                                 <td class="align-middle"></td>
 
                             </tr>
-                        <?php
+                            <?php
                         }
                         ?>
                     </tbody>
@@ -207,7 +211,8 @@ if ($result === false) {
 
     <!-- modal edit -->
 
-    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -246,14 +251,15 @@ if ($result === false) {
                                 }
 
                                 // Close the database connection
-
+                                
                                 ?>
                             </select>
 
                         </div>
                         <div class="form-group">
                             <label for="">Description</label>
-                            <textarea class="form-control" id="editDescription" name="description" rows="3" required></textarea>
+                            <textarea class="form-control" id="editDescription" name="description" rows="3"
+                                required></textarea>
                         </div>
                         <div class="form-group">
                             <label for="">Checkup Date</label>
@@ -269,7 +275,8 @@ if ($result === false) {
     </div>
 
 
-    <div class="modal fade" id="editModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -331,7 +338,8 @@ if ($result === false) {
                             <div class="col-4">
                                 <div class="form-group">
                                     <label for="">No. of Living Children</label>
-                                    <input type="text" class="form-control" id="no_of_children2" name="no_of_children" disabled>
+                                    <input type="text" class="form-control" id="no_of_children2" name="no_of_children"
+                                        disabled>
                                 </div>
                             </div>
 
@@ -347,11 +355,14 @@ if ($result === false) {
                                     <label for="plan_to_have_more_children">Plan to Have More Children?</label>
                                     <br>
                                     <div style="display: inline-block;" class="mt-1">
-                                        <input type="radio" id="plan_to_have_more_children_yes" name="plan_to_have_more_children2" value="Yes" class="radio-input" disabled>
-                                        <label for="plan_to_have_more_children_yes" class="radio-label" style="margin-left: 5px;">Yes</label>
+                                        <input type="radio" id="plan_to_have_more_children_yes"
+                                            name="plan_to_have_more_children2" value="Yes" class="radio-input" disabled>
+                                        <label for="plan_to_have_more_children_yes" class="radio-label"
+                                            style="margin-left: 5px;">Yes</label>
                                     </div>
                                     <div style="display: inline-block;">
-                                        <input type="radio" id="plan_to_have_more_children_no" name="plan_to_have_more_children2" value="No" class="radio-input" disabled>
+                                        <input type="radio" id="plan_to_have_more_children_no"
+                                            name="plan_to_have_more_children2" value="No" class="radio-input" disabled>
                                         <label for="plan_to_have_more_children_no" class="radio-label">No</label>
                                     </div>
                                 </div>
@@ -366,23 +377,28 @@ if ($result === false) {
                                     <label for="">Type of Client</label>
                                     <br>
                                     <div style="display: inline-block;" class="mt-1">
-                                        <input type="radio" id="client_type_new" name="client_type2" value="New Acceptor" class="radio-input" disabled>
+                                        <input type="radio" id="client_type_new" name="client_type2"
+                                            value="New Acceptor" class="radio-input" disabled>
                                         <label for="client_type_new" class="radio-label" style="margin-left: 5px;">New
                                             Acceptor</label>
                                     </div>
                                     <div style="display: inline-block;">
-                                        <input type="radio" id="client_type_change" name="client_type2" value="Changing Method" class="radio-input" disabled>
+                                        <input type="radio" id="client_type_change" name="client_type2"
+                                            value="Changing Method" class="radio-input" disabled>
                                         <label for="client_type_change" class="radio-label">Changing
                                             Method</label>
                                     </div>
                                     <div style="display: inline-block;">
-                                        <input type="radio" id="client_type_change_clinic" name="client_type2" value="Changing Clinic" class="radio-input" disabled>
+                                        <input type="radio" id="client_type_change_clinic" name="client_type2"
+                                            value="Changing Clinic" class="radio-input" disabled>
                                         <label for="client_type_change_clinic" class="radio-label">Changing
                                             Clinic</label>
                                     </div>
                                     <div style="display: inline-block;">
-                                        <input type="radio" id="client_type_dropout_restart" name="client_type2" value="Dropout/Restart" class="radio-input" disabled>
-                                        <label for="client_type_dropout_restart" class="radio-label">Dropout/Restart</label>
+                                        <input type="radio" id="client_type_dropout_restart" name="client_type2"
+                                            value="Dropout/Restart" class="radio-input" disabled>
+                                        <label for="client_type_dropout_restart"
+                                            class="radio-label">Dropout/Restart</label>
                                     </div>
                                 </div>
                             </div>
@@ -392,11 +408,14 @@ if ($result === false) {
                                     <label for="">Reason for FP</label>
                                     <br>
                                     <div style="display: inline-block;" class="mt-1">
-                                        <input type="radio" id="reason_for_fp_spacing" name="reason_for_fp2" value="spacing" class="radio-input" disabled>
-                                        <label for="reason_for_fp_spacing" class="radio-label" style="margin-left: 5px;">Spacing</label>
+                                        <input type="radio" id="reason_for_fp_spacing" name="reason_for_fp2"
+                                            value="spacing" class="radio-input" disabled>
+                                        <label for="reason_for_fp_spacing" class="radio-label"
+                                            style="margin-left: 5px;">Spacing</label>
                                     </div>
                                     <div style="display: inline-block;">
-                                        <input type="radio" id="reason_for_fp_limiting" name="reason_for_fp2" value="limiting" class="radio-input" disabled>
+                                        <input type="radio" id="reason_for_fp_limiting" name="reason_for_fp2"
+                                            value="limiting" class="radio-input" disabled>
                                         <label for="reason_for_fp_limiting" class="radio-label">Limiting</label>
                                     </div>
                                 </div>
@@ -417,33 +436,44 @@ if ($result === false) {
 
                                             <div class="checkbox-list">
                                                 <div class="checkbox-item">
-                                                    <input type="checkbox" id="severe_headaches2" name="medical_condition" value="severe_headaches" disabled>
+                                                    <input type="checkbox" id="severe_headaches2"
+                                                        name="medical_condition" value="severe_headaches" disabled>
                                                     <label class="checkbox-label">severe
                                                         headaches/migraine</label>
                                                 </div>
                                                 <div class="checkbox-item">
-                                                    <input type="checkbox" id="history_stroke_heart_attack_hypertension2" name="medical_condition" value="history_stroke_heart_attack_hypertension" disabled>
+                                                    <input type="checkbox"
+                                                        id="history_stroke_heart_attack_hypertension2"
+                                                        name="medical_condition"
+                                                        value="history_stroke_heart_attack_hypertension" disabled>
                                                     <label class="checkbox-label">history of stroke / heart
                                                         attack /
                                                         hypertension</label>
                                                 </div>
                                                 <div class="checkbox-item">
-                                                    <input type="checkbox" id="hematoma_bruising_gum_bleeding2" name="medical_condition" value="hematoma_bruising_gum_bleeding" disabled>
+                                                    <input type="checkbox" id="hematoma_bruising_gum_bleeding2"
+                                                        name="medical_condition" value="hematoma_bruising_gum_bleeding"
+                                                        disabled>
                                                     <label class="checkbox-label">non-traumatic hematoma /
                                                         frequent
                                                         bruising or gum bleeding</label>
                                                 </div>
                                                 <div class="checkbox-item">
-                                                    <input type="checkbox" id="breast_cancer_breast_mass2" name="medical_condition" value="breast_cancer_breast_mass" disabled>
+                                                    <input type="checkbox" id="breast_cancer_breast_mass2"
+                                                        name="medical_condition" value="breast_cancer_breast_mass"
+                                                        disabled>
                                                     <label class="checkbox-label">current or history of breast
                                                         cancer/breast mass</label>
                                                 </div>
                                                 <div class="checkbox-item">
-                                                    <input type="checkbox" id="severe_chest_pain2" name="medical_condition" value="severe_chest_pain" disabled>
+                                                    <input type="checkbox" id="severe_chest_pain2"
+                                                        name="medical_condition" value="severe_chest_pain" disabled>
                                                     <label class="checkbox-label">severe chest pain</label>
                                                 </div>
                                                 <div class="checkbox-item">
-                                                    <input type="checkbox" id="cough_more_than_14_days2" name="medical_condition" value="cough_more_than_14_days" disabled>
+                                                    <input type="checkbox" id="cough_more_than_14_days2"
+                                                        name="medical_condition" value="cough_more_than_14_days"
+                                                        disabled>
                                                     <label class="checkbox-label">cough for more than 14
                                                         days</label>
                                                 </div>
@@ -456,32 +486,39 @@ if ($result === false) {
                                             <div class="checkbox-list">
                                                 <br>
                                                 <div class="checkbox-item">
-                                                    <input type="checkbox" id="jaundice2" name="medical_condition" value="jaundice" disabled>
+                                                    <input type="checkbox" id="jaundice2" name="medical_condition"
+                                                        value="jaundice" disabled>
                                                     <label class="checkbox-label">jaundice</label>
                                                 </div>
                                                 <div class="checkbox-item">
-                                                    <input type="checkbox" id="vaginal_bleeding2" name="medical_condition" value="vaginal_bleeding" disabled>
+                                                    <input type="checkbox" id="vaginal_bleeding2"
+                                                        name="medical_condition" value="vaginal_bleeding" disabled>
                                                     <label class="checkbox-label">unexplained vaginal
                                                         bleeding</label>
                                                 </div>
                                                 <div class="checkbox-item">
-                                                    <input type="checkbox" id="vaginal_discharge2" name="medical_condition" value="vaginal_discharge" disabled>
+                                                    <input type="checkbox" id="vaginal_discharge2"
+                                                        name="medical_condition" value="vaginal_discharge" disabled>
                                                     <label class="checkbox-label">abnormal vaginal
                                                         discharge</label>
                                                 </div>
                                                 <div class="checkbox-item">
-                                                    <input type="checkbox" id="phenobarbital_rifampicin2" name="medical_condition" value="phenobarbital_rifampicin" disabled>
+                                                    <input type="checkbox" id="phenobarbital_rifampicin2"
+                                                        name="medical_condition" value="phenobarbital_rifampicin"
+                                                        disabled>
                                                     <label class="checkbox-label">intake of phenobarbital
                                                         (anti-seizure)
                                                         or rifampicin (anti-TB)</label>
                                                 </div>
                                                 <div class="checkbox-item">
-                                                    <input type="checkbox" id="smoker2" name="medical_condition" value="smoker" disabled>
+                                                    <input type="checkbox" id="smoker2" name="medical_condition"
+                                                        value="smoker" disabled>
                                                     <label class="checkbox-label">Is the client a
                                                         SMOKER?</label>
                                                 </div>
                                                 <div class="checkbox-item">
-                                                    <input type="checkbox" id="with_disability2" name="medical_condition" value="with_disability" disabled>
+                                                    <input type="checkbox" id="with_disability2"
+                                                        name="medical_condition" value="with_disability" disabled>
                                                     <label class="checkbox-label">With Disability?</label>
                                                 </div>
                                             </div>
@@ -497,13 +534,15 @@ if ($result === false) {
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="">No of Pregnancies</label>
-                                            <input type="number" class="form-control" id="no_of_pregnancies2" name="no_of_pregnancies2" disabled>
+                                            <input type="number" class="form-control" id="no_of_pregnancies2"
+                                                name="no_of_pregnancies2" disabled>
                                         </div>
                                     </div>
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="">Date of Last Delivery</label>
-                                            <input type="date" class="form-control" id="date_of_last_delivery2" name="date_of_last_delivery2" disabled>
+                                            <input type="date" class="form-control" id="date_of_last_delivery2"
+                                                name="date_of_last_delivery2" disabled>
                                         </div>
                                     </div>
 
@@ -511,7 +550,8 @@ if ($result === false) {
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="">Last Menstrual Period</label>
-                                            <input type="date" class="form-control" id="last_period2" name="last_period2" disabled>
+                                            <input type="date" class="form-control" id="last_period2"
+                                                name="last_period2" disabled>
                                         </div>
                                     </div>
 
@@ -524,11 +564,14 @@ if ($result === false) {
                                             <label for="">Type of Last Delivery</label>
                                             <br>
                                             <div style="display: inline-block;" class="mt-1">
-                                                <input type="radio" id="vaginalRadio" name="type_of_last_delivery2" value="Vaginal" class="radio-input" disabled>
-                                                <label for="vaginalRadio" class="radio-label" style="margin-left: 5px;">Vaginal</label>
+                                                <input type="radio" id="vaginalRadio" name="type_of_last_delivery2"
+                                                    value="Vaginal" class="radio-input" disabled>
+                                                <label for="vaginalRadio" class="radio-label"
+                                                    style="margin-left: 5px;">Vaginal</label>
                                             </div>
                                             <div style="display: inline-block;">
-                                                <input type="radio" id="cesareanRadio" name="type_of_last_delivery2" value="Cesarean Section" class="radio-input" disabled>
+                                                <input type="radio" id="cesareanRadio" name="type_of_last_delivery2"
+                                                    value="Cesarean Section" class="radio-input" disabled>
                                                 <label for="cesareanRadio" class="radio-label">Cesarean
                                                     Section</label>
                                             </div>
@@ -540,17 +583,23 @@ if ($result === false) {
                                         <label for="">Menstrual Flow</label>
                                         <br>
                                         <div style="display: inline-block;" class="mt-1">
-                                            <input type="radio" id="scantyRadio" name="mens_type2" value="Scanty" class="radio-input" disabled>
-                                            <label for="scantyRadio" class="radio-label" style="margin-left: 5px;">Scanty</label>
+                                            <input type="radio" id="scantyRadio" name="mens_type2" value="Scanty"
+                                                class="radio-input" disabled>
+                                            <label for="scantyRadio" class="radio-label"
+                                                style="margin-left: 5px;">Scanty</label>
                                         </div>
                                         <div style="display: inline-block;" class="mt-1">
-                                            <input type="radio" id="moderateRadio" name="mens_type2" value="Moderate" class="radio-input" disabled>
-                                            <label for="moderateRadio" class="radio-label" style="margin-left: 5px;">Moderate</label>
+                                            <input type="radio" id="moderateRadio" name="mens_type2" value="Moderate"
+                                                class="radio-input" disabled>
+                                            <label for="moderateRadio" class="radio-label"
+                                                style="margin-left: 5px;">Moderate</label>
                                         </div>
 
                                         <div style="display: inline-block;" class="mt-1">
-                                            <input type="radio" id="heavyRadio" name="mens_type2" value="Heavy" class="radio-input" disabled>
-                                            <label for="heavyRadio" class="radio-label" style="margin-left: 5px;">Heavy</label>
+                                            <input type="radio" id="heavyRadio" name="mens_type2" value="Heavy"
+                                                class="radio-input" disabled>
+                                            <label for="heavyRadio" class="radio-label"
+                                                style="margin-left: 5px;">Heavy</label>
                                         </div>
                                     </div>
                                 </div>
@@ -567,18 +616,22 @@ if ($result === false) {
                                         <br>
                                         <div class="checkbox-list">
                                             <div class="checkbox-item">
-                                                <input type="checkbox" id="abnormal_discharge2" name="abnormal_discharge2" value="abnormal_discharge" disabled>
+                                                <input type="checkbox" id="abnormal_discharge2"
+                                                    name="abnormal_discharge2" value="abnormal_discharge" disabled>
                                                 <label class="checkbox-label">abnormal discharge from the
                                                     genital
                                                     area</label>
                                             </div>
                                             <div class="checkbox-item">
-                                                <input type="checkbox" id="genital_sores_ulcers2" name="genital_sores_ulcers2" value="genital_sores_ulcers" disabled>
+                                                <input type="checkbox" id="genital_sores_ulcers2"
+                                                    name="genital_sores_ulcers2" value="genital_sores_ulcers" disabled>
                                                 <label class="checkbox-label">sores or ulcers in the genital
                                                     area</label>
                                             </div>
                                             <div class="checkbox-item">
-                                                <input type="checkbox" id="genital_pain_burning_sensation2" name="genital_pain_burning_sensation2" value="genital_pain_burning_sensation" disabled>
+                                                <input type="checkbox" id="genital_pain_burning_sensation2"
+                                                    name="genital_pain_burning_sensation2"
+                                                    value="genital_pain_burning_sensation" disabled>
                                                 <label class="checkbox-label">pain or burning sensation in the
                                                     genital
                                                     area</label>
@@ -592,12 +645,14 @@ if ($result === false) {
                                         <br>
                                         <div class="checkbox-list">
                                             <div class="checkbox-item">
-                                                <input type="checkbox" id="treatment_for_sti2" name="treatment_for_sti2" value="treatment_for_sti" disabled>
+                                                <input type="checkbox" id="treatment_for_sti2" name="treatment_for_sti2"
+                                                    value="treatment_for_sti" disabled>
                                                 <label class="checkbox-label">history of treatment for sexually
                                                     transmitted infections</label>
                                             </div>
                                             <div class="checkbox-item">
-                                                <input type="checkbox" id="hiv_aids_pid2" name="hiv_aids_pid2" value="hiv_aids_pid" disabled>
+                                                <input type="checkbox" id="hiv_aids_pid2" name="hiv_aids_pid2"
+                                                    value="hiv_aids_pid" disabled>
                                                 <label class="checkbox-label">HIV/AIDS/Pelvic inflammatory
                                                     disease</label>
                                             </div>
@@ -624,13 +679,17 @@ if ($result === false) {
 
                                         <div class="checkbox-list">
                                             <div class="checkbox-item">
-                                                <input type="checkbox" id="unpleasant_relationship2" name="unpleasant_relationship2" value="unpleasant_relationship" disabled>
+                                                <input type="checkbox" id="unpleasant_relationship2"
+                                                    name="unpleasant_relationship2" value="unpleasant_relationship"
+                                                    disabled>
                                                 <label class="checkbox-label">Create an unpleasant relationship
                                                     with
                                                     partner</label>
                                             </div>
                                             <div class="checkbox-item">
-                                                <input type="checkbox" id="partner_does_not_approve2" name="partner_does_not_approve2" value="partner_does_not_approve" disabled>
+                                                <input type="checkbox" id="partner_does_not_approve2"
+                                                    name="partner_does_not_approve2" value="partner_does_not_approve"
+                                                    disabled>
                                                 <label class="checkbox-label">Partner does not approve of the
                                                     visit to
                                                     FP clinic</label>
@@ -644,7 +703,8 @@ if ($result === false) {
                                         <br>
                                         <div class="checkbox-list">
                                             <div class="checkbox-item">
-                                                <input type="checkbox" id="domestic_violence2" name="domestic_violence2" value="domestic_violence" disabled>
+                                                <input type="checkbox" id="domestic_violence2" name="domestic_violence2"
+                                                    value="domestic_violence" disabled>
                                                 <label class="checkbox-label">History of domestic violence or
                                                     VAW</label>
                                             </div>
@@ -663,7 +723,8 @@ if ($result === false) {
                                     <div class="form-group">
                                         <label for="weight2">Weight</label>
                                         <div class="input-group">
-                                            <input type="number" class="form-control" id="weight2" name="weight2" disabled>
+                                            <input type="number" class="form-control" id="weight2" name="weight2"
+                                                disabled>
                                             <div class="input-group-append">
                                                 <span class="input-group-text">kg</span>
                                             </div>
@@ -691,7 +752,8 @@ if ($result === false) {
                                     <div class="form-group">
                                         <label for="height2">Height</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" id="height2" name="height2" disabled>
+                                            <input type="text" class="form-control" id="height2" name="height2"
+                                                disabled>
                                             <div class="input-group-append">
                                                 <span class="input-group-text">cm</span>
                                             </div>
@@ -721,20 +783,28 @@ if ($result === false) {
                                         <label for="">Skin</label>
                                         <br>
                                         <div style="display: inline-block;" class="mt-1">
-                                            <input type="radio" id="normalSkinRadio" name="skin2" value="Normal" class="radio-input" disabled>
-                                            <label for="normalSkinRadio" class="radio-label" style="margin-left: 5px;">Normal</label>
+                                            <input type="radio" id="normalSkinRadio" name="skin2" value="Normal"
+                                                class="radio-input" disabled>
+                                            <label for="normalSkinRadio" class="radio-label"
+                                                style="margin-left: 5px;">Normal</label>
                                         </div>
                                         <div style="display: inline-block;" class="mt-1">
-                                            <input type="radio" id="paleSkinRadio" name="skin2" value="Pale" class="radio-input" disabled>
-                                            <label for="paleSkinRadio" class="radio-label" style="margin-left: 5px;">Pale</label>
+                                            <input type="radio" id="paleSkinRadio" name="skin2" value="Pale"
+                                                class="radio-input" disabled>
+                                            <label for="paleSkinRadio" class="radio-label"
+                                                style="margin-left: 5px;">Pale</label>
                                         </div>
                                         <div style="display: inline-block;" class="mt-1">
-                                            <input type="radio" id="yellowishSkinRadio" name="skin2" value="Yellowish" class="radio-input" disabled>
-                                            <label for="yellowishSkinRadio" class="radio-label" style="margin-left: 5px;">Yellowish</label>
+                                            <input type="radio" id="yellowishSkinRadio" name="skin2" value="Yellowish"
+                                                class="radio-input" disabled>
+                                            <label for="yellowishSkinRadio" class="radio-label"
+                                                style="margin-left: 5px;">Yellowish</label>
                                         </div>
                                         <div style="display: inline-block;" class="mt-1">
-                                            <input type="radio" id="hematomaSkinRadio" name="skin2" value="Hematoma" class="radio-input" disabled>
-                                            <label for="hematomaSkinRadio" class="radio-label" style="margin-left: 5px;">Hematoma</label>
+                                            <input type="radio" id="hematomaSkinRadio" name="skin2" value="Hematoma"
+                                                class="radio-input" disabled>
+                                            <label for="hematomaSkinRadio" class="radio-label"
+                                                style="margin-left: 5px;">Hematoma</label>
                                         </div>
                                     </div>
                                 </div>
@@ -744,17 +814,23 @@ if ($result === false) {
                                         <label for="">Extremities</label>
                                         <br>
                                         <div style="display: inline-block;" class="mt-1">
-                                            <input type="radio" id="normalRadio" name="extremities2" value="Normal" class="radio-input" disabled>
-                                            <label for="normalRadio" class="radio-label" style="margin-left: 5px;">Normal</label>
+                                            <input type="radio" id="normalRadio" name="extremities2" value="Normal"
+                                                class="radio-input" disabled>
+                                            <label for="normalRadio" class="radio-label"
+                                                style="margin-left: 5px;">Normal</label>
                                         </div>
                                         <div style="display: inline-block;" class="mt-1">
-                                            <input type="radio" id="edemaRadio" name="extremities2" value="Edema" class="radio-input" disabled>
-                                            <label for="edemaRadio" class="radio-label" style="margin-left: 5px;">Edema</label>
+                                            <input type="radio" id="edemaRadio" name="extremities2" value="Edema"
+                                                class="radio-input" disabled>
+                                            <label for="edemaRadio" class="radio-label"
+                                                style="margin-left: 5px;">Edema</label>
                                         </div>
 
                                         <div style="display: inline-block;" class="mt-1">
-                                            <input type="radio" id="varicositiesRadio" name="extremities2" value="Varicosities" class="radio-input" disabled>
-                                            <label for="varicositiesRadio" class="radio-label" style="margin-left: 5px;">Varicosities</label>
+                                            <input type="radio" id="varicositiesRadio" name="extremities2"
+                                                value="Varicosities" class="radio-input" disabled>
+                                            <label for="varicositiesRadio" class="radio-label"
+                                                style="margin-left: 5px;">Varicosities</label>
                                         </div>
                                     </div>
                                 </div>
@@ -767,16 +843,22 @@ if ($result === false) {
                                         <label for="">Conjunctiva</label>
                                         <br>
                                         <div style="display: inline-block;" class="mt-1">
-                                            <input type="radio" id="normalConjunctivaRadio" name="conjunctiva2" value="Normal" class="radio-input" disabled>
-                                            <label for="normalConjunctivaRadio" class="radio-label" style="margin-left: 5px;">Normal</label>
+                                            <input type="radio" id="normalConjunctivaRadio" name="conjunctiva2"
+                                                value="Normal" class="radio-input" disabled>
+                                            <label for="normalConjunctivaRadio" class="radio-label"
+                                                style="margin-left: 5px;">Normal</label>
                                         </div>
                                         <div style="display: inline-block;" class="mt-1">
-                                            <input type="radio" id="paleConjunctivaRadio" name="conjunctiva2" value="Pale" class="radio-input" disabled>
-                                            <label for="paleConjunctivaRadio" class="radio-label" style="margin-left: 5px;">Pale</label>
+                                            <input type="radio" id="paleConjunctivaRadio" name="conjunctiva2"
+                                                value="Pale" class="radio-input" disabled>
+                                            <label for="paleConjunctivaRadio" class="radio-label"
+                                                style="margin-left: 5px;">Pale</label>
                                         </div>
                                         <div style="display: inline-block;" class="mt-1">
-                                            <input type="radio" id="yellowishConjunctivaRadio" name="conjunctiva2" value="Yellowish" class="radio-input" disabled>
-                                            <label for="yellowishConjunctivaRadio" class="radio-label" style="margin-left: 5px;">Yellowish</label>
+                                            <input type="radio" id="yellowishConjunctivaRadio" name="conjunctiva2"
+                                                value="Yellowish" class="radio-input" disabled>
+                                            <label for="yellowishConjunctivaRadio" class="radio-label"
+                                                style="margin-left: 5px;">Yellowish</label>
                                         </div>
                                     </div>
                                 </div>
@@ -786,12 +868,16 @@ if ($result === false) {
                                         <label for="">Neck</label>
                                         <br>
                                         <div style="display: inline-block;" class="mt-1">
-                                            <input type="radio" id="normalNeckRadio" name="neck2" value="Normal" class="radio-input" disabled>
-                                            <label for="normalNeckRadio" class="radio-label" style="margin-left: 5px;">Normal</label>
+                                            <input type="radio" id="normalNeckRadio" name="neck2" value="Normal"
+                                                class="radio-input" disabled>
+                                            <label for="normalNeckRadio" class="radio-label"
+                                                style="margin-left: 5px;">Normal</label>
                                         </div>
                                         <div style="display: inline-block;" class="mt-1">
-                                            <input type="radio" id="enlargeLymphNodesRadio" name="neck2" value="Enlarge Lymph Nodes" class="radio-input" disabled>
-                                            <label for="enlargeLymphNodesRadio" class="radio-label" style="margin-left: 5px;">Enlarge Lymph Nodes</label>
+                                            <input type="radio" id="enlargeLymphNodesRadio" name="neck2"
+                                                value="Enlarge Lymph Nodes" class="radio-input" disabled>
+                                            <label for="enlargeLymphNodesRadio" class="radio-label"
+                                                style="margin-left: 5px;">Enlarge Lymph Nodes</label>
                                         </div>
                                     </div>
                                 </div>
@@ -806,16 +892,22 @@ if ($result === false) {
                                         <label for="">Breast</label>
                                         <br>
                                         <div style="display: inline-block;" class="mt-1">
-                                            <input type="radio" id="normalBreastRadio" name="breast2" value="Normal" class="radio-input" disabled>
-                                            <label for="normalBreastRadio" class="radio-label" style="margin-left: 5px;">Normal</label>
+                                            <input type="radio" id="normalBreastRadio" name="breast2" value="Normal"
+                                                class="radio-input" disabled>
+                                            <label for="normalBreastRadio" class="radio-label"
+                                                style="margin-left: 5px;">Normal</label>
                                         </div>
                                         <div style="display: inline-block;" class="mt-1">
-                                            <input type="radio" id="massBreastRadio" name="breast2" value="Mass" class="radio-input" disabled>
-                                            <label for="massBreastRadio" class="radio-label" style="margin-left: 5px;">Mass</label>
+                                            <input type="radio" id="massBreastRadio" name="breast2" value="Mass"
+                                                class="radio-input" disabled>
+                                            <label for="massBreastRadio" class="radio-label"
+                                                style="margin-left: 5px;">Mass</label>
                                         </div>
                                         <div style="display: inline-block;" class="mt-1">
-                                            <input type="radio" id="nippleDischargeBreastRadio" name="breast2" value="Nipple Discharge" class="radio-input" disabled>
-                                            <label for="nippleDischargeBreastRadio" class="radio-label" style="margin-left: 5px;">Nipple Discharge</label>
+                                            <input type="radio" id="nippleDischargeBreastRadio" name="breast2"
+                                                value="Nipple Discharge" class="radio-input" disabled>
+                                            <label for="nippleDischargeBreastRadio" class="radio-label"
+                                                style="margin-left: 5px;">Nipple Discharge</label>
                                         </div>
                                     </div>
                                 </div>
@@ -825,16 +917,22 @@ if ($result === false) {
                                         <label for="">Abdomen</label>
                                         <br>
                                         <div style="display: inline-block;" class="mt-1">
-                                            <input type="radio" id="normalAbdomenRadio" name="abdomen2" value="Normal" class="radio-input" disabled>
-                                            <label for="normalAbdomenRadio" class="radio-label" style="margin-left: 5px;">Normal</label>
+                                            <input type="radio" id="normalAbdomenRadio" name="abdomen2" value="Normal"
+                                                class="radio-input" disabled>
+                                            <label for="normalAbdomenRadio" class="radio-label"
+                                                style="margin-left: 5px;">Normal</label>
                                         </div>
                                         <div style="display: inline-block;" class="mt-1">
-                                            <input type="radio" id="abdominalMassRadio" name="abdomen2" value="Abdominal Mass" class="radio-input" disabled>
-                                            <label for="abdominalMassRadio" class="radio-label" style="margin-left: 5px;">Abdominal Mass</label>
+                                            <input type="radio" id="abdominalMassRadio" name="abdomen2"
+                                                value="Abdominal Mass" class="radio-input" disabled>
+                                            <label for="abdominalMassRadio" class="radio-label"
+                                                style="margin-left: 5px;">Abdominal Mass</label>
                                         </div>
                                         <div style="display: inline-block;" class="mt-1">
-                                            <input type="radio" id="varicositiesAbdomenRadio" name="abdomen2" value="Varicosities" class="radio-input" disabled>
-                                            <label for="varicositiesAbdomenRadio" class="radio-label" style="margin-left: 5px;">Varicosities</label>
+                                            <input type="radio" id="varicositiesAbdomenRadio" name="abdomen2"
+                                                value="Varicosities" class="radio-input" disabled>
+                                            <label for="varicositiesAbdomenRadio" class="radio-label"
+                                                style="margin-left: 5px;">Varicosities</label>
                                         </div>
                                     </div>
                                 </div>
@@ -859,62 +957,62 @@ if ($result === false) {
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
 
 
 
 
-        <?php if ($result->num_rows > 0) : ?>
+        <?php if ($result->num_rows > 0): ?>
             var table = $('#tablebod').DataTable({
                 columnDefs: [{
-                        targets: 0,
-                        data: 'id'
-                    },
-                    {
-                        targets: 1,
-                        data: 'last_name'
-                    },
-                    {
-                        targets: 2,
-                        data: 'description'
-                    },
-                    {
-                        targets: 3,
-                        data: 'diagnosis'
-                    },
-                    {
-                        targets: 4,
-                        data: 'medicine'
-                    },
+                    targets: 0,
+                    data: 'id'
+                },
+                {
+                    targets: 1,
+                    data: 'full_name'
+                },
+                {
+                    targets: 2,
+                    data: 'description'
+                },
+                {
+                    targets: 3,
+                    data: 'diagnosis'
+                },
+                {
+                    targets: 4,
+                    data: 'medicine'
+                },
                 ],
                 // Set the default ordering to 'id' column in descending order
                 order: [
                     [0, 'desc']
                 ]
             });
-        <?php else : ?>
+        <?php else: ?>
             // Initialize DataTable without the "Action" column when no rows are found
             var table = $('#tablebod').DataTable({
                 columnDefs: [{
-                        targets: 0,
-                        data: 'id'
-                    },
-                    {
-                        targets: 1,
-                        data: 'last_name'
-                    },
-                    {
-                        targets: 2,
-                        data: 'description'
-                    },
-                    {
-                        targets: 3,
-                        data: 'diagnosis'
-                    },
-                    {
-                        targets: 4,
-                        data: 'medicine'
-                    },
+                    targets: 0,
+                    data: 'id'
+                },
+                {
+                    targets: 1,
+                    data: 'full_name'
+                },
+                {
+                    targets: 2,
+                    data: 'description'
+                },
+                {
+                    targets: 3,
+                    data: 'diagnosis'
+                },
+                {
+                    targets: 4,
+                    data: 'medicine'
+                },
                 ],
                 // Set the default ordering to 'id' column in descending order
                 order: [
@@ -923,31 +1021,31 @@ if ($result === false) {
             });
         <?php endif; ?>
 
-        $('#addButton').click(function() {
+        $('#addButton').click(function () {
 
             console.log(patient_id);
             table.destroy(); // Destroy the existing DataTable
             table = $('#tablebod').DataTable({
                 columnDefs: [{
-                        targets: 0,
-                        data: 'id'
-                    },
-                    {
-                        targets: 1,
-                        data: 'last_name'
-                    },
-                    {
-                        targets: 2,
-                        data: 'description'
-                    },
-                    {
-                        targets: 3,
-                        data: 'diagnosis'
-                    },
-                    {
-                        targets: 4,
-                        data: 'medicine'
-                    },
+                    targets: 0,
+                    data: 'id'
+                },
+                {
+                    targets: 1,
+                    data: 'full_name'
+                },
+                {
+                    targets: 2,
+                    data: 'description'
+                },
+                {
+                    targets: 3,
+                    data: 'diagnosis'
+                },
+                {
+                    targets: 4,
+                    data: 'medicine'
+                },
                 ],
                 // Set the default ordering to 'id' column in descending order
                 order: [
@@ -974,7 +1072,7 @@ if ($result === false) {
                     doctor_id: doctor_id,
                     checkup_date: checkup_date,
                 },
-                success: function(response) {
+                success: function (response) {
 
                     if (response.trim() === 'Success') {
 
@@ -1007,7 +1105,7 @@ if ($result === false) {
                         });
                     }
                 },
-                error: function(error) {
+                error: function (error) {
                     // Handle errors
                     Swal.fire({
                         icon: 'error',
@@ -1024,14 +1122,14 @@ if ($result === false) {
             $.ajax({
                 url: 'action/get_active.php',
                 method: 'GET',
-                success: function(data) {
+                success: function (data) {
                     // Assuming the server returns JSON data, parse it
                     var get_data = JSON.parse(data);
 
                     // Clear the DataTable and redraw with new data
                     table.clear().rows.add(get_data).draw();
                 },
-                error: function(error) {
+                error: function (error) {
                     // Handle errors
                     console.error('Error retrieving data: ' + error);
                 }
@@ -1039,7 +1137,7 @@ if ($result === false) {
         }
 
         // Delete button click event
-        $('#tablebod').on('click', '.deletebtn', function() {
+        $('#tablebod').on('click', '.deletebtn', function () {
             var deletedataId = $(this).data('id');
 
             // Confirm the deletion with a SweetAlert dialog
@@ -1059,7 +1157,7 @@ if ($result === false) {
                         data: {
                             primary_id: deletedataId
                         },
-                        success: function(response) {
+                        success: function (response) {
                             if (response === 'Success') {
 
                                 updateData();
@@ -1068,7 +1166,7 @@ if ($result === false) {
                                 Swal.fire('Error', 'Error deleting data: ' + response, 'error');
                             }
                         },
-                        error: function(error) {
+                        error: function (error) {
                             Swal.fire('Error', 'Error deleting data: ' + error, 'error');
                         }
                     });
@@ -1079,7 +1177,7 @@ if ($result === false) {
 
 
         // Edit button click event
-        $('#tablebod').on('click', '.editbtn', function() {
+        $('#tablebod').on('click', '.editbtn', function () {
             var editId = $(this).data('row-id');
             console.log(editId);
             $.ajax({
@@ -1088,7 +1186,7 @@ if ($result === false) {
                 data: {
                     primary_id: editId
                 },
-                success: function(data) {
+                success: function (data) {
 
                     var editGetData = data;
 
@@ -1100,13 +1198,13 @@ if ($result === false) {
 
                     $('#editModal').modal('show');
                 },
-                error: function(error) {
+                error: function (error) {
                     console.error('Error fetching  data: ' + error);
                 },
             });
         });
 
-        $('#updateButton').click(function() {
+        $('#updateButton').click(function () {
 
 
             var editId = $('#editdataId').val();
@@ -1123,7 +1221,7 @@ if ($result === false) {
                     doctor_id: doctor_id,
                     checkup_date: checkup_date,
                 },
-                success: function(response) {
+                success: function (response) {
                     // Handle the response
                     if (response === 'Success') {
                         updateData();
@@ -1146,7 +1244,7 @@ if ($result === false) {
                         });
                     }
                 },
-                error: function(error) {
+                error: function (error) {
                     // Show an error Swal notification for AJAX errors
                     Swal.fire({
                         icon: 'error',
@@ -1195,7 +1293,7 @@ if ($result === false) {
             data: {
                 primary_id: Keydata
             },
-            success: function(data) {
+            success: function (data) {
 
                 var editGetData = data;
 
@@ -1460,7 +1558,7 @@ if ($result === false) {
                 }
                 $('#editModal2').modal('show');
             },
-            error: function(error) {
+            error: function (error) {
                 console.error('Error fetching  data: ' + error);
             },
         });
