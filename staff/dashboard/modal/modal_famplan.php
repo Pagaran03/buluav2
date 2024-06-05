@@ -12,7 +12,7 @@
         <select name="" id="sel">
           <option value="All">Method Usage Count</option>
           <option value="zonals">Zone Report</option>
-          <option value="MostlyAvailedMethod">Mostly Availed Method</option>
+          <!-- <option value="MostlyAvailedMethod">Mostly Availed Method</option> -->
         </select>
         <select name="" id="znsel" hidden>
           <option value="Zone 1">Zone 1</option>
