@@ -166,7 +166,7 @@ if ($result === false) {
                         <tr>
                             <th class="tago">ID</th>
                             <th>Patient Name</th>
-                            <th>Description</th>
+                            <!-- <th>Description</th> -->
                             <th>Diagnosis</th>
                             <th>Medicine</th>
                             <th>Action</th>
@@ -185,9 +185,9 @@ if ($result === false) {
                                     <td class="align-middle">
                                         <?php echo $row['full_name']; ?>
                                     </td>
-                                    <td class="align-middle">
+                                    <!-- <td class="align-middle">
                                         <?php echo $row['subjective']; ?>
-                                    </td>
+                                    </td> -->
                                     <td class="align-middle">
                                         <?php echo $row['diagnosis']; ?>
                                     </td>
@@ -665,11 +665,11 @@ if ($result === false) {
                 columnDefs: [
                     { targets: 0, data: 'id', visible: false },
                     { targets: 1, data: 'full_name' },
-                    { targets: 2, data: 'description' },
-                    { targets: 3, data: 'diagnosis' },
-                    { targets: 4, data: 'medicine' },
+                    // { targets: 2, data: 'description' },
+                    { targets: 2, data: 'diagnosis' },
+                    { targets: 3, data: 'medicine' },
                     {
-                        targets: 5,
+                        targets: 4,
                         searchable: false,
                         data: null,
                         render: function (data, type, row) {
@@ -687,9 +687,9 @@ if ($result === false) {
                 columnDefs: [
                     { targets: 0, data: 'id', visible: false },
                     { targets: 1, data: 'full_name' },
-                    { targets: 2, data: 'description' },
-                    { targets: 3, data: 'diagnosis' },
-                    { targets: 4, data: 'medicine' },
+                    // { targets: 2, data: 'description' },
+                    { targets: 2, data: 'diagnosis' },
+                    { targets: 3, data: 'medicine' },
                 ],
                 // Set the default ordering to 'id' column in descending order
                 order: [[0, 'desc']]
@@ -704,11 +704,11 @@ if ($result === false) {
                 columnDefs: [
                     { targets: 0, data: 'id', visible: false },
                     { targets: 1, data: 'full_name' },
-                    { targets: 2, data: 'description' },
-                    { targets: 3, data: 'diagnosis' },
-                    { targets: 4, data: 'medicine' },
+                    // { targets: 2, data: 'description' },
+                    { targets: 2, data: 'diagnosis' },
+                    { targets: 3, data: 'medicine' },
                     {
-                        targets: 5,
+                        targets: 4,
                         searchable: false,
                         data: null,
                         render: function (data, type, row) {
