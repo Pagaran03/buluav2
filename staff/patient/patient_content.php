@@ -664,7 +664,7 @@ if ($result2->num_rows > 0) {
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="first_name">First Name</label>
+                                    <label for="first_name">First Name</label><span style="color: red; font-size: 18px">*</span>
                                     <input type="text" class="form-control" id="editFirstname" name="first_name"
                                         required>
                                     <div id="editFirstName_error" class="error"></div>
@@ -672,7 +672,7 @@ if ($result2->num_rows > 0) {
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="last_name">Last Name</label>
+                                    <label for="last_name">Last Name</label><span style="color: red; font-size: 18px">*</span>
                                     <input type="text" class="form-control" id="editLastname" name="last_name" required>
                                     <div id="editLastname_error" class="error"></div>
                                 </div>
@@ -682,16 +682,16 @@ if ($result2->num_rows > 0) {
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="middle_name">Middle Name</label>
+                                    <label for="middle_name">Middle Name</label><span style="color: black; font-size: 15px">(optional)</span>
                                     <input type="text" class="form-control" id="editMiddlename" name="middle_name"
-                                        required>
-                                    <div id="editMiddleName_error" class="error"></div>
+                                        >
+                                    <!-- <div id="editMiddleName_error" class="error"></div> -->
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="editSuffix">Suffix</label>
-                                    <select class="form-control" id="editSuffix" name="suffix" required>
+                                    <label for="editSuffix">Suffix</label><span style="color: black; font-size: 15px">(optional)</span>
+                                    <select class="form-control" id="editSuffix" name="suffix" >
                                         <option value="" selected disabled hidden>Choose a suffix</option>
                                         <option value="None">None</option>
                                         <option value="Jr.">Jr.</option>
@@ -712,7 +712,7 @@ if ($result2->num_rows > 0) {
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="gender">Select Gender</label>
+                                    <label for="gender">Select Gender</label><span style="color: red; font-size: 18px">*</span>
                                     <select class="form-control" name="gender" id="editGender" required>
                                         <option value="" disabled selected hidden>Select Gender</option>
                                         <option value="Male">Male</option>
@@ -730,7 +730,7 @@ if ($result2->num_rows > 0) {
                             </div> -->
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="contact_no">Contact No</label>
+                                    <label for="contact_no">Contact No</label><span style="color: red; font-size: 18px">*</span>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon3">+63</span>
@@ -746,7 +746,7 @@ if ($result2->num_rows > 0) {
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="civil_status">Civil Status</label>
+                                    <label for="civil_status">Civil Status</label><span style="color: red; font-size: 18px">*</span>
                                     <select class="form-control" name="civil_status" id="editCivilstatus" required>
                                         <option value="" disabled selected hidden>Select Civil Status</option>
                                         <option value="Single">Single</option>
@@ -759,7 +759,7 @@ if ($result2->num_rows > 0) {
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="birthdate">Birthdate</label>
+                                    <label for="birthdate">Birthdate</label><span style="color: red; font-size: 18px">*</span>
                                     <input type="date" class="form-control" id="editBirthdate" name="birthdate"
                                         required>
                                     <div id="editBirthDate_error" class="error"></div>
@@ -779,7 +779,7 @@ if ($result2->num_rows > 0) {
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="age">Age</label>
-                                    <input type="number" class="form-control" id="editAge" name="age" required>
+                                    <input type="number" class="form-control" id="editAge" name="age" disabled required>
                                     <div id="editAge_error" class="error"></div>
                                 </div>
                             </div>
@@ -797,7 +797,7 @@ if ($result2->num_rows > 0) {
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="religion">Religion</label>
+                                    <label for="religion">Religion</label><span style="color: red; font-size: 18px">*</span>
                                     <select class="form-control" name="religion" id="editReligion" required>
                                         <option value="" disabled selected hidden>Select Religion</option>
                                         <option value="Roman Catholic">Roman Catholic</option>
@@ -830,7 +830,7 @@ if ($result2->num_rows > 0) {
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="address">Address</label>
+                                    <label for="address">Address</label><span style="color: red; font-size: 18px">*</span>
                                     <select class="form-control" id="editAddress" name="address" required>
                                         <option value="" disabled selected>Select your address</option>
                                         <option value="Zone 1">Zone 1, Bulua,
@@ -1463,15 +1463,15 @@ if ($result2->num_rows > 0) {
                 isValid = false;
             }
 
-            if (middleName.trim() === '') {
-                $('#editMiddleName_error').text('Field is required');
-                isValid = false;
-            }
+            // if (middleName.trim() === '') {
+            //     $('#editMiddleName_error').text('Field is required');
+            //     isValid = false;
+            // }
 
-            if (Suffix.trim() === '') {
-                $('#editSuffixName_error').text('Field is required');
-                isValid = false;
-            }
+            // if (Suffix.trim() === '') {
+            //     $('#editSuffixName_error').text('Field is required');
+            //     isValid = false;
+            // }
 
             if (Gender.trim() === '') {
                 $('#editgender_error').text('Field is required');

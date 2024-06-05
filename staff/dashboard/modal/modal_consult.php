@@ -140,10 +140,10 @@
       document.getElementById("conjunctivaOptions").removeAttribute("hidden");
       document.getElementById("extremitiesOptions").removeAttribute("hidden");
       document.getElementById("neckOptions").removeAttribute("hidden");
-      document.getElementById("csdate").removeAttribute("hidden");
-      document.getElementById("cFromDate").removeAttribute("hidden");
-      document.getElementById("cedate").removeAttribute("hidden");
-      document.getElementById("cEndDate").removeAttribute("hidden");
+      // document.getElementById("csdate").removeAttribute("hidden");
+      // document.getElementById("cFromDate").removeAttribute("hidden");
+      // document.getElementById("cedate").removeAttribute("hidden");
+      // document.getElementById("cEndDate").removeAttribute("hidden");
     }
 
     function initializeChart() {
