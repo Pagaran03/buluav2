@@ -107,7 +107,39 @@ echo "<script>console.log('{$_SESSION['user_id']}')</script>";
           <?php
           include_once ('../../config.php');
 
-          // Check if user is logged in
+          // Check if the welcome speech has not been played yet
+          if (!isset($_SESSION['welcome_speech_played'])) {
+            // Check if user is logged in
+            if (isset($_SESSION['user_id'])) {
+              $user_id = $_SESSION['user_id'];
+
+              // Query to fetch user's name from admins table
+              $sel = "SELECT * FROM admins WHERE user_id = $user_id";
+              $query = mysqli_query($conn, $sel);
+
+              if ($query) {
+                $result = mysqli_fetch_assoc($query);
+
+                if ($result) {
+                  // Single welcome voice speech with user's name
+                  echo '<script>';
+                  echo 'var welcomeMessage = "Welcome, ' . $result['first_name'] . ' ' . $result['last_name'] . '";';
+                  echo 'var utterance = new SpeechSynthesisUtterance(welcomeMessage);';
+                  echo 'speechSynthesis.speak(utterance);';
+                  echo '</script>';
+
+                  // Set session variable to indicate that the welcome speech has been played
+                  $_SESSION['welcome_speech_played'] = true;
+                } else {
+                  echo "No users found";
+                }
+              } else {
+                echo "Query failed: " . mysqli_error($conn);
+              }
+            }
+          }
+
+          // Display user information if logged in
           if (isset($_SESSION['user_id'])) {
             $user_id = $_SESSION['user_id'];
 

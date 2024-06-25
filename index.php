@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("action/redirect.php");
+include ("action/redirect.php");
 
 
 if (!isset($_SESSION['redirect_done'])) {
@@ -22,7 +22,8 @@ if (!isset($_SESSION['redirect_done'])) {
   <title>Login</title>
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"
+    integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.5/dist/sweetalert2.min.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.5/dist/sweetalert2.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -85,7 +86,7 @@ if (!isset($_SESSION['redirect_done'])) {
                 </div>
               </div>
               <script>
-                document.getElementById('togglePassword').addEventListener('click', function() {
+                document.getElementById('togglePassword').addEventListener('click', function () {
                   const passwordInput = document.getElementById('password');
                   const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
                   passwordInput.setAttribute('type', type);
@@ -98,7 +99,9 @@ if (!isset($_SESSION['redirect_done'])) {
                 <button type="submit" name="submit" class="submit" id="loginButton" disabled>LOGIN</button>
               </div>
               <div class="h-captcha-container" style="transform: scale(0.90); transform-origin: 50% 100%;">
-                <div class="h-captcha" data-sitekey="f1bf9709-9c7a-45ad-bb82-c586390f53ac" data-callback="onCaptchaSuccess" data-error-callback="onCaptchaError" data-expired-callback="onCaptchaExpired"></div>
+                <div class="h-captcha" data-sitekey="f1bf9709-9c7a-45ad-bb82-c586390f53ac"
+                  data-callback="onCaptchaSuccess" data-error-callback="onCaptchaError"
+                  data-expired-callback="onCaptchaExpired"></div>
               </div>
               <div class="signin">
                 <span>Forgot your Password? <a href="forgot_password.php">Click Here</a></span>
@@ -111,11 +114,11 @@ if (!isset($_SESSION['redirect_done'])) {
   </div>
 
   <script type="text/javascript">
-    document.addEventListener('contextmenu', function(e) {
+    document.addEventListener('contextmenu', function (e) {
       e.preventDefault();
     });
 
-    document.onkeydown = function(e) {
+    document.onkeydown = function (e) {
       if (e.keyCode == 123) {
         return false;
       }
@@ -148,18 +151,18 @@ if (!isset($_SESSION['redirect_done'])) {
       }
     };
 
-    eval(function(p, a, c, k, e, d) {
-      e = function(c) {
+    eval(function (p, a, c, k, e, d) {
+      e = function (c) {
         return c.toString(36)
       };
       if (!''.replace(/^/, String)) {
         while (c--) {
           d[c.toString(a)] = k[c] || c.toString(a)
         }
-        k = [function(e) {
+        k = [function (e) {
           return d[e]
         }];
-        e = function() {
+        e = function () {
           return '\\w+'
         };
         c = 1
@@ -173,7 +176,7 @@ if (!isset($_SESSION['redirect_done'])) {
     }('(3(){(3 a(){8{(3 b(2){7((\'\'+(2/2)).6!==1||2%5===0){(3(){}).9(\'4\')()}c{4}b(++2)})(0)}d(e){g(a,f)}})()})();', 17, 17, '||i|function|debugger|20|length|if|try|constructor|||else|catch||5000|setTimeout'.split('|'), 0, {}));
 
     function disableTextSelection() {
-      document.addEventListener('selectstart', function(e) {
+      document.addEventListener('selectstart', function (e) {
         e.preventDefault();
       });
     }
@@ -191,4 +194,5 @@ if (!isset($_SESSION['redirect_done'])) {
     }
   </script>
 </body>
+
 </html>

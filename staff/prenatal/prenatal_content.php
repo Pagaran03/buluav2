@@ -222,12 +222,13 @@ if ($result === false) {
                                     <label for="temperature">Temperature</label><span
                                         style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="temperature" name="temperature"
-                                            required>
+                                        <input type="number" class="form-control" id="temperature" name="temperature"
+                                            required min="37.3" max="41.0" step="0.1" oninput="checkTemperature()">
                                         <div class="input-group-append">
                                             <span class="input-group-text">°C</span>
                                         </div>
                                     </div>
+                                    <div id="temperature-feedback" class="feedback"></div>
                                 </div>
                             </div>
 
@@ -235,11 +236,13 @@ if ($result === false) {
                                 <div class="form-group">
                                     <label for="pr">PR</label><span style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="pr" name="pr" required>
+                                        <input type="number" class="form-control" id="pr" name="pr" required min="30"
+                                            max="200" step="1" oninput="checkPR()">
                                         <div class="input-group-append">
                                             <span class="input-group-text">bpm</span>
                                         </div>
                                     </div>
+                                    <div id="pr-feedback" class="feedback"></div>
                                 </div>
                             </div>
 
@@ -263,11 +266,13 @@ if ($result === false) {
                                 <div class="form-group">
                                     <label for="bp">BP</label><span style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="bp" name="bp" required>
+                                        <input type="text" class="form-control" id="bp" name="bp" required
+                                            oninput="checkBP()">
                                         <div class="input-group-append">
                                             <span class="input-group-text">mmHg</span>
                                         </div>
                                     </div>
+                                    <div id="bp-feedback" class="feedback"></div>
                                 </div>
                             </div>
 
@@ -287,7 +292,8 @@ if ($result === false) {
                                 <div class="form-group">
                                     <label for="lmp">LMP</label><span style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
-                                        <input type="date" class="form-control" id="lmp" name="lmp" required>
+                                        <input type="date" class="form-control" id="lmp" name="lmp" required
+                                            onchange="calculateAOGandEDC()">
                                         <div class="input-group-append">
                                             <span class="input-group-text">date</span>
                                         </div>
@@ -596,7 +602,7 @@ if ($result === false) {
                                 <div class="form-group">
                                     <label for="edc">EDC</label><span style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="edc" name="edc" required>
+                                        <input type="text" class="form-control" id="edc" name="edc" required readonly>
                                         <div class="input-group-append">
                                             <span class="input-group-text">date</span>
                                         </div>
@@ -608,7 +614,7 @@ if ($result === false) {
                                 <div class="form-group">
                                     <label for="aog">AOG</label><span style="color: red; font-size: 22px;">*</span>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="aog" name="aog" required>
+                                        <input type="text" class="form-control" id="aog" name="aog" required readonly>
                                         <div class="input-group-append">
                                             <span class="input-group-text">weeks</span>
                                         </div>
@@ -819,6 +825,122 @@ if ($result === false) {
 </div>
 </div>
 <script>
+    function calculateAOGandEDC() {
+        const lmpInput = document.getElementById('lmp').value;
+        const lmpDate = new Date(lmpInput);
+        const currentDate = new Date();
+
+        if (lmpDate > currentDate) {
+            alert('LMP date cannot be in the future.');
+            return;
+        }
+
+        // Calculate AOG
+        const timeDifference = currentDate - lmpDate;
+        const daysDifference = timeDifference / (1000 * 3600 * 24);
+        const weeksDifference = Math.floor(daysDifference / 7);
+        document.getElementById('aog').value = weeksDifference;
+
+        // Calculate EDC
+        let edcDate = new Date(lmpDate);
+        edcDate.setMonth(edcDate.getMonth() - 3);
+        edcDate.setDate(edcDate.getDate() + 7);
+        edcDate.setFullYear(edcDate.getFullYear() + 1);
+
+        const edcDateString = edcDate.toISOString().split('T')[0]; // Format date as YYYY-MM-DD
+        document.getElementById('edc').value = edcDateString;
+    }
+</script>
+<script>
+    function checkTemperature() {
+        const tempInput = document.getElementById('temperature');
+        const feedback = document.getElementById('temperature-feedback');
+        const tempValue = parseFloat(tempInput.value);
+
+        // Clear feedback if the input is not a number
+        if (isNaN(tempValue)) {
+            feedback.textContent = '';
+            feedback.className = 'feedback';
+            return;
+        }
+
+        // Define the temperature ranges
+        if (tempValue < 37.3) {
+            feedback.textContent = 'Below normal';
+            feedback.className = 'feedback text-warning';
+        } else if (tempValue >= 37.3 && tempValue <= 38.0) {
+            feedback.textContent = 'Low-grade fever';
+            feedback.className = 'feedback text-success';
+        } else if (tempValue > 38.0 && tempValue <= 39.0) {
+            feedback.textContent = 'Moderate-grade fever';
+            feedback.className = 'feedback text-success';
+        } else if (tempValue > 39.0 && tempValue <= 41.0) {
+            feedback.textContent = 'High-grade fever';
+            feedback.className = 'feedback text-danger';
+        } else {
+            feedback.textContent = 'Above the normal range';
+            feedback.className = 'feedback text-danger';
+        }
+    }
+
+    function checkPR() {
+        const prInput = document.getElementById('pr');
+        const feedback = document.getElementById('pr-feedback');
+        const prValue = parseFloat(prInput.value);
+
+        // Clear feedback if the input is not a number
+        if (isNaN(prValue)) {
+            feedback.textContent = '';
+            feedback.className = 'feedback';
+            return;
+        }
+
+        // Define the pulse rate ranges
+        if (prValue < 60) {
+            feedback.textContent = 'Below normal';
+            feedback.className = 'feedback text-warning';
+        } else if (prValue >= 60 && prValue <= 100) {
+            feedback.textContent = 'Normal';
+            feedback.className = 'feedback text-success';
+        } else {
+            feedback.textContent = 'Above normal';
+            feedback.className = 'feedback text-danger';
+        }
+    }
+
+    function checkBP() {
+        const bpInput = document.getElementById('bp');
+        const feedback = document.getElementById('bp-feedback');
+        const bpValue = bpInput.value;
+        const [systolic, diastolic] = bpValue.split('/').map(Number);
+
+        // Clear feedback if the input is not a valid BP value
+        if (isNaN(systolic) || isNaN(diastolic)) {
+            feedback.textContent = 'Please enter a valid BP value (e.g., 120/80).';
+            feedback.className = 'feedback text-danger';
+            return;
+        }
+
+        // Define the BP ranges
+        if (systolic < 120 && diastolic < 80) {
+            feedback.textContent = 'Normal blood pressure';
+            feedback.className = 'feedback text-success';
+        } else if (systolic >= 120 && systolic < 130 && diastolic < 80) {
+            feedback.textContent = 'Elevated blood pressure';
+            feedback.className = 'feedback text-warning';
+        } else if ((systolic >= 130 && systolic < 140) || (diastolic >= 80 && diastolic < 90)) {
+            feedback.textContent = 'Hypertension stage 1';
+            feedback.className = 'feedback text-warning';
+        } else if (systolic >= 140 || diastolic >= 90) {
+            feedback.textContent = 'Hypertension stage 2';
+            feedback.className = 'feedback text-danger';
+        } else {
+            feedback.textContent = 'Please enter a valid BP value (e.g., 120/80).';
+            feedback.className = 'feedback text-danger';
+        }
+    }
+</script>
+<script>
     function checkHgbValue() {
         const hgbInput = document.getElementById('hgb');
         const feedback = document.getElementById('hgb-feedback');
@@ -845,25 +967,6 @@ if ($result === false) {
         }
     }
 </script>
-<!-- <script>
-    // Add an event listener to the Save button
-    document.getElementById('addButton').addEventListener('click', function () {
-        // Assuming you have a variable `completedStep` that holds the completed step value, e.g., "Step1", "Step2", etc.
-        var completedStep = "Prenatal"; // Example completed step
-
-        // Get the select element
-        var selectStep = document.getElementById('step');
-
-        // Loop through options and set selected attribute if value matches completedStep
-        for (var i = 0; i < selectStep.options.length; i++) {
-            if (selectStep.options[i].value === completedStep) {
-                selectStep.options[i].setAttribute('selected', 'selected');
-                break; // Exit loop once selected option is found
-            }
-        }
-    });
-
-</script> -->
 <script>
     // Add an event listener to the Save button
     document.getElementById('addButton').addEventListener('click', function () {
@@ -1025,7 +1128,7 @@ if ($result === false) {
                         </div>
                         <div class="col-sm">
                             <div class="form-group">
-                                <label for="patient">Select Patient</label>
+                                <label for="patient">Patient Name</label>
                                 <input list="patients" class="form-control" name="patient_name" id="patient_name"
                                     disabled>
                                 <datalist id="patients">
@@ -1053,7 +1156,7 @@ if ($result === false) {
                         </div>
                         <div class="col-sm">
                             <div class="form-group">
-                                <label for="">Select Step</label>
+                                <label for="">Select Process</label>
                                 <select class="form-control" name="step2" id="step2" required class="">
                                     <option value="" disabled selected hidden>Select a Step</option>
                                     <option value="Interview Staff">Interview Staff</option>
