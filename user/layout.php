@@ -1644,6 +1644,15 @@ processFormSubmission($conn);
             new PureCounter();
 
         })()
+
+        //voice
+        window.addEventListener('load', () => {
+            const welcomeMessage = "Welcome to our website patients!";
+            const speech = new SpeechSynthesisUtterance(welcomeMessage);
+            speech.lang = 'en-US';
+            window.speechSynthesis.speak(speech);
+        });
+
     </script>
 
 </body>
