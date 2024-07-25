@@ -907,7 +907,6 @@ if ($result === false) {
             feedback.className = 'feedback text-danger';
         }
     }
-
     function checkBP() {
         const bpInput = document.getElementById('bp');
         const feedback = document.getElementById('bp-feedback');
@@ -922,13 +921,16 @@ if ($result === false) {
         }
 
         // Define the BP ranges
-        if (systolic < 120 && diastolic < 80) {
+        if (systolic < 90 || diastolic < 60) {
+            feedback.textContent = 'Low blood pressure (hypotension)';
+            feedback.className = 'feedback text-warning';
+        } else if (systolic <= 120 && diastolic <= 80) {
             feedback.textContent = 'Normal blood pressure';
             feedback.className = 'feedback text-success';
-        } else if (systolic >= 120 && systolic < 130 && diastolic < 80) {
+        } else if (systolic > 120 && systolic < 130 && diastolic < 80) {
             feedback.textContent = 'Elevated blood pressure';
             feedback.className = 'feedback text-warning';
-        } else if ((systolic >= 130 && systolic < 140) || (diastolic >= 80 && diastolic < 90)) {
+        } else if ((systolic >= 130 && systolic < 140) || (diastolic > 80 && diastolic < 90)) {
             feedback.textContent = 'Hypertension stage 1';
             feedback.className = 'feedback text-warning';
         } else if (systolic >= 140 || diastolic >= 90) {
@@ -939,6 +941,9 @@ if ($result === false) {
             feedback.className = 'feedback text-danger';
         }
     }
+
+
+
 </script>
 <script>
     function checkHgbValue() {
